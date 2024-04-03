@@ -1,0 +1,142 @@
+.cardFirstCards {
+  padding: 4px;
+
+  .carding {
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    margin: auto !important;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+    width: 100%;
+    padding-bottom: 20px;
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    cursor: pointer;
+
+    /* width */
+    &::-webkit-scrollbar {
+      height: 5px !important;
+      // display: none;
+    }
+
+    /* Track */
+    // & ::-webkit-scrollbar-track {
+    //   // background:red !important;
+    //   // width: 5px;
+
+    //   // display: none !important;
+    // }
+
+    // &::-webkit-scrollbar-corner {
+    //   // background: red !important; 
+    // }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      border-radius: 40px;
+      background: rgb(243, 150, 10);
+      -webkit-border-radius: 40px;
+      -moz-border-radius: 40px;
+      -ms-border-radius: 40px;
+      -o-border-radius: 40px;
+    }
+
+    /* Handle on hover */
+    // &::-webkit-scrollbar-thumb:hover {
+    //   // background: #555;
+    //   // background: red !important;
+    // }
+  }
+
+  .SecondCard {
+
+    &::-webkit-scrollbar {
+      height: 5px !important;
+      // display: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #8a8b8c !important;
+    }
+
+  }
+
+  h6 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    letter-spacing: 0em;
+    margin: 15px 3px;
+  }
+
+  .cards {
+    min-width: 172px !important;
+    height: 78px;
+    // background: #fdce38;
+    border-radius: 10px;
+    display: inline !important;
+    margin-right: 20px;
+    color: white !important;
+
+    span {
+      font-weight: 600;
+    }
+  }
+}
+
+.text-danger {
+  color: #ee2c4c !important;
+}
+
+.bg-blue {
+  // background: #192f5d !important;
+  color: white !important;
+}
+
+.prev {
+  position: absolute;
+  display: none;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  color: rgb(228, 220, 220);
+  margin-top: -79px;
+
+  width: 30px;
+  font-size: 40px;
+  padding-left: 5px;
+  cursor: pointer;
+  height: 80px;
+  background: #000000;
+  border-radius: 20px 0px 0px 20px;
+}
+
+.next {
+  position: absolute;
+  display: none;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  color: rgb(228, 220, 220);
+  margin-top: -79px;
+  width: 30px;
+  font-size: 40px;
+  padding-left: 5px;
+  right: 30px;
+  cursor: pointer;
+  height: 80px;
+  background: #000000;
+  border-radius: 0px 20px 20px 0px;
+}
+
+ 
+
+.tokenLogo{
+  width: 60px;
+  height: 20px;
+}

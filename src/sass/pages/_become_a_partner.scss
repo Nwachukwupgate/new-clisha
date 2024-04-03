@@ -1,0 +1,257 @@
+.become_a_partner {
+
+    font-family: 'Roboto';
+    font-style: normal;
+
+
+    .how_partner_validate {
+        margin-top: 4rem;
+
+        h1 {
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 48px;
+            color: #000000;
+        }
+
+        p {
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 21px;
+            text-align: center;
+            color: #000000;
+        }
+    }
+}
+
+
+.AcceptedPartners {
+    margin-top: 6rem;
+
+    h1 {
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 38px;
+
+        color: #000000;
+    }
+
+    h3 {
+        font-weight: 300;
+        font-size: 32px;
+        line-height: 38px;
+        /* identical to box height */
+
+
+        color: #000000;
+    }
+
+    p {
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 21px;
+        color: #000000;
+        max-width: 396px;
+    }
+}
+
+.OurExclusivePartner {
+    margin-top: 6rem;
+    font-family: 'Roboto';
+    font-style: normal;
+
+    h1 {
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 48px;
+        color: #000000;
+        text-align: center;
+    }
+
+    .bodyTextView {
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 21px;
+        text-align: center;
+        color: #000000;
+        max-width: 70%;
+        margin: auto;
+    }
+
+    .cardimg {
+        margin-top: 3rem;
+
+        .card {
+            border: none;
+            box-shadow: unset !important;
+            margin-top: 2rem;
+
+            .card-title {
+                font-weight: 700;
+                font-size: 16px;
+                line-height: 19px;
+                color: #009ADD;
+                margin: 6px 0;
+            }
+
+            .card-text {
+                font-weight: 300;
+                font-size: 14px;
+                line-height: 16px;
+                color: #000000;
+                margin: 4px 0;
+            }
+        }
+
+
+    }
+
+
+}
+
+.partners2 {
+    background: #171D26;
+    padding: 2rem 0;
+    margin: 6rem 0;
+    padding-bottom: 4rem;
+}
+
+.HowToBecomePartner {
+    margin-bottom: 4rem;
+
+    h1 {
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 48px;
+        color: #000000;
+        text-align: center;
+    }
+
+    p {
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 21px;
+        text-align: center;
+        color: #000000;
+    }
+
+    form {
+        margin-top: 4rem;
+
+
+
+        input,
+        select {
+            background: #FFFFFF;
+            border: 0.25px solid #949191;
+            border-radius: 5px;
+            height: 40px;
+        }
+    }
+}
+
+.headBox {
+    margin-top: 4rem;
+
+    .headText {
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 48px;
+        color: #000000;
+        margin-left: 0;
+    }
+
+    .bodyText2 {
+        font-weight: 100;
+        font-size: 32px;
+        line-height: 48px;
+        color: #000000;
+    }
+
+    .btn {
+        width: 352px;
+        height: 47px;
+        background: #FFB337;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16px;
+        color: #000000;
+        margin-top: 2rem;
+
+        &:hover {
+            color: #fff;
+        }
+    }
+
+    .smallBodyText {
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 21px;
+        color: #000000;
+    }
+
+
+
+}
+
+.ClickMore {
+    .btn-danger {
+        background: #EE2C4C !important;
+    }
+
+    .secondPars {
+        margin-top: 4rem;
+    }
+
+
+}
+
+.GetStartedToday {
+    margin-top: 7rem;
+
+    h1 {
+        font-weight: 700;
+        font-size: 34px;
+        line-height: 40px;
+        text-align: center;
+        color: #000619;
+    }
+
+    p {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 26px;
+        text-align: center;
+        color: #727272;
+    }
+
+    .col-md-4 {
+        margin-top: 2rem;
+
+        h6 {
+            margin-top: 2rem;
+        }
+    }
+
+
+    .line {
+        margin-left: -8rem;
+        margin-top: 1.6rem;
+        position: absolute;
+    }
+
+    .line {
+        margin-right: -8rem;
+        margin-top: 1.6rem;
+        position: absolute;
+    }
+
+}
+
+.reviews {
+    font-size: 14px;
+    line-height: 48px;
+    color: #000000;
+    text-align: center;
+}

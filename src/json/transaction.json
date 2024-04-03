@@ -1,0 +1,64 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "userId": 1,
+      "adminId": 1,
+      "trx_id": "Z@tdQeh@y1682530732640",
+      "payment_method": "coinpayment",
+      "wallet_address": null,
+      "currency": "$ USD",
+      "amount": 10,
+      "points": null,
+      "status": 0,
+      "details": null,
+      "createdAt": "2023-04-26 17:38:52.642+00",
+      "updatedAt": "2023-04-27 14:55:50.557+00"
+    },
+    {
+      "id": 1,
+      "userId": 1,
+      "adminId": 1,
+      "trx_id": "Z@tdQeh@y1682530732640",
+      "payment_method": "coinpayment",
+      "wallet_address": null,
+      "currency": "$ USD",
+      "amount": 10,
+      "points": null,
+      "status": 1,
+      "details": null,
+      "createdAt": "2023-04-26 17:38:52.642+00",
+      "updatedAt": "2023-04-27 14:55:50.557+00"
+    },
+    {
+      "id": 1,
+      "userId": 1,
+      "adminId": 1,
+      "trx_id": "Z@tdQeh@y1682530732640",
+      "payment_method": "coinpayment",
+      "wallet_address": null,
+      "currency": "$ USD",
+      "amount": 10,
+      "points": null,
+      "status": 2,
+      "details": null,
+      "createdAt": "2023-04-26 17:38:52.642+00",
+      "updatedAt": "2023-04-27 14:55:50.557+00"
+    },
+    {
+      "id": 1,
+      "userId": 1,
+      "adminId": 1,
+      "trx_id": "Z@tdQeh@y1682530732640",
+      "payment_method": "coinpayment",
+      "wallet_address": null,
+      "currency": "$ USD",
+      "amount": 10,
+      "points": null,
+      "status": 3,
+      "details": null,
+      "createdAt": "2023-04-26 17:38:52.642+00",
+      "updatedAt": "2023-04-27 14:55:50.557+00"
+    }
+  ]
+}

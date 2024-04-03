@@ -1,0 +1,81 @@
+import React from "react";
+
+function Footer() {
+  return (
+    <footer>
+      <div className="container pt-5">
+        <div className="row m-0">
+          <div className="col-lg-5">
+            <img src="images/Group 2311.png" alt="" />
+            <span className="en-txt">EN</span>
+          </div>
+
+        </div>
+        <div className="row m-0 mt-5">
+
+          <div className="col-md-4 ">
+            <h6><i className="fa fa-map-marker" aria-hidden="true"></i> Address Information </h6>
+            <p >
+              <small>159 7/F, Grand Industrial Buildung Office <br />
+                165 Wo Yi Hop Road, Kwai Chung  <br />
+                Kwai Tsing District.</small>
+            </p>
+          </div>
+          <div className="col-md-4 ">
+            <h6><i className="fa fa-envelope" aria-hidden="true"></i> Email Information </h6>
+            <a href="malto:support@clisha.io" className="text-white "><small>
+              support@clisha.io</small></a>
+          </div>
+          <div className="col-md-4 ">
+            <h6><i className="fa fa-globe" aria-hidden="true"></i> Other Links </h6>
+            <ul className="p-0">
+              <li>Pricing</li>
+              <li>Become Partner</li>
+              <li>Blog</li>
+              <li>Partner Support Center</li>
+              <li>Contact</li>
+            </ul>
+          </div>
+
+          <div className="col-lg-7 p-0">
+            <ul className="footer-list2 text-center text-lg-left link  p-0">
+              <li>Privacy</li>
+              <li>Terms of Service</li>
+              <li>Affiliation</li>
+              <li>Reward Program</li>
+              <li>Support Center</li>
+            </ul>
+          </div>
+          <div className="col-lg-5 text-right">
+            <span className="follow-txt d-block text-center d-md-inline">
+              Follow Us on social media
+            </span>
+            <div className="border-span d-none d-md-inline  "></div>
+            <br className="d-block d-md-none" />
+            <div className="social-link d-inline">
+              <img src="images/Vector (1).png" className="ml-3" alt="" />
+              <img src="images/Vector (2).png" className="ml-3" alt="" />
+              <img src="images/Vector (3).png" className="ml-3" alt="" />
+              <img src="images/Vector (4).png" className="ml-3" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr className="border-secondary" />
+      <div className="container">
+        <div className="copy-right row m-0  p-3">
+          <div className="col-lg-7 text-center small mt-1">
+            <span>Mobile Apps : </span>
+            <img src="images/Vector (5).png" className="link ml-3" alt="" />
+            <img src="images/Vector (6).png" className="ml-2 link" alt="" />
+          </div>
+          <div className="col-12  text-center  small mt-2">
+            <span>@Copyright 2022 Vqualis. All right reserved</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export default Footer;

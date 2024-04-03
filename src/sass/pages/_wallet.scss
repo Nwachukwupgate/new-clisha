@@ -1,0 +1,381 @@
+.AvailableBallance {
+  background-image: url("../../../public/images/walletebg.png");
+  max-width: 447px;
+  height: 193px;
+  background-size: cover;
+  border-radius: 10px;
+  color: white;
+  text-align: left;
+  padding: 1rem 2rem;
+
+  .av-balance {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  h1 {
+    display: flex;
+    align-content: center;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 34px;
+
+    color: #ffffff;
+    margin: 0.5rem 0;
+    margin-bottom: 2.6rem;
+    align-items: center;
+
+    .toggleFunds {
+      color: #f4f4f4;
+      margin-left: 1rem;
+    }
+  }
+
+  .detailedInfor-card {
+    .label {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 17px;
+      color: #e4e4e4;
+      display: block;
+    }
+
+    .earn {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 19px;
+      color: #fc9828;
+      margin-top: 1rem;
+      display: block;
+    }
+  }
+
+  hr {
+    min-width: 334px;
+    height: 0px;
+    border: 0.4px solid #7e490d;
+    margin-left: 0;
+    position: absolute;
+    margin-top: 1.3rem;
+    border-radius: 2rem;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    -o-border-radius: 2rem;
+  }
+}
+
+.AddWallets {
+  max-width: 447px;
+  min-height: 193px;
+  background: #faf9f9;
+  border-radius: 10px;
+  text-align: left;
+  padding: 2rem;
+
+  span {
+    font-family: "Inter";
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+
+  p {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+
+    color: #525252;
+  }
+
+  .row {
+    margin-top: 2rem;
+
+    input {
+      max-width: 245px !important;
+      height: 43px;
+      background: #ffffff;
+      border: 1px solid #9cabb7;
+      border-radius: 8px;
+      margin-right: 0.5rem;
+      padding: 1rem;
+    }
+
+    button {
+      width: 120px;
+      height: 43px;
+      background: #798996;
+      border-radius: 8px;
+      color: #ffffff;
+      &:hover {
+        background-color: darken(#798996, 10%);
+      }
+    }
+  }
+}
+
+.payout {
+  text-align: left;
+  margin-top: 3rem;
+  background: #faf9f9;
+  border-radius: 8px;
+  padding: 1rem;
+
+  &__header {
+    font-family: "Inter";
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    @include respond(phone-1) {
+      flex-direction: column;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    font-family: "Inter";
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: 0em;
+    // background-color: green;
+  }
+
+  &__action {
+    // background-color: orangered;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    @include respond(phone-1) {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+
+  &__amount {
+    // background-color: red;
+    flex: 1;
+    width: 100%;
+  }
+
+  &__submit {
+    // background-color: yellow;
+    flex: 1;
+  }
+
+  &__input {
+    min-width: 203px !important;
+    height: 43px;
+    background: #ffffff;
+    border: 1px solid #9cabb7;
+    border-radius: 8px;
+    margin-right: 0.5rem;
+    padding: 1rem;
+    color: #798996;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__btn {
+    min-width: 203px;
+    height: 43px;
+    background: #798996;
+    border-radius: 8px;
+    color: #ffffff;
+    margin-top: 1rem;
+    &:hover {
+      color: #ffffff;
+      background-color: darken(#798996, 10%);
+    }
+    &.disabled {
+      opacity: 0.5;
+      cursor: default;
+      &:hover {
+        background: #798996 !important;
+      }
+    }
+  }
+
+  h3 {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 31px;
+    color: #1c3e58;
+    margin-bottom: 1.8rem;
+  }
+}
+
+.latestTransactions {
+  background-color: #faf9f9;
+  margin-top: 3rem;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 100%;
+
+  &__header {
+    font-family: "Inter";
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+
+  &__row {
+    display: flex;
+    background-color: #efefef;
+    @include respond(phone-4) {
+      overflow-x: scroll;
+    }
+  }
+
+  &__column {
+    flex: 1;
+
+    &--header {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 17px;
+      letter-spacing: 0em;
+      height: 40px;
+      padding: 0 40px;
+    }
+
+    // &--body {
+    // }
+  }
+
+  &__item {
+    background-color: #ffffff;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin-bottom: 20px;
+    padding: 0 40px;
+    height: 40px;
+    &.date {
+      font-size: 12px;
+    }
+    &.cancel {
+      color: #fc9828;
+    }
+    &.pending {
+      color: #000;
+    }
+    &.approved {
+      color: #55d896;
+    }
+    &.success {
+      color: #19b000;
+    }
+    &.failed {
+      color: #ef131a;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+    @include respond(tab-port) {
+      text-align: center;
+    }
+  }
+
+  &__footer {
+    background-color: #f6f8fa;
+    height: 40px;
+  }
+}
+
+.paginatedItems {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 60px;
+
+  &__showing {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: 0px;
+    color: #8a8a8a;
+  }
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #e3f0f7;
+    border-radius: 3px;
+  }
+  &__page-item {
+    border-right: 1px solid #e3f0f7;
+    cursor: pointer;
+    &:hover {
+      background-color: #e3f0f7;
+    }
+  }
+  &__page-link {
+    margin: 0;
+    padding: 0px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #383838;
+    text-decoration: none !important;
+  }
+  &__active {
+    background-color: #e3f0f7;
+  }
+}
+
+.addWallets {
+  &__btn {
+    &.disabled {
+      opacity: 0.5;
+      cursor: default;
+      &:hover {
+        // background-color: inherit;
+        background: #798996 !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+"base": "https://clisha.herokuapp.com/",
+"auth": "https://clisha.herokuapp.com/api/auth",
+"api": "https://clisha.herokuapp.com/api"
+}

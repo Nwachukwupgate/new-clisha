@@ -1,0 +1,8 @@
+{
+  "short_name": "Clisha",
+  "name": "Clisha", 
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#7543ae",
+  "background_color": "#ffffff"
+}

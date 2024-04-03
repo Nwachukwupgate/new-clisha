@@ -1,0 +1,69 @@
+{ 
+  "data": [
+    {
+      "name": "Dashboard",
+      "url": "/dashboard",
+      "icon": "th-large",
+      "hoverIcon": "images/dashboard/hover/dashboard2.png",
+      "border": 0
+    },
+    {
+      "name": "Task",
+      "url": "/dashboard/task",
+      "icon": "pencil-square-o",
+      "hoverIcon": "images/dashboard/hover/task.png",
+      "border": 0
+    },
+    {
+      "name": "Token",
+      "url": "/dashboard/token",
+      "icon": "file",
+      "hoverIcon": "images/dashboard/hover/token.png",
+      "border": 1
+    },
+    {
+      "name": "Wallet",
+      "url": "/dashboard/wallet",
+      "icon": "wallet",
+      "hoverIcon": "images/dashboard/hover/wallet.png",
+      "border": 1,
+      "new":true
+    },
+ 
+    {
+      "name": "Team",
+      "url": "/dashboard/team",
+      "icon": "users",
+      "hoverIcon": "images/dashboard/hover/analystics.png",
+      "border": 1
+    },
+    {
+      "name": "Rank",
+      "url": "/dashboard/rank",
+      "icon": "pie-chart",
+      "hoverIcon": "images/dashboard/hover/analystics.png",
+      "border": 1
+    },
+    {
+      "name": "Profile",
+      "url": "/dashboard/profile",
+      "icon": "user-circle-o",
+      "hoverIcon": "images/dashboard/hover/profile.png",
+      "border": 0
+    },
+    {
+      "name": "Setting",
+      "url": "/dashboard/settings",
+      "icon": "gear",
+      "hoverIcon": "images/dashboard/hover/settings.png",
+      "border": 0
+    },
+    {
+      "name": "Help",
+      "url": "/dashboard/help",
+      "icon": "book",
+      "hoverIcon": "images/dashboard/hover/help.png",
+      "border": 0
+    } 
+  ]
+}

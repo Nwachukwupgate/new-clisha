@@ -1,0 +1,82 @@
+ .headBox {
+     .bodyText {
+         font-weight: 300;
+         font-size: 22px;
+         line-height: 48px;
+         display: flex;
+         align-items: center;
+         color: #000000;
+     }
+ }
+
+ .products_marketing {
+     margin-top: 6rem;
+     margin-bottom: 6rem;
+
+
+
+     .span-input {
+         .btn {
+             background: #74019B;
+             box-shadow: 0px 0.25px 4px rgba(0, 0, 0, 0.25);
+             border-radius: 4px;
+             width: 140px !important;
+             font-weight: 700;
+             font-size: 14px;
+             line-height: 21px;
+             text-align: center;
+             color: #FFFFFF;
+             height: 44px;
+             z-index: 1;
+             position: absolute;
+         }
+
+         select {
+             width: 175px !important;
+             height: 44px;
+             background: #FAF9F9;
+             box-shadow: inset 0px 0.25px 4px rgba(0, 0, 0, 0.25);
+             border-radius: 4px;
+             -webkit-border-radius: 4px;
+             -moz-border-radius: 4px;
+             -ms-border-radius: 4px;
+             -o-border-radius: 4px;
+             padding-left: 1rem;
+             margin-left: 8rem;
+         }
+     }
+ }
+
+ .AboutProducts {
+     .card {
+         border: none;
+         box-shadow: none !important;
+         text-align: center;
+
+         img {
+             width: 50px;
+             height: 50px;
+         }
+     }
+
+     .about-app {
+         h1 {
+             font-size: 36px;
+             line-height: 42px;
+             color: #333333;
+         }
+
+        
+
+         margin-top: 4rem;
+     }
+ p  {
+     font-weight: 300;
+     font-size: 16px;
+     line-height: 24px;
+     display: flex;
+     align-items: center;
+     color: #000000;
+     margin-top: 2rem;
+ }
+ }

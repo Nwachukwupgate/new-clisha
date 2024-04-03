@@ -1,0 +1,71 @@
+.messages_container {}
+
+.notification_messages {
+    h4 {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 26px;
+        color: #000000;
+        display: flex;
+       align-items:center;
+        cursor: pointer;
+        .fa-arrow-left{
+            margin-right: .5rem;
+            font-size: large;
+            font-weight: 400;
+
+        }
+    }
+    margin-top: 30px;
+    height: 90vh;
+   overflow-y: scroll;
+   &::-webkit-scrollbar {
+       display: none;
+   }
+}
+.no_message{
+    border-top-right-radius: 50%;
+    border-top-left-radius: 50%;
+}
+
+.messageBox-inbox {
+    border: 1px solid #E4E4E4;
+    box-shadow: 0px 1px rgba(0, 0, 0, 0.17);
+    border-radius: 10px;
+    min-height: 214.35px;
+    padding: 1.8rem;
+    margin-bottom: 2rem;
+
+    img {
+        width: 80px;
+    }
+
+    p {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 24px;
+        display: flex;
+        align-items: center;
+        color: #555555;
+        margin-top: 1.6rem;
+    }
+
+    .time {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 24px;
+
+        text-align: right;
+        color: #BEBEBE;
+        margin-top: 4rem;
+    }
+
+}
+
+ 

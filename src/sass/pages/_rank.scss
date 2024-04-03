@@ -1,0 +1,294 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Croissant+One&family=Redressed&family=Roboto+Flex:opsz,wght@8..144,100;8..144,200;8..144,300;8..144,400;8..144,500;8..144,600;8..144,700;8..144,800;8..144,900&family=Rubik+Moonrocks&display=swap");
+
+@font-face {
+  font-family: "Impacted 2.0";
+  src: local("Impacted 2.0"), url("../../../public/font/Impacted2.0.ttf");
+}
+
+.section-star-rank {
+  height: 251px;
+  border-radius: 3px;
+  background: #000000;
+  background-image: url("../../../public/images/rank_bg.png");
+  box-shadow: 0px 0.25px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  margin-top: 25px;
+  color: rgb(255, 174, 0);
+  background-size: cover;
+
+  .avatar {
+    width: 150px;
+    height: 150px;
+    margin-top: 50px;
+    margin-left: 30px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border: 8px solid rgb(60, 0, 128);
+    background: white;
+  }
+
+  .secondnameDiv {
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    font-size: 16px !important;
+    padding: 0px;
+    position: absolute;
+    margin-top: -80px;
+    margin-left: 12rem;
+
+    .secondname {
+      font-family: "Roboto Flex", sans-serif !important;
+      font-size: 18px;
+    }
+
+    .fa-star {
+      margin-right: 7px;
+      font-size: 18px;
+    }
+  }
+
+  .rank_name {
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    font-size: 16px !important;
+    position: absolute;
+    right: 10rem;
+    margin-top: 4rem;
+    color: white;
+  }
+
+  span {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 42px;
+    text-transform: capitalize;
+    color: rgb(255, 196, 0);
+    font-family: "Rubik Moonrocks";
+    // font-family: 'Bungee Shade', cursive;
+    text-transform: uppercase;
+  }
+
+  .stars {
+    position: absolute;
+    top: -10px;
+    right: 120px;
+    width: 320px;
+  }
+
+  .latest_rank {
+    width: 140px;
+    height: 190px;
+    position: absolute;
+    // left: -70px;
+    top: 30px;
+    right: 15px;
+  }
+
+  .rank_text {
+    right: 160px;
+    position: absolute;
+    margin-top: 10px;
+  }
+}
+
+.ranking_Community_badges {
+  width: 80px;
+  position: absolute;
+  z-index: 0 !important;
+  margin-left: 5.8rem;
+  opacity: 35%;
+  top: 3rem;
+}
+
+.comunity_cards {
+  height: 185px;
+  width: 222.2810516357422px;
+  background-color: rgba(255, 255, 255, 0.747);
+  border-radius: 5px;
+  border: 2px solid #cdad68;
+  // background-image: url("../../../public/images/rank/diamond.png");
+  // background-repeat: no-repeat;
+  // background-blend-mode: overlay;
+  //opacity: 70%;
+  // background-position: right bottom !important;
+
+  .z-2 {
+    z-index: 2 !important;
+  }
+
+  .headText {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    color: #000000;
+    border-bottom: 2px solid #cdad68;
+    z-index: 2 !important;
+  }
+
+  .flag {
+    border-radius: 50%;
+    margin-top: -12px;
+    margin-left: -8px;
+    position: absolute;
+  }
+
+  .profile {
+    border-radius: 50%;
+  }
+
+  .star {
+    margin-bottom: -40px;
+  }
+
+  .rank_text {
+    position: absolute;
+    font-weight: 600;
+    margin-left: 30px;
+  }
+
+  .rank_text2 {
+    position: absolute;
+    font-weight: 600;
+    margin-left: 50px;
+    margin-top: 20px;
+  }
+}
+
+.mobile {
+  .avatar {
+    height: 100px;
+    width: 100px;
+    margin-top: 18px;
+    margin-left: -3px;
+  }
+
+  .username {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+
+  .stars {
+    width: 160px;
+    left: 60px !important;
+    top: 10px !important;
+  }
+
+  .check_rank {
+    position: absolute;
+    right: 10%;
+    // display: inline;
+    margin-top: 103px;
+  }
+
+  .latest_rank {
+    width: 100px !important;
+    height: 150px !important;
+    top: 100px;
+    left: 68%;
+    position: absolute;
+  }
+
+  .section-star-rank {
+    height: 150px;
+  }
+}
+
+.total_point {
+  color: #cdad68;
+  margin-top: 20px;
+  font-size: 14px;
+
+  &::after {
+    content: "PTS";
+  }
+}
+
+.my-username {
+  font-family: "Impacted 2.0" !important;
+  font-size: 48px !important;
+}
+
+.impact {
+  font-family: "Impacted 2.0" !important;
+}
+
+.experienceBar {
+  margin: 3rem 0;
+
+  .progress-bar {
+    height: 22px;
+
+    background: linear-gradient(269.84deg, #e00000 0.05%, #5f0000 34.09%);
+  }
+
+  .progresscount {
+    border: 2px solid #9c0a0a;
+    border-radius: 5px;
+  }
+
+  // .points {
+  //   position: absolute;
+  //   margin-top: -3rem;
+  //   text-align: center;
+  //   width: 97%;
+
+  //   .star {
+  //     width: 81px;
+  //     height: 70px;
+  //   }
+
+  //   .rocket {
+  //     position: absolute;
+  //     margin-left: -3.6rem;
+  //     margin-top: .4rem;
+  //     transform: rotate(20deg);
+  //     -webkit-transform: rotate(20deg);
+  //     -moz-transform: rotate(20deg);
+  //     -ms-transform: rotate(20deg);
+  //     -o-transform: rotate(20deg);
+  //   }
+  // }
+
+  // span {
+  //   font-family: 'Roboto';
+  //   font-style: normal;
+  //   font-weight: 900;
+  //   font-size: 54.235px;
+  //   line-height: 64px;
+  //   align-items: center;
+  //   color: #FABE28;
+  //   position: absolute;
+  //   margin-left: -3.8rem;
+  // }
+}
+
+.AnimateExperience {
+  z-index: 4 !important;
+  position: absolute;
+
+  img {
+    margin: 2rem 0;
+    max-width: 200px;
+    max-height: 200px;
+  }
+
+  .confetti {
+    background-color: rgba(0, 0, 0, 0.932);
+  }
+}
+
+.pagination {
+  display: block;
+  overflow-x: scroll;
+  width: 100%;
+}

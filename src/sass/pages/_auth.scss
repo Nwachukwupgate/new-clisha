@@ -1,0 +1,131 @@
+.bgsignin {
+  background: #e5e5e5;
+  height: 100vh;
+}
+
+.layout-auth {
+  overflow-y: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+.b-8 {
+  border-radius: 8px;
+}
+
+
+
+.bgsignin2 {
+
+  h2 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 31px;
+    letter-spacing: 0.005em;
+    color: #11142d;
+    margin-bottom: 30px;
+  }
+
+  input {
+    padding: 16px;
+    position: static;
+    height: 56px;
+    left: 0px;
+    top: 27px;
+    background: #ffffff;
+    border: 1px solid #5541d7;
+    border-radius: 8px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    font-family: monospace;
+  }
+
+  button {
+    border-radius: 8px;
+    height: 50px;
+    padding: 12px;
+  }
+
+  .text-decoration-hover-underline:hover {
+    text-decoration: underline;
+  }
+}
+
+.goggle-btn:hover {
+  background-color: var(--danger) !important;
+  border-color: var(--danger) !important;
+}
+
+.bgsignin2 {
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+@media (max-width: 992px) {
+  .bgsignin {
+    height: 100vh !important;
+    background: #ffffff !important;
+  }
+
+  .bgsignin2 {
+    height: 100vh;
+    overflow-y: scroll !important;
+  }
+
+  .bg-login-mobile {
+    height: 100vh !important;
+
+  }
+
+  h2 {
+    margin-bottom: 10px !important;
+    font-size: 26px !important;
+    text-align: center;
+  }
+
+  // .form-col {
+    // padding-top: 30px !important;
+    // padding-bottom: 14px !important;
+
+    // button {
+    //   margin-top: 10px !important;
+    // }
+
+    // .form-text {
+    //   font-size: 12px;
+    // }
+    // height: 100vh;
+    // margin-top: 10% !important;
+  // }
+
+  .layout-auth {
+    overflow-y: scroll !important;
+    position: relative !important;
+  }
+}
+
+.carousel-indicators {
+  button.fa-circle {
+    color: #b3b3bd !important;
+    // position: absolute;
+    margin-right: 20px;
+  }
+}
+
+.check_pword {
+
+  .fa-eye,
+  .fa-eye-slash {
+    position: absolute;
+    top: 50px;
+    right: 10px;
+
+    &:hover {
+      color: #5541d7 !important;
+
+    }
+  }
+}
+
+ 

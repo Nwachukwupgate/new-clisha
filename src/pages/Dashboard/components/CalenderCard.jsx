@@ -1,0 +1,232 @@
+import React, { useState } from "react";
+// import Calendar from 'react-calendar'
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+import {
+  addCalenderTask,
+  callenderDateFun,
+  generalSelectReloadingCalendar,
+  getCalenderTaskReload,
+  getCustomDateCallender,
+} from "../../../store/General";
+
+const CalenderCard = () => {
+  const [isHover, setIsHover] = useState(null);
+  const [openCallender, SetopenCallender] = useState(null);
+  const dispatch = useDispatch();
+  // const [value, onChange] = useState(new Date());
+  const calenderTask = useSelector(
+    (state) => state.general?.calenderTask?.monthlyData
+  );
+  const reloadingCalendar = useSelector(generalSelectReloadingCalendar);
+
+  // const callenderDate = useSelector((state) => state.general?.callenderDate);
+  const [date, setDate] = useState({
+    start_date: calenderTask?.date,
+    // end_date: null
+  });
+
+  const setDateFunc = (e) => {
+    const value = e.target.value;
+    setDate({
+      ...date,
+      [e.target.name]: value,
+    });
+    SetopenCallender(false);
+    dispatch(addCalenderTask(value));
+  };
+
+  const getTodaysList = (item) => {
+    dispatch(
+      callenderDateFun({
+        callenderDate: item?.date,
+        callender_length: item?.completedTasks,
+      })
+    );
+    dispatch(getCustomDateCallender({ callenderDate: item?.date }));
+  };
+
+  return (
+    <div className="Calender border rounded-lg text-center ">
+      <div className="start_end_Date m-0 py-2 pt-4 text-center">
+        <div className="current text-uppercase">
+          <div className="calendarCard__header">
+            <div className="calendarCard__datePicker">
+              {date && moment(date.start_date).format("MMMM YYYY")} Statistics
+              <i
+                title="Pick Month"
+                className="ml-3 link fa fa-calendar"
+                // onClick={() => SetopenCallender(true)}
+                aria-hidden="true"
+              ></i>
+            </div>
+            <div className="calendarCard__icon">
+              {reloadingCalendar ? (
+                <i className="fa fa-circle-o-notch fa-spin"></i>
+              ) : (
+                <i
+                  className="fa fa-refresh"
+                  aria-hidden="true"
+                  onClick={() => {
+                    if (!reloadingCalendar) {
+                      dispatch(getCalenderTaskReload());
+                    }
+                  }}
+                ></i>
+              )}
+            </div>
+          </div>
+          {openCallender && (
+            <div className="callender-box shadow ">
+              <div className="row m-0">
+                <div className="col-12 p-1">
+                  <i
+                    className=" fa fa-close bg-secondary"
+                    onClick={() => SetopenCallender(false)}
+                  ></i>
+                  <label htmlFor="start_date">Pick Month</label> <br />
+                  <input
+                    type="month"
+                    className="form-control"
+                    onChange={setDateFunc}
+                    name="start_date"
+                  />
+                </div>
+                {/* <div className="col-6 p-1">
+                <label htmlFor="end_date">End Date</label> <br />
+                <input type="date" className='form-control' onChange={setDateFunc} name="end_date" />
+              </div> */}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      <ul className="row m-0 p-0" onMouseLeave={() => setIsHover(null)}>
+        {calenderTask &&
+          calenderTask.map((item, key) => (
+            <a
+              href="#/"
+              className="col-2 py-3 link"
+              key={key}
+              onClick={() => setIsHover(key)}
+            >
+              {key === isHover && (
+                <div
+                  className={`data-event-hover shadow border 
+              ${
+                item?.createdTasks && item?.createdTasks <= item?.completedTasks
+                  ? "border-success"
+                  : ""
+              } 
+              ${
+                item?.completedTasks &&
+                item?.createdTasks > item?.completedTasks
+                  ? "border-warning"
+                  : ""
+              } 
+              ${
+                !item?.completedTasks &&
+                item?.createdTasks &&
+                moment(item?.date).format("YY-MM-DD") <=
+                  moment(Date.now()).format("YY-MM-DD")
+                  ? "border-danger"
+                  : ""
+              } 
+              `}
+                  data-toggle="modal"
+                  data-target="#load"
+                  onClick={() => {
+                    getTodaysList(item);
+                  }}
+                >
+                  {(item.completedTasks > item.createdTasks
+                    ? item.createdTasks
+                    : item.completedTasks) ?? 0}
+                  /{item.createdTasks ?? 0}{" "}
+                  {moment(item?.date).format("YY-MM-DD") <=
+                  moment(Date.now()).format("YY-MM-DD")
+                    ? "Completed"
+                    : "Future Task"}
+                  {item?.completedTasks &&
+                  item?.createdTasks > item?.completedTasks ? (
+                    <img
+                      className="emojiCalendersm"
+                      src="/images/smiley.jpeg"
+                      alt=""
+                    />
+                  ) : (
+                    ""
+                  )}
+                  {!item?.completedTasks &&
+                  item?.createdTasks &&
+                  moment(item?.date).format("YY-MM-DD") <=
+                    moment(Date.now()).format("YY-MM-DD") ? (
+                    <img
+                      className="emojiCalendersm"
+                      src="/images/sad.png"
+                      alt=""
+                    />
+                  ) : (
+                    ""
+                  )}
+                  {item?.createdTasks &&
+                  item?.createdTasks <= item?.completedTasks ? (
+                    <img
+                      src="/images/rocket.png"
+                      className="emojiCalendersm rot"
+                      alt=""
+                    />
+                  ) : (
+                    ""
+                  )}
+                </div>
+              )}
+              {moment(item.date).format("D")}
+              {item?.completedTasks &&
+              item?.createdTasks > item?.completedTasks ? (
+                <img
+                  className="emojiCalender"
+                  src="/images/smiley.jpeg"
+                  alt=""
+                />
+              ) : (
+                ""
+              )}
+              {!item?.completedTasks &&
+              item?.createdTasks &&
+              moment(item?.date).format("YY-MM-DD") <=
+                moment(Date.now()).format("YY-MM-DD") ? (
+                <img className="emojiCalender" src="/images/sad.png" alt="" />
+              ) : (
+                ""
+              )}
+              {item?.createdTasks &&
+              item?.createdTasks <= item?.completedTasks ? (
+                <img src="/images/rocket.png" className="isDate" alt="" />
+              ) : (
+                ""
+              )}
+              {/* {item.createdTasks ? <img src="/images/error.png" className='isDate' alt="" /> : ""} */}
+            </a>
+          ))}
+      </ul>
+      {!calenderTask?.length && (
+        <div className="nocalenderTask shadow text-danger">
+          There is no task for the month of{" "}
+          {moment(date.start_date).format("MMMM")}
+        </div>
+      )}
+
+      <div className="chart text-left p-4 d-none">
+        <div className="">😔 I have not done any task today</div>
+        <div className="">😊 I have finished some task today</div>
+        <div>
+          <img src="/images/rocket.png" alt="" /> I have Finish all my task
+          today
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CalenderCard;

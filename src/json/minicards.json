@@ -1,0 +1,28 @@
+{
+    "data":[
+        {
+            "name":"VQualis",
+            "progress":60,
+            "color":"white",
+            "background":"#000000"
+        },
+        {
+            "name":"Clisha",
+            "progress":84,
+            "color":"white",
+            "background":"#5869FF"
+        },
+        {
+            "name":"Vendo",
+            "progress":36,
+            "color":"white",
+            "background":"#B53CC9"
+        },
+        {
+            "name":"Resego",
+            "progress":50,
+            "color":"white",
+            "background":"#6AC83C"
+        }
+    ]
+}

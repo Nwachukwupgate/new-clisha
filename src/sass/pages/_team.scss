@@ -1,0 +1,32 @@
+.rankImage {
+  width: 40px;
+}
+
+.profileImage {
+  width: 60px;
+  height: 60px;
+  border: 2px solid $primary;
+  margin-top: 0;
+}
+
+table {
+  td {
+    vertical-align: middle !important;
+  }
+
+  .nameSet {
+    margin-left: 0.6rem;
+    font-weight: bold;
+  }
+}
+
+.inputBoxSearch {
+  display: flex;
+  flex-direction: row;
+
+  input {
+    max-width: 200px;
+  }
+
+  justify-content: space-between;
+}

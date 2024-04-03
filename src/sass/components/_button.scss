@@ -1,0 +1,17 @@
+.btn {
+    &:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+}
+
+.btn-invite {
+    background: $purple;
+    min-width: 160px !important;
+    // display: block;
+}
+
+.back-navigate {
+    background: $wallet ;
+    color: white;
+}

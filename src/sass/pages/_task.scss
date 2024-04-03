@@ -1,0 +1,256 @@
+.taskCards {
+  .card {
+
+    // min-width: 250px;
+    //  .col-lg-4 {
+    //    max-height: 300px !important;
+    //  }
+
+    margin: 20px 0;
+    min-height: 390px !important;
+    //  background: #FABB18;
+    background-size: cover;
+    border: 0 !important;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+    min-width: 310px;
+    // border: 0.3px solid grey !important;
+    // box-shadow: 0 0 0 rgba(0, 0, 0, .15) !important;
+  }
+
+  // .task2Cards {
+  //   background: #0E223B !important;
+  // }
+
+  //  .task3Cards {
+  //   //  background: #1AAE17 !important;
+  //  }
+
+
+
+
+  .visitImg {
+    margin-top: -4.5px;
+    margin-right: 5px;
+  }
+
+  .textSection,
+  .text-bold {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    //  color: #000000;
+  }
+
+  hr {
+    width: 90%;
+    margin: 10px auto;
+  }
+}
+
+.task_name {
+  text-shadow: 2px 2px #525050;
+  font-style: italic;
+  font-family: monospace;
+
+}
+
+.text_noted {
+  color: #0E223B
+}
+
+.btn_blue {
+  background: #0E223B !important;
+  color: white;
+
+  &:hover {
+    color: #fff;
+    opacity: 90%;
+  }
+}
+
+.text_noted_2 {
+  color: rgba(247, 245, 245, 0.952) !important
+}
+
+.document-right {
+  margin-right: 0px !important;
+  margin-top: 0px !important;
+  bottom: 0px;
+
+  .modal-content {
+    min-height: 100vh;
+  }
+}
+
+.hrline {
+  background: rgb(238, 232, 232);
+  width: 40px;
+  height: 1px;
+  position: absolute;
+  display: inline;
+  left: 0px;
+  margin-top: 50px;
+
+  // &::after {
+  //   content: " ";
+  //   width:20px;
+  //   height:20px;
+  //   position: absolute;
+  //   background: #FABB18;
+  //   border-radius: 50%;
+  //   -webkit-border-radius: 50%;
+  //   -moz-border-radius: 50%;
+  //   -ms-border-radius: 50%;
+  //   -o-border-radius: 50%;
+  //   margin-top: -5px;
+  //   left: -4px;
+
+  // }
+  //   &:before {
+  //     content: " ";
+  //     width: 15px;
+  //     height: 15px;
+  //     position: absolute;
+  //     background: #FABB18;
+  //       border: 2px solid rgb(255, 255, 255);
+  //     border-radius: 50%;
+  //     -webkit-border-radius: 50%;
+  //     -moz-border-radius: 50%;
+  //     -ms-border-radius: 50%;
+  //     -o-border-radius: 50%;
+  //     margin-top: -3.1px;
+  //     left: -1.9px;
+  //     z-index: 2;
+  //   }
+}
+
+.roundimg {
+  position: absolute;
+  left: -5px;
+  width: 18px;
+  height: 18px;
+  background: white;
+  margin-top: 42px;
+}
+
+
+.takeLage {
+  font-size: 18px;
+  // margin-left:10px;
+}
+
+.btn_copy {
+  background: #FC9828 !important;
+  color: white;
+  position: absolute;
+  margin-top: -36px;
+  right: 13px
+}
+
+.task2_popup {
+  margin-top: 170px;
+
+  input {
+    font-size: 14px;
+  }
+
+}
+
+.clisha_bg {
+  background-image: url("../../../public/images/popup/108 2.png") !important;
+  background: #74019B;
+  color: #fff;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.text-blue {
+  color: #0E223B !important;
+}
+
+.my_task_nav {
+
+  .nav-link:focus,
+  .active {
+    background: #0E223B !important;
+    color: white !important;
+  }
+
+  .nav-link {
+    .fa {
+      font-size: 15px;
+    }
+  }
+}
+
+//  .task1Cards {
+//    background: #FDCE38 !important;
+//  }
+
+//  .task2Cards {
+//    background: #0E223B !important;
+//    color:rgb(189, 187, 187);
+//  }
+
+//  .task3Cards {
+//    background: #74019B !important;
+//    color:white
+//  }
+
+.text-success {
+  color: #1AAE17
+}
+
+.bg-success {
+  background: #1AAE17
+}
+
+.col-12.text-center {
+  img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.tasklogo {
+  // min-height: 50px !important;
+  // max-height: 50px !important;
+  // width: 100px !important;
+}
+
+.watermark {
+  position: absolute;
+  margin-left: 6rem;
+  width: 240px !important;
+}
+
+.notFound {
+  width: 30rem !important;
+}
+
+.test_task {
+  width: 80px;
+  background: #dc3545;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  text-align: center;
+  transform: rotate(-50deg);
+  -webkit-transform: rotate(-50deg);
+  -moz-transform: rotate(-50deg);
+  -ms-transform: rotate(-50deg);
+  -o-transform: rotate(-50deg);
+  position: absolute;
+  margin-left: -2rem;
+}
+
+.unplishedtask {
+  // margin-bottom:
+  position: absolute;
+  margin-top: .6rem;
+  margin-left: .6rem;
+}

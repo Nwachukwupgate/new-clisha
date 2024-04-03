@@ -1,0 +1,189 @@
+.point {
+  margin-top: 5px !important;
+}
+.currency{
+  font-size: 17px !important;
+}
+.profile_picture {
+  border: 2px solid #7c763ec0;
+}
+
+.DasboardSidebar {
+  width: 180px;
+  padding-top: 30px !important;
+  padding-bottom: 70px !important;
+
+  float: right;
+  border-right: 1px solid #e6e1e1;
+
+  a.nav-link {
+    height: 34px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+    text-transform: capitalize;
+    color: #353f47 !important;
+    border-radius: 3px 0px 0px 3px;
+    margin: 15px 0px !important;
+
+    // &:hover,
+    &.selectedLink,
+    &:active,
+    &:focus {
+      background: #1c3e58 !important;
+      color: #fff !important;
+      z-index: 20 !important;
+      margin-right: 40px 0px !important;
+    }
+
+    &:hover {
+      background: #5a5f63ce !important;
+      color: #fff !important;
+      z-index: 20 !important;
+    }
+
+    img {
+      margin-right: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.bg-lighter {
+  background: #faf9f9;
+}
+
+.sideNav {
+  span {
+    margin-left: 10px;
+  }
+
+  .fa {
+    font-size: 18px;
+  }
+}
+
+.body-content {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.scroll-bg {
+  overflow-y: scroll;
+  height: 98vh;
+  padding-bottom: 92px !important;
+
+  //   /* width */
+  //   &::-webkit-scrollbar {
+  //     width: 10px;
+  //   }
+
+  //   /* Track */
+  //  & ::-webkit-scrollbar-track {
+  //     background: #f1f1f1;
+  //   }
+
+  //   /* Handle */
+  //   &::-webkit-scrollbar-thumb {
+  //     background: #1c3e58;
+  //     border-radius: 5px;
+
+  //   }
+
+  //   /* Handle on hover */
+  //   &::-webkit-scrollbar-thumb:hover {
+  //     background: #555;
+  // }
+}
+
+.dashboardFooter {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.light {
+  color: whitesmoke;
+}
+
+
+@media (max-width: 992px) {}
+
+.mobile_sidebar {
+  background: #310F60;
+  border-radius: 12px;
+
+  img {
+    width: 112.46px;
+    height: 32.06px;
+  }
+
+  .mobile_list {
+    padding: 10px 0px;
+
+    .onlist {
+      margin-bottom: 10px;
+      //background:red;
+      border-radius: 3px;
+      cursor: pointer;
+
+      .fa {
+        margin: 0px 20px;
+        font-size: 20px;
+        color: #fff;
+
+      }
+
+      a {
+        color: rgb(212, 209, 209);
+        text-decoration: none;
+        padding: 10px 0px;
+        display: block;
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        background: #aca8a8 !important;
+
+        a,
+        .fa {
+          color: #000000 !important;
+        }
+
+      }
+    }
+
+  }
+}
+
+.onlisthover {
+  background: #D9D9D9 !important;
+
+  a,
+  .fa {
+    color: #000000 !important;
+  }
+
+}
+
+
+.soonSidebar {
+  width: 60px;
+  // height: 100px;
+  position: absolute;
+  right: 17px;
+  margin-top: -51px;
+}
+
+.text_soon {
+  color: rgb(75, 73, 73);
+  opacity: 50%;
+  position: absolute;
+  z-index: 2;
+  text-align: center;
+
+}

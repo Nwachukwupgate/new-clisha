@@ -1,0 +1,27 @@
+{
+  "personalInfo": {
+    "name": "Kelvin G. Howell",
+    "gender": "Male",
+    "dob": "Nov 13, 1988",
+    "place_of_birth": "San Deigo, CA",
+    "join_date": "July 1, 2021",
+    "local_time": "07.35",
+    "home_town": "Los Agels,CA"
+  },
+  "contactInfo": {
+    "email": "kevin.howell@mail.com",
+    "phone": "401-675-5464",
+    "address": "2874 Winding Way, La, CA",
+    "post_code": "30012" 
+  },
+  "hobbieInfo": { 
+    "favourite_movie": "Black Panthar",
+    "game": "Football",
+    "place": "Paris",
+    "singer": "Naira Marley",
+    "player": "C.Ronaldo",
+    "brand": "Websoft.com",
+    "food": "Buger/Pizza",
+    "day": "Sunday"
+  }
+}

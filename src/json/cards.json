@@ -1,0 +1,120 @@
+{
+  "card1": [
+    {
+      "img": "images/card1.png",
+      "title": "Signup",
+      "description": "Sign up now for free and start immediately supporting companies in their digital marketing efforts."
+    },
+    {
+      "img": "images/card2.png",
+      "title": "Accounts",
+      "description": "Expand your account and fill out your profile with questions to receive daily tasks that are better tailored to your interests."
+    },
+    {
+      "img": "images/card3.png",
+      "title": "Tools",
+      "description": "Use the various tools we provide you to successfully complete your daily tasks in digital marketing."
+    },
+    {
+      "img": "images/card4.png",
+      "title": "Get Reward",
+      "description": "Clisha recognition and increase your ranking by completing your daily tasks and rising to the top of the leader board."
+    }
+  ],
+
+
+  "card2": [
+    {
+      "img": "images/system 1.png",
+      "title": "Search Engine Marketing",
+      "description": "Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh, finibus eget porttitor sit amet, consequat ac lacus. Quisque ornare"
+    },
+    {
+      "img": "images/mechanism 1.png",
+      "title": "Search Engine Optimization",
+      "description": "Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh, finibus eget porttitor sit amet, consequat ac lacus. Quisque ornare"
+    },
+    {
+      "img": "images/system 1.png",
+      "title": "Social Media Marketing",
+      "description": "Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh, finibus eget porttitor sit amet, consequat ac lacus. Quisque ornare"
+    },
+    {
+      "img": "images/developing 1.png",
+      "title": "Pay Per Click Tools",
+      "description": "Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh, finibus eget porttitor sit amet, consequat ac lacus. Quisque ornare"
+    },
+    {
+      "img": "images/network 1.png",
+      "title": "Auto Rank Strategy",
+      "description": "Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh, finibus eget porttitor sit amet, consequat ac lacus. Quisque ornare"
+    },
+    {
+      "img": "images/developing 1.png",
+      "title": "Low Cost Marketing",
+      "description": "Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh, finibus eget porttitor sit amet, consequat ac lacus. Quisque ornare"
+    }
+  ],
+  "card3": [
+    {
+      "img": "images/company1.png",
+      "title": "Signup",
+      "description": "At nam minimum ponderum. Est audiam animal molestiae te. Ex duo eripuit mentitum."
+    },
+    {
+      "img": "images/company2.png",
+      "title": "Accounts",
+      "description": "At nam minimum ponderum. Est audiam animal molestiae te. Ex duo eripuit mentitum."
+    },
+    {
+      "img": "images/company3.png",
+      "title": "Tools",
+      "description": "At nam minimum ponderum. Est audiam animal molestiae te. Ex duo eripuit mentitum."
+    },
+    {
+      "img": "images/company4.png",
+      "title": "Get Reward",
+      "description": "At nam minimum ponderum. Est audiam animal molestiae te. Ex duo eripuit mentitum."
+    }
+  ],
+  "card4": [
+    {
+      "img": "images/image 32.png",
+      "title": "Signup",
+      "description": "At nam minimum ponderum. Est audiam animal molestiae te. Ex duo eripuit mentitum."
+    },
+    {
+      "img": "images/image 33.png",
+      "title": "Accounts",
+      "description": "At nam minimum ponderum. Est audiam animal molestiae te. Ex duo eripuit mentitum."
+    },
+    {
+      "img": "images/Group 375.png",
+      "title": "Tools",
+      "description": "At nam minimum ponderum. Est audiam animal molestiae te. Ex duo eripuit mentitum."
+    },
+    {
+      "img": "images/Group.png",
+      "title": "Get Reward",
+      "description": "At nam minimum ponderum. Est audiam animal molestiae te. Ex duo eripuit mentitum."
+    }
+  ],
+  "card5": [
+    {
+      "img": "images/Rectangle 67.png",
+      "title": "Signup",
+      "description": "At nam minimum ponderum. Est audiam animal molestiae te. Ex duo eripuit mentitum."
+    },
+    {
+      "img": "images/Rectangle 649.png",
+      "title": "Accounts",
+      "description": "At nam minimum ponderum. Est audiam animal molestiae te. Ex duo eripuit mentitum."
+    },
+    {
+      "img": "images/Rectangle 67 (1).png",
+      "title": "Tools",
+      "description": "At nam minimum ponderum. Est audiam animal molestiae te. Ex duo eripuit mentitum."
+    }
+    
+  ]
+}
