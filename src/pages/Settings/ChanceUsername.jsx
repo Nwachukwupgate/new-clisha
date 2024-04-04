@@ -11,8 +11,7 @@ function ChangeUsername() {
   const config = { headers: { Authorization: `bearer ${token}` } };
   const [userDetails, setUserDetails] = useState();
   const [loading, setIsLoading] = useState(false);
-  // const dispatch = useDispatch();
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
