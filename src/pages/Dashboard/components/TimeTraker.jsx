@@ -7,7 +7,7 @@ function TimeTraker() {
   const liveServerExt =
     "https://chrome.google.com/webstore/detail/clisha-extension/jagnnnnnooogbbpgjidbpockglhfoban";
   const host = window.location.host;
-  const newHost = "clisha.me";
+  const newHost = "clisha-frontend.suna.ai";
   return (
     <div>
       {hasExt !== "true" && (
