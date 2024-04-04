@@ -7,7 +7,7 @@ function Popup({ item, text, handleCopyGo }) {
     "https://chrome.google.com/webstore/detail/clisha-extension/jagnnnnnooogbbpgjidbpockglhfoban";
   const hasExt = window.localStorage.getItem("hasExt");
   const history = window.location?.host;
-  const newHost = "clisha.me";
+  const newHost = "clisha-frontend.suan.ai";
 
   console.log(item);
   return (
