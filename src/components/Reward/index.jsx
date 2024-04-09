@@ -3,7 +3,6 @@ import { useReward } from "react-rewards";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { taskCompleted } from "../../store/Task";
-import { updateEarn } from "../../store/Auth/auth";
 import CountUp from "react-countup";
 import Loading from "../Alerts/Loading";
 
