@@ -37,7 +37,7 @@ function MainNavbar({ bg }) {
                         id="navbarsItems"
                         className="navbar-nav  mr-auto mt-2 mt-lg-0"
                     >
-                        {nav?.map((item, key) => <li className="nav-item">
+                        {nav?.map((item, key) => <li key={key} className="nav-item">
                             <Link className={`nav-link ${item?.url === link ? 'active-link' : ''}`} to={item?.url}>
                                 {item?.name}
                             </Link>
