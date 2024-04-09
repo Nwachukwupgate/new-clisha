@@ -1,5 +1,5 @@
 import React from "react";
-import banner from "../../../../utils/Tasks/banner";
+
 function VisitCards({ item, loadLink, extCode }) {
   return (
     <div className="row m-0 header py-1">
