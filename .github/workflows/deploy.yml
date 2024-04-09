@@ -1,0 +1,46 @@
+name: Deploy
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node Build
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build
+        run: npm run build
+
+      - name: Clear Hosting Directory
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSHKEY }}
+          script: rm -r /var/www/clisha-frontend.suna.ai/html/*
+
+      - name: Deploy
+        uses: nogsantos/scp-deploy@master
+        with:
+          src: ./build/*
+          host: ${{ secrets.HOST }}
+          remote: /var/www/clisha-frontend.ai/html
+          user: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSHKEY }}
+
+      - name: Restart Nginx
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSHKEY }}
+          script: sudo systemctl restart nginx
