@@ -33,7 +33,7 @@ jobs:
         with:
           src: ./build/*
           host: ${{ secrets.HOST }}
-          remote: /var/www/clisha-frontend.ai/html
+          remote: /var/www/clisha-frontend.suna.ai/html
           user: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSHKEY }}
 
