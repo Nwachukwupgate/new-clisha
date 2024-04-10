@@ -17,6 +17,8 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
+      - run: env
+
       - name: Build
         run: npm run build
 
