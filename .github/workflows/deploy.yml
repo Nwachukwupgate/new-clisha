@@ -18,13 +18,13 @@ jobs:
         run: yarn install
 
       - name: Build
-        env:
-          REACT_APP_BASE_URL: ${{ secrets.REACT_APP_BASE_URL}}
-          REACT_APP_AUTH: ${{ secrets.REACT_APP_AUTH}}
-          REACT_APP_API: ${{ secrets.REACT_APP_API}}
-          REACT_APP_API_TASK: ${{ secrets.REACT_APP_API_TASK}}
-          REACT_APP_API_COMMERCE: ${{ secrets.REACT_APP_API_COMMERCE}}
-        run: npm run build
+        run:
+          REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL}}
+            REACT_APP_AUTH=${{ secrets.REACT_APP_AUTH}}
+            REACT_APP_API=${{ secrets.REACT_APP_API}}
+            REACT_APP_API_TASK=${{ secrets.REACT_APP_API_TASK}}
+            REACT_APP_API_COMMERCE=${{ secrets.REACT_APP_API_COMMERCE}}
+            npm run build
 
       - name: Clear Hosting Directory
         uses: appleboy/ssh-action@v1.0.3
