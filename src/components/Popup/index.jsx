@@ -9,7 +9,7 @@ function Popup({ item, text, handleCopyGo }) {
   const history = window.location?.host;
   const newHost = "clisha-frontend.suan.ai";
 
-  console.log(item);
+  // console.log(item);
   return (
     <div className="modal-dialog modal-sm" role="document">
       <div className="modal-content  task2_popup clisha_bg">

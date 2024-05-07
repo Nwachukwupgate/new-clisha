@@ -45,15 +45,12 @@ function GeneralTask(props) {
       secTime(data.website_click?.duration ?? data?.token?.duration)
     );
 
-    // let height = window.screen.height;
-    // let width = window.screen.width;
-    // console.log(height, width);
-    // const url = data?.url?.includes("?")
-    //   ? `${data.url}&tk=${data.task_code}&cd=${extCode}`
-    //   : `${data.url}?tk=${data.task_code}&cd=${extCode}`;
-    const newTask = window.open(data.url, "_blank");
+    const url = data.url.startsWith("http")
+        ? data.url
+        : `https://${data.url}`;
+
+    const newTask = window.open(url, "_blank");
     // newTask.moveTo(300, 70);
-    console.log(newTask)
     const timer = setInterval(() => {
       window.addEventListener("beforeunload", function (e) {
         // newTask.close();
