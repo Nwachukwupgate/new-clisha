@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import GoogleTask from "./GoogleTask.jsx";
+
 function TaskCard2(props) {
   const [currentItems] = useState(1);
   const list = props;
@@ -13,7 +14,7 @@ function TaskCard2(props) {
 
   useEffect(() => {
     dispatch(getTaskGoogle({ page: currentItems, types: "google_search" }));
-  }, []);
+  }, [currentItems, dispatch]);
 
   const handlePageClick = (event) => {
     const newItems = event.selected + 1;

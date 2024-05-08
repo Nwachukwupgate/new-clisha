@@ -77,17 +77,17 @@ function GenJourneyClick({ item, index, extCode, isGen }) {
                 fill={item?.token?.card_colors?.accent_color ?? "#28a745"}
               />
             </svg>
-            {/* <small className="text-capitalize badge ml-2 badge-danger shadow">
+            <small className="text-capitalize badge ml-2 badge-danger shadow">
               {item.task_type}
-            </small> */}
-            <strong
+            </small>
+            {/* <strong
               className="ml-1"
               style={{
                 color: item?.token?.card_colors?.accent_color ?? "black",
               }}
             >
               Task
-            </strong>
+            </strong> */}
           </div>
           <div className="col-7 text-right ">
             <button

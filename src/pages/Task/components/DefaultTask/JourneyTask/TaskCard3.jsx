@@ -10,9 +10,10 @@ function TaskCard2(props) {
   const list = props;
 
   const [currentItems] = useState(1);
+  
   useEffect(() => {
     dispatch(getTaskJourney({ page: currentItems, types: "journey" }));
-  }, []);
+  }, [currentItems, dispatch]);
 
   const handlePageClick = (event) => {
     const newItems = event.selected + 1;

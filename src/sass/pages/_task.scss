@@ -209,15 +209,11 @@
 
 .col-12.text-center {
   img {
-    width: 60px;
-    height: 60px;
+    min-height: 50px;
+    max-height: 60px;
+    min-width: 60px;
+    max-width: 150px;
   }
-}
-
-.tasklogo {
-  // min-height: 50px !important;
-  // max-height: 50px !important;
-  // width: 100px !important;
 }
 
 .watermark {
