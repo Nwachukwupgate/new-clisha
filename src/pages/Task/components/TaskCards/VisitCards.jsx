@@ -1,5 +1,20 @@
 import React from "react";
 
+const banner = (type) => {
+  switch(type){
+    case "google_search":
+      return "Google";
+    case "website_click":
+      return "Website";
+    case "journey":
+      return "Journey";
+    case "search_journey":
+      return "Search";
+    default:
+      return "Task";
+  }
+}
+
 function VisitCards({ item, loadLink, extCode }) {
   return (
     <div className="row m-0 header py-1">
@@ -29,17 +44,17 @@ function VisitCards({ item, loadLink, extCode }) {
           />
         </svg>
 
-        {/* <small className="text-capitalize ml-1 badge badge-danger shadow ">
+        <small className="text-capitalize ml-1 badge badge-danger shadow ">
           {banner(item.task_type)}
-        </small> */}
-        <strong
+        </small>
+        {/* <strong
           className="ml-1"
           style={{
             color: item?.token?.card_colors?.accent_color ?? "black",
           }}
         >
           Task
-        </strong>
+        </strong> */}
       </div>
       <div className="col-7 text-right">
         <button

@@ -72,7 +72,7 @@ function GoogleTask({ item, index, extCode, isGen }) {
                 fill={item?.token?.card_colors?.accent_color ?? "#28a745"}
               />
             </svg>
-            {/* <small className="text-capitalize ml-1 badge badge-danger shadow ">
+            <small className="text-capitalize ml-1 badge badge-danger shadow ">
               {item?.advance_type === "google_images"
                 ? "images"
                 : item?.advance_type === "google_videos"
@@ -84,15 +84,15 @@ function GoogleTask({ item, index, extCode, isGen }) {
                 : item?.advance_type === "youtube"
                 ? "youtube"
                 : "search"}
-            </small> */}
-            <strong
+            </small>
+            {/* <strong
               className="ml-1"
               style={{
                 color: item?.token?.card_colors?.accent_color ?? "black",
               }}
             >
               Task
-            </strong>
+            </strong> */}
           </div>
           <div className="col-7 text-right">
             <div

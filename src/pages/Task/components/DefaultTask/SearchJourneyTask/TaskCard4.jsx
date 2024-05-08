@@ -13,7 +13,7 @@ function TaskCard4(props) {
   const [currentItems] = useState(1);
   useEffect(() => {
     dispatch(getTaskJourney({ page: currentItems, types: "search_journey" }));
-  }, []);
+  }, [currentItems, dispatch]);
 
   const handlePageClick = (event) => {
     const newItems = event.selected + 1;
