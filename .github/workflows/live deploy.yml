@@ -1,4 +1,4 @@
-name: Deploy
+name: Live Deploy
 on:
   push:
     branches: [release]
