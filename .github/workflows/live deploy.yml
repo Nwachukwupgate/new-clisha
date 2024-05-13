@@ -1,0 +1,52 @@
+name: Deploy
+on:
+  push:
+    branches: [release]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node Build
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build
+        run:
+          REACT_APP_BASE_URL=${{ secrets.LIVE_REACT_APP_BASE_URL}}
+            REACT_APP_AUTH=${{ secrets.LIVE_REACT_APP_AUTH}}
+            REACT_APP_API=${{ secrets.LIVE_REACT_APP_API}}
+            REACT_APP_API_TASK=${{ secrets.LIVE_REACT_APP_API_TASK}}
+            REACT_APP_API_COMMERCE=${{ secrets.LIVE_REACT_APP_API_COMMERCE}}
+            npm run build
+
+      - name: Clear Hosting Directory
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.LIVE_HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.LIVE_SSHKEY }}
+          script: rm -r /var/www/clisha.me/html/*
+
+      - name: Deploy
+        uses: nogsantos/scp-deploy@master
+        with:
+          src: ./build/*
+          host: ${{ secrets.LIVE_HOST }}
+          remote: /var/www/clisha.me/html
+          user: ${{ secrets.USERNAME }}
+          key: ${{ secrets.LIVE_SSHKEY }}
+
+      - name: Restart Nginx
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.LIVE_HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.LIVE_SSHKEY }}
+          script: sudo systemctl restart nginx
