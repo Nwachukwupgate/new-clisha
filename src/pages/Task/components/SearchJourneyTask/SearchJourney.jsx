@@ -5,9 +5,12 @@ import TextSection from "../TaskCards/TextSection";
 
 function SearchJourney({ item, index, extCode, isGen }) {
   const handleCopyGo = async (item) => {
-    let msg = JSON.parse(item?.google_search)?.search_phrase;
+    let msg = item?.google_search?.search_phrase;
+    if (typeof msg === "object") {
+      msg = JSON.stringify(msg);
+    }
     await navigator.clipboard.writeText(msg).then(() => {
-      //  return toast.info(`Copied *${msg}*`);
+      console.log(msg);
     });
 
     setTimeout(() => {
