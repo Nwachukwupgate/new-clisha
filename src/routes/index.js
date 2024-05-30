@@ -28,7 +28,7 @@ import ToastMsg from "../components/Alerts/ToastMsg";
 // import { Helmet } from "react-helmet";
 import Notification from "../pages/Notification";
 import Wallets from "../pages/Wallets";
-
+import EmailVerification from "../pages/Auth/EmailVerification";
 function Router() {
   return (
     <div className="w-100">
@@ -80,7 +80,6 @@ function Router() {
           <Route path="/all-products" element={<AllProducts />} />
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/notification" element={<Notification />} />
-
           {/* Public Route end*/}
 
           {/* Auth Routes */}
@@ -94,6 +93,7 @@ function Router() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/new-password" element={<NewPassword />} />
             <Route path="/verify" element={<Verify />} />
+            <Route path="/verify-account" element={<EmailVerification />} />
           </Route>
         </Routes>
       </BrowserRouter>
