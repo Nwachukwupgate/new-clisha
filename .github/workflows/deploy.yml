@@ -32,14 +32,14 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSHKEY }}
-          script: rm -r /var/www/clisha-frontend.suna.ai/html/*
+          script: rm -r /var/www/test.clisha.me/html/*
 
       - name: Deploy
         uses: nogsantos/scp-deploy@master
         with:
           src: ./build/*
           host: ${{ secrets.HOST }}
-          remote: /var/www/clisha-frontend.suna.ai/html
+          remote: /var/www/test.clisha.me/html
           user: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSHKEY }}
 
