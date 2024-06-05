@@ -24,6 +24,7 @@ jobs:
             REACT_APP_API=${{ secrets.REACT_APP_API}}
             REACT_APP_API_TASK=${{ secrets.REACT_APP_API_TASK}}
             REACT_APP_API_COMMERCE=${{ secrets.REACT_APP_API_COMMERCE}}
+            REACT_APP_COMPANY=${{ secrets.REACT_APP_COMPANY }}
             npm run build
 
       - name: Clear Hosting Directory
