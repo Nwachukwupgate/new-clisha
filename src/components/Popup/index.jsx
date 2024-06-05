@@ -9,7 +9,6 @@ function Popup({ item, text, handleCopyGo }) {
   const history = window.location?.host;
   const newHost = "clisha-frontend.suan.ai";
 
-  // console.log(item);
   return (
     <div className="modal-dialog modal-sm" role="document">
       <div className="modal-content  task2_popup clisha_bg">
@@ -57,21 +56,15 @@ function Popup({ item, text, handleCopyGo }) {
                   readOnly
                 />
               )}
-              {item?.task_type === "journey" && (
-                <input
-                  type="text"
-                  className="form-control mt-1"
-                  value={item && item?.journey[0]?.description}
-                  readOnly
-                />
-              )}
               <button
-                className="btn btn_copy shadow border-0"
-                onClick={(e) => {
+                className={`btn ${
+                  item?.task_type === "journey" ? "btn_journey" : "btn_copy"
+                } shadow border-0`}
+                onClick={() => {
                   handleCopyGo(item);
                 }}
               >
-                Copy
+                {item?.task_type === "journey" ? "Start Journey" : "Copy"}
               </button>
             </div>
           ) : (

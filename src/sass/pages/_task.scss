@@ -1,6 +1,5 @@
 .taskCards {
   .card {
-
     // min-width: 250px;
     //  .col-lg-4 {
     //    max-height: 300px !important;
@@ -11,7 +10,7 @@
     //  background: #FABB18;
     background-size: cover;
     border: 0 !important;
-    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
     min-width: 310px;
     // border: 0.3px solid grey !important;
     // box-shadow: 0 0 0 rgba(0, 0, 0, .15) !important;
@@ -24,9 +23,6 @@
   //  .task3Cards {
   //   //  background: #1AAE17 !important;
   //  }
-
-
-
 
   .visitImg {
     margin-top: -4.5px;
@@ -52,15 +48,14 @@
   text-shadow: 2px 2px #525050;
   font-style: italic;
   font-family: monospace;
-
 }
 
 .text_noted {
-  color: #0E223B
+  color: #0e223b;
 }
 
 .btn_blue {
-  background: #0E223B !important;
+  background: #0e223b !important;
   color: white;
 
   &:hover {
@@ -70,7 +65,7 @@
 }
 
 .text_noted_2 {
-  color: rgba(247, 245, 245, 0.952) !important
+  color: rgba(247, 245, 245, 0.952) !important;
 }
 
 .document-right {
@@ -134,18 +129,23 @@
   margin-top: 42px;
 }
 
-
 .takeLage {
   font-size: 18px;
   // margin-left:10px;
 }
 
 .btn_copy {
-  background: #FC9828 !important;
+  background: #fc9828 !important;
   color: white;
   position: absolute;
   margin-top: -36px;
-  right: 13px
+  right: 13px;
+}
+
+.btn_journey {
+  background: #fc9828 !important;
+  color: white;
+  width: 100%;
 }
 
 .task2_popup {
@@ -154,12 +154,11 @@
   input {
     font-size: 14px;
   }
-
 }
 
 .clisha_bg {
   background-image: url("../../../public/images/popup/108 2.png") !important;
-  background: #74019B;
+  background: #74019b;
   color: #fff;
   background-repeat: no-repeat;
   background-size: cover;
@@ -167,14 +166,13 @@
 }
 
 .text-blue {
-  color: #0E223B !important;
+  color: #0e223b !important;
 }
 
 .my_task_nav {
-
   .nav-link:focus,
   .active {
-    background: #0E223B !important;
+    background: #0e223b !important;
     color: white !important;
   }
 
@@ -200,11 +198,11 @@
 //  }
 
 .text-success {
-  color: #1AAE17
+  color: #1aae17;
 }
 
 .bg-success {
-  background: #1AAE17
+  background: #1aae17;
 }
 
 .col-12.text-center {
@@ -247,6 +245,6 @@
 .unplishedtask {
   // margin-bottom:
   position: absolute;
-  margin-top: .6rem;
-  margin-left: .6rem;
+  margin-top: 0.6rem;
+  margin-left: 0.6rem;
 }

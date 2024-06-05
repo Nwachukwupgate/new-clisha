@@ -1,4 +1,5 @@
-import { ToastContainer } from "react-toast";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ToastMsg = () => {
   return (

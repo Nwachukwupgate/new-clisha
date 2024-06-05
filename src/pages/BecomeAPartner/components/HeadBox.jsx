@@ -14,10 +14,12 @@ function HeadBox() {
                     </h3>
                     <p className='bodyText2'> 
                         Clisha Is Your Ultimate Marketing
-                        Partner with best Stratgy
+                        Partner with best Strategy
                     </p>
 
-                    <button className="btn-warning btn">Become A Publisher</button>
+                    <a rel="noreferrer" href={`${process.env.REACT_APP_COMPANY}/signup`} target="_blank" className="btn" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center',}}>Become A Publisher</a>
+
+
                 </div>
 
             </div>

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Loading from "../../components/Alerts/Loading";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import moment from "moment";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import Loading from "../../components/Alerts/Loading";
 
 function Signin() {
   const auth_api = process.env.REACT_APP_AUTH;
@@ -60,6 +59,10 @@ function Signin() {
         }
       });
   };
+
+
+
+
   const showPassword = () => {
     let password = document.querySelector("#password");
     setIsPassword(!isPassword);
@@ -163,17 +166,6 @@ function Signin() {
         </Link>
       </form>
 
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
     </div>
   );
 }
