@@ -4,22 +4,11 @@ import Popup from "../../../../../components/Popup";
 import TaskCopy from "../../TaskCards/TaskCopy";
 import TaskFooter from "../../TaskCards/TaskFooter";
 import TextSection from "../../TaskCards/TextSection";
+import { copyAndOpenTab } from "../../../../../sass/utils/clipboardUtils";
 
-function SearchJourney({ item, index, extCode, isGen }) {
+function SearchJourney({ item, extCode, }) {
   const handleCopyGo = async (item) => {
-    let msg = JSON.parse(item?.google_search)?.search_phrase;
-
-    await navigator.clipboard.writeText(msg).then(() => {
-      // toast.info(`Copied *${msg}*`);
-    });
-
-    setTimeout(() => {
-      window.open(
-        `https://google.com?tk=${item.task_code}&cd=${extCode}`,
-        "_blank"
-      );
-    }, 1000);
-    setTimeout(() => window.location.reload(), 20000);
+    await copyAndOpenTab(item, extCode);
   };
   const text = "Click the link to navigate to your task";
 
