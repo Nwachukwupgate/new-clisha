@@ -13,6 +13,50 @@
   border-radius: 8px;
 }
 
+.authBtns {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  flex-direction: column;
+
+  .vendoBtn {
+    background: #dda26d;
+    border: 1px solid black;
+    color: #fff;
+  }
+
+  .vendoBtn:focus,
+  vendoBtn:active {
+    background: #c89161 !important;
+  }
+}
+
+.vendoLoginModal {
+  img {
+    margin: 0px !important;
+  }
+
+  .vHead {
+    display: flex;
+    justify-content: start;
+    align-items: end;
+    gap: 5px;
+    margin-bottom: 30px;
+  }
+
+  .goback {
+    cursor: pointer;
+  }
+
+  .vendoLogo {
+    height: 37px;
+  }
+
+  h2 {
+    margin-bottom: 0px !important;
+    line-height: 1 !important;
+  }
+}
 
 
 .bgsignin2 {
