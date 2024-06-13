@@ -344,7 +344,7 @@ function Signin() {
                 Help text
               </small>
               <a
-                href={process.env.VENDO_USER_DASHBOARD}
+                href={process.env.REACT_APP_VENDO_USER_DASHBOARD}
                 target="_blank"
                 rel="noreferrer"
                 id="emailHelpId"
