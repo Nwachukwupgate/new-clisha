@@ -20,27 +20,14 @@ function Signin() {
     password: "",
   });
   const [isPassword, setIsPassword] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     try {
       const res = await apiCall(`${auth_api}/login`, "post", signupDetails);
-      window.localStorage.setItem("username", res.data.user.username);
-      window.localStorage.setItem("email", res.data.user.email);
-
-      if (
-        !res.data.user?.email_verified_at &&
-        dateEmail(StartDate) >= dateEmail(res.data.user?.createdAt)
-      ) {
-        toast.error("Please Verify your Email");
-        return (window.location.href = "/verify");
-      }
-
-      window.localStorage.setItem("token", res.data.accessToken);
-      window.localStorage.setItem("refresh", res.data.refreshToken);
-      window.location.href = "/dashboard";
-      console.log("what is happening")
-       setIsLoading(false);
+      writeUserData(res);
+      setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
       if (err.response.status === 403) {
@@ -53,21 +40,29 @@ function Signin() {
         const error = err.response.data.errors;
         toast.error(error[0].msg);
       } else if (err.response.status === 401) {
-        toast.error("Incorrect Passoword or Email");
+        toast.error("Incorrect Password or Email");
       } else {
         toast.error("Oops try again later!");
       }
     }
   };
 
-  const persistUserData = (res) => {
+  const writeUserData = (res) => {
     if (res) {
       window.localStorage.setItem("username", res.data.user.username);
       window.localStorage.setItem("email", res.data.user.email);
 
-      window.localStorage.setItem("token", res.data.accessToken); //access token
-      window.localStorage.setItem("refresh", res.data.refreshToken);
-      window.location.href = "/dashboard";
+      if (
+        !res.data.user?.email_verified_at &&
+        dateEmail(StartDate) >= dateEmail(res.data.user?.createdAt)
+      ) {
+        toast.error("Please Verify your Email");
+        window.location.href = "/verify";
+      } else {
+        window.localStorage.setItem("token", res.data.accessToken); //access token
+        window.localStorage.setItem("refresh", res.data.refreshToken);
+        window.location.href = "/dashboard";
+      }
     }
   };
 
@@ -88,7 +83,7 @@ function Signin() {
         if (!clishaRes) return;
       }
 
-      persistUserData(clishaRes);
+      writeUserData(clishaRes);
     } catch (err) {
       toast.error(err.message);
     } finally {
