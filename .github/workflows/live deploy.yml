@@ -23,6 +23,7 @@ jobs:
           REACT_APP_API=${{ secrets.LIVE_REACT_APP_API}}
           REACT_APP_API_TASK=${{ secrets.LIVE_REACT_APP_API_TASK}}
           REACT_APP_API_COMMERCE=${{ secrets.LIVE_REACT_APP_API_COMMERCE}}
+          REACT_APP_COMPANY=${{ secrets.LIVE_REACT_APP_COMPANY}}
           REACT_APP_VENDO_API=${{ secrets.LIVE_REACT_APP_VENDO_API}}
           npm run build
 
