@@ -91,7 +91,6 @@ export const getCustomDateCallender = createAsyncThunk(
       )}&page=1&size=25`,
       config
     );
-    console.log(res.data, "==========");
     return res.data;
   }
 );

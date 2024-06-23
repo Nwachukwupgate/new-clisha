@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from "react";
+import moment from "moment";
+import React, { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loading from "../../components/Alerts/Loading";
+import NotificationMessage from "../../components/Messages/NotificationMessage";
 import Header from "../../layouts/Header";
 import Sidebar from "../../layouts/Sidebar";
+import { apiCall } from "../../services/apiRequestManager";
+import CalenderCard from "./components/CalenderCard";
 import LoadTask from "./components/Load_Task";
 import Task from "./components/Task_Component";
 import TimeTraker from "./components/TimeTraker";
 import TodaysTask from "./components/TodaysTask";
-import { useSelector } from "react-redux";
-import moment from "moment";
-import CalenderCard from "./components/CalenderCard";
 import Wallet from "./components/Wallet";
-import NotificationMessage from "../../components/Messages/NotificationMessage";
-import Loading from "../../components/Alerts/Loading";
 
 function Dashboard() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const user = useSelector((state) => state.user.data);
   const vendoPackage = useSelector((state) => state.wallet.vendoPackage);
@@ -22,13 +25,27 @@ function Dashboard() {
   const task = useSelector((state) => state.task.data);
   const isProfile = window.localStorage.getItem("isProfile");
 
+  const [isVqsClaimPeriod, setIsVqsClaimPeriod] = useState(false);
+  const [isVqsClaimDay, setIsVqsClaimDay] = useState(false);
+  const [isTransferVqsLoading, setIsTransferVqsLoading] = useState(false);
+  const vendo_api = process.env.REACT_APP_VENDO_API;
+  const vendoDashboard = process.env.REACT_APP_VENDO_USER_DASHBOARD;
   const [perProfile, setPerProfile] = useState(100);
 
-  const goTask = () => {
+  const goTask = useCallback(() => {
     navigate("/dashboard/task");
-  };
+  }, [navigate]);
 
-  const profileCompletePercentage = (userArr) => {
+  const goToVendoUpgrade = useCallback(() => {
+    window.open(`${vendoDashboard}/upgrade`, "__blank");
+  }, [vendoDashboard]);
+
+  const date = useCallback(
+    () => moment(Date.now()).format("MMMM DD, YYYY"),
+    []
+  );
+
+  const profileCompletePercentage = useCallback(() => {
     let completed = 0;
     const userEntries = [
       "firstname",
@@ -48,18 +65,70 @@ function Dashboard() {
     });
 
     // check is user data has returned
-    const userInputs = Object.entries(user.user);
+    const userInputs = Object.entries(user?.user);
     if (userInputs.length > 0) {
       // update user completed profile percentage
       setPerProfile(Math.round((completed / 9) * 100));
     }
-  };
+  }, [user]);
+
+  const checkIfVQCliamPeriod = useCallback(() => {
+    const dateArr = new Set();
+    const nowDate = moment(Date.now()).format("DD-MM-YYYY");
+    const lastDate = moment().endOf("month").format("DD-MM-YYYY");
+
+    for (let x = 0; x <= 3; x++) {
+      const temp = moment().endOf("month").subtract(x, "d");
+      dateArr.add(temp.format("DD-MM-YYYY"));
+    }
+
+    if (dateArr.has(nowDate)) {
+      setIsVqsClaimPeriod(true);
+      if (lastDate === nowDate) {
+        setIsVqsClaimDay(true);
+      }
+    }
+  }, []);
+
+  const getUserVQForVendo = useCallback((vqs, percentage) => {
+    return (Number(vqs) * (Number(percentage) / 100)).toFixed(1);
+  }, []);
+
+  const transferUserVqsToVendo = useCallback(async () => {
+    setIsTransferVqsLoading(true);
+    try {
+      let token = window.localStorage.getItem("token");
+      const config = { headers: { Authorization: `bearer ${token}` } };
+      const body = {
+        clisha_id: user?.user?.clishaId,
+        vqs: user?.rank?.bonus_points,
+      };
+
+      const res = await apiCall(
+        `${vendo_api}/clisha-addkickback`,
+        "post",
+        body,
+        config
+      );
+
+      if (res?.status === 200) {
+        toast.success(res?.message);
+        window.location.reload();
+      }
+    } catch (err) {
+      toast.error(err?.message);
+    } finally {
+      setIsTransferVqsLoading(false);
+    }
+  }, [user, vendo_api]);
 
   useEffect(() => {
     profileCompletePercentage();
-  });
+  }, [profileCompletePercentage]);
 
-  const date = () => moment(Date.now()).format("MMMM DD, YYYY");
+  useEffect(() => {
+    checkIfVQCliamPeriod();
+  }, [checkIfVQCliamPeriod]);
 
   return (
     <div>
@@ -78,6 +147,97 @@ function Dashboard() {
               <div className="row m-0 ">
                 <div className="col-lg-6 mx-auto p-0 p-md-2">
                   <div className="welcome my-4 ">
+                    {isVqsClaimPeriod &&
+                      vendoPackage?.status === 200 &&
+                      user?.user?.vendoConnectStatus &&
+                      vendoPackage.data.package_level !== "No package" && (
+                        <div
+                          className="alert shadow-sm rounded-x alert-warning alert-dismissible fade show"
+                          role="alert"
+                        >
+                          <button
+                            type="button"
+                            className="close"
+                            data-dismiss="alert"
+                            aria-label="Close"
+                          >
+                            <span aria-hidden="true">&times;</span>
+                            <span className="sr-only">Close</span>
+                          </button>
+                          <div>
+                            <p
+                              className="text-dark"
+                              style={{ fontWeight: "700", marginBottom: "8px" }}
+                            >
+                              As a{" "}
+                              <b style={{ color: "red" }}>
+                                {vendoPackage?.data?.package_level === "proplus"
+                                  ? "Pro+"
+                                  : vendoPackage?.data?.package_level}
+                              </b>{" "}
+                              user, you currently have{" "}
+                              {getUserVQForVendo(
+                                user?.rank?.bonus_points,
+                                vendoPackage?.data?.vqRatio
+                              )}{" "}
+                              VQs booked in the Vendo system.
+                              {isVqsClaimDay
+                                ? " Claim Now"
+                                : " Upgrade your package to get more VQs or Claim Now."}
+                            </p>
+
+                            <p
+                              className="text-dark"
+                              style={{ fontWeight: "700", marginBottom: "8px" }}
+                            >
+                              You've earned{" "}
+                              {user?.rank?.bonus_points?.toFixed() ?? 0} VQs,
+                              and as a{" "}
+                              <b style={{ color: "red" }}>
+                                {vendoPackage?.data?.package_level === "proplus"
+                                  ? "Pro+"
+                                  : vendoPackage?.data?.package_level}
+                              </b>{" "}
+                              user, you currently have access to{" "}
+                              {getUserVQForVendo(
+                                user?.rank?.bonus_points,
+                                vendoPackage?.data?.vqRatio
+                              )}{" "}
+                              VQs.
+                              {isVqsClaimDay
+                                ? " Claim additional VQs now."
+                                : " Upgrade your package to claim additional VQs."}
+                            </p>
+                          </div>
+
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              gap: "1rem",
+                            }}
+                            className="authBtns"
+                          >
+                            <button
+                              className=" btn btn-primary "
+                              onClick={goToVendoUpgrade}
+                            >
+                              Upgrade
+                            </button>
+                            {isVqsClaimDay && (
+                              <button
+                                className=" btn btn-primary vendoBtn"
+                                onClick={transferUserVqsToVendo}
+                              >
+                                {isTransferVqsLoading && (
+                                  <i className="fa fa-spinner fa-spin"></i>
+                                )}{" "}
+                                Claim bonus
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      )}
                     {!userLoading && perProfile < 100 && (
                       <div
                         className="alert shadow-sm rounded-x alert-warning alert-dismissible fade show"
@@ -109,13 +269,6 @@ function Dashboard() {
                             </strong>
                             done
                           </span>
-                          {/* <span>
-                          You are
-                          <strong className="badge badge-pill badge-warning mx-2">
-                            {isProfile ? perProfile : 0}%
-                          </strong>
-                          done
-                        </span> */}
                         </span>
                       </div>
                     )}
