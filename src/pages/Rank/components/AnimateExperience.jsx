@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useReward } from "react-rewards";
-/*eslint-disable */
+
 function AnimateExperience() {
   const { reward } = useReward("rewardId", "confetti");
   const [isnewUpdate] = useState(true);

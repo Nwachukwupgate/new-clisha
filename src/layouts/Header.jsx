@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "aos/dist/aos.css";
 import { Link, useNavigate } from "react-router-dom";
 import MobileSidebar from "./MobileSidebar";
 import { logoutAction } from "../store/Auth/auth.js";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector } from "react-redux";
 import ProfilePicture from "../utils/ProfilePicture";
 
-import { useSelector } from "react-redux";
+
 import CountUp from "react-countup";
 
 function Header() {

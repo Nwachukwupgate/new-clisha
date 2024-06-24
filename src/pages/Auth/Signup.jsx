@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import Loading from "../../components/Alerts/Loading";
-import { useNavigate } from "react-router-dom";
+
 // import { Helmet } from "react-helmet";
 // import url from "../../json/config.json";
 

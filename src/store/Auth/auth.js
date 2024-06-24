@@ -10,7 +10,7 @@ const links = ["signup", "signin", "forgot-password", "new-password", "verify"];
 export const getUser = createAsyncThunk("user/getUser", async () => {
   try {
     const res = await axios.get(`${api}/user/profile`, config);
-    const balance = res.data.data.rank.balance;
+    const {balance} = res.data.data.rank;
     const isDev = res.data.data?.user?.developer;
     const earned_amount = res.data.data?.rank?.earned_amount;
     window.localStorage.setItem('earned_amount', earned_amount)

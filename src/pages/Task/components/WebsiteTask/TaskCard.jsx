@@ -87,14 +87,12 @@ function TaskCard(props) {
       <div className={`row m-0   taskCards p-0 `}>
         {list &&
           list?.task?.tasks?.map((item, index) => (
-            <>
-              <WebsiteClick
+            <WebsiteClick
                 item={item}
                 index={index}
                 key={index}
                 loadLink={loadLink}
               />
-            </>
           ))}
       </div>
 
