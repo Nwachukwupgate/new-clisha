@@ -1,7 +1,6 @@
-import React from "react";
-import { getTaskJourney } from "../../../../store/Task/index.js";
 import { useDispatch } from "react-redux";
 import Pagination from "../../../../components/Pagination";
+import { getTaskJourney } from "../../../../store/Task/index.ts";
 
 import JourneyClick from "./SearchJourney.jsx";
 function TaskCard4(props) {

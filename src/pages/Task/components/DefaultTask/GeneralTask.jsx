@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Countdown from "react-countdown";
-import { getTask } from "../../../../store/Task/index.js";
+import { getTask } from "../../../../store/Task/index.ts";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../../../../components/Pagination";
 import { useNavigate } from "react-router-dom";

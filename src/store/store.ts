@@ -6,6 +6,7 @@ import token from "./Token";
 import general from "./General";
 import walletReducer from "./Wallet/index";
 
+
 export const store = configureStore({
   reducer: {
     user,
@@ -16,3 +17,9 @@ export const store = configureStore({
     wallet: walletReducer,
   },
 });
+
+// Create a RootState type using the store's state
+export type RootState = ReturnType<typeof store.getState>;
+
+// Create an AppDispatch type using the store's dispatch
+export type AppDispatch = typeof store.dispatch;

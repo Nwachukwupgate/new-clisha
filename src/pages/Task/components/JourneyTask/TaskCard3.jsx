@@ -1,9 +1,8 @@
-import React from "react";
-import { getTaskJourney } from "../../../../store/Task/index.js";
 import { useDispatch } from "react-redux";
-import Pagination from "../../../../components/Pagination";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Pagination from "../../../../components/Pagination";
+import { getTaskJourney } from "../../../../store/Task/index.ts";
 import JourneyClick from "./JourneyClick.jsx";
 
 function TaskCard2(props) {

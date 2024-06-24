@@ -4,13 +4,13 @@ import axios from "axios";
 const api = process.env.REACT_APP_API_TASK + "/available";
 const api_completeTask = process.env.REACT_APP_API_TASK;
 
-let token = window.localStorage.getItem("token");
+const token = window.localStorage.getItem("token");
 const config = { headers: { Authorization: `bearer ${token}` } };
 const task_status = localStorage.getItem("task_status");
 
 export const getTask = createAsyncThunk(
   "task/getTask",
-  async ({ page, types = null }) => {
+  async ({ page, types = null }: { page: number; types?: string | null }) => {
     // console.log(types)
     const res = await axios.get(
       `${api}/tasks?page=${page}&size=9&type=${types}&publish=${
@@ -18,13 +18,13 @@ export const getTask = createAsyncThunk(
       }`,
       config
     );
-    window.localStorage.setItem("taskPageNumber", page);
+    window.localStorage.setItem("taskPageNumber", String(page));
     return res.data.data;
   }
 );
 export const getTaskWebsite = createAsyncThunk(
   "task/getTaskWebsite",
-  async ({ page, types = "website_click" }) => {
+  async ({ page, types = "website_click" }: { page: number; types?: string }) => {
     // console.log(types)
     const res = await axios.get(
       `${api}/tasks?page=${page}&size=9&type=${types}&publish=${
@@ -32,13 +32,13 @@ export const getTaskWebsite = createAsyncThunk(
       }`,
       config
     );
-    window.localStorage.setItem("taskPageNumber", page);
+    window.localStorage.setItem("taskPageNumber", String(page));
     return res.data.data;
   }
 );
 export const getTaskGoogle = createAsyncThunk(
   "task/getTaskGoogle",
-  async ({ page, types = "google_search" }) => {
+  async ({ page, types = "google_search" }: { page: number; types?: string }) => {
     // console.log(types)
     const res = await axios.get(
       `${api}/tasks?page=${page}&size=9&type=${types}&publish=${
@@ -46,13 +46,13 @@ export const getTaskGoogle = createAsyncThunk(
       }`,
       config
     );
-    window.localStorage.setItem("taskPageNumber", page);
+    window.localStorage.setItem("taskPageNumber", String(page));
     return res.data.data;
   }
 );
 export const getTaskJourney = createAsyncThunk(
   "task/getTaskJourney",
-  async ({ page, types = "journey" }) => {
+  async ({ page, types = "journey" }: { page: number; types?: string }) => {
     // console.log(types)
     const res = await axios.get(
       `${api}/tasks?page=${page}&size=9&type=${types}&publish=${
@@ -60,13 +60,13 @@ export const getTaskJourney = createAsyncThunk(
       }`,
       config
     );
-    window.localStorage.setItem("taskPageNumber", page);
+    window.localStorage.setItem("taskPageNumber", String(page));
     return res.data.data;
   }
 );
 export const getTaskSearchJourney = createAsyncThunk(
   "task/getTaskSearchJourney",
-  async ({ page, types = "search_journey" }) => {
+  async ({ page, types = "search_journey" }: { page: number; types?: string }) => {
     // console.log(types)
     const res = await axios.get(
       `${api}/tasks?page=${page}&size=9&type=${types}&publish=${
@@ -74,14 +74,14 @@ export const getTaskSearchJourney = createAsyncThunk(
       }`,
       config
     );
-    window.localStorage.setItem("taskPageNumber", page);
+    window.localStorage.setItem("taskPageNumber", String(page));
     return res.data.data;
   }
 );
 
 export const taskCompleted = createAsyncThunk(
   "task/complete",
-  async (task, { dispatch, getState }) => {
+  async (task,) => {
     try {
       const { data } = await axios.post(
         `${api_completeTask}/complete/task`,
@@ -105,6 +105,7 @@ export const taskSlice = createSlice({
     search_journey: [],
     showCounter: false,
     timerCounter: 0,
+    isCopy: false,
     setIsCopy: false,
     getTaskLoading: false,
     getTaskWebsiteLoading: false,
@@ -125,72 +126,61 @@ export const taskSlice = createSlice({
     setTimerCounter: (state, action) => {
       state.timerCounter = action.payload;
     },
-    // completeTask: (state, action) => {
-    //   axios
-    //     .post(`${api_completeTask}/complete/task`, action.payload, config)
-    //     .then((res) => {
-    //       setTimeout(() => {
-    //         // window.location.href = "/dashboard/task"
-    //       }, 2000);
-    //     })
-    //     .catch((err) => {
-    //       window.location.href = "/dashboard/task";
-    //     });
-    // },
-    failedTask: (state, action) => {
+
+    failedTask: (_, action) => {
       axios
         .post(`${api_completeTask}/complete/task`, action.payload, config)
-        .then((res) => {
+        .then(() => {
           setTimeout(() => {
             // window.location.href = "/dashboard/task"
           }, 2000);
         })
-        .catch((err) => {
+        .catch(() => {
           window.location.href = "/dashboard/task";
         });
     },
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
-    builder.addCase(getTask.pending, (state, action) => {
+    builder.addCase(getTask.pending, (state) => {
       state.getTaskLoading = true;
     });
     builder.addCase(getTask.fulfilled, (state, action) => {
       state.data = action.payload;
       state.getTaskLoading = false;
     });
-    builder.addCase(getTaskWebsite.pending, (state, action) => {
+    builder.addCase(getTaskWebsite.pending, (state) => {
       state.getTaskWebsiteLoading = true;
     });
     builder.addCase(getTaskWebsite.fulfilled, (state, action) => {
       state.website_click = action.payload;
       state.getTaskWebsiteLoading = false;
     });
-    builder.addCase(getTaskGoogle.pending, (state, action) => {
+    builder.addCase(getTaskGoogle.pending, (state) => {
       state.getTaskGoogleLoading = true;
     });
     builder.addCase(getTaskGoogle.fulfilled, (state, action) => {
       state.google_search = action.payload;
       state.getTaskGoogleLoading = false;
     });
-    builder.addCase(getTaskJourney.pending, (state, action) => {
+    builder.addCase(getTaskJourney.pending, (state,) => {
       state.getTaskJourneyLoading = true;
     });
     builder.addCase(getTaskJourney.fulfilled, (state, action) => {
       state.journey = action.payload;
       state.getTaskJourneyLoading = false;
     });
-    builder.addCase(getTaskSearchJourney.pending, (state, action) => {
+    builder.addCase(getTaskSearchJourney.pending, (state) => {
       state.getTaskSearchJourneyLoading = true;
     });
     builder.addCase(getTaskSearchJourney.fulfilled, (state, action) => {
       state.search_journey = action.payload;
       state.getTaskSearchJourneyLoading = false;
     });
-    builder.addCase(taskCompleted.pending, (state, action) => {
+    builder.addCase(taskCompleted.pending, (state) => {
       state.completeTaskLoading = true;
     });
-    builder.addCase(taskCompleted.fulfilled, (state, action) => {
+    builder.addCase(taskCompleted.fulfilled, (state) => {
       state.completeTaskLoading = false;
       // console.log(action.payload, "++++++++++++++++++++++++++++");
     });
