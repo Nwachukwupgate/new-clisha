@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import moment from "moment";
+import { RootState } from "../store";
+import { MessageType } from "../../types";
 
 // import url from "../../json/config";
 const api = process.env.REACT_APP_API;
 const api_task = process.env.REACT_APP_API_TASK;
-let token = window.localStorage.getItem("token");
+const token = window.localStorage.getItem("token");
 const config = { headers: { Authorization: `bearer ${token}` } };
 
 export const getCalenderTask = createAsyncThunk(
@@ -44,10 +46,11 @@ export const getCalenderTaskReload = createAsyncThunk(
   }
 );
 
-export const closeNotify = createAsyncThunk("task/closeNotify", async (id) => {
+export const closeNotify = createAsyncThunk("task/closeNotify", async (id: string) => {
   const res = await axios.post(`${api}/user/messages/${id}`, null, config);
   return res.data.data;
 });
+
 export const addCalenderTask = createAsyncThunk(
   "task/addCalenderTask",
   async (start_date) => {
@@ -68,10 +71,12 @@ export const getExperience = createAsyncThunk(
     return res.data.data;
   }
 );
+
 export const getTopUsers = createAsyncThunk("task/getTopUsers", async () => {
   const res = await axios.get(`${api_task}/clisha/latest-top/users`, config);
   return res.data.data.response;
 });
+
 export const getTopToken = createAsyncThunk("task/getTopToken", async () => {
   const res = await axios.get(`${api_task}/clisha/top/tokens`, config);
   return res.data.data;
@@ -84,7 +89,7 @@ export const getTeams = createAsyncThunk("task/getTeams", async () => {
 
 export const getCustomDateCallender = createAsyncThunk(
   "task/getCustomDateCallender",
-  async ({ callenderDate }) => {
+  async ({ callenderDate }: { callenderDate: string }) => {
     const res = await axios.get(
       `${api_task}/daily/tasks?date=${moment(callenderDate).format(
         "YYYY-MM-DD"
@@ -119,27 +124,18 @@ export const general = createSlice({
     customDateTask: {},
     teams: [],
     task_status: false,
-    message: "",
+    message: null as MessageType | null,
     notification: "",
     taskModalList: [],
+    reloadingCalendar:false
   },
 
   reducers: {
-    AddDate: async (state, action) => {
-      const month = action.payload + "-10";
-      const startDate = action.payload + "-01";
-      const endDate = moment(month).endOf("month").format("YYYY-MM-DD hh:mm");
-      const res = await axios.get(
-        `${api}/check-bonus?start_date=${startDate}&end_date=${endDate}`,
-        config
-      );
-      state.calenderTask = res.data.data;
-    },
     callenderDateFun: (state, action) => {
       state.callenderDate = action.payload.callenderDate;
       state.callender_length = action.payload.callender_length;
     },
-    emptyDate: (state, action) => {
+    emptyDate: (state) => {
       state.customDateTask = "";
     },
     taskStatusFun: (state, action) => {
@@ -156,7 +152,7 @@ export const general = createSlice({
     // },
   },
   extraReducers: (builder) => {
-    builder.addCase(closeNotify.fulfilled, (state, action) => {
+    builder.addCase(closeNotify.fulfilled, () => {
       // Add user to the state array
       // state.message = action.payload
     });
@@ -168,7 +164,7 @@ export const general = createSlice({
       // Add user to the state array
       state.calenderTask = action.payload;
     });
-    builder.addCase(getCalenderTaskReload.pending, (state, action) => {
+    builder.addCase(getCalenderTaskReload.pending, (state) => {
       state.reloadingCalendar = true;
     });
     builder.addCase(getCalenderTaskReload.fulfilled, (state, action) => {
@@ -176,7 +172,7 @@ export const general = createSlice({
       state.calenderTask = action.payload;
       state.reloadingCalendar = false;
     });
-    builder.addCase(getCalenderTaskReload.rejected, (state, action) => {
+    builder.addCase(getCalenderTaskReload.rejected, (state) => {
       state.reloadingCalendar = false;
     });
     builder.addCase(addCalenderTask.fulfilled, (state, action) => {
@@ -211,16 +207,13 @@ export const general = createSlice({
   },
 });
 
-export const generalSelectReloadingCalendar = (state) =>
+export const generalSelectReloadingCalendar = (state:RootState) =>
   state.general.reloadingCalendar;
 
-export const generalSelectTaskModalList = (state) =>
+export const generalSelectTaskModalList = (state: RootState) =>
   state.general.taskModalList;
 
 export const {
-  AddDate,
-  ChangePasswordData,
-  ChangeUserData,
   taskStatusFun,
   callenderDateFun,
   emptyDate,

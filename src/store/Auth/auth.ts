@@ -5,7 +5,7 @@ import { Rank, Timezone, User } from "../../types";
 // import url from "../../json/config";
 const api = process.env.REACT_APP_API;
 
-let token = window.localStorage.getItem("token");
+const token = window.localStorage.getItem("token");
 const config = { headers: { Authorization: `bearer ${token}` } };
 const links = ["signup", "signin", "forgot-password", "new-password", "verify"];
 

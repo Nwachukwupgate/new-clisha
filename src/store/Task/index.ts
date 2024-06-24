@@ -4,7 +4,7 @@ import axios from "axios";
 const api = process.env.REACT_APP_API_TASK + "/available";
 const api_completeTask = process.env.REACT_APP_API_TASK;
 
-let token = window.localStorage.getItem("token");
+const token = window.localStorage.getItem("token");
 const config = { headers: { Authorization: `bearer ${token}` } };
 const task_status = localStorage.getItem("task_status");
 

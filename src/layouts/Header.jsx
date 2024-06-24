@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "aos/dist/aos.css";
 import { Link, useNavigate } from "react-router-dom";
 import MobileSidebar from "./MobileSidebar";
-import { logoutAction } from "../store/Auth/auth.ts";
+import { logoutAction } from "../store/Auth/auth";
 import { useDispatch , useSelector } from "react-redux";
 import ProfilePicture from "../utils/ProfilePicture";
 

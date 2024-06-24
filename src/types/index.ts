@@ -83,3 +83,12 @@ export interface AxiosError {
   };
   message: string;
 }
+
+
+export interface MessageType  {
+  id: string;
+  message_english: string;
+  message_deutsch?: string;
+  message_french?: string;
+  message_portuguese?: string;
+};

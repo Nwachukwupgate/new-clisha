@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import data from "../json/dashboardSidebar.json";
-import { logoutAction } from "../store/Auth/auth.ts";
+import { logoutAction } from "../store/Auth/auth";
 
 function MobileSidebar() {
   const dispatch = useDispatch();

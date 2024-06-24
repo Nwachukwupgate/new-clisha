@@ -95,7 +95,7 @@ function Dashboard() {
   const transferUserVqsToVendo = useCallback(async () => {
     setIsTransferVqsLoading(true);
     try {
-      let token = window.localStorage.getItem('token');
+      const token = window.localStorage.getItem('token');
       const config = { headers: { Authorization: `bearer ${token}` } };
       const body = {
         clisha_id: user?.user?.clishaId,
