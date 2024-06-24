@@ -6,7 +6,7 @@ function TimeTraker() {
     "https://clisha-assets.fra1.digitaloceanspaces.com/extension%2Fclicha-extension-150.crx";
   const liveServerExt =
     "https://chrome.google.com/webstore/detail/clisha-extension/jagnnnnnooogbbpgjidbpockglhfoban";
-  const host = window.location.host;
+  const {host} = window.location;
   const newHost = "clisha-frontend.suna.ai";
   return (
     <div>

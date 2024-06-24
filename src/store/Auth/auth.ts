@@ -1,16 +1,33 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
 import axios from "axios";
+import { Rank, Timezone, User } from "../../types";
 // import url from "../../json/config";
 const api = process.env.REACT_APP_API;
 
 let token = window.localStorage.getItem("token");
 const config = { headers: { Authorization: `bearer ${token}` } };
 const links = ["signup", "signin", "forgot-password", "new-password", "verify"];
-export const getUser = createAsyncThunk("user/getUser", async () => {
+
+// Define the type for the user data
+interface UserData {
+  user: User;
+  timezone: Timezone
+  rank: Rank
+}
+
+// Define the type for the state
+interface UserState {
+  data: UserData;
+  loading: boolean;
+  error: boolean;
+}
+
+
+export const getUser = createAsyncThunk<UserData>("user/getUser", async () => {
   try {
     const res = await axios.get(`${api}/user/profile`, config);
-    const balance = res.data.data.rank.balance;
+    const {balance} = res.data.data.rank;
     const isDev = res.data.data?.user?.developer;
     const earned_amount = res.data.data?.rank?.earned_amount;
     window.localStorage.setItem('earned_amount', earned_amount)
@@ -35,48 +52,37 @@ export const authSlice = createSlice({
   initialState: {
     data: {
       user: {},
-      timezone: { time: "" },
-      rank: { rankName: "" },
-      completed: [],
+      timezone: { time: "", today: "" },
+      rank: { rankName: "", balance: 0, earned_amount: 0, bonus_points: 0 },
     },
     loading: false,
     error: false,
-  },
+  } as UserState,
   reducers: {
     logoutAction: () => {
       localStorage.removeItem("token");
       window.location.href = "/signin";
     },
-    updateUserWalletId: (state, action) => {
+    updateUserWalletId: (state, action: PayloadAction<string> ) => {
       state.data = {
         ...state.data,
         rank: { ...state.data.rank, coinwallet_id: action.payload },
       };
     },
-    updateUserPoints: (state, action) => {
+    updateUserPoints: (state, action: PayloadAction<number>) => {
       state.data.rank.balance = action.payload;
     },
 
-    updateEarn: (state, action) => {
+    updateEarn: (state, action: PayloadAction<number>) => {
       state.data.rank.earned_amount = action.payload;
     },
 
-    updateProfile: (state, action) => {
-      // state.error = false
-      // state.loading = true
-      // axios.post(`${api}/user/profile`, action.payload, config).then((res) => {
-      //     // window.location.href = "/dashboard/profile"
-      //     state.loading = false
-      // }).catch((err) => {
-      //     state.error=true
-      //     state.loading=false
-      //     console.log(err)
-      // });
+    updateProfile: () => {
     },
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
-    builder.addCase(getUser.pending, (state, action) => {
+    builder.addCase(getUser.pending, (state) => {
       // Add user to the state array
       state.loading = true;
       state.error = false;
@@ -86,15 +92,15 @@ export const authSlice = createSlice({
       state.loading = false;
       state.data = action.payload;
     });
-    builder.addCase(getUser.rejected, (state, action) => {
+    builder.addCase(getUser.rejected, (state,) => {
       // Add user to the state array
       state.loading = false;
     });
   },
 });
 
-export const userSelectWalletID = (state) => state.user.data.rank.coinwallet_id;
-export const userSelectPoints = (state) => state.user.data.rank.balance;
+export const userSelectWalletID = (state: { user: { data: { rank: { coinwallet_id: string } } } }) => state.user.data.rank.coinwallet_id;
+export const userSelectPoints = (state: { user: { data: { rank: { balance: number } } } }) => state.user.data.rank.balance;
 
 export const {
   logoutAction,

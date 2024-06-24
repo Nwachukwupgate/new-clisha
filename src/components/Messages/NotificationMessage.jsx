@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { closeNotify } from "../../store/General";
 
 /*eslint-disable*/
 
-function NotificationMessage({ item }) {
+function NotificationMessage() {
   const message = useSelector((state) => state.general.message);
   const user = useSelector((state) => state.user.data?.user);
 

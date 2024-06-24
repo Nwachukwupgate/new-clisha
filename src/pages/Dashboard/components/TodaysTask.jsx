@@ -20,8 +20,8 @@ export const TaskCompleted = (props) => {
       }, 1000);
     });
   };
-  const item = props.item;
-  const isModal = props.isModal;
+  const {item} = props;
+  const {isModal} = props;
 
   return (
     // Todo: fix completed task for all oloers of task

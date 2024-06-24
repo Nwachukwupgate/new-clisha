@@ -1,7 +1,7 @@
-import React from "react";
 import { useState } from "react";
 
-function AvailableBallance({ item }) {
+
+function AvailableBallance() {
   const [value, setValue] = useState(false);
   const setViews = () => {
     setValue(!value);

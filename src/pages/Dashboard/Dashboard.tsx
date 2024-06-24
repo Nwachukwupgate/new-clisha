@@ -1,30 +1,30 @@
-import moment from "moment";
-import React, { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Loading from "../../components/Alerts/Loading";
-import NotificationMessage from "../../components/Messages/NotificationMessage";
-import Header from "../../layouts/Header";
-import Sidebar from "../../layouts/Sidebar";
-import { apiCall } from "../../services/apiRequestManager";
-import CalenderCard from "./components/CalenderCard";
-import LoadTask from "./components/Load_Task";
-import Task from "./components/Task_Component";
-import TimeTraker from "./components/TimeTraker";
-import TodaysTask from "./components/TodaysTask";
-import Wallet from "./components/Wallet";
+import moment from 'moment';
+import { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Loading from '../../components/Alerts/Loading';
+import NotificationMessage from '../../components/Messages/NotificationMessage';
+import Header from '../../layouts/Header';
+import Sidebar from '../../layouts/Sidebar';
+import { apiCall } from '../../services/apiRequestManager';
+import { RootState } from '../../store/store';
+import { User } from '../../types';
+import CalenderCard from './components/CalenderCard';
+import LoadTask from './components/Load_Task';
+import Task from './components/Task_Component';
+import TimeTraker from './components/TimeTraker';
+import TodaysTask from './components/TodaysTask';
+import Wallet from './components/Wallet';
 
 function Dashboard() {
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.user.data);
-  const vendoPackage = useSelector((state) => state.wallet.vendoPackage);
-  const userLoading = useSelector((state) => state.user.loading);
-  const task = useSelector((state) => state.task.data);
-  const isProfile = window.localStorage.getItem("isProfile");
-
+  const user = useSelector((state: RootState) => state.user.data);
+  const vendoPackage = useSelector((state: RootState) => state.wallet.vendoPackage);
+  const userLoading = useSelector((state: RootState) => state.user.loading);
+  const task = useSelector((state: RootState) => state.task.data);
   const [isVqsClaimPeriod, setIsVqsClaimPeriod] = useState(false);
   const [isVqsClaimDay, setIsVqsClaimDay] = useState(false);
   const [isTransferVqsLoading, setIsTransferVqsLoading] = useState(false);
@@ -33,30 +33,27 @@ function Dashboard() {
   const [perProfile, setPerProfile] = useState(100);
 
   const goTask = useCallback(() => {
-    navigate("/dashboard/task");
+    navigate('/dashboard/task');
   }, [navigate]);
 
   const goToVendoUpgrade = useCallback(() => {
-    window.open(`${vendoDashboard}/upgrade`, "__blank");
+    window.open(`${vendoDashboard}/upgrade`, '__blank');
   }, [vendoDashboard]);
 
-  const date = useCallback(
-    () => moment(Date.now()).format("MMMM DD, YYYY"),
-    []
-  );
+  const date = useCallback(() => moment(Date.now()).format('MMMM DD, YYYY'), []);
 
   const profileCompletePercentage = useCallback(() => {
     let completed = 0;
-    const userEntries = [
-      "firstname",
-      "lastname",
-      "gender",
-      "birth_date",
-      "phone",
-      "country",
-      "language",
-      "region",
-      "photo",
+    const userEntries: (keyof User)[] = [
+      'firstname',
+      'lastname',
+      'gender',
+      'birth_date',
+      'phone',
+      'country',
+      'language',
+      'region',
+      'photo',
     ];
     userEntries.forEach((entry) => {
       if (user?.user[entry]) {
@@ -69,17 +66,18 @@ function Dashboard() {
     if (userInputs.length > 0) {
       // update user completed profile percentage
       setPerProfile(Math.round((completed / 9) * 100));
+  
     }
   }, [user]);
 
   const checkIfVQCliamPeriod = useCallback(() => {
     const dateArr = new Set();
-    const nowDate = moment(Date.now()).format("DD-MM-YYYY");
-    const lastDate = moment().endOf("month").format("DD-MM-YYYY");
+    const nowDate = moment(Date.now()).format('DD-MM-YYYY');
+    const lastDate = moment().endOf('month').format('DD-MM-YYYY');
 
     for (let x = 0; x <= 3; x++) {
-      const temp = moment().endOf("month").subtract(x, "d");
-      dateArr.add(temp.format("DD-MM-YYYY"));
+      const temp = moment().endOf('month').subtract(x, 'd');
+      dateArr.add(temp.format('DD-MM-YYYY'));
     }
 
     if (dateArr.has(nowDate)) {
@@ -90,33 +88,28 @@ function Dashboard() {
     }
   }, []);
 
-  const getUserVQForVendo = useCallback((vqs, percentage) => {
-    return (Number(vqs) * (Number(percentage) / 100)).toFixed(1);
+  const getUserVQForVendo = useCallback((vqs: number, percentage: number) => {
+    return (vqs * (percentage / 100)).toFixed(1);
   }, []);
 
   const transferUserVqsToVendo = useCallback(async () => {
     setIsTransferVqsLoading(true);
     try {
-      let token = window.localStorage.getItem("token");
+      let token = window.localStorage.getItem('token');
       const config = { headers: { Authorization: `bearer ${token}` } };
       const body = {
         clisha_id: user?.user?.clishaId,
         vqs: user?.rank?.bonus_points,
       };
 
-      const res = await apiCall(
-        `${vendo_api}/clisha-addkickback`,
-        "post",
-        body,
-        config
-      );
+      const res = await apiCall(`${vendo_api}/clisha-addkickback`, 'post', body, config);
 
       if (res?.status === 200) {
         toast.success(res?.message);
         window.location.reload();
       }
     } catch (err) {
-      toast.error(err?.message);
+      toast.error((err as Error)?.message);
     } finally {
       setIsTransferVqsLoading(false);
     }
@@ -150,7 +143,7 @@ function Dashboard() {
                     {isVqsClaimPeriod &&
                       vendoPackage?.status === 200 &&
                       user?.user?.vendoConnectStatus &&
-                      vendoPackage.data.package_level !== "No package" && (
+                      vendoPackage.data.package_level !== 'No package' && (
                         <div
                           className="alert shadow-sm rounded-x alert-warning alert-dismissible fade show"
                           role="alert"
@@ -167,61 +160,56 @@ function Dashboard() {
                           <div>
                             <p
                               className="text-dark"
-                              style={{ fontWeight: "700", marginBottom: "8px" }}
+                              style={{ fontWeight: '700', marginBottom: '8px' }}
                             >
-                              As a{" "}
-                              <b style={{ color: "red" }}>
-                                {vendoPackage?.data?.package_level === "proplus"
-                                  ? "Pro+"
+                              As a{' '}
+                              <b style={{ color: 'red' }}>
+                                {vendoPackage?.data?.package_level === 'proplus'
+                                  ? 'Pro+'
                                   : vendoPackage?.data?.package_level}
-                              </b>{" "}
-                              user, you currently have{" "}
+                              </b>{' '}
+                              user, you currently have{' '}
                               {getUserVQForVendo(
                                 user?.rank?.bonus_points,
                                 vendoPackage?.data?.vqRatio
-                              )}{" "}
+                              )}{' '}
                               VQs booked in the Vendo system.
                               {isVqsClaimDay
-                                ? " Claim Now"
-                                : " Upgrade your package to get more VQs or Claim Now."}
+                                ? ' Claim Now'
+                                : ' Upgrade your package to get more VQs or Claim Now.'}
                             </p>
 
                             <p
                               className="text-dark"
-                              style={{ fontWeight: "700", marginBottom: "8px" }}
+                              style={{ fontWeight: '700', marginBottom: '8px' }}
                             >
-                              You've earned{" "}
-                              {user?.rank?.bonus_points?.toFixed() ?? 0} VQs,
-                              and as a{" "}
-                              <b style={{ color: "red" }}>
-                                {vendoPackage?.data?.package_level === "proplus"
-                                  ? "Pro+"
+                              You've earned {user?.rank?.bonus_points?.toFixed() ?? 0} VQs, and as a{' '}
+                              <b style={{ color: 'red' }}>
+                                {vendoPackage?.data?.package_level === 'proplus'
+                                  ? 'Pro+'
                                   : vendoPackage?.data?.package_level}
-                              </b>{" "}
-                              user, you currently have access to{" "}
+                              </b>{' '}
+                              user, you currently have access to{' '}
                               {getUserVQForVendo(
                                 user?.rank?.bonus_points,
                                 vendoPackage?.data?.vqRatio
-                              )}{" "}
+                              )}{' '}
                               VQs.
                               {isVqsClaimDay
-                                ? " Claim additional VQs now."
-                                : " Upgrade your package to claim additional VQs."}
+                                ? ' Claim additional VQs now.'
+                                : ' Upgrade your package to claim additional VQs.'}
                             </p>
                           </div>
 
                           <div
                             style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              gap: "1rem",
+                              display: 'flex',
+                              flexDirection: 'row',
+                              gap: '1rem',
                             }}
                             className="authBtns"
                           >
-                            <button
-                              className=" btn btn-primary "
-                              onClick={goToVendoUpgrade}
-                            >
+                            <button className=" btn btn-primary " onClick={goToVendoUpgrade}>
                               Upgrade
                             </button>
                             {isVqsClaimDay && (
@@ -229,9 +217,7 @@ function Dashboard() {
                                 className=" btn btn-primary vendoBtn"
                                 onClick={transferUserVqsToVendo}
                               >
-                                {isTransferVqsLoading && (
-                                  <i className="fa fa-spinner fa-spin"></i>
-                                )}{" "}
+                                {isTransferVqsLoading && <i className="fa fa-spinner fa-spin"></i>}{' '}
                                 Claim bonus
                               </button>
                             )}
@@ -253,11 +239,11 @@ function Dashboard() {
                           <span className="sr-only">Close</span>
                         </button>
                         {!user?.user?.email_verified_at ? (
-                          <Link to={"/verify"} className="text-dark">
+                          <Link to={'/verify'} className="text-dark">
                             <b>Please verify your account here</b>
                           </Link>
                         ) : (
-                          <Link to={"/dashboard/profile"} className="text-dark">
+                          <Link to={'/dashboard/profile'} className="text-dark">
                             <b>Please update your profile here</b>
                           </Link>
                         )}
@@ -265,7 +251,7 @@ function Dashboard() {
                           <span>
                             You are
                             <strong className="badge badge-pill badge-warning mx-2">
-                              {isProfile ? perProfile : 0}%
+                              { perProfile }%
                             </strong>
                             done
                           </span>
@@ -273,34 +259,23 @@ function Dashboard() {
                       </div>
                     )}
                     <div className="nav-link point d-block d-md-none m-0 p-0 py-3 shadow-m px-2 rounded my-2 bg-light">
-                      <small className="d-block text-secondary pb-2">
-                        Total Coin
-                      </small>
-                      <img
-                        src="/images/point.png"
-                        className="mail mr-2 "
-                        alt=""
-                      />
-                      <span className="text-dark b">
-                        {user && user?.rank?.balance} PTS
-                      </span>
+                      <small className="d-block text-secondary pb-2">Total Coin</small>
+                      <img src="/images/point.png" className="mail mr-2 " alt="" />
+                      <span className="text-dark b">{user && user?.rank?.balance} PTS</span>
                     </div>
                     <span className="text-muted font-weight-bold  text-capitalize">
                       hello, {user?.user?.username}!
                     </span>
                     <h4 className=" text-capitalize mt-3 text-secondary">
-                      You’ve got{" "}
-                      {task?.totalItems && task?.totalItems !== "Undefined"
-                        ? task?.totalItems + " tasks Today"
-                        : " no task yet"}
+                      You’ve got{' '}
+                      {/* {task?.totalItems && task?.totalItems !== 'Undefined'
+                        ? task?.totalItems + ' tasks Today'
+                        : ' no task yet'} */}
                     </h4>
                   </div>
 
                   <div className="seacrh_box mb-3  d-none">
-                    <i
-                      className="fa fa-search text-muted"
-                      aria-hidden="true"
-                    ></i>
+                    <i className="fa fa-search text-muted" aria-hidden="true"></i>
                     <input
                       type="text"
                       placeholder="Search something..."
@@ -331,11 +306,9 @@ function Dashboard() {
                     <div className="col-6">
                       {user?.timezone?.time && (
                         <span>
-                          {date()} -{" "}
+                          {date()} -{' '}
                           {`${user?.timezone?.time} ${
-                            parseInt(user?.timezone?.time.split(":")[0]) > 12
-                              ? "pm"
-                              : "am"
+                            parseInt(user?.timezone?.time.split(':')[0]) > 12 ? 'pm' : 'am'
                           }`}
                         </span>
                       )}

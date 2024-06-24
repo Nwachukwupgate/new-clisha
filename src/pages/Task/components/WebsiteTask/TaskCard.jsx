@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Countdown from "react-countdown";
-import { getTaskWebsite } from "../../../../store/Task/index.js";
 import { useDispatch } from "react-redux";
-import Pagination from "../../../../components/Pagination";
 import { useNavigate } from "react-router-dom";
-import WebsiteClick from "./WebsiteClick.jsx";
-import renderer from "../../../../utils/Renderer/index.js";
 import { ToastContainer } from "react-toastify";
+import Pagination from "../../../../components/Pagination";
+import { getTaskWebsite } from "../../../../store/Task/index.ts";
+import renderer from "../../../../utils/Renderer/index.js";
+import WebsiteClick from "./WebsiteClick.jsx";
 
 function TaskCard(props) {
   const navigate = useNavigate();
@@ -87,14 +87,12 @@ function TaskCard(props) {
       <div className={`row m-0   taskCards p-0 `}>
         {list &&
           list?.task?.tasks?.map((item, index) => (
-            <>
-              <WebsiteClick
+            <WebsiteClick
                 item={item}
                 index={index}
                 key={index}
                 loadLink={loadLink}
               />
-            </>
           ))}
       </div>
 

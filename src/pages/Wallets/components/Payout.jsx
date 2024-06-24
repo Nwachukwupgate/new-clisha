@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { userSelectPoints, userSelectWalletID } from "../../../store/Auth/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { pointsToDollar } from "../../../utils/functions/functions";

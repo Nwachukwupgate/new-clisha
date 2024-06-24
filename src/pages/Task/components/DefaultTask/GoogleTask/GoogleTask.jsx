@@ -1,4 +1,3 @@
-import React from "react";
 import "react-toastify/dist/ReactToastify.css";
 import Popup from "../../../../../components/Popup";
 import TaskCopy from "../../TaskCards/TaskCopy";
