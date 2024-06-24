@@ -25,31 +25,13 @@ import Signin from "../pages/Auth/Signin";
 import RewardApp from "../components/Reward";
 import AuthLayouts from "../layouts/AuthLayouts";
 import ToastMsg from "../components/Alerts/ToastMsg";
-// import { Helmet } from "react-helmet";
 import Notification from "../pages/Notification";
 import Wallets from "../pages/Wallets";
 import EmailVerification from "../pages/Auth/EmailVerification";
+
 function Router() {
   return (
     <div className="w-100">
-      {/* <Helmet>
-        <meta charSet="utf-8" />
-        <title>Clisha</title>
-        <meta
-          name="description"
-          content="clisha Click, Like, Share, and get profits from the companies."
-        />
-        <link rel="canonical" href="https://clisha.me" />
-      </Helmet> */}
-      {/* <div class="alert text-center alert-info alert-dismissible fade show d-fixed mb-0 " role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <span>
-                    <strong> Hello!,</strong>  Please we will be updating the application <b>(at 15:00 Today(GMT))</b>
-                </span>
-            </div>
-           */}
       <BrowserRouter>
         <Routes>
           {/* Protected Route start */}

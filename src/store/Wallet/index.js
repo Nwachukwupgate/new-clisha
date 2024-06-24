@@ -1,18 +1,19 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { toast } from "react-toastify";
-import { updateUserPoints, updateUserWalletId } from "../Auth/auth";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { updateUserPoints, updateUserWalletId } from '../Auth/auth';
+
 const api = process.env.REACT_APP_API_COMMERCE;
 const api1 = process.env.REACT_APP_API;
 
-const token = window.localStorage.getItem("token");
+const token = window.localStorage.getItem('token');
 
 const initialState = {
-  addWalletStatus: "idle",
-  payoutStatus: "idle",
-  packageStatus: "idle",
+  addWalletStatus: 'idle',
+  payoutStatus: 'idle',
+  packageStatus: 'idle',
   error: {},
-  walletInput: "",
+  walletInput: '',
   transactions: {
     status: false,
     data: {
@@ -21,14 +22,14 @@ const initialState = {
       totalPages: 0,
       transactions: [],
     },
-    message: "",
+    message: '',
   },
   wallet: {
     status: false,
     data: { wallet: {}, pendings: {} },
-    message: "",
+    message: '',
   },
-  vendoPackage: { status: false, data: { packages: [] }, message: "" },
+  vendoPackage: { status: false, data: { packages: [] }, message: '' },
 };
 
 const config = {
@@ -38,13 +39,13 @@ const config = {
 };
 
 export const updateWalletAddress = createAsyncThunk(
-  "wallet/update",
+  'wallet/update',
   async (wallet, { dispatch, getState }) => {
     try {
       const { data } = await axios.post(
         `${api}/wallet/create`,
         {
-          payment_method: "coinpayment", // temporarily static
+          payment_method: 'coinpayment', // temporarily static
           wallet_address: wallet,
         },
         config
@@ -53,7 +54,7 @@ export const updateWalletAddress = createAsyncThunk(
       return data;
     } catch (err) {
       return {
-        title: "Could not update wallet",
+        title: 'Could not update wallet',
         errorMsg: err?.response?.data?.message ?? err.message,
       };
     }
@@ -61,7 +62,7 @@ export const updateWalletAddress = createAsyncThunk(
 );
 
 export const requestPayout = createAsyncThunk(
-  "wallet/payout",
+  'wallet/payout',
   async ({ amount, points }, { dispatch, getState }) => {
     try {
       const userPoints = getState().user.data.rank.balance;
@@ -69,24 +70,20 @@ export const requestPayout = createAsyncThunk(
       const { data } = await axios.post(
         `${api}/wallet/create/transaction`,
         {
-          payment_method: "coinpayment", // temporarily static
+          payment_method: 'coinpayment', // temporarily static
           amount: userAmount,
-          currency: "$USD",
+          currency: '$USD',
         },
         config
       );
       // update the transactions list
       dispatch(updateWalletTransactions(data.data.transaction));
       // deduct the requested points
-      dispatch(
-        updateUserPoints(
-          (parseFloat(userPoints) - parseFloat(points)).toFixed(1)
-        )
-      );
+      dispatch(updateUserPoints((parseFloat(userPoints) - parseFloat(points)).toFixed(1)));
       return data;
     } catch (err) {
       return {
-        title: "Could not request payout",
+        title: 'Could not request payout',
         errorMsg: err.message,
       };
     }
@@ -94,17 +91,14 @@ export const requestPayout = createAsyncThunk(
 );
 
 export const fetchWalletTransactions = createAsyncThunk(
-  "wallet/transactions",
+  'wallet/transactions',
   async ({ page }, { dispatch, getState }) => {
     try {
-      const { data } = await axios.get(
-        `${api}/wallet/transactions?page=${page}&size=10`,
-        config
-      );
+      const { data } = await axios.get(`${api}/wallet/transactions?page=${page}&size=10`, config);
       return data;
     } catch (err) {
       return {
-        title: "Could not fetch transactions",
+        title: 'Could not fetch transactions',
         errorMsg: err.message,
       };
     }
@@ -112,17 +106,14 @@ export const fetchWalletTransactions = createAsyncThunk(
 );
 
 export const fetchVendoPackageInfo = createAsyncThunk(
-  "wallet/package",
+  'wallet/package',
   async (emptyArg, { dispatch, getState }) => {
     try {
-      const { data } = await axios.get(
-        `${api1}/user/vendo/package-info`,
-        config
-      );
+      const { data } = await axios.get(`${api1}/user/vendo/package-info`, config);
       return data;
     } catch (err) {
       return {
-        title: "Could not fetch package info",
+        title: 'Could not fetch package info',
         errorMsg: err.message,
       };
     }
@@ -130,7 +121,7 @@ export const fetchVendoPackageInfo = createAsyncThunk(
 );
 
 const walletSlice = createSlice({
-  name: "wallet",
+  name: 'wallet',
   initialState,
   reducers: {
     updateWalletInput(state, action) {
@@ -142,90 +133,91 @@ const walletSlice = createSlice({
       state.transactions.data.totalPages = action.payload.totalPages;
     },
     updateWalletTransactions(state, action) {
-      state.transactions.data.transactions =
-        state.transactions.data.transactions.concat(action.payload);
+      state.transactions.data.transactions = state.transactions.data.transactions.concat(
+        action.payload
+      );
     },
   },
   extraReducers(builder) {
     builder
       .addCase(updateWalletAddress.pending, (state, action) => {
-        state.addWalletStatus = "loading";
+        state.addWalletStatus = 'loading';
         state.error = {};
       })
       .addCase(updateWalletAddress.fulfilled, (state, action) => {
         if (action.payload.errorMsg) {
-          state.addWalletStatus = "failed";
+          state.addWalletStatus = 'failed';
           state.error = action.payload;
           toast.error(action.payload.errorMsg);
         } else {
-          state.addWalletStatus = "succeeded";
+          state.addWalletStatus = 'succeeded';
           state.error = {};
-          state.walletInput = "";
-          toast.success("Wallet Added successfully!");
+          state.walletInput = '';
+          toast.success('Wallet Added successfully!');
         }
       })
       .addCase(updateWalletAddress.rejected, (state, action) => {
-        state.addWalletStatus = "failed";
+        state.addWalletStatus = 'failed';
         state.error = action.payload;
         toast.error(action.payload.title);
       })
       .addCase(requestPayout.pending, (state, action) => {
-        state.payoutStatus = "loading";
+        state.payoutStatus = 'loading';
         state.error = {};
       })
       .addCase(requestPayout.fulfilled, (state, action) => {
         if (action.payload.errorMsg) {
-          state.payoutStatus = "failed";
+          state.payoutStatus = 'failed';
           state.error = action.payload;
           toast.error(action.payload.title);
         } else {
-          state.payoutStatus = "succeeded";
+          state.payoutStatus = 'succeeded';
           state.error = {};
           toast.success(action.payload.message);
         }
       })
       .addCase(requestPayout.rejected, (state, action) => {
-        state.payoutStatus = "failed";
+        state.payoutStatus = 'failed';
         state.error = action.payload;
         toast.error(action.payload.title);
       })
       .addCase(fetchWalletTransactions.pending, (state, action) => {
-        state.payoutStatus = "loading";
+        state.payoutStatus = 'loading';
         state.error = {};
       })
       .addCase(fetchWalletTransactions.fulfilled, (state, action) => {
         if (action.payload.errorMsg) {
-          state.payoutStatus = "failed";
+          state.payoutStatus = 'failed';
           state.error = action.payload;
           //   toast.error(action.payload.title);
         } else {
-          state.payoutStatus = "succeeded";
+          state.payoutStatus = 'succeeded';
           state.error = {};
           state.transactions = action.payload;
           //   toast.success("Payout request successfully sent!");
         }
       })
       .addCase(fetchWalletTransactions.rejected, (state, action) => {
-        state.payoutStatus = "failed";
+        state.payoutStatus = 'failed';
         state.error = action.payload;
         // toast.error(action.payload.title);
       })
       .addCase(fetchVendoPackageInfo.pending, (state, action) => {
-        state.packageStatus = "loading";
+        state.packageStatus = 'loading';
         state.error = {};
       })
       .addCase(fetchVendoPackageInfo.fulfilled, (state, action) => {
         if (action.payload.errorMsg) {
-          state.packageStatus = "failed";
+          state.packageStatus = 'failed';
           state.error = action.payload;
         } else {
-          state.packageStatus = "succeeded";
+          state.packageStatus = 'succeeded';
           state.error = {};
           state.vendoPackage = action.payload;
         }
       })
       .addCase(fetchVendoPackageInfo.rejected, (state, action) => {
-        state.packageStatus = "failed";
+        state.packageStatus = 'failed';
         state.error = action.payload;
       });
   },
@@ -236,10 +228,8 @@ export const walletSelectPayoutStatus = (state) => state.wallet.payoutStatus;
 export const walletSelectError = (state) => state.wallet.error;
 export const walletSelectSuccess = (state) => state.wallet.success;
 export const walletSelectWalletInput = (state) => state.wallet.walletInput;
-export const walletSelectTransactions = (state) =>
-  state.wallet.transactions.data;
+export const walletSelectTransactions = (state) => state.wallet.transactions.data;
 
-export const { updateWalletInput, updateWalletTransactions } =
-  walletSlice.actions;
+export const { updateWalletInput, updateWalletTransactions } = walletSlice.actions;
 
 export default walletSlice.reducer;

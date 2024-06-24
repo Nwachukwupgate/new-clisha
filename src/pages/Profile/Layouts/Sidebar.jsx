@@ -7,7 +7,7 @@ function Sidebar(props) {
   const navigate = useNavigate();
 
   const user = props?.user;
-  let width = window.screen.width;
+  let {width} = window.screen;
   const uri = window.location.pathname.includes("profile-image") ? true : false;
 
   useEffect(() => {

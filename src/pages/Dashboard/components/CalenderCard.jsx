@@ -27,7 +27,7 @@ const CalenderCard = () => {
   });
 
   const setDateFunc = (e) => {
-    const value = e.target.value;
+    const {value} = e.target;
     setDate({
       ...date,
       [e.target.name]: value,
