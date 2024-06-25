@@ -39,8 +39,7 @@ export interface User {
   vendoEmail: string;
 }
 
-
-export  interface Rank {
+export interface Rank {
   UserId: number;
   balance: number;
   bonus_eligibility: boolean;
@@ -84,11 +83,10 @@ export interface AxiosError {
   message: string;
 }
 
-
-export interface MessageType  {
+export interface MessageType {
   id: string;
   message_english: string;
   message_deutsch?: string;
   message_french?: string;
   message_portuguese?: string;
-};
+}

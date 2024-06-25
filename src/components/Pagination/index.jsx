@@ -1,13 +1,12 @@
-import React from "react";
-import ReactPaginate from "react-paginate";
+import ReactPaginate from 'react-paginate';
 
 function Pagination({ pageCount, onPageChange, pageRangeDisplayed, justify }) {
   return (
     <nav className="text-center" aria-label="Page navigation example">
       <ReactPaginate
-        previousLabel={""}
-        nextLabel={""}
-        breakLabel={""}
+        previousLabel=""
+        nextLabel=""
+        breakLabel=""
         pageCount={pageCount}
         onPageChange={onPageChange}
         pageRangeDisplayed={pageRangeDisplayed}

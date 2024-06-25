@@ -1,22 +1,22 @@
-import React, { useCallback, useEffect } from "react";
-import Header from "../../layouts/Header";
-import Sidebar from "../../layouts/Sidebar";
-import Welcome from "../../components/Welcome/Welcome";
-import "react-calendar/dist/Calendar.css";
-import GeneralTask from "./components/DefaultTask/GeneralTask";
-import TaskCard from "./components/WebsiteTask/TaskCard";
-import TaskCard2 from "./components/GoogleTask/TaskCard2";
-import TaskCard3 from "./components/JourneyTask/TaskCard3";
-import TaskCard4 from "./components/SearchJourneyTask/TaskCard4";
-import { useDispatch, useSelector } from "react-redux";
-import Loading from "../../components/Alerts/Loading";
+import { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Header from '../../layouts/Header';
+import Sidebar from '../../layouts/Sidebar';
+import Welcome from '../../components/Welcome/Welcome';
+import 'react-calendar/dist/Calendar.css';
+import GeneralTask from './components/DefaultTask/GeneralTask';
+import TaskCard from './components/WebsiteTask/TaskCard';
+import TaskCard2 from './components/GoogleTask/TaskCard2';
+import TaskCard3 from './components/JourneyTask/TaskCard3';
+import TaskCard4 from './components/SearchJourneyTask/TaskCard4';
+import Loading from '../../components/Alerts/Loading';
 import {
   getTask,
   getTaskGoogle,
   getTaskJourney,
   getTaskSearchJourney,
   getTaskWebsite,
-} from "../../store/Task";
+} from '../../store/Task';
 
 function Task() {
   const task = useSelector((state) => state.task.data);
@@ -25,15 +25,9 @@ function Task() {
   const journey = useSelector((state) => state.task.journey);
   const search_journey = useSelector((state) => state.task.search_journey);
   const getTaskLoading = useSelector((state) => state.task.getTaskLoading);
-  const getTaskWebsiteLoading = useSelector(
-    (state) => state.task.getTaskWebsiteLoading
-  );
-  const getTaskGoogleLoading = useSelector(
-    (state) => state.task.getTaskGoogleLoading
-  );
-  const getTaskJourneyLoading = useSelector(
-    (state) => state.task.getTaskJourneyLoading
-  );
+  const getTaskWebsiteLoading = useSelector((state) => state.task.getTaskWebsiteLoading);
+  const getTaskGoogleLoading = useSelector((state) => state.task.getTaskGoogleLoading);
+  const getTaskJourneyLoading = useSelector((state) => state.task.getTaskJourneyLoading);
   const getTaskSearchJourneyLoading = useSelector(
     (state) => state.task.getTaskSearchJourneyLoading
   );
@@ -68,7 +62,7 @@ function Task() {
           </div>
           <div className="col-md-8 col-lg-10 py-3 scroll-bg bg-white p-0 p-md-3">
             <div className="container">
-              <Welcome welcome={"Your Tasks"} />
+              <Welcome welcome="Your Tasks" />
               <nav>
                 <div
                   className="nav nav-tabs justify-content-center my_task_nav"
@@ -85,7 +79,7 @@ function Task() {
                     aria-selected="true"
                   >
                     <span className="  d-none d-md-block">All Task</span>
-                    <i className="fa fa-tags  d-md-none" aria-hidden="true"></i>
+                    <i className="fa fa-tags  d-md-none" aria-hidden="true" />
                   </a>
                   <a
                     className="nav-link text-blue"
@@ -97,10 +91,7 @@ function Task() {
                     aria-selected="false"
                   >
                     <span className="  d-none d-md-block">Website Task</span>
-                    <i
-                      className="fa fa-globe  d-md-none"
-                      aria-hidden="true"
-                    ></i>
+                    <i className="fa fa-globe  d-md-none" aria-hidden="true" />
                   </a>
                   <a
                     className="nav-link text-blue"
@@ -112,10 +103,7 @@ function Task() {
                     aria-selected="false"
                   >
                     <span className="d-none d-md-block">Google Task</span>
-                    <i
-                      className="fa fa-search  d-md-none "
-                      aria-hidden="true"
-                    ></i>
+                    <i className="fa fa-search  d-md-none " aria-hidden="true" />
                   </a>
                   <a
                     className="nav-link text-blue"
@@ -127,10 +115,7 @@ function Task() {
                     aria-selected="false"
                   >
                     <span className="  d-none d-md-block">Journey Task</span>
-                    <i
-                      className="fa fa-search fa-rocket  d-md-none "
-                      aria-hidden="true"
-                    ></i>
+                    <i className="fa fa-search fa-rocket  d-md-none " aria-hidden="true" />
                   </a>
                   <a
                     className="nav-link text-blue"
@@ -142,7 +127,7 @@ function Task() {
                     aria-selected="false"
                   >
                     <span className="d-none d-md-block">Search Journey</span>
-                    <i className="fas fa-vr-cardboard d-md-none"></i>
+                    <i className="fas fa-vr-cardboard d-md-none" />
                   </a>
                 </div>
               </nav>

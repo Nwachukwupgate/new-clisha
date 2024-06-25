@@ -1,9 +1,9 @@
-import { useDispatch } from "react-redux";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Pagination from "../../../../components/Pagination";
-import { getTaskJourney } from "../../../../store/Task/index.ts";
-import JourneyClick from "./JourneyClick.jsx";
+import { useDispatch } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Pagination from '../../../../components/Pagination';
+import { getTaskJourney } from '../../../../store/Task/index';
+import JourneyClick from './JourneyClick';
 
 function TaskCard2(props) {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ function TaskCard2(props) {
 
   const handlePageClick = (event) => {
     const newItems = event.selected + 1;
-    dispatch(getTaskJourney({ page: newItems, types: "journey" }));
+    dispatch(getTaskJourney({ page: newItems, types: 'journey' }));
   };
 
   return (
@@ -25,7 +25,7 @@ function TaskCard2(props) {
           />
         </div>
       ) : (
-        ""
+        ''
       )}
 
       <div className={`row m-0   taskCards p-0 `}>
@@ -44,9 +44,9 @@ function TaskCard2(props) {
         position="bottom-center"
         autoClose={4993}
         hideProgressBar={false}
-        closeOnClick={true}
+        closeOnClick
         pauseOnHover={false}
-        draggable={true}
+        draggable
         progress={undefined}
       />
       {list?.task?.totalPages ? (
@@ -54,10 +54,10 @@ function TaskCard2(props) {
           pageCount={list?.task?.totalPages}
           onPageChange={handlePageClick}
           pageRangeDisplayed={9}
-          justify={"center"}
+          justify="center"
         />
       ) : (
-        ""
+        ''
       )}
     </div>
   );

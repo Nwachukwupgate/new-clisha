@@ -1,13 +1,13 @@
-import axios from "axios";
-import moment from "moment/moment";
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import axios from 'axios';
+import moment from 'moment/moment';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 function Bonus() {
   const sound = new Audio();
   const [accepted, setAccepted] = useState(false);
-  let token = window.localStorage.getItem("token");
+  const token = window.localStorage.getItem('token');
   const config = { headers: { Authorization: `bearer ${token}` } };
   const api = process.env.REACT_APP_API;
   const user = useSelector((state) => state.user.data);
@@ -20,36 +20,35 @@ function Bonus() {
         `${api}/contact`,
         {
           email: user?.user?.email,
-          subject: "Congratulations, Your Bonus from Vendo!",
+          subject: 'Congratulations, Your Bonus from Vendo!',
           message: `${user?.user?.email} Deserve a Congratulations gift from Vendo, End of the year package`,
         },
         config
       )
       .then((result) => {
-        toast.success(
-          "Message sent successfully!, We will respond within 24hours"
-        );
-        window.localStorage.setItem("bClaimed", false);
-        sound.src = "/audio/success.mp3";
+        toast.success('Message sent successfully!, We will respond within 24hours');
+        window.localStorage.setItem('bClaimed', false);
+        sound.src = '/audio/success.mp3';
         sound.play();
         setTimeout(() => {
           window.location.reload();
         }, 3000);
       })
       .catch((err) => {
-        toast.error("Message was not sent");
+        toast.error('Message was not sent');
       });
   };
-  console.log(task?.tasks?.length);
+
   useEffect(() => {
-    const bClaimed = window.localStorage.getItem("bClaimed");
-    const today = moment(Date.now()).format("DD/MM/YYYY");
-    if (today === "31/12/2022" && !bClaimed && !task?.tasks?.length) {
+    const bClaimed = window.localStorage.getItem('bClaimed');
+    const today = moment(Date.now()).format('DD/MM/YYYY');
+    if (today === '31/12/2022' && !bClaimed && !task?.tasks?.length) {
       window.onload = () => {
         document.querySelector('[data-target="#bonusModal"]').click();
       };
     }
-  }, []);
+  }, [task?.tasks?.length]);
+
   return (
     <div>
       <button
@@ -91,20 +90,11 @@ function Bonus() {
                   </div>
                   <div className="inputPot">
                     <label htmlFor="name">EMAIL</label>
-                    <input
-                      type="text"
-                      readOnly
-                      name="email"
-                      value={data?.email}
-                    />
+                    <input type="text" readOnly name="email" value={data?.email} />
                   </div>
 
                   <div className="btnPot">
-                    <button
-                      className="btn"
-                      type="button"
-                      onClick={() => claimBonus()}
-                    >
+                    <button className="btn" type="button" onClick={() => claimBonus()}>
                       Claim Now
                     </button>
                   </div>

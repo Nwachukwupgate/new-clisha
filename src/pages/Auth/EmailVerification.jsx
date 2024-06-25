@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useCallback } from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useCallback } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export default function EmailVerification() {
   const auth_api = process.env.REACT_APP_AUTH;
@@ -9,26 +9,26 @@ export default function EmailVerification() {
   const navigate = useNavigate();
 
   const verifyEmail = useCallback(() => {
-    const _token = query.get("token");
+    const _token = query.get('token');
 
     if (_token) {
       axios
         .get(`${auth_api}/confirm/${_token}`)
         .then((res) => {
-            console.log(res.data)
+          console.log(res.data);
           if (res.data.status === 200) {
-            toast.success("Email verified successfully");
-            navigate("/signin");
+            toast.success('Email verified successfully');
+            navigate('/signin');
           } else {
             toast.error(res.data.message);
           }
         })
         .catch((err) => {
           toast.error(err.response.data.message);
-          navigate("/signin");
+          navigate('/signin');
         });
     } else {
-      navigate("/signin");
+      navigate('/signin');
     }
   }, [auth_api, query, navigate]);
 
@@ -39,22 +39,22 @@ export default function EmailVerification() {
   return (
     <div
       className="signupform text-center p-lg-3 pt-5 mt-5 d-flex flex-column align-items-center justify-content-center"
-      style={{ height: "80vh" }}
+      style={{ height: '80vh' }}
     >
       <div className="dot-spinner">
-        <div className="dot-spinner__dot"></div>
-        <div className="dot-spinner__dot"></div>
-        <div className="dot-spinner__dot"></div>
-        <div className="dot-spinner__dot"></div>
-        <div className="dot-spinner__dot"></div>
-        <div className="dot-spinner__dot"></div>
-        <div className="dot-spinner__dot"></div>
-        <div className="dot-spinner__dot"></div>
+        <div className="dot-spinner__dot" />
+        <div className="dot-spinner__dot" />
+        <div className="dot-spinner__dot" />
+        <div className="dot-spinner__dot" />
+        <div className="dot-spinner__dot" />
+        <div className="dot-spinner__dot" />
+        <div className="dot-spinner__dot" />
+        <div className="dot-spinner__dot" />
       </div>
       <p className="py-4 text-muted">
-        We're verifying your account to ensure everything is in order. Please
+        {`We're verifying your account to ensure everything is in order. Please
         stay with us, this won't take long! You'll be automatically redirected
-        to the login page shortly.
+        to the login page shortly.`}
       </p>
     </div>
   );

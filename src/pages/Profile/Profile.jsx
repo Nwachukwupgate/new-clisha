@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import ShowProfile from "./components/ShowProfile";
-import EditProfile from "./components/EditProfile";
-import Header from "../../layouts/Header";
-import Sidebar from "./Layouts/Sidebar";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import ShowProfile from './components/ShowProfile';
+import EditProfile from './components/EditProfile';
+import Header from '../../layouts/Header';
+import Sidebar from './Layouts/Sidebar';
 
 function Profile() {
   const user = useSelector((state) => state.user.data);
   const [isEditable, setisEditable] = useState(false);
-  window.localStorage.setItem("isProfile", true);
+  window.localStorage.setItem('isProfile', true);
 
   return (
     <div className="body-content">
@@ -21,18 +21,15 @@ function Profile() {
           </div>
           <div className="col-md-8 col-lg-9 scroll-bg mx-auto py-3 bg-white p-0 p-md-3">
             <div className="container">
-              <Link
-                to="/dashboard"
-                className="navigator d-none d-md-block text-dark small link"
-              >
-                <i className="fa fa-long-arrow-left " aria-hidden="true"></i>
+              <Link to="/dashboard" className="navigator d-none d-md-block text-dark small link">
+                <i className="fa fa-long-arrow-left " aria-hidden="true" />
                 <span> Back to Dashboard</span>
               </Link>
               <Link
                 to="/dashboard/profile-image"
                 className="navigator d-block d-md-none text-dark small link"
               >
-                <i className="fa fa-long-arrow-left " aria-hidden="true"></i>
+                <i className="fa fa-long-arrow-left " aria-hidden="true" />
                 <span> Show Profle Photo</span>
               </Link>
 
@@ -41,15 +38,13 @@ function Profile() {
                   <b>{user?.user?.username}</b>
                   {user?.user?.hometown && (
                     <small>
-                      <i className="fa fa-map-marker text-danger ml-2 mr-1"></i>
+                      <i className="fa fa-map-marker text-danger ml-2 mr-1" />
                       <span>{user?.user?.hometown}</span>
                     </small>
                   )}
                   <span className="d-block ">
                     {/* Real Estate Broker */}
-                    <small className="bg-warning ml-2 rounded p-1 b">
-                      {user?.rank?.rankName}
-                    </small>
+                    <small className="bg-warning ml-2 rounded p-1 b">{user?.rank?.rankName}</small>
                   </span>
                 </p>
                 <p className="col-md-6  text-md-right text-left p-0 p-md-2">
@@ -72,12 +67,8 @@ function Profile() {
                 </p>
               </div>
               <div className="body">
-                {!isEditable && (
-                  <ShowProfile user={user} isEditable={isEditable} />
-                )}
-                {isEditable && (
-                  <EditProfile user={user} isEditable={isEditable} />
-                )}
+                {!isEditable && <ShowProfile user={user} isEditable={isEditable} />}
+                {isEditable && <EditProfile user={user} isEditable={isEditable} />}
               </div>
             </div>
           </div>

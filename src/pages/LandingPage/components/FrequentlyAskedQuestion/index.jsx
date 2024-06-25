@@ -1,15 +1,12 @@
-import React from 'react'
-
 function index() {
   return (
-
-    <div className="plan py-5 faq" >
+    <div className="plan py-5 faq">
       <div className="container  text-center mt-3">
         <h2
           className="faq-txt"
           data-aos="fade-right"
           data-aos-duration="1000"
-        // data-aos-delay="600"
+          // data-aos-delay="600"
         >
           <b>Frequintly Asked Questions</b>
         </h2>
@@ -17,20 +14,17 @@ function index() {
           className="col-md-8 m-auto"
           data-aos="fade-up-right"
           data-aos-duration="1000"
-        // data-aos-delay="600"
+          // data-aos-delay="600"
         >
           Have Questions? We’re here to help
         </p>
         <div className="input-box col-md-8 m-auto">
-          <i className="fa fa-search" aria-hidden="true"></i>
+          <i className="fa fa-search" aria-hidden="true" />
           <input type="text" placeholder="Search" />
         </div>
 
         {/* faq body */}
-        <div
-          className="accordion text-left col-lg-10 mx-auto "
-          id="accordionExample"
-        >
+        <div className="accordion text-left col-lg-10 mx-auto " id="accordionExample">
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingOne">
               <button
@@ -51,13 +45,12 @@ function index() {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                Nam id mi sollicitudin magna dictum pellentesque non ac purus.
-                Etiam leo nibh, finibus eget porttitor sit amet, consequat ac
-                lacus. Quisque ornare, arcu quis lacinia hendrerit, quam metus
-                hendrerit mauris, sit amet luctus turpis sem nec diam. Aliquam
-                feugiat nibh tortor, a varius leo tristique nec. Curabitur
-                dignissim aliquet erat, in elementum nisi dignissim nec.
-                Curabitur id vulputate elit, a pulvinar felis.
+                Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh,
+                finibus eget porttitor sit amet, consequat ac lacus. Quisque ornare, arcu quis
+                lacinia hendrerit, quam metus hendrerit mauris, sit amet luctus turpis sem nec diam.
+                Aliquam feugiat nibh tortor, a varius leo tristique nec. Curabitur dignissim aliquet
+                erat, in elementum nisi dignissim nec. Curabitur id vulputate elit, a pulvinar
+                felis.
               </div>
             </div>
           </div>
@@ -81,13 +74,12 @@ function index() {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                Nam id mi sollicitudin magna dictum pellentesque non ac purus.
-                Etiam leo nibh, finibus eget porttitor sit amet, consequat ac
-                lacus. Quisque ornare, arcu quis lacinia hendrerit, quam metus
-                hendrerit mauris, sit amet luctus turpis sem nec diam. Aliquam
-                feugiat nibh tortor, a varius leo tristique nec. Curabitur
-                dignissim aliquet erat, in elementum nisi dignissim nec.
-                Curabitur id vulputate elit, a pulvinar felis.
+                Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh,
+                finibus eget porttitor sit amet, consequat ac lacus. Quisque ornare, arcu quis
+                lacinia hendrerit, quam metus hendrerit mauris, sit amet luctus turpis sem nec diam.
+                Aliquam feugiat nibh tortor, a varius leo tristique nec. Curabitur dignissim aliquet
+                erat, in elementum nisi dignissim nec. Curabitur id vulputate elit, a pulvinar
+                felis.
               </div>
             </div>
           </div>
@@ -111,13 +103,12 @@ function index() {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                Nam id mi sollicitudin magna dictum pellentesque non ac purus.
-                Etiam leo nibh, finibus eget porttitor sit amet, consequat ac
-                lacus. Quisque ornare, arcu quis lacinia hendrerit, quam metus
-                hendrerit mauris, sit amet luctus turpis sem nec diam. Aliquam
-                feugiat nibh tortor, a varius leo tristique nec. Curabitur
-                dignissim aliquet erat, in elementum nisi dignissim nec.
-                Curabitur id vulputate elit, a pulvinar felis.
+                Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh,
+                finibus eget porttitor sit amet, consequat ac lacus. Quisque ornare, arcu quis
+                lacinia hendrerit, quam metus hendrerit mauris, sit amet luctus turpis sem nec diam.
+                Aliquam feugiat nibh tortor, a varius leo tristique nec. Curabitur dignissim aliquet
+                erat, in elementum nisi dignissim nec. Curabitur id vulputate elit, a pulvinar
+                felis.
               </div>
             </div>
           </div>
@@ -142,13 +133,12 @@ function index() {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                Nam id mi sollicitudin magna dictum pellentesque non ac purus.
-                Etiam leo nibh, finibus eget porttitor sit amet, consequat ac
-                lacus. Quisque ornare, arcu quis lacinia hendrerit, quam metus
-                hendrerit mauris, sit amet luctus turpis sem nec diam. Aliquam
-                feugiat nibh tortor, a varius leo tristique nec. Curabitur
-                dignissim aliquet erat, in elementum nisi dignissim nec.
-                Curabitur id vulputate elit, a pulvinar felis.
+                Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh,
+                finibus eget porttitor sit amet, consequat ac lacus. Quisque ornare, arcu quis
+                lacinia hendrerit, quam metus hendrerit mauris, sit amet luctus turpis sem nec diam.
+                Aliquam feugiat nibh tortor, a varius leo tristique nec. Curabitur dignissim aliquet
+                erat, in elementum nisi dignissim nec. Curabitur id vulputate elit, a pulvinar
+                felis.
               </div>
             </div>
           </div>
@@ -173,13 +163,12 @@ function index() {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                Nam id mi sollicitudin magna dictum pellentesque non ac purus.
-                Etiam leo nibh, finibus eget porttitor sit amet, consequat ac
-                lacus. Quisque ornare, arcu quis lacinia hendrerit, quam metus
-                hendrerit mauris, sit amet luctus turpis sem nec diam. Aliquam
-                feugiat nibh tortor, a varius leo tristique nec. Curabitur
-                dignissim aliquet erat, in elementum nisi dignissim nec.
-                Curabitur id vulputate elit, a pulvinar felis.
+                Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh,
+                finibus eget porttitor sit amet, consequat ac lacus. Quisque ornare, arcu quis
+                lacinia hendrerit, quam metus hendrerit mauris, sit amet luctus turpis sem nec diam.
+                Aliquam feugiat nibh tortor, a varius leo tristique nec. Curabitur dignissim aliquet
+                erat, in elementum nisi dignissim nec. Curabitur id vulputate elit, a pulvinar
+                felis.
               </div>
             </div>
           </div>
@@ -204,13 +193,12 @@ function index() {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                Nam id mi sollicitudin magna dictum pellentesque non ac purus.
-                Etiam leo nibh, finibus eget porttitor sit amet, consequat ac
-                lacus. Quisque ornare, arcu quis lacinia hendrerit, quam metus
-                hendrerit mauris, sit amet luctus turpis sem nec diam. Aliquam
-                feugiat nibh tortor, a varius leo tristique nec. Curabitur
-                dignissim aliquet erat, in elementum nisi dignissim nec.
-                Curabitur id vulputate elit, a pulvinar felis.
+                Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh,
+                finibus eget porttitor sit amet, consequat ac lacus. Quisque ornare, arcu quis
+                lacinia hendrerit, quam metus hendrerit mauris, sit amet luctus turpis sem nec diam.
+                Aliquam feugiat nibh tortor, a varius leo tristique nec. Curabitur dignissim aliquet
+                erat, in elementum nisi dignissim nec. Curabitur id vulputate elit, a pulvinar
+                felis.
               </div>
             </div>
           </div>
@@ -235,13 +223,12 @@ function index() {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                Nam id mi sollicitudin magna dictum pellentesque non ac purus.
-                Etiam leo nibh, finibus eget porttitor sit amet, consequat ac
-                lacus. Quisque ornare, arcu quis lacinia hendrerit, quam metus
-                hendrerit mauris, sit amet luctus turpis sem nec diam. Aliquam
-                feugiat nibh tortor, a varius leo tristique nec. Curabitur
-                dignissim aliquet erat, in elementum nisi dignissim nec.
-                Curabitur id vulputate elit, a pulvinar felis.
+                Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh,
+                finibus eget porttitor sit amet, consequat ac lacus. Quisque ornare, arcu quis
+                lacinia hendrerit, quam metus hendrerit mauris, sit amet luctus turpis sem nec diam.
+                Aliquam feugiat nibh tortor, a varius leo tristique nec. Curabitur dignissim aliquet
+                erat, in elementum nisi dignissim nec. Curabitur id vulputate elit, a pulvinar
+                felis.
               </div>
             </div>
           </div>
@@ -255,8 +242,7 @@ function index() {
           </div>
           <h6>Still have questions ?</h6>
           <p className="col-lg-8 mx-auto">
-            Can’t Find the answer your’re looking for ? Please chat to our
-            friendly team,
+            Can’t Find the answer your’re looking for ? Please chat to our friendly team,
           </p>
         </div>
       </div>
@@ -264,4 +250,4 @@ function index() {
   );
 }
 
-export default index
+export default index;

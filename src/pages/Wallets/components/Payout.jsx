@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { userSelectPoints, userSelectWalletID } from "../../../store/Auth/auth";
-import { useDispatch, useSelector } from "react-redux";
-import { pointsToDollar } from "../../../utils/functions/functions";
-import { requestPayout, walletSelectPayoutStatus } from "../../../store/Wallet";
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { userSelectPoints, userSelectWalletID } from '../../../store/Auth/auth';
+import { pointsToDollar } from '../../../utils/functions/functions';
+import { requestPayout, walletSelectPayoutStatus } from '../../../store/Wallet';
 
 function Payout() {
   const walletID = useSelector(userSelectWalletID);
@@ -14,10 +14,7 @@ function Payout() {
   const amount = pointsToDollar(pointInput);
 
   const payoutBtnDisabled =
-    userPoints < parseFloat(pointInput) ||
-    status === "loading" ||
-    pointInput <= 0 ||
-    amount < 1; // change later to value based on rate
+    userPoints < parseFloat(pointInput) || status === 'loading' || pointInput <= 0 || amount < 1; // change later to value based on rate
 
   const dispatch = useDispatch();
 
@@ -31,8 +28,8 @@ function Payout() {
           {/* <b className="text-warning d-block" style={{ display: "none" }}>
             ${pointsToDollar(userPoints)} available for payout.
           </b> */}
-          Due to transaction fees we recommend a payout of not less than $100.
-          To which address would you like to withdraw the funds?
+          Due to transaction fees we recommend a payout of not less than $100. To which address
+          would you like to withdraw the funds?
           <b className="text-blue d-block">Your USDT.TRC20 wallet address</b>
         </div>
         <div className="payout__action">
@@ -44,7 +41,7 @@ function Payout() {
               type="text"
               placeholder="No Wallet ID"
               readOnly
-              value={walletID ?? ""}
+              value={walletID ?? ''}
             />
           </div>
           <div className="payout__submit">
@@ -58,9 +55,7 @@ function Payout() {
               }}
             />
             <button
-              className={`btn payout__btn ${
-                payoutBtnDisabled ? "disabled" : ""
-              }`}
+              className={`btn payout__btn ${payoutBtnDisabled ? 'disabled' : ''}`}
               onClick={() => {
                 if (!payoutBtnDisabled) {
                   dispatch(requestPayout({ amount, points: pointInput }));
@@ -68,14 +63,14 @@ function Payout() {
               }}
             >
               {pointInput <= 0
-                ? "Input valid amount"
+                ? 'Input valid amount'
                 : userPoints < parseFloat(pointInput)
-                ? "Insufficient points"
-                : amount < 1 // change later to value based on rate
-                ? "Low payout amount"
-                : status === "loading"
-                ? "Sending request..."
-                : "Confirm payout"}
+                  ? 'Insufficient points'
+                  : amount < 1 // change later to value based on rate
+                    ? 'Low payout amount'
+                    : status === 'loading'
+                      ? 'Sending request...'
+                      : 'Confirm payout'}
             </button>
           </div>
         </div>

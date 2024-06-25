@@ -1,4 +1,3 @@
-import React from 'react'
 import Plan from './Plan';
 
 function index() {
@@ -9,9 +8,9 @@ function index() {
           <b>Select our flexible plan</b>
         </h3>
         <p className="col-md-8 m-auto">
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout. The point of
-          using Lorem Ipsum is that it has a more-or-less normal distribution
+          It is a long established fact that a reader will be distracted by the readable content of
+          a page when looking at its layout. The point of using Lorem Ipsum is that it has a
+          more-or-less normal distribution
         </p>
 
         <div className="btn-plan-box ">
@@ -51,7 +50,7 @@ function index() {
               role="tabpanel"
               aria-labelledby="pills-home-tab"
             >
-              <Plan/>
+              <Plan />
             </div>
             <div
               className="tab-pane fade"
@@ -59,10 +58,9 @@ function index() {
               role="tabpanel"
               aria-labelledby="pills-profile-tab"
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
-              autem porro laborum commodi voluptatum magni, consequuntur alias
-              odit qui, minus harum laudantium fuga animi sit quas dolores totam
-              beatae sapiente?
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit autem porro laborum
+              commodi voluptatum magni, consequuntur alias odit qui, minus harum laudantium fuga
+              animi sit quas dolores totam beatae sapiente?
             </div>
           </div>
         </div>
@@ -71,4 +69,4 @@ function index() {
   );
 }
 
-export default index
+export default index;

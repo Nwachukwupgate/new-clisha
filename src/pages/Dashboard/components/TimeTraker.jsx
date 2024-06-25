@@ -1,22 +1,19 @@
-import React from "react";
-
 function TimeTraker() {
-  const hasExt = window.localStorage.getItem("hasExt");
+  const hasExt = window.localStorage.getItem('hasExt');
   const testServerExt =
-    "https://clisha-assets.fra1.digitaloceanspaces.com/extension%2Fclicha-extension-150.crx";
+    'https://clisha-assets.fra1.digitaloceanspaces.com/extension%2Fclicha-extension-150.crx';
   const liveServerExt =
-    "https://chrome.google.com/webstore/detail/clisha-extension/jagnnnnnooogbbpgjidbpockglhfoban";
-  const {host} = window.location;
-  const newHost = "clisha-frontend.suna.ai";
+    'https://chrome.google.com/webstore/detail/clisha-extension/jagnnnnnooogbbpgjidbpockglhfoban';
+  const { host } = window.location;
+  const newHost = 'clisha-frontend.suna.ai';
   return (
     <div>
-      {hasExt !== "true" && (
+      {hasExt !== 'true' && (
         <div className="time_tracer_card row m-0 px-md-3 mt-4 shadow">
           <div className="col-9 px-0 ">
             <h6 className="b">Get More Reward</h6>
             <small>
-              click to add or update latest Chrome Browser Extension for more
-              tasks and more rewards
+              click to add or update latest Chrome Browser Extension for more tasks and more rewards
             </small>
           </div>
           <div className="col-3 pl-0 ">
@@ -29,7 +26,7 @@ function TimeTraker() {
                 rel="noopener noreferrer"
                 className="text-dark"
               >
-                <i className="fa fa-download" aria-hidden="true"></i>
+                <i className="fa fa-download" aria-hidden="true" />
               </a>
             </div>
           </div>

@@ -1,7 +1,7 @@
-import sideBarList from "../json/dashboardSidebar.json";
-import { NavLink } from "react-router-dom";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import sideBarList from '../json/dashboardSidebar.json';
 
 function Sidebar() {
   const user = useSelector((state) => state.user.data);
@@ -27,19 +27,13 @@ function Sidebar() {
                 {(index === 4 || index === 6) && <hr />}
                 <NavLink
                   to={item.url}
-                  className={` nav-link ${
-                    route === item.url ? "selectedLink" : " "
-                  } `}
+                  className={` nav-link ${route === item.url ? 'selectedLink' : ' '} `}
                 >
-                  <i className={`fa fa-${item.icon}`} aria-hidden="true"></i>
+                  <i className={`fa fa-${item.icon}`} aria-hidden="true" />
                   <span>{item.name}</span>
 
                   {item.new === true && (
-                    <small
-                      className={`new ${route === item.url && "newHover"}`}
-                    >
-                      New
-                    </small>
+                    <small className={`new ${route === item.url && 'newHover'}`}>New</small>
                   )}
                 </NavLink>
                 {/* {( index === 5 || index === 6) && (
@@ -51,8 +45,8 @@ function Sidebar() {
             onClick={(e) => copyRefFunc(user?.user?.clishaId)}
             className="btn rounded-pill text-white btn-sm  mt-4 shadow btn-invite btn-blue"
           >
-            {" "}
-            {!isCopyUserRef ? "Invite a friend" : "Copied"}
+            {' '}
+            {!isCopyUserRef ? 'Invite a friend' : 'Copied'}
           </button>
         </nav>
       </aside>

@@ -1,7 +1,1 @@
-
-
-export const AuthReq = () => {
-
-
-
-}
+export const AuthReq = () => {};

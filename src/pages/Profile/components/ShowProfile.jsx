@@ -1,10 +1,9 @@
-import React from "react";
-// import profile from "../../../json/profile.json";
-import moment from "moment";
+import moment from 'moment';
 
 function ShowProfile(props) {
-  const formatDate = (dob) => moment(dob).format("Do MMMM YYYY");
-  const data = props.user.user;
+  const formatDate = (dob) => moment(dob).format('Do MMMM YYYY');
+  const { user } = props;
+  const data = user.user;
   return (
     <div>
       <div className="personal-info border rounded shadow-sm py-2">

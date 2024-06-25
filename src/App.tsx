@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import Loader from './Loader/index.js';
 import AOS from 'aos';
 import WebFont from 'webfontloader';
+import Loader from './Loader/index';
 import Router from './routes';
 
 function App() {

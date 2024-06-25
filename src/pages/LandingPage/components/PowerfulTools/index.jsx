@@ -1,6 +1,4 @@
-import React from 'react'
-
-function index({card}) {
+function index({ card }) {
   return (
     <div className="powertool">
       <div className="container text-center mt-3">
@@ -18,23 +16,22 @@ function index({card}) {
           data-aos-duration="1300"
           // data-aos-delay="600"
         >
-          Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam
-          leo nibh, finibus eget porttitor sit amet, consequat ac lacus. Quisque
-          ornare
+          Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh, finibus
+          eget porttitor sit amet, consequat ac lacus. Quisque ornare
         </p>
 
         <div className="row m-0 mt-5">
           {card &&
-            card.card2.map((item, index) => (
+            card.card2.map((item, innerIndex) => (
               <div
                 className="card secondcard bg-white shadow text-center p-3 col-md-6 col-lg-4 mx-auto "
-                key={index}
+                key={innerIndex}
                 data-aos="zoom-in"
                 data-aos-duration="1000"
                 // data-aos-delay="600"
               >
                 <img
-                  className={`card-img m-auto ${index === 3 ? "img2" : ""}`}
+                  className={`card-img m-auto ${innerIndex === 3 ? 'img2' : ''}`}
                   src={item.img}
                   alt=""
                 />
@@ -51,4 +48,4 @@ function index({card}) {
   );
 }
 
-export default index
+export default index;

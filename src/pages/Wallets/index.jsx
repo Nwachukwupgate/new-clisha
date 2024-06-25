@@ -1,19 +1,15 @@
-import React from "react";
-import CommingSoon from "../../components/CommingSoon";
-import Header from "../../layouts/Header";
-import Sidebar from "../../layouts/Sidebar";
-import AddWallets from "./components/AddWallets";
-import AvailableBallance from "./components/AvailableBallance";
-import Payout from "./components/Payout";
-import LatestTransactions from "./components/LatestTransactions";
-import PaginatedItems from "./components/PaginatedItems";
+import { ToastContainer } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import CommingSoon from '../../components/CommingSoon';
+import Header from '../../layouts/Header';
+import Sidebar from '../../layouts/Sidebar';
+import AddWallets from './components/AddWallets';
+import AvailableBallance from './components/AvailableBallance';
+import Payout from './components/Payout';
+import LatestTransactions from './components/LatestTransactions';
+import PaginatedItems from './components/PaginatedItems';
 // import transactions from "../../json/transaction.json";
-import { ToastContainer } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchWalletTransactions,
-  walletSelectTransactions,
-} from "../../store/Wallet";
+import { fetchWalletTransactions, walletSelectTransactions } from '../../store/Wallet';
 
 function Wallets() {
   // const { data } = transactions;

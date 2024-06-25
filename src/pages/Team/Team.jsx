@@ -1,7 +1,6 @@
-import Header from "../../layouts/Header";
-import Sidebar from "../../layouts/Sidebar";
-import React from "react";
-import TeamTable from "./components/TeamTable";
+import Header from '../../layouts/Header';
+import Sidebar from '../../layouts/Sidebar';
+import TeamTable from './components/TeamTable';
 
 function Team() {
   return (

@@ -1,23 +1,21 @@
-import React, { useState } from "react";
+import { useState } from 'react';
 // import Calendar from 'react-calendar'
-import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 import {
   addCalenderTask,
   callenderDateFun,
   generalSelectReloadingCalendar,
   getCalenderTaskReload,
   getCustomDateCallender,
-} from "../../../store/General";
+} from '../../../store/General';
 
 const CalenderCard = () => {
   const [isHover, setIsHover] = useState(null);
   const [openCallender, SetopenCallender] = useState(null);
   const dispatch = useDispatch();
   // const [value, onChange] = useState(new Date());
-  const calenderTask = useSelector(
-    (state) => state.general?.calenderTask?.monthlyData
-  );
+  const calenderTask = useSelector((state) => state.general?.calenderTask?.monthlyData);
   const reloadingCalendar = useSelector(generalSelectReloadingCalendar);
 
   // const callenderDate = useSelector((state) => state.general?.callenderDate);
@@ -27,7 +25,7 @@ const CalenderCard = () => {
   });
 
   const setDateFunc = (e) => {
-    const {value} = e.target;
+    const { value } = e.target;
     setDate({
       ...date,
       [e.target.name]: value,
@@ -52,17 +50,17 @@ const CalenderCard = () => {
         <div className="current text-uppercase">
           <div className="calendarCard__header">
             <div className="calendarCard__datePicker">
-              {date && moment(date.start_date).format("MMMM YYYY")} Statistics
+              {date && moment(date.start_date).format('MMMM YYYY')} Statistics
               <i
                 title="Pick Month"
                 className="ml-3 link fa fa-calendar"
                 // onClick={() => SetopenCallender(true)}
                 aria-hidden="true"
-              ></i>
+              />
             </div>
             <div className="calendarCard__icon">
               {reloadingCalendar ? (
-                <i className="fa fa-circle-o-notch fa-spin"></i>
+                <i className="fa fa-circle-o-notch fa-spin" />
               ) : (
                 <i
                   className="fa fa-refresh"
@@ -72,7 +70,7 @@ const CalenderCard = () => {
                       dispatch(getCalenderTaskReload());
                     }
                   }}
-                ></i>
+                />
               )}
             </div>
           </div>
@@ -83,7 +81,7 @@ const CalenderCard = () => {
                   <i
                     className=" fa fa-close bg-secondary"
                     onClick={() => SetopenCallender(false)}
-                  ></i>
+                  />
                   <label htmlFor="start_date">Pick Month</label> <br />
                   <input
                     type="month"
@@ -104,33 +102,26 @@ const CalenderCard = () => {
       <ul className="row m-0 p-0" onMouseLeave={() => setIsHover(null)}>
         {calenderTask &&
           calenderTask.map((item, key) => (
-            <a
-              href="#/"
-              className="col-2 py-3 link"
-              key={key}
-              onClick={() => setIsHover(key)}
-            >
+            <a href="#/" className="col-2 py-3 link" key={key} onClick={() => setIsHover(key)}>
               {key === isHover && (
                 <div
                   className={`data-event-hover shadow border 
               ${
                 item?.createdTasks && item?.createdTasks <= item?.completedTasks
-                  ? "border-success"
-                  : ""
+                  ? 'border-success'
+                  : ''
               } 
               ${
-                item?.completedTasks &&
-                item?.createdTasks > item?.completedTasks
-                  ? "border-warning"
-                  : ""
+                item?.completedTasks && item?.createdTasks > item?.completedTasks
+                  ? 'border-warning'
+                  : ''
               } 
               ${
                 !item?.completedTasks &&
                 item?.createdTasks &&
-                moment(item?.date).format("YY-MM-DD") <=
-                  moment(Date.now()).format("YY-MM-DD")
-                  ? "border-danger"
-                  : ""
+                moment(item?.date).format('YY-MM-DD') <= moment(Date.now()).format('YY-MM-DD')
+                  ? 'border-danger'
+                  : ''
               } 
               `}
                   data-toggle="modal"
@@ -142,69 +133,46 @@ const CalenderCard = () => {
                   {(item.completedTasks > item.createdTasks
                     ? item.createdTasks
                     : item.completedTasks) ?? 0}
-                  /{item.createdTasks ?? 0}{" "}
-                  {moment(item?.date).format("YY-MM-DD") <=
-                  moment(Date.now()).format("YY-MM-DD")
-                    ? "Completed"
-                    : "Future Task"}
-                  {item?.completedTasks &&
-                  item?.createdTasks > item?.completedTasks ? (
-                    <img
-                      className="emojiCalendersm"
-                      src="/images/smiley.jpeg"
-                      alt=""
-                    />
+                  /{item.createdTasks ?? 0}{' '}
+                  {moment(item?.date).format('YY-MM-DD') <= moment(Date.now()).format('YY-MM-DD')
+                    ? 'Completed'
+                    : 'Future Task'}
+                  {item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
+                    <img className="emojiCalendersm" src="/images/smiley.jpeg" alt="" />
                   ) : (
-                    ""
+                    ''
                   )}
                   {!item?.completedTasks &&
                   item?.createdTasks &&
-                  moment(item?.date).format("YY-MM-DD") <=
-                    moment(Date.now()).format("YY-MM-DD") ? (
-                    <img
-                      className="emojiCalendersm"
-                      src="/images/sad.png"
-                      alt=""
-                    />
+                  moment(item?.date).format('YY-MM-DD') <= moment(Date.now()).format('YY-MM-DD') ? (
+                    <img className="emojiCalendersm" src="/images/sad.png" alt="" />
                   ) : (
-                    ""
+                    ''
                   )}
-                  {item?.createdTasks &&
-                  item?.createdTasks <= item?.completedTasks ? (
-                    <img
-                      src="/images/rocket.png"
-                      className="emojiCalendersm rot"
-                      alt=""
-                    />
+                  {item?.createdTasks && item?.createdTasks <= item?.completedTasks ? (
+                    <img src="/images/rocket.png" className="emojiCalendersm rot" alt="" />
                   ) : (
-                    ""
+                    ''
                   )}
                 </div>
               )}
-              {moment(item.date).format("D")}
-              {item?.completedTasks &&
-              item?.createdTasks > item?.completedTasks ? (
-                <img
-                  className="emojiCalender"
-                  src="/images/smiley.jpeg"
-                  alt=""
-                />
+              {moment(item.date).format('D')}
+              {item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
+                <img className="emojiCalender" src="/images/smiley.jpeg" alt="" />
               ) : (
-                ""
+                ''
               )}
               {!item?.completedTasks &&
               item?.createdTasks &&
-              moment(item?.date).format("YY-MM-DD") <=
-                moment(Date.now()).format("YY-MM-DD") ? (
+              moment(item?.date).format('YY-MM-DD') <= moment(Date.now()).format('YY-MM-DD') ? (
                 <img className="emojiCalender" src="/images/sad.png" alt="" />
               ) : (
-                ""
+                ''
               )}
-              {item?.createdTasks &&
-              item?.createdTasks <= item?.completedTasks ? (
+              {item?.createdTasks && item?.createdTasks <= item?.completedTasks ? (
                 <img src="/images/rocket.png" className="isDate" alt="" />
               ) : (
-                ""
+                ''
               )}
               {/* {item.createdTasks ? <img src="/images/error.png" className='isDate' alt="" /> : ""} */}
             </a>
@@ -212,8 +180,7 @@ const CalenderCard = () => {
       </ul>
       {!calenderTask?.length && (
         <div className="nocalenderTask shadow text-danger">
-          There is no task for the month of{" "}
-          {moment(date.start_date).format("MMMM")}
+          There is no task for the month of {moment(date.start_date).format('MMMM')}
         </div>
       )}
 
@@ -221,8 +188,7 @@ const CalenderCard = () => {
         <div className="">😔 I have not done any task today</div>
         <div className="">😊 I have finished some task today</div>
         <div>
-          <img src="/images/rocket.png" alt="" /> I have Finish all my task
-          today
+          <img src="/images/rocket.png" alt="" /> I have Finish all my task today
         </div>
       </div>
     </div>

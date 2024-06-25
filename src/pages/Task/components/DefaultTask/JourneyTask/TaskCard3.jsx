@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { getTaskJourney } from "../../../../store/Task/index.js";
-import { useDispatch } from "react-redux";
-import Pagination from "../../../../components/Pagination";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import JourneyClick from "./JourneyClick.jsx";
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import { getTaskJourney } from '../../../../../store/Task/index';
+import Pagination from '../../../../../components/Pagination';
+import JourneyClick from './JourneyClick';
+import 'react-toastify/dist/ReactToastify.css';
+
 function TaskCard2(props) {
   const dispatch = useDispatch();
   const list = props;
 
   const [currentItems] = useState(1);
-  
+
   useEffect(() => {
-    dispatch(getTaskJourney({ page: currentItems, types: "journey" }));
+    dispatch(getTaskJourney({ page: currentItems, types: 'journey' }));
   }, [currentItems, dispatch]);
 
   const handlePageClick = (event) => {
     const newItems = event.selected + 1;
-    dispatch(getTaskJourney({ page: newItems, types: "journey" }));
+    dispatch(getTaskJourney({ page: newItems, types: 'journey' }));
   };
 
   return (
@@ -34,7 +35,7 @@ function TaskCard2(props) {
           />
         </div>
       ) : (
-        ""
+        ''
       )}
 
       <div className={`row m-0   taskCards p-0 `}>
@@ -53,9 +54,9 @@ function TaskCard2(props) {
         position="bottom-center"
         autoClose={4993}
         hideProgressBar={false}
-        closeOnClick={true}
+        closeOnClick
         pauseOnHover={false}
-        draggable={true}
+        draggable
         progress={undefined}
       />
       {/* pagination component  */}
@@ -64,10 +65,10 @@ function TaskCard2(props) {
           pageCount={list?.task?.totalPages}
           onPageChange={handlePageClick}
           pageRangeDisplayed={9}
-          justify={"center"}
+          justify="center"
         />
       ) : (
-        ""
+        ''
       )}
     </div>
   );

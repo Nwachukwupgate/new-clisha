@@ -1,17 +1,16 @@
-import React from "react";
-import Header from "../../layouts/Header";
-import Sidebar from "../../layouts/Sidebar";
-import Footer from "../../layouts/Footer";
-import HeaderWelcome from "./components/HeaderWelcome";
-import HeaderWelcomeMobile from "./components/HeaderWelcomeMobile";
-import RankCards from "./components/RankCards";
-import moment from "moment";
-import { useSelector } from "react-redux";
+import moment from 'moment';
+import { useSelector } from 'react-redux';
+import Header from '../../layouts/Header';
+import Sidebar from '../../layouts/Sidebar';
+import Footer from '../../layouts/Footer';
+import HeaderWelcome from './components/HeaderWelcome';
+import HeaderWelcomeMobile from './components/HeaderWelcomeMobile';
+import RankCards from './components/RankCards';
 
 function Rank() {
   const user = useSelector((state) => state.user.data);
 
-  const date = () => moment(Date.now()).format("MMMM DD, YYYY");
+  const date = () => moment(Date.now()).format('MMMM DD, YYYY');
 
   return (
     <div className="body-content rank">

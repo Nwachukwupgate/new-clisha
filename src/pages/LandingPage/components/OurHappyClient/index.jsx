@@ -1,5 +1,3 @@
-import React from 'react'
-
 function index() {
   return (
     <div className="happy-client pt-5">
@@ -24,10 +22,10 @@ function index() {
         <div className="client">
           <div className=" text-center mt-5 ">
             <button className="btn-angle disabledLink shadow-sm border mr-2">
-              <i className="fa fa-angle-left       "></i>
+              <i className="fa fa-angle-left       " />
             </button>
             <button className="btn-angle activeLink shadow-sm  mr-md-3 border">
-              <i className="fa fa-angle-right text-white      "></i>
+              <i className="fa fa-angle-right text-white      " />
             </button>
           </div>
           <div className="message-box col-lg-9 col-12 mx-auto p-3 p-lg-4 ">
@@ -37,16 +35,15 @@ function index() {
               </div>
               <div className="message col-9 text-left">
                 <div className="message-star">
-                  <i className="fa fa-star"></i>
-                  <i className="fa fa-star "></i>
-                  <i className="fa fa-star"></i>
-                  <i className="fa fa-star"></i>
-                  <i className="fa fa-star"></i>
+                  <i className="fa fa-star" />
+                  <i className="fa fa-star " />
+                  <i className="fa fa-star" />
+                  <i className="fa fa-star" />
+                  <i className="fa fa-star" />
                 </div>
                 <div className="message-body">
-                  At nam minimum ponderum. Est audiam animal molestiae te. Ex
-                  duo eripuit mentitum. At nam minimum ponderum. Est audiam
-                  animal molestiae.
+                  At nam minimum ponderum. Est audiam animal molestiae te. Ex duo eripuit mentitum.
+                  At nam minimum ponderum. Est audiam animal molestiae.
                 </div>
               </div>
             </div>
@@ -64,4 +61,4 @@ function index() {
   );
 }
 
-export default index
+export default index;

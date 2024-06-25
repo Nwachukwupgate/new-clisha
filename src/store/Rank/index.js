@@ -1,16 +1,17 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+
 const api = process.env.REACT_APP_API;
 
-let token = window.localStorage.getItem("token");
+const token = window.localStorage.getItem('token');
 const config = { headers: { Authorization: `bearer ${token}` } };
 
-export const getRank = createAsyncThunk("task/getRank", async (page) => {
+export const getRank = createAsyncThunk('task/getRank', async (page) => {
   const res = await axios.get(`${api}/ranking?page=${page}&size=34`, config);
   return res.data.data;
 });
 export const rankSlice = createSlice({
-  name: "rank",
+  name: 'rank',
   initialState: {
     data: { totalItems: 0, ranking: [], totalPages: 0, currentPage: 1 },
     loading: false,

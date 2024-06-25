@@ -1,7 +1,8 @@
-import moment from "moment";
-import React, { useState } from "react";
-import ProfilePicture from "../../../utils/ProfilePicture/index.js";
-import { useSelector } from "react-redux";
+import moment from 'moment';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import ProfilePicture from '../../../utils/ProfilePicture/index';
+
 function TeamTable() {
   const teams = useSelector((state) => state.general.teams);
   const [isCopy, setIsCopy] = useState(null);
@@ -16,28 +17,26 @@ function TeamTable() {
     });
   };
 
-  const searchFunc = () => {
-    return teams?.filter((e) => {
+  const searchFunc = () =>
+    teams?.filter((e) => {
       if (
         e?.username?.match(search) ||
         e?.firstname?.toLowerCase()?.match(search.toLowerCase()) ||
         e?.email?.toLowerCase()?.match(search.toLowerCase()) ||
         e?.lastname?.toLowerCase()?.match(search.toLowerCase()) ||
-        moment(e?.createdAt).format("DD/MM/YYYY")?.match(search)
+        moment(e?.createdAt).format('DD/MM/YYYY')?.match(search)
       ) {
         return e;
       }
       return false;
     });
-  };
 
   // const data = "bronze"
   return (
     <div>
       <div className="inputBoxSearch">
         <h6 className="p-2">
-          All Referred Members{" "}
-          <i className="fa fa-users" aria-hidden="true"></i>
+          All Referred Members <i className="fa fa-users" aria-hidden="true" />
         </h6>
         <input
           className="form-control"
@@ -55,7 +54,7 @@ function TeamTable() {
               <th>Rank</th>
               <th>Points/VQs</th>
               <th>Date Entry</th>
-              <th></th>
+              <th />
             </tr>
           </thead>
           <tbody>
@@ -65,16 +64,14 @@ function TeamTable() {
                   <td className="p-1 m-0">
                     <img
                       src={ProfilePicture({
-                        gender: "male",
+                        gender: 'male',
                         photo: item?.photo,
                       })}
                       alt=""
                       className="profileImage shadow  rounded-circle d-md-inline  d-none"
                     />
                     <span className="nameSet">
-                      {!item?.firstname
-                        ? item?.username
-                        : `${item?.firstname + item?.lastname}`}
+                      {!item?.firstname ? item?.username : `${item.firstname + item.lastname}`}
                     </span>
                   </td>
                   <td>
@@ -86,23 +83,16 @@ function TeamTable() {
                       className="rankImage "
                       alt=""
                     />
-                    <small
-                      className={`badge ${item?.rank?.rankName?.slice(7)}`}
-                    >
+                    <small className={`badge ${item?.rank?.rankName?.slice(7)}`}>
                       {item?.rank?.rankName.slice(7)}
                     </small>
                   </td>
 
                   <td>
-                    <span className="badge badge-danger">
-                      {item?.rank?.balance}
-                    </span>{" "}
-                    /{" "}
-                    <span className="badge btn-primary">
-                      {item?.rank?.bonus_points}
-                    </span>
+                    <span className="badge badge-danger">{item?.rank?.balance}</span> /{' '}
+                    <span className="badge btn-primary">{item?.rank?.bonus_points}</span>
                   </td>
-                  <td>{moment(item?.createdAt).format("DD/MM/YYYY")}</td>
+                  <td>{moment(item?.createdAt).format('DD/MM/YYYY')}</td>
                   <td>
                     {isCopy !== key ? (
                       <i
@@ -110,12 +100,9 @@ function TeamTable() {
                         onClick={() => copyFunc(item, key)}
                         title="Copy Email"
                         aria-hidden="true"
-                      ></i>
+                      />
                     ) : (
-                      <i
-                        className="fa fa-check text-success"
-                        aria-hidden="true"
-                      ></i>
+                      <i className="fa fa-check text-success" aria-hidden="true" />
                     )}
                   </td>
                 </tr>
@@ -127,11 +114,7 @@ function TeamTable() {
           <div className="text-center  font-weight-bold">
             <div>
               <h4>User Not Found</h4>
-              <img
-                src="/images/usernotfound.png"
-                className="w-75 m-auto"
-                alt=""
-              />
+              <img src="/images/usernotfound.png" className="w-75 m-auto" alt="" />
             </div>
           </div>
         )}

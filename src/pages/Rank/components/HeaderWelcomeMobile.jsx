@@ -1,23 +1,21 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import ProfilePicture from "../../../utils/ProfilePicture";
+import { useSelector } from 'react-redux';
+import ProfilePicture from '../../../utils/ProfilePicture';
 
 function HeaderWelcomeMobile(props) {
-  let username = localStorage.getItem("username");
-  const user = props?.user;
+  const username = localStorage.getItem('username');
+  const { date, user } = props;
   const rank = useSelector((state) => state.rank);
 
   return (
     <div className="welcome mobile p-0 my-4  d-block d-lg-none">
       <span className="text-muted font-weight-bold d-block text-capitalize p-2">
-        hello, {username}! <small className="float-right">{props.date}</small>
+        hello, {username}! <small className="float-right">{date}</small>
       </span>
       <div className="section-head p-2">
         <h6 className=" text-capitalize mt-3 d-inline">
           <b>
-            {" "}
-            your Ranking Position {user && user?.rank?.position}/
-            {rank?.data?.totalItems}
+            {' '}
+            your Ranking Position {user && user?.rank?.position}/{rank?.data?.totalItems}
           </b>
         </h6>
       </div>
@@ -35,9 +33,7 @@ function HeaderWelcomeMobile(props) {
             />
             <span className="ml-2 username"> {username}</span>
             <img
-              src={`/images/stars/${
-                user?.rank?.rankName?.slice(7) ?? "bronze"
-              }.png`}
+              src={`/images/stars/${user?.rank?.rankName?.slice(7) ?? 'bronze'}.png`}
               className="stars mt-4"
               alt=""
             />
@@ -45,14 +41,10 @@ function HeaderWelcomeMobile(props) {
           <div className="check_rank">
             <small>AdStar</small>
             <br />
-            <small className=" ml-3">
-              {user && user?.rank?.rankName?.slice(6)}
-            </small>
+            <small className=" ml-3">{user && user?.rank?.rankName?.slice(6)}</small>
           </div>
           <img
-            src={`/images/rank/${user?.rank?.rankName
-              ?.slice(7)
-              .toLowerCase()}.png`}
+            src={`/images/rank/${user?.rank?.rankName?.slice(7).toLowerCase()}.png`}
             className="latest_rank"
             alt=""
           />

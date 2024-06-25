@@ -1,27 +1,21 @@
-import React, { useState } from "react";
-import Countdown from "react-countdown";
-import { getTask } from "../../../../store/Task/index.ts";
-import { useDispatch, useSelector } from "react-redux";
-import Pagination from "../../../../components/Pagination";
-import { useNavigate } from "react-router-dom";
-import WebsiteClick from "../WebsiteTask/WebsiteClick";
-import renderer from "../../../../utils/Renderer/index.js";
-import { ToastContainer } from "react-toastify";
-import GenGoogleTask from "./GoogleTask/GoogleTask.jsx";
-import GenJourneyClick from "./JourneyTask/JourneyClick.jsx";
-import GenSearchJourney from "./SearchJourneyTask/SearchJourney.jsx";
+import React, { useState } from 'react';
+import Countdown from 'react-countdown';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import { getTask } from '../../../../store/Task/index';
+import Pagination from '../../../../components/Pagination';
+import WebsiteClick from '../WebsiteTask/WebsiteClick';
+import renderer from '../../../../utils/Renderer/index';
+import GenGoogleTask from './GoogleTask/GoogleTask';
+import GenJourneyClick from './JourneyTask/JourneyClick';
+import GenSearchJourney from './SearchJourneyTask/SearchJourney';
 
 function GeneralTask(props) {
   const getTaskLoading = useSelector((state) => state.task.getTaskLoading);
-  const getTaskWebsiteLoading = useSelector(
-    (state) => state.task.getTaskWebsiteLoading
-  );
-  const getTaskGoogleLoading = useSelector(
-    (state) => state.task.getTaskGoogleLoading
-  );
-  const getTaskJourneyLoading = useSelector(
-    (state) => state.task.getTaskJourneyLoading
-  );
+  const getTaskWebsiteLoading = useSelector((state) => state.task.getTaskWebsiteLoading);
+  const getTaskGoogleLoading = useSelector((state) => state.task.getTaskGoogleLoading);
+  const getTaskJourneyLoading = useSelector((state) => state.task.getTaskJourneyLoading);
   const getTaskSearchJourneyLoading = useSelector(
     (state) => state.task.getTaskSearchJourneyLoading
   );
@@ -31,9 +25,7 @@ function GeneralTask(props) {
   const list = props;
   const [showCounter, setshowCounter] = useState(false);
   const [timerCounter, setTimerCounter] = useState(0);
-  const secTime = (time) => {
-    return time * 1000;
-  };
+  const secTime = (time) => time * 1000;
 
   const loadLink = (data, extCode) => {
     setshowCounter(true);
@@ -41,18 +33,14 @@ function GeneralTask(props) {
     //   toast.warning("After 30sec and then come back to here claim your bonus ");
     // }, 3000);
 
-    setTimerCounter(
-      secTime(data.website_click?.duration ?? data?.token?.duration)
-    );
+    setTimerCounter(secTime(data.website_click?.duration ?? data?.token?.duration));
 
-    const url = data.url.startsWith("http")
-        ? data.url
-        : `https://${data.url}`;
+    const url = data.url.startsWith('http') ? data.url : `https://${data.url}`;
 
-    const newTask = window.open(url, "_blank");
+    const newTask = window.open(url, '_blank');
     // newTask.moveTo(300, 70);
     const timer = setInterval(() => {
-      window.addEventListener("beforeunload", function (e) {
+      window.addEventListener('beforeunload', (e) => {
         // newTask.close();
       });
 
@@ -62,12 +50,15 @@ function GeneralTask(props) {
         window.location.reload();
       }
     }, 500);
-    setInterval(() => {
-      // newTask.close();
-      navigate(
-        `/dashboard/reward?t=${data.id}&p=${data.points}&status=done&b=${data?.bonus_points}`
-      );
-    }, secTime(data.website_click?.duration ?? data?.token?.duration));
+    setInterval(
+      () => {
+        // newTask.close();
+        navigate(
+          `/dashboard/reward?t=${data.id}&p=${data.points}&status=done&b=${data?.bonus_points}`
+        );
+      },
+      secTime(data.website_click?.duration ?? data?.token?.duration)
+    );
   };
 
   // const [currentItems] = useState(1);
@@ -83,11 +74,11 @@ function GeneralTask(props) {
   return (
     <div>
       {list?.task?.totalItems === 0 &&
-        !getTaskLoading &&
-        !getTaskWebsiteLoading &&
-        !getTaskGoogleLoading &&
-        !getTaskJourneyLoading &&
-        !getTaskSearchJourneyLoading ? (
+      !getTaskLoading &&
+      !getTaskWebsiteLoading &&
+      !getTaskGoogleLoading &&
+      !getTaskJourneyLoading &&
+      !getTaskSearchJourneyLoading ? (
         <div className="  text-center text-muted py-1 m-0">
           {/* <h6>No task today, Please Try again later</h6> */}
           <img
@@ -97,18 +88,16 @@ function GeneralTask(props) {
           />
         </div>
       ) : (
-        ""
+        ''
       )}
 
-      {showCounter && (
-        <Countdown date={Date.now() + timerCounter} renderer={renderer} />
-      )}
+      {showCounter && <Countdown date={Date.now() + timerCounter} renderer={renderer} />}
 
       <div className={`row m-0  taskCards p-0 `}>
         {list &&
           list?.task?.tasks?.map((item, index) => (
             <React.Fragment key={index}>
-              {item.task_type === "website_click" && (
+              {item.task_type === 'website_click' && (
                 <WebsiteClick
                   item={item}
                   index={index}
@@ -117,31 +106,31 @@ function GeneralTask(props) {
                   extCode={list?.task?.extensionCode}
                 />
               )}
-              {item.task_type === "google_search" && (
+              {item.task_type === 'google_search' && (
                 <GenGoogleTask
                   item={item}
                   index={index}
                   key={index}
                   extCode={list?.task?.extensionCode}
-                  isGen={true}
+                  isGen
                 />
               )}
-              {item.task_type === "journey" && (
+              {item.task_type === 'journey' && (
                 <GenJourneyClick
                   item={item}
                   index={index}
                   key={index}
                   extCode={list?.task?.extensionCode}
-                  isGen={true}
+                  isGen
                 />
               )}
-              {item.task_type === "search_journey" && (
+              {item.task_type === 'search_journey' && (
                 <GenSearchJourney
                   item={item}
                   index={index}
                   key={index}
                   extCode={list?.task?.extensionCode}
-                  isGen={true}
+                  isGen
                 />
               )}
             </React.Fragment>
@@ -154,18 +143,18 @@ function GeneralTask(props) {
           pageCount={list?.task?.totalPages}
           onPageChange={handlePageClick}
           pageRangeDisplayed={9}
-          justify={"center"}
+          justify="center"
         />
       ) : (
-        ""
+        ''
       )}
       <ToastContainer
         position="bottom-center"
         autoClose={4993}
         hideProgressBar={false}
-        closeOnClick={true}
+        closeOnClick
         pauseOnHover={false}
-        draggable={true}
+        draggable
         progress={undefined}
       />
     </div>

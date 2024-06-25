@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { getTaskJourney } from "../../../../store/Task/index.js";
-import { useDispatch } from "react-redux";
-import Pagination from "../../../../components/Pagination";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import JourneyClick from "./SearchJourney.jsx";
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import Pagination from '../../../../../components/Pagination';
+import { getTaskJourney } from '../../../../../store/Task/index';
+import JourneyClick from './SearchJourney';
+import 'react-toastify/dist/ReactToastify.css';
 
 function TaskCard4(props) {
   const dispatch = useDispatch();
@@ -12,12 +12,12 @@ function TaskCard4(props) {
 
   const [currentItems] = useState(1);
   useEffect(() => {
-    dispatch(getTaskJourney({ page: currentItems, types: "search_journey" }));
+    dispatch(getTaskJourney({ page: currentItems, types: 'search_journey' }));
   }, [currentItems, dispatch]);
 
   const handlePageClick = (event) => {
     const newItems = event.selected + 1;
-    dispatch(getTaskJourney({ page: newItems, types: "search_journey" }));
+    dispatch(getTaskJourney({ page: newItems, types: 'search_journey' }));
   };
 
   return (
@@ -34,7 +34,7 @@ function TaskCard4(props) {
           />
         </div>
       ) : (
-        ""
+        ''
       )}
 
       <div className={`row m-0   taskCards p-0 `}>
@@ -53,9 +53,9 @@ function TaskCard4(props) {
         position="bottom-center"
         autoClose={4993}
         hideProgressBar={false}
-        closeOnClick={true}
+        closeOnClick
         pauseOnHover={false}
-        draggable={true}
+        draggable
         progress={undefined}
       />
       {/* pagination component  */}
@@ -64,10 +64,10 @@ function TaskCard4(props) {
           pageCount={list?.task?.totalPages}
           onPageChange={handlePageClick}
           pageRangeDisplayed={9}
-          justify={"center"}
+          justify="center"
         />
       ) : (
-        ""
+        ''
       )}
     </div>
   );

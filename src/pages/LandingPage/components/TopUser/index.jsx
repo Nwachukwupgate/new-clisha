@@ -1,17 +1,19 @@
-import React, { useEffect } from "react";
-import PaginateBtn from "../../../../utils/UPPaginateBtn/PaginateBtn";
-import ProfilePicture from "../../../../utils/ProfilePicture";
-import { useSelector } from "react-redux";
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import PaginateBtn from '../../../../utils/UPPaginateBtn/PaginateBtn';
+import ProfilePicture from '../../../../utils/ProfilePicture';
 
 function Paginate() {
   const rank = useSelector((state) => state.rank);
-  useEffect(() => {
-    return PaginateBtn({
-      containerId: "rankslider",
-      leftId: "floatLeft",
-      rightId: "floatRight",
-    });
-  }, []);
+  useEffect(
+    () =>
+      PaginateBtn({
+        containerId: 'rankslider',
+        leftId: 'floatLeft',
+        rightId: 'floatRight',
+      }),
+    []
+  );
   return (
     <div className="top-user">
       <div className="container mt-5">
@@ -22,17 +24,11 @@ function Paginate() {
             </h3>
           </div>
           <div className="col-5 text-right">
-            <button
-              className="btn-angle disabledLink shadow-sm  mr-2 border"
-              id="floatLeft"
-            >
-              <i className="fa fa-angle-left  "></i>
+            <button className="btn-angle disabledLink shadow-sm  mr-2 border" id="floatLeft">
+              <i className="fa fa-angle-left  " />
             </button>
-            <button
-              className="btn-angle activeLink  shadow-sm border"
-              id="floatRight"
-            >
-              <i className="fa fa-angle-right "></i>
+            <button className="btn-angle activeLink  shadow-sm border" id="floatRight">
+              <i className="fa fa-angle-right " />
             </button>
           </div>
         </div>
@@ -48,11 +44,7 @@ function Paginate() {
                 data-aos-duration="1000"
                 // data-aos-delay="600"
               >
-                <img
-                  className={`card-img images3 `}
-                  src="/images/profile_border.png"
-                  alt=""
-                />
+                <img className={`card-img images3 `} src="/images/profile_border.png" alt="" />
                 <img
                   className="Profile_logo_rank"
                   src={ProfilePicture({
@@ -62,10 +54,8 @@ function Paginate() {
                   alt=""
                 />
                 <img
-                  className={`card-img images4 rank_landing_page`}
-                  src={`/images/rank/${
-                    item?.rankName?.slice(7) ?? "bronze"
-                  }.png`}
+                  className="card-img images4 rank_landing_page"
+                  src={`/images/rank/${item?.rankName?.slice(7) ?? 'bronze'}.png`}
                   alt=""
                 />
                 <div className="badge-number badge-number2 ">
@@ -80,8 +70,7 @@ function Paginate() {
                     </span>
                   </div>
                   <div className="active-task mt-2 font-weight-bold">
-                    {item?.user?.firstname ?? item?.user?.username}{" "}
-                    {item?.user?.lastname ?? ""}
+                    {item?.user?.firstname ?? item?.user?.username} {item?.user?.lastname ?? ''}
                   </div>
                   <button
                     title="coming soon"

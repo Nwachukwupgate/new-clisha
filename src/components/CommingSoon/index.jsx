@@ -1,5 +1,4 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 function CommingSoon() {
   const navigate = useNavigate();
@@ -10,8 +9,8 @@ function CommingSoon() {
 
         <div className="col-12 text-center mt-5">
           <button className="btn back-navigate" onClick={() => navigate(-1)}>
-            {" "}
-            <i className="fa fa-arrow-left" aria-hidden="true"></i> Back
+            {' '}
+            <i className="fa fa-arrow-left" aria-hidden="true" /> Back
           </button>
         </div>
       </div>

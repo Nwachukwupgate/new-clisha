@@ -1,5 +1,3 @@
-import React from "react";
-
 function Plan() {
   return (
     <div>
@@ -103,9 +101,7 @@ function Plan() {
                 <li>
                   <h6>
                     <img src="images/Accessee 1.png" alt="" />
-                    <span className="text-white ml-3">
-                      Sign up for any product
-                    </span>
+                    <span className="text-white ml-3">Sign up for any product</span>
                   </h6>
                   <h6>
                     <img src="images/TO-DO 1.png" alt="" />
@@ -116,8 +112,8 @@ function Plan() {
                       <li className="ml-4">ORM</li>
                     </ul>
                     <small className="text-white d-block ml-5 small-txt-plan">
-                      Web Pages, News Page, Sales Pages, Niche Sites, Social
-                      Media, Forum, Channel, Keyword Search, Shop
+                      Web Pages, News Page, Sales Pages, Niche Sites, Social Media, Forum, Channel,
+                      Keyword Search, Shop
                     </small>
                   </h6>
                   <h6>
@@ -212,9 +208,7 @@ function Plan() {
                 <li>
                   <h6>
                     <img src="images/Accessee 1.png" alt="" />
-                    <span className="text-white ml-3">
-                      Sign up for any product
-                    </span>
+                    <span className="text-white ml-3">Sign up for any product</span>
                   </h6>
                   <h6>
                     <img src="images/TO-DO 1.png" alt="" />
@@ -229,8 +223,8 @@ function Plan() {
                       <li className="mt-0">Spezial To-do’s</li>
                     </ul>
                     <small className="text-white d-block ml-5 small-txt-plan">
-                      Web Pages, News Page, Sales Pages, Niche Sites, Social
-                      Media, Forum, Channel, Keyword Search, Shop
+                      Web Pages, News Page, Sales Pages, Niche Sites, Social Media, Forum, Channel,
+                      Keyword Search, Shop
                     </small>
                   </h6>
                   <h6>

@@ -1,27 +1,27 @@
+import Toggle from 'react-toggle';
+import { useDispatch, useSelector } from 'react-redux';
+import Header from '../../layouts/Header';
+import Sidebar from '../../layouts/Sidebar';
+import ChangePassword from './ChangePassword';
+import ChangeUsername from './ChanceUsername';
+import 'react-toggle/style.css';
+import { taskStatusFun } from '../../store/General';
 
-import Header from "../../layouts/Header";
-import Sidebar from "../../layouts/Sidebar";
-import ChangePassword from "./ChangePassword";
-import ChangeUsername from "./ChanceUsername";
-import Toggle from "react-toggle";
-import "react-toggle/style.css"
-import { useDispatch, useSelector } from "react-redux";
-import { taskStatusFun } from "../../store/General";
 function Settings() {
   const user = useSelector((state) => state.user.data);
-  const dispatch = useDispatch()
-  const task_status = localStorage.getItem("task_status");
+  const dispatch = useDispatch();
+  const task_status = localStorage.getItem('task_status');
 
   const toggleAdd = () => {
     if (task_status === 'false') {
-      localStorage.setItem("task_status", true);
-      dispatch(taskStatusFun(true))
+      localStorage.setItem('task_status', true);
+      dispatch(taskStatusFun(true));
     } else {
-      localStorage.setItem("task_status", false);
-      dispatch(taskStatusFun(false))
+      localStorage.setItem('task_status', false);
+      dispatch(taskStatusFun(false));
     }
-    window.location.reload()
-  }
+    window.location.reload();
+  };
   return (
     <div className="body-content">
       <div className="bg-muted ">
@@ -37,18 +37,23 @@ function Settings() {
                   <ChangeUsername />
                   <ChangePassword />
                 </div>
-                {user?.user?.developer === true && <div className="col-md-6 text-left mt-4">
-                  <div>Preview Unpublish Task</div>
-                  <label>
-                    <Toggle
-                      defaultChecked={task_status === 'true' ? true : false}
-                      className='custom-classname mt-2 '
-                      onChange={() => toggleAdd()} />
-                    <label className="unplishedtask" >{task_status === 'true' ? "On" : "Off"}</label>
-                  </label>
+                {user?.user?.developer === true && (
+                  <div className="col-md-6 text-left mt-4">
+                    <div>Preview Unpublish Task</div>
+                    <label>
+                      <Toggle
+                        defaultChecked={task_status === 'true'}
+                        className="custom-classname mt-2 "
+                        onChange={() => toggleAdd()}
+                      />
+                      <label className="unplishedtask">
+                        {task_status === 'true' ? 'On' : 'Off'}
+                      </label>
+                    </label>
 
-                  {/* <ChanceEmail /> */}
-                </div>}
+                    {/* <ChanceEmail /> */}
+                  </div>
+                )}
               </div>
             </div>
           </div>

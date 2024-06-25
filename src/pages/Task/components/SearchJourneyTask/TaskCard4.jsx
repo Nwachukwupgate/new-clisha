@@ -1,15 +1,16 @@
-import { useDispatch } from "react-redux";
-import Pagination from "../../../../components/Pagination";
-import { getTaskJourney } from "../../../../store/Task/index.ts";
+import { useDispatch } from 'react-redux';
+import Pagination from '../../../../components/Pagination';
+import { getTaskJourney } from '../../../../store/Task/index';
 
-import JourneyClick from "./SearchJourney.jsx";
+import JourneyClick from './SearchJourney';
+
 function TaskCard4(props) {
   const dispatch = useDispatch();
   const list = props;
 
   const handlePageClick = (event) => {
     const newItems = event.selected + 1;
-    dispatch(getTaskJourney({ page: newItems, types: "search_journey" }));
+    dispatch(getTaskJourney({ page: newItems, types: 'search_journey' }));
   };
 
   return (
@@ -23,7 +24,7 @@ function TaskCard4(props) {
           />
         </div>
       ) : (
-        ""
+        ''
       )}
 
       <div className={`row m-0   taskCards p-0 `}>
@@ -43,10 +44,10 @@ function TaskCard4(props) {
           pageCount={list?.task?.totalPages}
           onPageChange={handlePageClick}
           pageRangeDisplayed={9}
-          justify={"center"}
+          justify="center"
         />
       ) : (
-        ""
+        ''
       )}
     </div>
   );

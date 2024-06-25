@@ -1,8 +1,7 @@
-import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet } from 'react-router-dom';
 
 const useAuth = () => {
-  const isAuth = localStorage.getItem("token");
+  const isAuth = localStorage.getItem('token');
   if (!isAuth || isAuth === null) {
     return false;
   }
@@ -10,7 +9,7 @@ const useAuth = () => {
 };
 function PublicRoutes() {
   const auth = useAuth();
-  return auth ? <Navigate to={"/dashboard"} /> : <Outlet />;
+  return auth ? <Navigate to="/dashboard" /> : <Outlet />;
 }
 
 export default PublicRoutes;

@@ -70,7 +70,7 @@ const config = {
 
 export const updateWalletAddress = createAsyncThunk(
   'wallet/update',
-  async (wallet: string, { dispatch}) => {
+  async (wallet: string, { dispatch }) => {
     try {
       const { data } = await axios.post(
         `${api}/wallet/create`,
@@ -94,7 +94,7 @@ export const updateWalletAddress = createAsyncThunk(
 
 export const requestPayout = createAsyncThunk(
   'wallet/payout',
-  async ({ amount, points } : {amount:string, points: string}, { dispatch, getState }) => {
+  async ({ amount, points }: { amount: string; points: string }, { dispatch, getState }) => {
     try {
       const state = getState() as { user: { data: { rank: { balance: string } } } };
       const userPoints = state.user.data.rank.balance;
@@ -111,7 +111,9 @@ export const requestPayout = createAsyncThunk(
       // update the transactions list
       dispatch(updateWalletTransactions(data.data.transaction));
       // deduct the requested points
-            dispatch(updateUserPoints(parseFloat((parseFloat(userPoints) - parseFloat(points)).toFixed(1))));
+      dispatch(
+        updateUserPoints(parseFloat((parseFloat(userPoints) - parseFloat(points)).toFixed(1)))
+      );
       return data;
     } catch (err) {
       return {
@@ -124,7 +126,7 @@ export const requestPayout = createAsyncThunk(
 
 export const fetchWalletTransactions = createAsyncThunk(
   'wallet/transactions',
-  async ({ page }: { page: number }, ) => {
+  async ({ page }: { page: number }) => {
     try {
       const { data } = await axios.get(`${api}/wallet/transactions?page=${page}&size=10`, config);
       return data;
@@ -137,20 +139,17 @@ export const fetchWalletTransactions = createAsyncThunk(
   }
 );
 
-export const fetchVendoPackageInfo = createAsyncThunk(
-  'wallet/package',
-  async ( ) => {
-    try {
-      const { data } = await axios.get(`${api1}/user/vendo/package-info`, config);
-      return data;
-    } catch (err) {
-      return {
-        title: 'Could not fetch package info',
-        errorMsg: (err as Error).message,
-      };
-    }
+export const fetchVendoPackageInfo = createAsyncThunk('wallet/package', async () => {
+  try {
+    const { data } = await axios.get(`${api1}/user/vendo/package-info`, config);
+    return data;
+  } catch (err) {
+    return {
+      title: 'Could not fetch package info',
+      errorMsg: (err as Error).message,
+    };
   }
-);
+});
 
 const walletSlice = createSlice({
   name: 'wallet',
@@ -188,12 +187,12 @@ const walletSlice = createSlice({
           toast.success('Wallet Added successfully!');
         }
       })
-       .addCase(updateWalletAddress.rejected, (state, action) => {
+      .addCase(updateWalletAddress.rejected, (state, action) => {
         state.addWalletStatus = 'failed';
         state.error = action.payload as { title: string };
         toast.error((action.payload as { title: string }).title);
       })
-      .addCase(requestPayout.pending, (state,) => {
+      .addCase(requestPayout.pending, (state) => {
         state.payoutStatus = 'loading';
         state.error = {};
       })
@@ -213,7 +212,7 @@ const walletSlice = createSlice({
         state.error = action.payload as { title: string };
         toast.error((action.payload as { title: string }).title);
       })
-      .addCase(fetchWalletTransactions.pending, (state,) => {
+      .addCase(fetchWalletTransactions.pending, (state) => {
         state.payoutStatus = 'loading';
         state.error = {};
       })
@@ -234,7 +233,7 @@ const walletSlice = createSlice({
         state.error = action.payload;
         // toast.error(action.payload.title);
       })
-      .addCase(fetchVendoPackageInfo.pending, (state,) => {
+      .addCase(fetchVendoPackageInfo.pending, (state) => {
         state.packageStatus = 'loading';
         state.error = {};
       })

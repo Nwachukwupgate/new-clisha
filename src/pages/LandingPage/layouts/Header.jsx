@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import NavBarScroll from "../../../utils/NavBarScroll";
-import MainNavbar from "../../../components/Nav/MainNavbar";
-import FirstNavbar from "../../../components/Nav/FirstNavbar";
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import NavBarScroll from '../../../utils/NavBarScroll';
+import MainNavbar from '../../../components/Nav/MainNavbar';
+import FirstNavbar from '../../../components/Nav/FirstNavbar';
+
 function Header() {
-  useEffect(() => {
-    return NavBarScroll();
-  }, []);
+  useEffect(() => NavBarScroll(), []);
 
   return (
     <div>
@@ -18,7 +17,7 @@ function Header() {
           {/* first header start */}
           <FirstNavbar />
           {/* navbar start */}
-          <MainNavbar navColor={" bg-transparent     navbar-light "} />
+          <MainNavbar navColor=" bg-transparent     navbar-light " />
           {/* navbar ends */}
         </div>
 

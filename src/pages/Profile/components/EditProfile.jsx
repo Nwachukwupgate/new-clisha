@@ -1,20 +1,21 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import Loading from "../../../components/Alerts/Loading";
-import moment from "moment";
-import { Country } from "country-state-city";
-import timezones from "timezones-list";
+import { useState } from 'react';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import moment from 'moment';
+import { Country } from 'country-state-city';
+import timezones from 'timezones-list';
+import Loading from '../../../components/Alerts/Loading';
 
 function ShowProfile(props) {
   const countryList = Country.getAllCountries();
   const api = process.env.REACT_APP_API;
 
-  let token = window.localStorage.getItem("token");
+  const token = window.localStorage.getItem('token');
   const config = { headers: { Authorization: `bearer ${token}` } };
   const [loading, setIsLoading] = useState(false);
 
-  const data = props.user.user;
+  const { user } = props;
+  const data = user.user;
   const [userDetails, setUserDetails] = useState({
     firstname: data?.firstname,
     lastname: data?.lastname,
@@ -22,7 +23,7 @@ function ShowProfile(props) {
     phone: data?.phone,
     country: data?.country,
     language: data?.language,
-    birth_date: moment(data?.birth_date).format("YYYY-MM-DD"),
+    birth_date: moment(data?.birth_date).format('YYYY-MM-DD'),
     region: data?.region,
   });
 
@@ -33,14 +34,14 @@ function ShowProfile(props) {
       .post(`${api}/user/profile`, userDetails, config)
       .then((res) => {
         setIsLoading(false);
-        window.location.href = "/dashboard/profile";
+        window.location.href = '/dashboard/profile';
       })
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status === 400) {
-          toast.error("Oops all input is required!");
+          toast.error('Oops all input is required!');
         } else {
-          toast.error("Oops try again!");
+          toast.error('Oops try again!');
         }
         // console.log(err);
       });
@@ -61,9 +62,7 @@ function ShowProfile(props) {
                 value={userDetails?.firstname}
                 id="firstname"
                 className="editInput mb-2 shadow-none form-control"
-                onChange={(e) =>
-                  setUserDetails({ ...userDetails, firstname: e.target.value })
-                }
+                onChange={(e) => setUserDetails({ ...userDetails, firstname: e.target.value })}
                 placeholder="first name"
               />
               <input
@@ -71,9 +70,7 @@ function ShowProfile(props) {
                 value={userDetails?.lastname}
                 id="lastname"
                 className="editInput mb-2 shadow-none form-control"
-                onChange={(e) =>
-                  setUserDetails({ ...userDetails, lastname: e.target.value })
-                }
+                onChange={(e) => setUserDetails({ ...userDetails, lastname: e.target.value })}
                 placeholder="last name"
               />
             </div>
@@ -88,10 +85,8 @@ function ShowProfile(props) {
                     name="gender"
                     id="male"
                     value="Male"
-                    checked={userDetails?.gender === "Male" && true}
-                    onChange={(e) =>
-                      setUserDetails({ ...userDetails, gender: e.target.value })
-                    }
+                    checked={userDetails?.gender === 'Male' && true}
+                    onChange={(e) => setUserDetails({ ...userDetails, gender: e.target.value })}
                   />
                   Male
                 </label>
@@ -104,10 +99,8 @@ function ShowProfile(props) {
                     name="gender"
                     id="female"
                     value="Female"
-                    checked={userDetails?.gender === "Female" && true}
-                    onChange={(e) =>
-                      setUserDetails({ ...userDetails, gender: e.target.value })
-                    }
+                    checked={userDetails?.gender === 'Female' && true}
+                    onChange={(e) => setUserDetails({ ...userDetails, gender: e.target.value })}
                   />
                   Female
                 </label>
@@ -137,9 +130,7 @@ function ShowProfile(props) {
                 id="phone"
                 className="editInput shadow-none form-control"
                 placeholder="Phone"
-                onChange={(e) =>
-                  setUserDetails({ ...userDetails, phone: e.target.value })
-                }
+                onChange={(e) => setUserDetails({ ...userDetails, phone: e.target.value })}
               />
             </div>
           </div>
@@ -158,16 +149,10 @@ function ShowProfile(props) {
                 }}
                 id="country"
               >
-                <option>
-                  {userDetails?.country
-                    ? userDetails?.country
-                    : "Select Country"}
-                </option>
+                <option>{userDetails?.country ? userDetails?.country : 'Select Country'}</option>
 
                 {countryList &&
-                  countryList.map((item, key) => (
-                    <option key={item.name}>{item.name}</option>
-                  ))}
+                  countryList.map((item, key) => <option key={item.name}>{item.name}</option>)}
               </select>
             </div>
 
@@ -176,16 +161,10 @@ function ShowProfile(props) {
               <select
                 defaultValue={userDetails?.language}
                 className="editInput shadow-none form-control link"
-                onChange={(e) =>
-                  setUserDetails({ ...userDetails, language: e.target.value })
-                }
+                onChange={(e) => setUserDetails({ ...userDetails, language: e.target.value })}
                 id="language"
               >
-                <option>
-                  {userDetails?.language
-                    ? userDetails?.language
-                    : "Select Langauge"}
-                </option>
+                <option>{userDetails?.language ? userDetails?.language : 'Select Langauge'}</option>
                 <option>English</option>
                 <option>Deutsch</option>
                 <option>French</option>
@@ -198,17 +177,13 @@ function ShowProfile(props) {
               <select
                 defaultValue={userDetails?.region}
                 className="editInput shadow-none form-control link"
-                onChange={(e) =>
-                  setUserDetails({ ...userDetails, region: e.target.value })
-                }
+                onChange={(e) => setUserDetails({ ...userDetails, region: e.target.value })}
                 id="region"
               >
-                <option>
-                  {userDetails?.region ? userDetails?.region : "Select Region"}
-                </option>
-                {timezones?.map((item) => {
-                  return <option key={item.tzCode}>{item?.tzCode}</option>;
-                })}
+                <option>{userDetails?.region ? userDetails?.region : 'Select Region'}</option>
+                {timezones?.map((item) => (
+                  <option key={item.tzCode}>{item?.tzCode}</option>
+                ))}
               </select>
             </div>
           </div>

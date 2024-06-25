@@ -1,5 +1,3 @@
-import React from 'react'
-
 function index() {
   return (
     <div className="plan py-5 becomepartner">
@@ -31,8 +29,8 @@ function index() {
             >
               <h2>Step 1</h2>
               <p>
-                Nam id mi sollicitudin magna dictum pellentesque non ac purus.
-                Etiam leo nibh, finibus eget porttitor
+                Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh,
+                finibus eget porttitor
               </p>
 
               <button className="btn btn-danger rounded-x">Sign Up</button>
@@ -45,13 +43,11 @@ function index() {
             >
               <h2>Step 2</h2>
               <p>
-                Nam id mi sollicitudin magna dictum pellentesque non ac purus.
-                Etiam leo nibh, finibus eget porttitor
+                Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh,
+                finibus eget porttitor
               </p>
 
-              <button className="btn btn-danger rounded-x">
-                Verify your business
-              </button>
+              <button className="btn btn-danger rounded-x">Verify your business</button>
             </div>
             <div
               className="step3 step col-lg-5  mx-auto"
@@ -61,13 +57,11 @@ function index() {
             >
               <h2>Step 3</h2>
               <p>
-                Nam id mi sollicitudin magna dictum pellentesque non ac purus.
-                Etiam leo nibh, finibus eget porttitor
+                Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh,
+                finibus eget porttitor
               </p>
 
-              <button className="btn btn-danger rounded-x">
-                Configure System
-              </button>
+              <button className="btn btn-danger rounded-x">Configure System</button>
             </div>
             <div
               className="step4 step col-lg-5  mx-auto"
@@ -77,8 +71,8 @@ function index() {
             >
               <h2>Step 4</h2>
               <p>
-                Nam id mi sollicitudin magna dictum pellentesque non ac purus.
-                Etiam leo nibh, finibus eget porttitor
+                Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh,
+                finibus eget porttitor
               </p>
 
               <button className="btn btn-danger rounded-x">See Result</button>
@@ -90,4 +84,4 @@ function index() {
   );
 }
 
-export default index
+export default index;

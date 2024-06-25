@@ -1,11 +1,10 @@
- import React from "react";
-import { useSelector } from "react-redux"; 
-import Welcome from "../../components/Welcome/Welcome";
-import Footer from "../../layouts/Footer";
-import Header from "../../layouts/Header";
-import Sidebar from "../../layouts/Sidebar";
-import CardsView from "./components/CardsView";
-// import CardsView from "./components/CardsView"; 
+import { useSelector } from 'react-redux';
+import Welcome from '../../components/Welcome/Welcome';
+import Footer from '../../layouts/Footer';
+import Header from '../../layouts/Header';
+import Sidebar from '../../layouts/Sidebar';
+import CardsView from './components/CardsView';
+// import CardsView from "./components/CardsView";
 function Token() {
   const user = useSelector((state) => state.user.data);
 
@@ -18,11 +17,11 @@ function Token() {
             <Sidebar />
           </div>
           <div className="col-md-8 col-lg-10 py-3 scroll-bg bg-white p-0">
-              <div className="p-0 p-md-3 ">
+            <div className="p-0 p-md-3 ">
               <Welcome user={user} />
               <CardsView user={user} />
               {/* <Footer user={user} /> */}
-            </div> 
+            </div>
             <div className="container d-none text-center p-0 p-md-3 pt-4">
               {/* <h3 className="soonText text-center">Coming soon</h3>
 

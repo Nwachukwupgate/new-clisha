@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import ProfilePicture from "../../../utils/ProfilePicture";
-import { useDispatch, useSelector } from "react-redux";
-import { getRank } from "../../../store/Rank";
-import Pagination from "../../../components/Pagination";
-import ExperienceBar from "./ExperienceBar";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import ProfilePicture from '../../../utils/ProfilePicture';
+import { getRank } from '../../../store/Rank';
+import Pagination from '../../../components/Pagination';
+import ExperienceBar from './ExperienceBar';
+
 function RankCards({ user }) {
   const rank = useSelector((state) => state.rank);
 
@@ -45,7 +46,7 @@ function RankCards({ user }) {
                   <span className="ml-2  ">
                     <b>
                       {item?.user?.username?.slice(0, 13)}
-                      {".. "}
+                      {'.. '}
 
                       {/* {item?.user?.lastname?.slice(0, 5) ?? ""}
                       {item?.user?.lastname?.length >= 5 ? "..." : ""} */}
@@ -57,19 +58,15 @@ function RankCards({ user }) {
                   <span className="rank_text z-2">AdStar</span>
 
                   <span className="rank_text2 z-2">
-                    {(item?.rankName && item?.rankName?.slice(6)) ?? "bronze"}
+                    {(item?.rankName && item?.rankName?.slice(6)) ?? 'bronze'}
                   </span>
 
                   <img
-                    src={`/images/rank/${
-                      item?.rankName?.slice(7) ?? "bronze"
-                    }.png`}
+                    src={`/images/rank/${item?.rankName?.slice(7) ?? 'bronze'}.png`}
                     alt=""
                     className="ranking_Community_badges"
                   />
-                  <div className="total_point float-right ">
-                    {item.total_points}
-                  </div>
+                  <div className="total_point float-right ">{item.total_points}</div>
                 </div>
               </div>
             </div>
@@ -81,7 +78,7 @@ function RankCards({ user }) {
             pageCount={rank?.data?.totalPages}
             onPageChange={handlePageClick}
             pageRangeDisplayed={24}
-            justify={"center"}
+            justify="center"
           />
         )}
       </div>

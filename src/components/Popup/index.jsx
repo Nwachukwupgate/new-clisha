@@ -1,13 +1,11 @@
-import React from "react";
-
 function Popup({ item, text, handleCopyGo }) {
   const testServerExt =
-    "https://clisha-assets.fra1.digitaloceanspaces.com/extension%2Fclicha-extension-150.crx";
+    'https://clisha-assets.fra1.digitaloceanspaces.com/extension%2Fclicha-extension-150.crx';
   const liveServerExt =
-    "https://chrome.google.com/webstore/detail/clisha-extension/jagnnnnnooogbbpgjidbpockglhfoban";
-  const hasExt = window.localStorage.getItem("hasExt");
+    'https://chrome.google.com/webstore/detail/clisha-extension/jagnnnnnooogbbpgjidbpockglhfoban';
+  const hasExt = window.localStorage.getItem('hasExt');
   const history = window.location?.host;
-  const newHost = "clisha-frontend.suan.ai";
+  const newHost = 'clisha-frontend.suan.ai';
 
   return (
     <div className="modal-dialog modal-sm" role="document">
@@ -20,11 +18,11 @@ function Popup({ item, text, handleCopyGo }) {
           <div>
             <img src="/images/popup/Group 76566.png" alt="" />
           </div>
-          {item?.task_type === "website_click" && (
+          {item?.task_type === 'website_click' && (
             <div>
               <small>
                 {
-                  "Please Visit this website and stay for 30sec and then come back to here claim your bonus "
+                  'Please Visit this website and stay for 30sec and then come back to here claim your bonus '
                 }
               </small>
 
@@ -36,11 +34,10 @@ function Popup({ item, text, handleCopyGo }) {
               />
             </div>
           )}
-          {(hasExt === "true" || history !== newHost) &&
-          item?.task_type !== "website_click" ? (
+          {(hasExt === 'true' || history !== newHost) && item?.task_type !== 'website_click' ? (
             <div>
-              <small>{"Click the button below to start your task"}</small>
-              {item.task_type === "google_search" && (
+              <small>Click the button below to start your task</small>
+              {item.task_type === 'google_search' && (
                 <input
                   type="text"
                   className="form-control mt-1"
@@ -48,7 +45,7 @@ function Popup({ item, text, handleCopyGo }) {
                   readOnly
                 />
               )}
-              {item?.task_type === "search_journey" && (
+              {item?.task_type === 'search_journey' && (
                 <input
                   type="text"
                   className="form-control mt-1"
@@ -58,13 +55,13 @@ function Popup({ item, text, handleCopyGo }) {
               )}
               <button
                 className={`btn ${
-                  item?.task_type === "journey" ? "btn_journey" : "btn_copy"
+                  item?.task_type === 'journey' ? 'btn_journey' : 'btn_copy'
                 } shadow border-0`}
                 onClick={() => {
                   handleCopyGo(item);
                 }}
               >
-                {item?.task_type === "journey" ? "Start Journey" : "Copy"}
+                {item?.task_type === 'journey' ? 'Start Journey' : 'Copy'}
               </button>
             </div>
           ) : (
@@ -79,8 +76,8 @@ function Popup({ item, text, handleCopyGo }) {
               >
                 Install and Activate Or Update
               </a>
-              the Chrome Extention here before you solve this tasks, Reload the
-              page after Installation
+              the Chrome Extention here before you solve this tasks, Reload the page after
+              Installation
             </div>
           )}
         </div>
