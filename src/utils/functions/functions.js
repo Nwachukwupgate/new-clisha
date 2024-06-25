@@ -4,9 +4,8 @@ export const shortenWalletID = (wallet) => {
     const lastThree = wallet.slice(wallet.length - 3, wallet.length);
 
     return `${firstThree}...${lastThree}`;
-  } else {
-    return "";
   }
+  return '';
 };
 
 export const pointsToDollar = (points) => {

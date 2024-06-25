@@ -1,13 +1,10 @@
-import React from "react";
-
 function HowToBecomePartner() {
   return (
     <div className="HowToBecomePartner container">
       <h1>How to Become Our Partner</h1>
       <p className="col-md-8 mx-auto">
-        Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo
-        nibh, finibus eget porttitor sit amet, consequat ac lacus. Quisque
-        ornare, arcu quis lacinia hendrerit,
+        Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh, finibus eget
+        porttitor sit amet, consequat ac lacus. Quisque ornare, arcu quis lacinia hendrerit,
       </p>
 
       <form>
@@ -148,9 +145,7 @@ function HowToBecomePartner() {
 
         <div className="row m-0">
           <div className="form-group col-12 mt-2">
-            <button className="btn btn-warning w-100">
-              Become A Publisher
-            </button>
+            <button className="btn btn-warning w-100">Become A Publisher</button>
           </div>
         </div>
       </form>

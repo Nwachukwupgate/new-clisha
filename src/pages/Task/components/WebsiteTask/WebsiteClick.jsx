@@ -1,9 +1,8 @@
-import React from "react";
-import TaskCopy from "../TaskCards/TaskCopy";
-import TaskFooter from "../TaskCards/TaskFooter";
-import TaskLogo from "../TaskCards/TaskLogo";
-import TextSection from "../TaskCards/TextSection";
-import VisitCards from "../TaskCards/VisitCards";
+import TaskCopy from '../TaskCards/TaskCopy';
+import TaskFooter from '../TaskCards/TaskFooter';
+import TaskLogo from '../TaskCards/TaskLogo';
+import TextSection from '../TaskCards/TextSection';
+import VisitCards from '../TaskCards/VisitCards';
 
 function WebsiteClick({ item, index, loadLink, extCode }) {
   return (
@@ -12,7 +11,7 @@ function WebsiteClick({ item, index, loadLink, extCode }) {
         className="card p-2   "
         style={{
           backgroundColor: item?.token?.background,
-          color: item?.token?.foreground ?? "#fff",
+          color: item?.token?.foreground ?? '#fff',
         }}
       >
         {/* header task */}

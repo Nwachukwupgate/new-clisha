@@ -1,17 +1,17 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import axios from 'axios';
+import { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 // import { useDispatch } from 'react-redux';
-import Loading from "../../components/Alerts/Loading";
+import Loading from '../../components/Alerts/Loading';
 // import { ChangePasswordData } from '../../store/General';
 
 function ChangeUsername() {
   const api = process.env.REACT_APP_API;
-  let token = window.localStorage.getItem("token");
+  const token = window.localStorage.getItem('token');
   const config = { headers: { Authorization: `bearer ${token}` } };
   const [userDetails, setUserDetails] = useState();
   const [loading, setIsLoading] = useState(false);
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -19,11 +19,11 @@ function ChangeUsername() {
       .post(`${api}/user/account/update/username`, userDetails, config)
       .then((result) => {
         setIsLoading(false);
-        toast.success("Successfully Updated Username");
+        toast.success('Successfully Updated Username');
         window.location.reload();
       })
       .catch((err) => {
-        toast.error("Invalid Username details");
+        toast.error('Invalid Username details');
         setIsLoading(false);
       });
   };
@@ -42,7 +42,7 @@ function ChangeUsername() {
           aria-expanded="false"
           aria-controls="collapseExample"
         >
-          <i className="fa fa-pencil" aria-hidden="true"></i>
+          <i className="fa fa-pencil" aria-hidden="true" />
         </a>
       </h6>
       {/* </p> */}
@@ -51,9 +51,7 @@ function ChangeUsername() {
           type="text"
           placeholder="New Username"
           className="form-control"
-          onChange={(e) =>
-            setUserDetails({ ...userDetails, username: e.target.value })
-          }
+          onChange={(e) => setUserDetails({ ...userDetails, username: e.target.value })}
         />
 
         <button className="btn btn-primary">Update</button>

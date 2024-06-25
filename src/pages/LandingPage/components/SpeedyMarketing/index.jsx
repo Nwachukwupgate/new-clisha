@@ -1,4 +1,3 @@
-import React from 'react'
 import { translate } from '../../../../utils/translation';
 
 function index() {
@@ -12,9 +11,9 @@ function index() {
           className="col-md-8   m-auto"
           data-aos="fade-left"
           data-aos-duration="1300"
-        // data-aos-delay="600"
+          // data-aos-delay="600"
         >
-          {translate("SpeedyMarketing")}
+          {translate('SpeedyMarketing')}
         </p>
         <div className="div">
           <img
@@ -39,4 +38,4 @@ function index() {
   );
 }
 
-export default index
+export default index;

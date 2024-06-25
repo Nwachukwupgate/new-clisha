@@ -1,36 +1,20 @@
-import { useEffect, useState } from "react";
-import { useReward } from "react-rewards";
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useReward } from 'react-rewards';
 
 function AnimateExperience() {
-  const { reward } = useReward("rewardId", "confetti");
+  const { reward } = useReward('rewardId', 'confetti');
   const [isnewUpdate] = useState(true);
-  const sound = new Audio();
 
-  const setisnewUpdateFunc = () => {
-    // setisnewUpdate(false)
-    // if (isnewUpdate) {
-    sound.src = "/audio/success.mp3";
-    console.log(sound);
+  const sound = useMemo(() => new Audio(), []);
+  const setisnewUpdateFunc = useCallback(() => {
+    sound.src = '/audio/success.mp3';
     sound.play();
-    // vaudio.oncanplaythrough = (event) => {
-    //     var playedPromise = audio.play();
-    //     if (playedPromise) {
-    //         playedPromise.catch((e) => {
-    //             console.log(e)
-    //             if (e.name === 'NotAllowedError' || e.name === 'NotSupportedError') {
-    //                 console.log(e.name);
-    //             }
-    //         }).then(() => {
-    //             console.log("playing sound !!!");
-    //         });
-    //     }
-    // }
-    // }
-  };
+  }, [sound]);
+
   useEffect(() => {
     reward();
     setisnewUpdateFunc();
-  }, []);
+  }, [reward, setisnewUpdateFunc]);
 
   if (isnewUpdate)
     return (
@@ -40,14 +24,14 @@ function AnimateExperience() {
           <span
             id="rewardId"
             type="emoji"
-            config={{
-              lifetime: 200,
-              angle: 3000,
-              spread: 3000,
-              elementCount: 100,
-              emoji: ["💲", "🤑", "💷", "💱", "💸", "💶", "💵", "💰"],
-              colors: ["#000000", "#F25555", "#55D8F2", "#499DF2", "#F2CB30"],
-            }}
+            // config={{
+            //   lifetime: 200,
+            //   angle: 3000,
+            //   spread: 3000,
+            //   elementCount: 100,
+            //   emoji: ["💲", "🤑", "💷", "💱", "💸", "💶", "💵", "💰"],
+            //   colors: ["#000000", "#F25555", "#55D8F2", "#499DF2", "#F2CB30"],
+            // }}
           />
           <img
             src="/images/rank/silver.png"

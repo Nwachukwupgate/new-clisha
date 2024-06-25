@@ -1,29 +1,29 @@
-import axios from "axios";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Loading from "../../components/Alerts/Loading";
+import axios from 'axios';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Loading from '../../components/Alerts/Loading';
 
 // import { Helmet } from "react-helmet";
 // import url from "../../json/config.json";
 
 const query = new URLSearchParams(window.location.search);
-const code = query.get("code");
+const code = query.get('code');
 function Signup() {
   const auth_api = process.env.REACT_APP_AUTH;
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const [isPassword, setIsPassword] = useState(false);
   // const [itemData, setitemData] = useState(false);
   const [loading, setIsLoading] = useState(false);
 
   const [signupDetails, setSignupDetails] = useState({
-    username: "",
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+    username: '',
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
     code,
   });
 
@@ -34,10 +34,10 @@ function Signup() {
       .post(`${auth_api}/register`, signupDetails)
       .then((res) => {
         setIsLoading(false);
-        window.localStorage.setItem("username", res.data.data.user.username);
-        window.localStorage.setItem("email", res.data.data.user.email);
+        window.localStorage.setItem('username', res.data.data.user.username);
+        window.localStorage.setItem('email', res.data.data.user.email);
         // window.localStorage.setItem("token", res.data.data.accessToken);
-        window.localStorage.setItem("refresh", res.data.data.refreshToken);
+        window.localStorage.setItem('refresh', res.data.data.refreshToken);
         navigate(`/verify`);
         // window.location.href = "/dashboard";
       })
@@ -47,20 +47,20 @@ function Signup() {
           const error = err.response.data.errors;
           toast.error(`${error[0].param}: ${error[0].msg}`);
         } else {
-          toast.error("Oops try again later!");
+          toast.error('Oops try again later!');
         }
       });
   };
   const showPassword = () => {
-    let password = document.querySelector("#password");
-    let password2 = document.querySelector("#password2");
+    const password = document.querySelector('#password');
+    const password2 = document.querySelector('#password2');
     setIsPassword(!isPassword);
-    if (password.type === "text") {
-      password.type = "password";
-      password2.type = "password";
+    if (password.type === 'text') {
+      password.type = 'password';
+      password2.type = 'password';
     } else {
-      password2.type = "text";
-      password.type = "text";
+      password2.type = 'text';
+      password.type = 'text';
     }
   };
 
@@ -134,7 +134,7 @@ function Signup() {
               setSignupDetails({
                 ...signupDetails,
                 email: e.target.value,
-                username: e.target.value.slice(0, e.target.value.indexOf("@")),
+                username: e.target.value.slice(0, e.target.value.indexOf('@')),
               })
             }
           />
@@ -163,18 +163,14 @@ function Signup() {
           />
           <div className="check_pword">
             {!isPassword && (
-              <i
-                className="fa fa-eye text-muted link "
-                onClick={showPassword}
-                aria-hidden="true"
-              ></i>
+              <i className="fa fa-eye text-muted link " onClick={showPassword} aria-hidden="true" />
             )}
             {isPassword && (
               <i
                 className="fa fa-eye-slash text-muted link "
                 onClick={showPassword}
                 aria-hidden="true"
-              ></i>
+              />
             )}
           </div>
           <small id="emailHelpId" className="form-text d-none text-danger">
@@ -221,11 +217,7 @@ function Signup() {
         </div>
 
         <div className="form-group  pt-3">
-          <button
-            type="submit"
-            className="btn btn-primary shadow mt-2 w-100"
-            id="submit"
-          >
+          <button type="submit" className="btn btn-primary shadow mt-2 w-100" id="submit">
             Signup
           </button>
         </div>
@@ -236,9 +228,7 @@ function Signup() {
           className="form-text d-block text-center  text-muted text-decoration-none"
         >
           Already have an account?
-          <b className="text-primary text-decoration-hover-underline ml-2">
-            Sign in now
-          </b>
+          <b className="text-primary text-decoration-hover-underline ml-2">Sign in now</b>
         </Link>
       </form>
       <ToastContainer

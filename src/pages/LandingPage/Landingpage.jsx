@@ -1,24 +1,14 @@
-import React from "react";
-// import ScrollTop from "../../components/ScrollTop/ScrollTop";
-import cards from "../../json/cards.json";
-import Footer from "./layouts/Footer";
-import Header from "./layouts/Header";
-import HowItWorks from "./components/HowItWorks";
-import NumberTasks from "./components/NumberTasks";
-// import ClishaPartners from "./components/ClishaPartners";
-// import FrequentlyAskedQuestion from "./components/FrequentlyAskedQuestion";
-// import FlexiblePlan from "./components/FlexiblePlan";
-import NewOnlineTask from "./components/NewOnlineTask";
-// import OurHappyClient from "./components/OurHappyClient";
-// import PowerfulTools from "./components/PowerfulTools";
-// import ReadyToStart from "./components/ReadyToStart";
-// import ResourcesStart from "./components/ResourcesStart";
-import SpeedyMarketing from "./components/SpeedyMarketing";
-// import TopCompany from "./components/TopCompany";
-import TopUser from "./components/TopUser";
-import WeLoveAffiliates from "./components/WeLoveAffiliates";
-import WhatinClisha from "./components/WhatinClisha";
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
+import cards from '../../json/cards.json';
+import Footer from './layouts/Footer';
+import Header from './layouts/Header';
+import HowItWorks from './components/HowItWorks';
+import NumberTasks from './components/NumberTasks';
+import NewOnlineTask from './components/NewOnlineTask';
+import SpeedyMarketing from './components/SpeedyMarketing';
+import TopUser from './components/TopUser';
+import WeLoveAffiliates from './components/WeLoveAffiliates';
+import WhatinClisha from './components/WhatinClisha';
 
 function Landingpage() {
   const card = cards;
@@ -31,13 +21,13 @@ function Landingpage() {
       <HowItWorks />
       {/* how it works ends */}
 
-      {/* numbering tasks  start*/}
+      {/* numbering tasks  start */}
       <NumberTasks />
-      {/* numbering tasks  end*/}
+      {/* numbering tasks  end */}
 
-      {/* We Loves Our Affiliates start*/}
+      {/* We Loves Our Affiliates start */}
       <WeLoveAffiliates card={card} />
-      {/* We Loves Our Affiliates end*/}
+      {/* We Loves Our Affiliates end */}
 
       {/* Speedy Marketing With Community start */}
       <SpeedyMarketing />
@@ -74,13 +64,13 @@ function Landingpage() {
 
       {/* Clisha Partners start */}
       {/* <ClishaPartners card={card} /> */}
-      {/*Clisha Partners end */}
+      {/* Clisha Partners end */}
 
       {/* Frequintly Asked Questions start */}
       {/* <FrequentlyAskedQuestion /> */}
       {/* Frequintly Asked Questions end */}
 
-      {/*Ready to start become our partner start */}
+      {/* Ready to start become our partner start */}
       {/* <ReadyToStart /> */}
       {/* Ready to start become our partner end */}
 

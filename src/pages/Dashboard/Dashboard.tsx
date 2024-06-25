@@ -66,7 +66,6 @@ function Dashboard() {
     if (userInputs.length > 0) {
       // update user completed profile percentage
       setPerProfile(Math.round((completed / 9) * 100));
-  
     }
   }, [user]);
 
@@ -75,7 +74,7 @@ function Dashboard() {
     const nowDate = moment(Date.now()).format('DD-MM-YYYY');
     const lastDate = moment().endOf('month').format('DD-MM-YYYY');
 
-    for (let x = 0; x <= 3; x++) {
+    for (let x = 0; x <= 3; x += 1) {
       const temp = moment().endOf('month').subtract(x, 'd');
       dateArr.add(temp.format('DD-MM-YYYY'));
     }
@@ -88,9 +87,10 @@ function Dashboard() {
     }
   }, []);
 
-  const getUserVQForVendo = useCallback((vqs: number, percentage: number) => {
-    return (vqs * (percentage / 100)).toFixed(1);
-  }, []);
+  const getUserVQForVendo = useCallback(
+    (vqs: number, percentage: number) => (vqs * (percentage / 100)).toFixed(1),
+    []
+  );
 
   const transferUserVqsToVendo = useCallback(async () => {
     setIsTransferVqsLoading(true);
@@ -183,7 +183,7 @@ function Dashboard() {
                               className="text-dark"
                               style={{ fontWeight: '700', marginBottom: '8px' }}
                             >
-                              You've earned {user?.rank?.bonus_points?.toFixed() ?? 0} VQs, and as a{' '}
+                              {`You've earned ${user?.rank?.bonus_points?.toFixed() ?? 0} VQs, and as a{' '}`}
                               <b style={{ color: 'red' }}>
                                 {vendoPackage?.data?.package_level === 'proplus'
                                   ? 'Pro+'
@@ -217,7 +217,7 @@ function Dashboard() {
                                 className=" btn btn-primary vendoBtn"
                                 onClick={transferUserVqsToVendo}
                               >
-                                {isTransferVqsLoading && <i className="fa fa-spinner fa-spin"></i>}{' '}
+                                {isTransferVqsLoading && <i className="fa fa-spinner fa-spin" />}{' '}
                                 Claim bonus
                               </button>
                             )}
@@ -239,11 +239,11 @@ function Dashboard() {
                           <span className="sr-only">Close</span>
                         </button>
                         {!user?.user?.email_verified_at ? (
-                          <Link to={'/verify'} className="text-dark">
+                          <Link to="/verify" className="text-dark">
                             <b>Please verify your account here</b>
                           </Link>
                         ) : (
-                          <Link to={'/dashboard/profile'} className="text-dark">
+                          <Link to="/dashboard/profile" className="text-dark">
                             <b>Please update your profile here</b>
                           </Link>
                         )}
@@ -251,7 +251,7 @@ function Dashboard() {
                           <span>
                             You are
                             <strong className="badge badge-pill badge-warning mx-2">
-                              { perProfile }%
+                              {perProfile}%
                             </strong>
                             done
                           </span>
@@ -275,7 +275,7 @@ function Dashboard() {
                   </div>
 
                   <div className="seacrh_box mb-3  d-none">
-                    <i className="fa fa-search text-muted" aria-hidden="true"></i>
+                    <i className="fa fa-search text-muted" aria-hidden="true" />
                     <input
                       type="text"
                       placeholder="Search something..."
@@ -308,7 +308,7 @@ function Dashboard() {
                         <span>
                           {date()} -{' '}
                           {`${user?.timezone?.time} ${
-                            parseInt(user?.timezone?.time.split(':')[0]) > 12 ? 'pm' : 'am'
+                            parseInt(user?.timezone?.time.split(':')[0], 10) > 12 ? 'pm' : 'am'
                           }`}
                         </span>
                       )}

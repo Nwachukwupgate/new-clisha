@@ -1,16 +1,15 @@
-import React from "react";
-import cards from "../../../json/cards.json";
+import cards from '../../../json/cards.json';
+
 function HowPartnerValidate() {
   const card = cards;
   return (
     <div className="how_partner_validate text-center">
       <h1>How Partner Validiate Our Platform</h1>
       <p className="col-8 mx-auto">
-        Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo
-        nibh, finibus eget porttitor sit amet, consequat ac lacus. Quisque
-        ornare, arcu quis lacinia hendrerit, quam metus hendrerit mauris, sit
-        amet luctus turpis sem nec diam. Aliquam feugiat nibh tortor, a varius
-        leo tristique nec
+        Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh, finibus eget
+        porttitor sit amet, consequat ac lacus. Quisque ornare, arcu quis lacinia hendrerit, quam
+        metus hendrerit mauris, sit amet luctus turpis sem nec diam. Aliquam feugiat nibh tortor, a
+        varius leo tristique nec
       </p>
 
       <div className="bg-we-love-2">
@@ -25,27 +24,18 @@ function HowPartnerValidate() {
                   data-aos-duration="1000"
                   // data-aos-delay="600"
                 >
-                  <img
-                    className={`card-img m-auto img-getters mb-3  `}
-                    src={item.img}
-                    alt=""
-                  />
+                  <img className={`card-img m-auto img-getters mb-3  `} src={item.img} alt="" />
 
                   <div className="card-body">
                     <p className="text-left p-0 row m-0">
                       <span className="small col-5 p-0">Rank : #102</span>
-                      <span className="col-7 text-right  p-0 small">
-                        Investment : 26m
-                      </span>
+                      <span className="col-7 text-right  p-0 small">Investment : 26m</span>
                     </p>
                     <p className="card-text small py-3">
-                      At nam minimum ponderum. Est audiam animal molestiae te.
-                      Ex duo eripuit mentitum.
+                      At nam minimum ponderum. Est audiam animal molestiae te. Ex duo eripuit
+                      mentitum.
                     </p>
-                    <a
-                      href="/"
-                      className="text-success  text-decoration-underline "
-                    >
+                    <a href="/" className="text-success  text-decoration-underline ">
                       View More
                     </a>
                   </div>
@@ -55,13 +45,13 @@ function HowPartnerValidate() {
 
           <div className="reviews mt-4">
             <span>
-              Our <b>partners</b> always love to give review us !{" "}
+              Our <b>partners</b> always love to give review us !{' '}
             </span>
-            <i className="fa fa-star text-warning mx-1"></i>
-            <i className="fa fa-star text-warning mx-1"></i>
-            <i className="fa fa-star text-warning mx-1"></i>
-            <i className="fa fa-star text-warning mx-1"></i>
-            <i className="fa fa-star-o mx-1 text-muted"></i>
+            <i className="fa fa-star text-warning mx-1" />
+            <i className="fa fa-star text-warning mx-1" />
+            <i className="fa fa-star text-warning mx-1" />
+            <i className="fa fa-star text-warning mx-1" />
+            <i className="fa fa-star-o mx-1 text-muted" />
 
             <span>
               <b>4.95</b> based on <b className="text-warning">1848</b> Review

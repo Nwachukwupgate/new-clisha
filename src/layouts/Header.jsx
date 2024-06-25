@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react";
-import "aos/dist/aos.css";
-import { Link, useNavigate } from "react-router-dom";
-import MobileSidebar from "./MobileSidebar";
-import { logoutAction } from "../store/Auth/auth";
-import { useDispatch , useSelector } from "react-redux";
-import ProfilePicture from "../utils/ProfilePicture";
-
-
-import CountUp from "react-countup";
+import { useEffect, useState } from 'react';
+import 'aos/dist/aos.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import CountUp from 'react-countup';
+import MobileSidebar from './MobileSidebar';
+import { logoutAction } from '../store/Auth/auth';
+import ProfilePicture from '../utils/ProfilePicture';
 
 function Header() {
   const dispatch = useDispatch();
@@ -18,8 +16,8 @@ function Header() {
     dispatch(logoutAction());
   };
   const navigate = useNavigate();
-  const balance = window.localStorage.getItem("balance");
-  const earned = window.localStorage.getItem("earned");
+  const balance = window.localStorage.getItem('balance');
+  const earned = window.localStorage.getItem('earned');
   const [userBalance, setUserBalance] = useState(balance ?? 0);
   const [userEarned, setUserEarned] = useState(earned ?? 0);
 
@@ -41,8 +39,9 @@ function Header() {
         <MobileSidebar />
       </div>
       <nav
-        className={`navbar navbar-expand-md border-bottom  navbar-light ${current_route === "/profile" ? "bg-white" : "bg-lighter"
-          } `}
+        className={`navbar navbar-expand-md border-bottom  navbar-light ${
+          current_route === '/profile' ? 'bg-white' : 'bg-lighter'
+        } `}
       >
         <div className=" px-4 x-width ">
           <a className="navbar-brand" href="/dashboard">
@@ -66,20 +65,19 @@ function Header() {
             data-toggle="modal"
             data-target="#navabar"
           >
-            <i className="fa fa-bars text-muted" aria-hidden="true"></i>
+            <i className="fa fa-bars text-muted" aria-hidden="true" />
           </button>
-          <div
-            className="collapse navbar-collapse dashboard-nav"
-            id="collapsibleNavId"
-          >
+          <div className="collapse navbar-collapse dashboard-nav" id="collapsibleNavId">
             <ul className="navbar-nav  ml-md-auto mt-2 mt-lg-0">
               <li className="nav-item px-1">
                 <span className="nav-link point">
-                  <small className="text-dark b ml-1 currency">${Number(userEarned).toFixed(2)}</small>
+                  <small className="text-dark b ml-1 currency">
+                    ${Number(userEarned).toFixed(2)}
+                  </small>
                 </span>
               </li>
               {user?.user.vendoConnectStatus &&
-                vendoPackage?.data?.package_level !== "No package" && (
+                vendoPackage?.data?.package_level !== 'No package' && (
                   <li className="nav-item px-1">
                     <span className="nav-link point">
                       <img src="/images/vqs.png" className="mail" alt="" />
@@ -88,7 +86,7 @@ function Header() {
                           start={user?.rank?.bonus_points}
                           end={user && user?.rank?.bonus_points}
                           duration={3.75}
-                        />{" "}
+                        />{' '}
                         VQs
                       </small>
                     </span>
@@ -111,10 +109,7 @@ function Header() {
             </ul>
 
             <ul className="navbar-nav  ml-md-auto mt-2 mt-lg-0">
-              <li
-                className="nav-item px-1 mt-2"
-                onClick={() => navigate("/notification")}
-              >
+              <li className="nav-item px-1 mt-2" onClick={() => navigate('/notification')}>
                 <img src="/images/bell.png" className="mail link" alt="" />
               </li>
 
@@ -141,26 +136,17 @@ function Header() {
                     </div> */}
                     <span className="name "> {user?.user?.username} </span>
 
-                    <i className="fa fa-angle-down " aria-hidden="true"></i>
+                    <i className="fa fa-angle-down " aria-hidden="true" />
                   </button>
-                  <div
-                    className="dropdown-menu text-right"
-                    aria-labelledby="triggerId"
-                  >
-                    <Link
-                      className="dropdown-item text-secondary"
-                      to="/dashboard/profile"
-                    >
+                  <div className="dropdown-menu text-right" aria-labelledby="triggerId">
+                    <Link className="dropdown-item text-secondary" to="/dashboard/profile">
                       Profile
                     </Link>
 
-                    <Link
-                      className="dropdown-item text-secondary"
-                      to="/dashboard"
-                    >
+                    <Link className="dropdown-item text-secondary" to="/dashboard">
                       Dashboard
                     </Link>
-                    <div className="dropdown-divider"></div>
+                    <div className="dropdown-divider" />
                     <a
                       className="dropdown-item font-weight-bold link"
                       onClick={logout}

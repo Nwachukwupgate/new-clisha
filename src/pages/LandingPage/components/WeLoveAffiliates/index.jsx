@@ -1,4 +1,3 @@
-import React from 'react'
 import { translate } from '../../../../utils/translation';
 
 function index({ card }) {
@@ -9,7 +8,7 @@ function index({ card }) {
           className="howitworktxt2"
           data-aos="zoom-in"
           data-aos-duration="1000"
-        // data-aos-delay="100"
+          // data-aos-delay="100"
         >
           <b>We Loves Our Affiliates</b>
         </h3>
@@ -17,25 +16,25 @@ function index({ card }) {
           className="col-md-8  m-auto p-0 p-lg-2"
           data-aos="fade-left"
           data-aos-duration="1300"
-        // data-aos-delay="600"
+          // data-aos-delay="600"
         >
-          {translate("weLoveAffifialte")}
+          {translate('weLoveAffifialte')}
         </p>
       </div>
       <div className="bg-we-love-2">
         <div className="container pt-lg-5">
           <div className="row m-0 mt-5">
             {card &&
-              card.card1.map((item, index) => (
+              card.card1.map((item, innerIndex) => (
                 <div
                   className="card maincard mb-4 bg-white shadow text-center p-3 mx-auto col-lg-6 "
-                  key={index}
+                  key={innerIndex}
                   data-aos="zoom-in"
                   data-aos-duration="1300"
-                // data-aos-delay="600"
+                  // data-aos-delay="600"
                 >
                   <img
-                    className={`card-img m-auto ${index === 3 ? "img2" : ""}`}
+                    className={`card-img m-auto ${innerIndex === 3 ? 'img2' : ''}`}
                     src={item.img}
                     alt=""
                   />
@@ -43,10 +42,7 @@ function index({ card }) {
                   <div className="card-body">
                     <h4 className="card-title">{item.title}</h4>
                     <p className="card-text ">{item.description}</p>
-                    <a
-                      href="/"
-                      className="text-success  text-decoration-underline small"
-                    >
+                    <a href="/" className="text-success  text-decoration-underline small">
                       View More
                     </a>
                   </div>
@@ -59,4 +55,4 @@ function index({ card }) {
   );
 }
 
-export default index
+export default index;

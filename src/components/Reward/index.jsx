@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useReward } from "react-rewards";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { taskCompleted } from "../../store/Task";
-import CountUp from "react-countup";
-import Loading from "../Alerts/Loading";
+import { useEffect, useState } from 'react';
+import { useReward } from 'react-rewards';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import CountUp from 'react-countup';
+import { taskCompleted } from '../../store/Task';
+import Loading from '../Alerts/Loading';
 
 export default function RewardApp() {
   const user = useSelector((state) => state.user.data);
-  const completeTaskLoading = useSelector(
-    (state) => state.task.completeTaskLoading
-  );
+  const completeTaskLoading = useSelector((state) => state.task.completeTaskLoading);
   const vendoPackage = useSelector((state) => state.wallet.vendoPackage);
 
-  const { reward } = useReward("rewardId", "confetti");
+  const { reward } = useReward('rewardId', 'confetti');
   const navigate = useNavigate();
   const sound = new Audio();
   const dispatch = useDispatch();
@@ -22,13 +20,13 @@ export default function RewardApp() {
   // const user = useSelector((state) => state.user.data);
 
   const query = new URLSearchParams(window.location.search);
-  const _task = query.get("t");
-  const _isFailed = query.get("status");
-  const _point = query.get("p");
-  const _bonus = query.get("b");
+  const _task = query.get('t');
+  const _isFailed = query.get('status');
+  const _point = query.get('p');
+  const _bonus = query.get('b');
 
   const handleLoad = () => {
-    sound.src = "/audio/success.mp3";
+    sound.src = '/audio/success.mp3';
     sound.play();
     const task = {
       task: _task,
@@ -42,15 +40,15 @@ export default function RewardApp() {
   const handleFailed = () => {
     const task = {
       task: _task,
-      status: _isFailed === "failed" ? 0 : 1,
+      status: _isFailed === 'failed' ? 0 : 1,
     };
     setBalance(_point);
     dispatch(taskCompleted(task));
     reward();
-    navigate("/dashboard/task");
+    navigate('/dashboard/task');
   };
   const handleRedrect = () => {
-    window.location.href = "/dashboard/task";
+    window.location.href = '/dashboard/task';
   };
 
   useEffect(() => {
@@ -59,23 +57,21 @@ export default function RewardApp() {
 
   return (
     <div>
-      {_isFailed !== "failed" ? (
+      {_isFailed !== 'failed' ? (
         <div className="confetti text-center ">
           {!isBonus && <h5>💲 Task Completed 💰</h5>}
-          {isBonus && (
-            <h5> 💲 Congratulations you have Successfully earned 👇</h5>
-          )}
+          {isBonus && <h5> 💲 Congratulations you have Successfully earned 👇</h5>}
           <span
             id="rewardId"
             type="emoji"
-            config={{
-              lifetime: 200,
-              angle: 3000,
-              spread: 2000,
-              elementCount: 100,
-              emoji: ["💲", "🤑", "💷", "💱", "💸", "💶", "💵", "💰"],
-              colors: ["#000000", "#F25555", "#55D8F2", "#499DF2", "#F2CB30"],
-            }}
+            // config={{
+            //   lifetime: 200,
+            //   angle: 3000,
+            //   spread: 2000,
+            //   elementCount: 100,
+            //   emoji: ["💲", "🤑", "💷", "💱", "💸", "💶", "💵", "💰"],
+            //   colors: ["#000000", "#F25555", "#55D8F2", "#499DF2", "#F2CB30"],
+            // }}
           />
           <img src="/images/money-bag_1f4b0.png" alt="money" />
           {isBonus && (
@@ -85,11 +81,9 @@ export default function RewardApp() {
               </h3>
               <h6 className="text-white">{_bonus} Vqalis Bonus</h6>
               {(!user?.user?.vendoConnectStatus ||
-                vendoPackage?.data?.package_level === "No package") && (
-                  <h6 className="text-white">
-                    (Connect your Vendo account to receive VQ Points)
-                  </h6>
-                )}
+                vendoPackage?.data?.package_level === 'No package') && (
+                <h6 className="text-white">(Connect your Vendo account to receive VQ Points)</h6>
+              )}
             </span>
           )}
 

@@ -1,8 +1,7 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import AllToken from "./AllToken";
-import EarnToken from "./EarnToken";
-import VqualisToken from "./VqualisToken";
+import { useSelector } from 'react-redux';
+import AllToken from './AllToken';
+import EarnToken from './EarnToken';
+import VqualisToken from './VqualisToken';
 
 function CardsView() {
   const earnedToken = useSelector((state) => state.token?.earnedToken);
@@ -12,14 +11,13 @@ function CardsView() {
   return (
     <div>
       {/* Earn Token */}
-      <EarnToken earnedToken={earnedToken}/>
+      <EarnToken earnedToken={earnedToken} />
 
       {/* All Token */}
-      <AllToken allToken={allToken}/>
+      <AllToken allToken={allToken} />
 
       {/* Vqualis Token */}
-      <VqualisToken bonusToken={bonusToken}/>
-     
+      <VqualisToken bonusToken={bonusToken} />
     </div>
   );
 }

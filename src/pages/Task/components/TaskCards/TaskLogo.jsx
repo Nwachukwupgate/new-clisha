@@ -1,7 +1,4 @@
-import React from 'react'
-
 function TaskLogo({ item }) {
-
   return (
     <div className="row m-0 header  py-3 ">
       <div className="col-12 text-center py-2 p-0">
@@ -12,9 +9,11 @@ function TaskLogo({ item }) {
         )}
       </div>
 
-      {item.type !== 'website_click' && <img src="/images/website_watermark.png" className='watermark' alt="" />}
+      {item.type !== 'website_click' && (
+        <img src="/images/website_watermark.png" className="watermark" alt="" />
+      )}
     </div>
-  )
+  );
 }
 
-export default TaskLogo
+export default TaskLogo;

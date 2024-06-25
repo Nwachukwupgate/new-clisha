@@ -1,18 +1,17 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import {
   updateWalletAddress,
   updateWalletInput,
   walletSelectAddStatus,
   walletSelectWalletInput,
-} from "../../../store/Wallet";
+} from '../../../store/Wallet';
 
 function AddWallets() {
   const dispatch = useDispatch();
   const status = useSelector(walletSelectAddStatus);
   const walletInput = useSelector(walletSelectWalletInput);
 
-  const walletBtnDisabled = status === "loading" || !walletInput;
+  const walletBtnDisabled = status === 'loading' || !walletInput;
 
   return (
     <div className="AddWallets ml-auto addWallets">
@@ -22,16 +21,14 @@ function AddWallets() {
       <div className="row">
         <div className="col-md-4 mt-3">
           <button
-            className={`btn addWallets__btn ${
-              walletBtnDisabled ? "disabled" : ""
-            }`}
+            className={`btn addWallets__btn ${walletBtnDisabled ? 'disabled' : ''}`}
             onClick={() => {
               if (!walletBtnDisabled) {
                 dispatch(updateWalletAddress(walletInput));
               }
             }}
           >
-            {status === "loading" ? " Adding..." : ` Add Wallet`}
+            {status === 'loading' ? ' Adding...' : ` Add Wallet`}
           </button>
         </div>
         <div className="col-md-8 mt-3">

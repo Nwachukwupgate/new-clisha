@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
-import ProfilePhoto from "../components/ProfilePhoto";
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import ProfilePhoto from '../components/ProfilePhoto';
 
 function Sidebar(props) {
   const navigate = useNavigate();
 
   const user = props?.user;
-  let {width} = window.screen;
-  const uri = window.location.pathname.includes("profile-image") ? true : false;
+  const { width } = window.screen;
+  const uri = !!window.location.pathname.includes('profile-image');
 
   useEffect(() => {
     if (width >= 767) {
-      return navigate("/dashboard/profile");
+      navigate('/dashboard/profile');
     }
   }, [navigate, width]);
   const [isCopy, setIsCopy] = useState(false);
@@ -36,7 +36,7 @@ function Sidebar(props) {
     });
   };
   return (
-    <div className={`${!uri ? "d-none" : ""} d-md-block`}>
+    <div className={`${!uri ? 'd-none' : ''} d-md-block`}>
       <aside className="m-0 profile-sidebar">
         <ProfilePhoto user={user} />
         <div className="text-center mt-3 p-2 ">
@@ -45,7 +45,7 @@ function Sidebar(props) {
             <input
               type="text"
               className="form-control w-75 m-auto"
-              value={user?.user?.clishaId?.slice(0, 15) + "..."}
+              value={`${user?.user?.clishaId?.slice(0, 15)}...`}
               onChange={() => {}}
             />
             <button
@@ -53,7 +53,7 @@ function Sidebar(props) {
               disabled={isCopy}
               className="btn btn-sm"
             >
-              {!isCopy ? "Copy" : "Copied"}
+              {!isCopy ? 'Copy' : 'Copied'}
             </button>
           </div>
           <div>
@@ -61,19 +61,15 @@ function Sidebar(props) {
               onClick={(e) => copyRefFunc(user?.user?.clishaId)}
               className="btn rounded-pill text-white btn-sm  my-3 shadow btn-invite"
             >
-              {" "}
-              {!isCopyUserRef ? "Invite a friend" : "Copied"}
+              {' '}
+              {!isCopyUserRef ? 'Invite a friend' : 'Copied'}
             </button>
           </div>
           <h6>
             <b>Recent Ranking</b>
           </h6>
 
-          <img
-            src="/images/bage.png"
-            className="logo-recent-rank mx-2"
-            alt=""
-          />
+          <img src="/images/bage.png" className="logo-recent-rank mx-2" alt="" />
           {/* <img
             src="/images/crown1.png"
             className="logo-recent-rank mx-2"
@@ -86,12 +82,9 @@ function Sidebar(props) {
           /> */}
         </div>
         <div className="text-center mt-4">
-          <Link
-            to="/dashboard/profile"
-            className="text-primary small d-md-none text-center mt-2"
-          >
+          <Link to="/dashboard/profile" className="text-primary small d-md-none text-center mt-2">
             Back To Profile
-            <i className="fa fa-long-arrow-right ml-1" aria-hidden="true"></i>
+            <i className="fa fa-long-arrow-right ml-1" aria-hidden="true" />
           </Link>
         </div>
       </aside>

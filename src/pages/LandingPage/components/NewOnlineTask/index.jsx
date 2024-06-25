@@ -1,4 +1,3 @@
-import React from 'react'
 import { translate } from '../../../../utils/translation';
 
 function index() {
@@ -11,7 +10,7 @@ function index() {
               className="new-online-txt"
               data-aos="zoom-out-right"
               data-aos-duration="1500"
-            // data-aos-delay="600"
+              // data-aos-delay="600"
             >
               New Online Daily Task
             </h1>
@@ -19,24 +18,24 @@ function index() {
               className="new-online-paragraph"
               data-aos="zoom-out-left"
               data-aos-duration="1500"
-            // data-aos-delay="600"
+              // data-aos-delay="600"
             >
-              {translate("dailyTaskParagraph")}
+              {translate('dailyTaskParagraph')}
             </p>
             <p
               className="new-online-paragraph d-none d-lg-block"
               data-aos="zoom-out"
               data-aos-duration="1500"
-            // data-aos-delay="600"
+              // data-aos-delay="600"
             >
-              {translate("dailyTaskSubParagraph")}
+              {translate('dailyTaskSubParagraph')}
             </p>
             <div className="text-center text-md-left">
               <button
                 className="btn signup shadow mx-auto"
                 data-aos="fade-right"
                 data-aos-duration="1500"
-              // data-aos-delay="600"
+                // data-aos-delay="600"
               >
                 Sign Up Today
               </button>
@@ -58,4 +57,4 @@ function index() {
   );
 }
 
-export default index
+export default index;

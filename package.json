@@ -53,7 +53,7 @@
     "@types/webfontloader": "^1.6.38",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "@typescript-eslint/parser": "^7.13.1",
-    "eslint": "9.x",
+    "eslint": "8.x",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^18.0.0",
     "eslint-config-prettier": "^9.1.0",
@@ -76,8 +76,9 @@
     "build": "react-scripts build ",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**",
-    "lint:fix": "eslint --fix src/**"
+    "lint": "eslint src/**/*.{js,jsx,ts,tsx}",
+    "lint:fix": "eslint --fix src/**/*.{js,jsx,ts,tsx}",
+    "prettier": "prettier --write \"./src/**/*.{js,jsx,ts,tsx}\""
   },
   "eslintConfig": {
     "extends": [

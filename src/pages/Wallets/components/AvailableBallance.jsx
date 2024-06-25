@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import { useState } from 'react';
 
 function AvailableBallance() {
   const [value, setValue] = useState(false);
@@ -11,9 +10,9 @@ function AvailableBallance() {
     <div className="AvailableBallance">
       <span className="av-balance">Available Balance</span>
       <h1>
-        {!value ? "$ 0.00" : "*****"}{" "}
+        {!value ? '$ 0.00' : '*****'}{' '}
         <button className="btn btn-sm toggleFunds " onClick={() => setViews()}>
-          <i className={`fas fa-${!value ? "eye" : "eye-slash"}`}></i>
+          <i className={`fas fa-${!value ? 'eye' : 'eye-slash'}`} />
         </button>
       </h1>
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { translate } from '../../../../utils/translation';
 
 function index() {
@@ -13,26 +12,23 @@ function index() {
             className="card  text-left   col-md-6 col-lg-3 mt-3 "
             data-aos="flip-up"
             data-aos-duration="1200"
-          // data-aos-delay="800"
+            // data-aos-delay="800"
           >
             <div className="card-body ">
               <h4 className="card-title">User Activity</h4>
-              <p className="card-text text-dark">
-                {translate("whatisClishaUserActivity")}
-              </p>
+              <p className="card-text text-dark">{translate('whatisClishaUserActivity')}</p>
             </div>
           </div>
           <div
             className="card text-left bg-light col-md-6 col-lg-3 mt-3 "
             data-aos="flip-down"
             data-aos-duration="1000"
-          // data-aos-delay="600"
+            // data-aos-delay="600"
           >
             <div className="card-body ">
               <h4 className="card-title">Daily Task</h4>
               <p className="card-text text-dark">
-                {translate("whatisClishaUserActivityDailyTask")}
-
+                {translate('whatisClishaUserActivityDailyTask')}
               </p>
             </div>
           </div>
@@ -40,13 +36,12 @@ function index() {
             className="card text-left bg-light col-md-6 col-lg-3 mt-3 "
             data-aos="flip-right"
             data-aos-duration="1000"
-          // data-aos-delay="600"
+            // data-aos-delay="600"
           >
             <div className="card-body ">
               <h4 className="card-title">Digital Tools</h4>
               <p className="card-text text-dark">
-                {translate("whatisClishaUserActivityDailyTaskDigitalTools")}
-
+                {translate('whatisClishaUserActivityDailyTaskDigitalTools')}
               </p>
             </div>
           </div>
@@ -54,13 +49,12 @@ function index() {
             className="card text-left bg-light col-md-6 col-lg-3 mt-3 "
             data-aos="flip-left"
             data-aos-duration="1000"
-          // data-aos-delay="600"
+            // data-aos-delay="600"
           >
             <div className="card-body ">
               <h4 className="card-title">Publisher Activity</h4>
               <p className="card-text text-dark">
-                {translate("whatisClishaUserActivityDailyTaskPublisher")}
-
+                {translate('whatisClishaUserActivityDailyTaskPublisher')}
               </p>
             </div>
           </div>
@@ -80,4 +74,4 @@ function index() {
   );
 }
 
-export default index
+export default index;

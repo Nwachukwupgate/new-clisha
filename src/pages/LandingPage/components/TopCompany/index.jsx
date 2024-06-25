@@ -1,6 +1,4 @@
-import React from 'react'
-
-function index({card}) {
+function index({ card }) {
   return (
     <div className="top-companies">
       <div className="container mt-5">
@@ -12,40 +10,40 @@ function index({card}) {
           </div>
           <div className="col-5 text-right ">
             <button className="btn-angle disabledLink shadow-sm border mr-2">
-              <i className="fa fa-angle-left  "></i>
+              <i className="fa fa-angle-left  " />
             </button>
             <button className="btn-angle activeLink shadow-sm  mr-md-3 border">
-              <i className="fa fa-angle-right text-white      "></i>
+              <i className="fa fa-angle-right text-white      " />
             </button>
           </div>
         </div>
         {/* cards */}
         <div className="row m-0 mt-2 ">
           {card &&
-            card.card3.map((item, index) => (
+            card.card3.map((item, innerIndex) => (
               <div
                 className="card thirdcard maincard mt-4  text-right bg-white shadow px-2 pt-3 col-md-6 col-lg-3 mx-auto "
-                key={index}
+                key={innerIndex}
                 data-aos="zoom-in"
                 data-aos-duration="1000"
                 // data-aos-delay="600"
               >
                 <img
                   className={`card-img images2 ${
-                    index === 3 || index === 2 ? "last-img" : ""
+                    innerIndex === 3 || innerIndex === 2 ? 'last-img' : ''
                   }`}
                   src={item.img}
                   alt=""
                 />
                 <div className="badge-number  ">
-                  <span>{index + 1}</span>
+                  <span>{innerIndex + 1}</span>
                 </div>
 
                 <div className="card-body px-2 text-left">
                   <div className="investment">
                     <small>Total Investment</small>
                     <span className="float-right">
-                      <i className="fa fa-euro-sign money shadow "></i>
+                      <i className="fa fa-euro-sign money shadow " />
                       <span className="m-text"> 565.78k</span>
                     </span>
                   </div>
@@ -57,11 +55,11 @@ function index({card}) {
                     <small>Rating</small>
                     <span className="float-right">
                       <small className="stars">
-                        <i className="fa fa-star " aria-hidden="true"></i>
-                        <i className="fa fa-star " aria-hidden="true"></i>
-                        <i className="fa fa-star " aria-hidden="true"></i>
-                        <i className="fa fa-star " aria-hidden="true"></i>
-                        <i className="fa fa-star-half-alt text-muted "></i>
+                        <i className="fa fa-star " aria-hidden="true" />
+                        <i className="fa fa-star " aria-hidden="true" />
+                        <i className="fa fa-star " aria-hidden="true" />
+                        <i className="fa fa-star " aria-hidden="true" />
+                        <i className="fa fa-star-half-alt text-muted " />
                       </small>
                       <span>(4.95)</span>
                     </span>
@@ -78,4 +76,4 @@ function index({card}) {
   );
 }
 
-export default index
+export default index;

@@ -1,23 +1,23 @@
-import moment from "moment";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import Loading from "../../components/Alerts/Loading";
-import ClishaLogin from "./components/ClishaLogin";
-import VendoLogin from "./components/VendoLogin";
-import { apiCall } from "../../services/apiRequestManager";
+import moment from 'moment';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import Loading from '../../components/Alerts/Loading';
+import ClishaLogin from './components/ClishaLogin';
+import VendoLogin from './components/VendoLogin';
+import { apiCall } from '../../services/apiRequestManager';
 
 function Signin() {
   const auth_api = process.env.REACT_APP_AUTH;
   const navigate = useNavigate();
   // let dispatch = useDispatch();
-  const [signInMethod, setSignInMethod] = useState("clisha");
+  const [signInMethod, setSignInMethod] = useState('clisha');
   const [loading, setIsLoading] = useState(false);
-  const dateEmail = (date) => moment(date).format("DD/MM/YYYY");
+  const dateEmail = (date) => moment(date).format('DD/MM/YYYY');
   const StartDate = 1675010512555;
   const [signupDetails, setSignupDetails] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   const [isPassword, setIsPassword] = useState(false);
 
@@ -25,13 +25,13 @@ function Signin() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await apiCall(`${auth_api}/login`, "post", signupDetails);
+      const res = await apiCall(`${auth_api}/login`, 'post', signupDetails);
       writeUserData(res);
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
       if (err.response.status === 403) {
-        return toast.error(err.response.data.message);
+        toast.error(err.response.data.message);
       }
       if (err.response.status === 404) {
         const error = err.response.data.message;
@@ -40,28 +40,28 @@ function Signin() {
         const error = err.response.data.errors;
         toast.error(error[0].msg);
       } else if (err.response.status === 401) {
-        toast.error("Incorrect Password or Email");
+        toast.error('Incorrect Password or Email');
       } else {
-        toast.error("Oops try again later!");
+        toast.error('Oops try again later!');
       }
     }
   };
 
   const writeUserData = (res) => {
     if (res) {
-      window.localStorage.setItem("username", res.data.user.username);
-      window.localStorage.setItem("email", res.data.user.email);
+      window.localStorage.setItem('username', res.data.user.username);
+      window.localStorage.setItem('email', res.data.user.email);
 
       if (
         !res.data.user?.email_verified_at &&
         dateEmail(StartDate) >= dateEmail(res.data.user?.createdAt)
       ) {
-        toast.error("Please Verify your Email");
-        window.location.href = "/verify";
+        toast.error('Please Verify your Email');
+        window.location.href = '/verify';
       } else {
-        window.localStorage.setItem("token", res.data.accessToken); //access token
-        window.localStorage.setItem("refresh", res.data.refreshToken);
-        window.location.href = "/dashboard";
+        window.localStorage.setItem('token', res.data.accessToken); // access token
+        window.localStorage.setItem('refresh', res.data.refreshToken);
+        window.location.href = '/dashboard';
       }
     }
   };
@@ -92,15 +92,11 @@ function Signin() {
   };
 
   const checkVendoAccount = async () => {
-    const res = await apiCall(
-      `${process.env.REACT_APP_VENDO_API}/login`,
-      "post",
-      signupDetails
-    );
+    const res = await apiCall(`${process.env.REACT_APP_VENDO_API}/login`, 'post', signupDetails);
 
     if (res?.error) {
-      if (res?.error === "Email not found") {
-        toast.error("No vendo user found with this email");
+      if (res?.error === 'Email not found') {
+        toast.error('No vendo user found with this email');
       } else {
         toast.error(res?.error);
       }
@@ -112,47 +108,48 @@ function Signin() {
 
   const checkClishaUser = async (config) => {
     try {
-      return await apiCall(`${auth_api}/login`, "post", signupDetails, config);
+      return await apiCall(`${auth_api}/login`, 'post', signupDetails, config);
     } catch (err) {
-      if (err?.response?.data?.message !== "User Not found.") {
+      if (err?.response?.data?.message !== 'User Not found.') {
         toast.error(err?.response?.data?.message);
-        return null;
       }
+
+      return null;
     }
   };
 
   const registerClishaUser = async (vendoData, config) => {
-    let firstname = vendoData?.name?.split(" ")[0],
-      secondname = vendoData?.name?.split(" ")[1];
+    const firstname = vendoData?.name?.split(' ')[0];
+    const secondname = vendoData?.name?.split(' ')[1];
 
     const data = {
       username: vendoData?.username ?? firstname + secondname,
-      firstname: firstname,
+      firstname,
       lastname: secondname,
       email: vendoData?.user,
       password: signupDetails?.password,
       confirmPassword: signupDetails?.password,
-      code: "",
+      code: '',
       isRegWithVendo: true,
     };
 
-    return await apiCall(`${auth_api}/register`, "post", data, config);
+    return apiCall(`${auth_api}/register`, 'post', data, config);
   };
 
   const showPassword = () => {
-    let password = document.querySelector("#password");
+    const password = document.querySelector('#password');
     setIsPassword(!isPassword);
-    if (password.type === "text") {
-      password.type = "password";
+    if (password.type === 'text') {
+      password.type = 'password';
     } else {
-      password.type = "text";
+      password.type = 'text';
     }
   };
   return (
     <div>
       {loading && <Loading />}
 
-      {signInMethod === "clisha" ? (
+      {signInMethod === 'clisha' ? (
         <ClishaLogin
           handleSubmit={handleSubmit}
           isPassword={isPassword}

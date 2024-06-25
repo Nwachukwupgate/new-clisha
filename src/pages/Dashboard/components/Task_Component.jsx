@@ -1,5 +1,4 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 function Task_Component() {
   const topUsers = useSelector((state) => state.general.topUsers);
@@ -24,7 +23,6 @@ function Task_Component() {
               >
                 Latest Top 10
               </button>
-
             </div>
           </nav>
           <div className="tab-content border-0" id="nav-tabContent">
@@ -34,17 +32,19 @@ function Task_Component() {
               role="tabpanel"
               aria-labelledby="nav-home-tab"
             >
-              <span className="text-muted com_Txt  pl-2">
-                {" "}
-                Community Member completed tasks
-              </span>
-
+              <span className="text-muted com_Txt  pl-2"> Community Member completed tasks</span>
 
               {/* images group */}
               <div className="users_groups">
                 {topUsers?.slice(0, 10).map((item, key) => (
                   <span key={key}>
-                    < img key={key} src={item?.photo ?? "/images/avatar.png"} title={item?.username} className="push-1 shadow mb-4 border link" alt="" />
+                    <img
+                      key={key}
+                      src={item?.photo ?? '/images/avatar.png'}
+                      title={item?.username}
+                      className="push-1 shadow mb-4 border link"
+                      alt=""
+                    />
                     {/* <span>{item?.user?.username?.slice(0, 13)}{".. "}</span> */}
                   </span>
                 ))}

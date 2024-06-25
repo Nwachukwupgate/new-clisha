@@ -1,31 +1,25 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 // import url from "../../json/config";
 const api = process.env.REACT_APP_API_TASK;
 
-let token = window.localStorage.getItem("token");
+const token = window.localStorage.getItem('token');
 const config = { headers: { Authorization: `bearer ${token}` } };
-export const getEarnedToken = createAsyncThunk(
-  "task/getEarnedToken",
-  async () => {
-    const res = await axios.get(`${api}/tokens/distributed`, config);
-    return res.data.data;
-  }
-);
-export const getAllToken = createAsyncThunk("token/getAllToken", async () => {
+export const getEarnedToken = createAsyncThunk('task/getEarnedToken', async () => {
+  const res = await axios.get(`${api}/tokens/distributed`, config);
+  return res.data.data;
+});
+export const getAllToken = createAsyncThunk('token/getAllToken', async () => {
   const res = await axios.get(`${api}/clisha/tokens`, config);
   return res.data.data;
 });
-export const getBonusToken = createAsyncThunk(
-  "token/getBonusToken",
-  async () => {
-    const res = await axios.get(`${api}/tokens/bonus`, config);
-    return res.data.data;
-  }
-);
+export const getBonusToken = createAsyncThunk('token/getBonusToken', async () => {
+  const res = await axios.get(`${api}/tokens/bonus`, config);
+  return res.data.data;
+});
 
 export const tokenSlice = createSlice({
-  name: "token",
+  name: 'token',
   initialState: {
     earnedToken: [],
     allToken: [],

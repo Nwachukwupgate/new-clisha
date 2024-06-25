@@ -1,13 +1,13 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import axios from 'axios';
+import { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 // import { useDispatch } from 'react-redux';
-import Loading from "../../components/Alerts/Loading";
+import Loading from '../../components/Alerts/Loading';
 // import { ChangePasswordData } from '../../store/General';
 
 function ChangePassword() {
   const api = process.env.REACT_APP_API;
-  let token = window.localStorage.getItem("token");
+  const token = window.localStorage.getItem('token');
   const config = { headers: { Authorization: `bearer ${token}` } };
   const [userDetails, setUserDetails] = useState();
   const [loading, setIsLoading] = useState(false);
@@ -20,10 +20,10 @@ function ChangePassword() {
       .post(`${api}/user/account/update/password`, userDetails, config)
       .then((result) => {
         setIsLoading(false);
-        toast.success("Successfully Updated Password");
+        toast.success('Successfully Updated Password');
       })
       .catch((err) => {
-        toast.error("Invalid Passwords details");
+        toast.error('Invalid Passwords details');
         setIsLoading(false);
       });
   };
@@ -43,39 +43,29 @@ function ChangePassword() {
           aria-expanded="false"
           aria-controls="collapseExample"
         >
-          <i className="fa fa-pencil" aria-hidden="true"></i>
+          <i className="fa fa-pencil" aria-hidden="true" />
         </a>
       </h6>
       {/* </p> */}
-      <form
-        className="collapse show"
-        id="changepassword"
-        onSubmit={handleSubmit}
-      >
+      <form className="collapse show" id="changepassword" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Current Password"
           className="form-control"
-          onChange={(e) =>
-            setUserDetails({ ...userDetails, currentPassword: e.target.value })
-          }
+          onChange={(e) => setUserDetails({ ...userDetails, currentPassword: e.target.value })}
         />
         <input
           type="text"
           placeholder="New Password"
           className="form-control"
           value={userDetails?.password}
-          onChange={(e) =>
-            setUserDetails({ ...userDetails, password: e.target.value })
-          }
+          onChange={(e) => setUserDetails({ ...userDetails, password: e.target.value })}
         />
         <input
           type="text"
           placeholder="Confirm Password"
           className="form-control"
-          onChange={(e) =>
-            setUserDetails({ ...userDetails, confirmPassword: e.target.value })
-          }
+          onChange={(e) => setUserDetails({ ...userDetails, confirmPassword: e.target.value })}
         />
         <button className="btn btn-primary">Update</button>
       </form>

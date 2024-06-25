@@ -1,15 +1,14 @@
-import React from "react";
-import { partnersImg } from "../../../json/nav.js";
+import { partnersImg } from '../../../json/nav';
+
 function OurExclusivePartner() {
   return (
     <div className="OurExclusivePartner ">
       <h1>Our Exlcusive Partners Feedback</h1>
       <p className="bodyTextView">
-        Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo
-        nibh, finibus eget porttitor sit amet, consequat ac lacus. Quisque
-        ornare, arcu quis lacinia hendrerit, quam metus hendrerit mauris, sit
-        amet luctus turpis sem nec diam. Aliquam feugiat nibh tortor, a varius
-        leo tristique nec
+        Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh, finibus eget
+        porttitor sit amet, consequat ac lacus. Quisque ornare, arcu quis lacinia hendrerit, quam
+        metus hendrerit mauris, sit amet luctus turpis sem nec diam. Aliquam feugiat nibh tortor, a
+        varius leo tristique nec
       </p>
 
       <div className="cardimg">

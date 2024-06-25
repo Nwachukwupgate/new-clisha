@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from 'react';
 
 function TestimonialsCards() {
   const data = [1, 2, 3];
@@ -7,29 +7,24 @@ function TestimonialsCards() {
     <div className="TestimonialsCards">
       <div className="row m-0">
         {data.map((item, key) => (
-          <div
-            className="col-md-4"
-            key={key}
-            onMouseOver={() => setisOver(key)}
-          >
+          <div className="col-md-4" key={key} onMouseOver={() => setisOver(key)}>
             <div className="card shadow">
               <div className="card-body">
                 <h4 className="card-title">
-                  <i className="fa fa-star text-warning mx-1"></i>
-                  <i className="fa fa-star text-warning mx-1"></i>
-                  <i className="fa fa-star text-warning mx-1"></i>
-                  <i className="fa fa-star text-warning mx-1"></i>
-                  <i className="fa fa-star-o mx-1 text-muted"></i>
+                  <i className="fa fa-star text-warning mx-1" />
+                  <i className="fa fa-star text-warning mx-1" />
+                  <i className="fa fa-star text-warning mx-1" />
+                  <i className="fa fa-star text-warning mx-1" />
+                  <i className="fa fa-star-o mx-1 text-muted" />
 
                   <span className="float-right">
                     <b>4.95</b>
                   </span>
                 </h4>
                 <p className="card-text">
-                  Nam id mi sollicitudin magna dictum pellentesque non ac purus.
-                  Etiam leo nibh, finibus eget porttitor sit amet, consequat ac
-                  lacus. Quisque ornare, arcu quis lacinia hendrerit, quam
-                  metus.
+                  Nam id mi sollicitudin magna dictum pellentesque non ac purus. Etiam leo nibh,
+                  finibus eget porttitor sit amet, consequat ac lacus. Quisque ornare, arcu quis
+                  lacinia hendrerit, quam metus.
                 </p>
 
                 <div className="imgContainer ">
@@ -40,9 +35,7 @@ function TestimonialsCards() {
                   </div>
                 </div>
 
-                {isOver === key && (
-                  <button className="btn-danger btn w-100">See Plans</button>
-                )}
+                {isOver === key && <button className="btn-danger btn w-100">See Plans</button>}
               </div>
             </div>
           </div>
@@ -51,16 +44,15 @@ function TestimonialsCards() {
 
       <div className="reviews mt-4 ">
         <span>
-          Our <b>user</b> always love to give review us !{" "}
+          Our <b>user</b> always love to give review us !{' '}
         </span>
-        <i className="fa fa-star text-warning mx-1"></i>
-        <i className="fa fa-star text-warning mx-1"></i>
-        <i className="fa fa-star text-warning mx-1"></i>
-        <i className="fa fa-star text-warning mx-1"></i>
-        <i className="fa fa-star-o mx-1 text-muted"></i>
+        <i className="fa fa-star text-warning mx-1" />
+        <i className="fa fa-star text-warning mx-1" />
+        <i className="fa fa-star text-warning mx-1" />
+        <i className="fa fa-star text-warning mx-1" />
+        <i className="fa fa-star-o mx-1 text-muted" />
         <span>
-          <b>4.95</b> based on <b className="text-warning">2.5 milion </b>{" "}
-          Review
+          <b>4.95</b> based on <b className="text-warning">2.5 milion </b> Review
         </span>
         <img src="/images/partner/alexa.png" alt="" />
       </div>

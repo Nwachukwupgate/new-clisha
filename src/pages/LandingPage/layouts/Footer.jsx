@@ -1,5 +1,3 @@
-import React from "react";
-
 function Footer() {
   return (
     <footer>
@@ -9,25 +7,32 @@ function Footer() {
             <img src="images/Group 2311.png" alt="" />
             <span className="en-txt">EN</span>
           </div>
-
         </div>
         <div className="row m-0 mt-5">
-
           <div className="col-md-4 ">
-            <h6><i className="fa fa-map-marker" aria-hidden="true"></i> Address Information </h6>
-            <p >
-              <small>159 7/F, Grand Industrial Buildung Office <br />
-                165 Wo Yi Hop Road, Kwai Chung  <br />
-                Kwai Tsing District.</small>
+            <h6>
+              <i className="fa fa-map-marker" aria-hidden="true" /> Address Information{' '}
+            </h6>
+            <p>
+              <small>
+                159 7/F, Grand Industrial Buildung Office <br />
+                165 Wo Yi Hop Road, Kwai Chung <br />
+                Kwai Tsing District.
+              </small>
             </p>
           </div>
           <div className="col-md-4 ">
-            <h6><i className="fa fa-envelope" aria-hidden="true"></i> Email Information </h6>
-            <a href="malto:support@clisha.io" className="text-white "><small>
-              support@clisha.io</small></a>
+            <h6>
+              <i className="fa fa-envelope" aria-hidden="true" /> Email Information{' '}
+            </h6>
+            <a href="malto:support@clisha.io" className="text-white ">
+              <small>support@clisha.io</small>
+            </a>
           </div>
           <div className="col-md-4 ">
-            <h6><i className="fa fa-globe" aria-hidden="true"></i> Other Links </h6>
+            <h6>
+              <i className="fa fa-globe" aria-hidden="true" /> Other Links{' '}
+            </h6>
             <ul className="p-0">
               <li>Pricing</li>
               <li>Become Partner</li>
@@ -50,7 +55,7 @@ function Footer() {
             <span className="follow-txt d-block text-center d-md-inline">
               Follow Us on social media
             </span>
-            <div className="border-span d-none d-md-inline  "></div>
+            <div className="border-span d-none d-md-inline  " />
             <br className="d-block d-md-none" />
             <div className="social-link d-inline">
               <img src="images/Vector (1).png" className="ml-3" alt="" />

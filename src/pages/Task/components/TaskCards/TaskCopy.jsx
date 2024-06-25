@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 function TaskCopy({ item }) {
   const [isCopy, setIsCopy] = useState(false);
@@ -27,7 +27,7 @@ function TaskCopy({ item }) {
             fill={
               item?.token?.card_colors?.accent_color
                 ? item?.token?.card_colors?.accent_color
-                : "#28a745"
+                : '#28a745'
             }
           />
         </svg>
@@ -37,7 +37,7 @@ function TaskCopy({ item }) {
             color: item?.token?.card_colors?.accent_color,
           }}
         >
-          Task ID{" "}
+          Task ID{' '}
         </span>
       </div>
       <div
@@ -46,7 +46,7 @@ function TaskCopy({ item }) {
           color: item?.token?.card_colors?.accent_color,
         }}
       >
-        {isCopy ? "Copied " : item.task_code}
+        {isCopy ? 'Copied ' : item.task_code}
         <svg
           width="16"
           height="19"
@@ -61,31 +61,31 @@ function TaskCopy({ item }) {
             fill={
               item?.token?.card_colors?.accent_color
                 ? item?.token?.card_colors?.accent_color
-                : "#28a745"
+                : '#28a745'
             }
           />
           <path
             d="M0 1.62055L0.101266 1.26612L0.253165 0.861056L0.556962 0.455993L0.911392 0.253461L1.31646 0.101562H1.72152L1.62025 12.8104H0V1.62055Z"
-            fill={item?.token?.foreground ? item?.token?.foreground : "black"}
+            fill={item?.token?.foreground ? item?.token?.foreground : 'black'}
           />
           <path
             d="M16 17.1138L15.8987 17.4683L15.7468 17.8733L15.443 18.2784L15.0886 18.4809L14.6835 18.6328H14.2785L14.2785 3.44294L14.7848 3.5442L15.1392 3.6961L15.443 3.89863L15.7468 4.25307L15.8987 4.6075L16 5.06319V17.1138Z"
             fill={
               item?.token?.card_colors?.accent_color
                 ? item?.token?.card_colors?.accent_color
-                : "#28a745"
+                : '#28a745'
             }
           />
           <path
             d="M13.6709 0V1.72152L1.33514e-05 1.72152L0.101279 1.21519L0.253178 0.860759L0.455709 0.556962L0.81014 0.253165L1.16457 0.101266L1.62027 0L13.6709 0Z"
-            fill={item?.token?.foreground ? item?.token?.foreground : "black"}
+            fill={item?.token?.foreground ? item?.token?.foreground : 'black'}
           />
           <path
             d="M4.60762 18.6328L4.31226 18.5315L3.97471 18.3796L3.63716 18.0759L3.46838 17.7214L3.3418 17.3164V16.9113H16L15.9156 17.4176L15.7891 17.7721L15.6203 18.0759L15.3249 18.3796L15.0296 18.5315L14.6498 18.6328H4.60762Z"
             fill={
               item?.token?.card_colors?.accent_color
                 ? item?.token?.card_colors?.accent_color
-                : "#28a745"
+                : '#28a745'
             }
           />
           <path
@@ -93,7 +93,7 @@ function TaskCopy({ item }) {
             fill={
               item?.token?.card_colors?.accent_color
                 ? item?.token?.card_colors?.accent_color
-                : "#28a745"
+                : '#28a745'
             }
           />
         </svg>

@@ -1,5 +1,3 @@
-import React from "react";
-
 function Wallet({ user, vendoPackage }) {
   // console.log(vendoPackage);
   return (
@@ -7,16 +5,16 @@ function Wallet({ user, vendoPackage }) {
       <h1>{user?.rank?.balance?.toFixed(2) ?? 0} Pts</h1>
       {vendoPackage?.status === true &&
         user?.user?.vendoConnectStatus &&
-        vendoPackage.data.package_level === "No package" && (
+        vendoPackage.data.package_level === 'No package' && (
           <h6>(Kindly purchase a Package on Vendo)</h6>
         )}
       {vendoPackage?.status === true &&
         user?.user?.vendoConnectStatus &&
-        vendoPackage.data.package_level !== "No package" && (
+        vendoPackage.data.package_level !== 'No package' && (
           <h6>
             {user?.rank?.bonus_points?.toFixed(2) ?? 0} VQs (
-            <b>{vendoPackage.data.package_level}</b> plan with{" "}
-            {vendoPackage.data.vqRatio}% kickback)
+            <b>{vendoPackage.data.package_level}</b> plan with {vendoPackage.data.vqRatio}%
+            kickback)
             {/* {"Pro plan"}, {"50%"}) */}
           </h6>
         )}

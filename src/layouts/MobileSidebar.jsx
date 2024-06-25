@@ -1,6 +1,6 @@
-import { useDispatch } from "react-redux";
-import data from "../json/dashboardSidebar.json";
-import { logoutAction } from "../store/Auth/auth";
+import { useDispatch } from 'react-redux';
+import data from '../json/dashboardSidebar.json';
+import { logoutAction } from '../store/Auth/auth';
 
 function MobileSidebar() {
   const dispatch = useDispatch();
@@ -19,12 +19,7 @@ function MobileSidebar() {
               <img src="/logo2.png" alt="" />
             </a>
           </h5>
-          <button
-            type="button"
-            className="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
+          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true" className="text-white">
               &times;
             </span>
@@ -36,19 +31,13 @@ function MobileSidebar() {
               list.map((item, index) => (
                 <li
                   key={index}
-                  className={`onlist ${
-                    item.url === current_route ? " onlisthover " : ""
-                  }`}
+                  className={`onlist ${item.url === current_route ? ' onlisthover ' : ''}`}
                 >
                   <a href={item.url}>
-                    <i className={`fa fa-${item.icon}`} aria-hidden="true"></i>
+                    <i className={`fa fa-${item.icon}`} aria-hidden="true" />
                     {item.name}
                     {item.new === true && (
-                      <small
-                        className={`new ${
-                          current_route === item.url && "newHover"
-                        }`}
-                      >
+                      <small className={`new ${current_route === item.url && 'newHover'}`}>
                         New
                       </small>
                     )}
@@ -58,7 +47,7 @@ function MobileSidebar() {
 
             <li className={`onlist `}>
               <a onClick={logout} href="/signin">
-                <i className={`fa fa-sign-out`} aria-hidden="true"></i>
+                <i className="fa fa-sign-out" aria-hidden="true" />
                 Logout
               </a>
             </li>
