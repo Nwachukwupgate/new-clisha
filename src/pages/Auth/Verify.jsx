@@ -26,8 +26,8 @@ function Verify() {
       })
       .catch((err) => {
         setIsLoading(false);
-        const error = err.response.data.errors;
-        toast.error(error[0].msg);
+        const error = err.response.data.message;
+        toast.error(error || 'Oops try again later!');
       });
   };
 
