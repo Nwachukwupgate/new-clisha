@@ -1,6 +1,10 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useEffect, useState, useCallback } from 'react';
+import {  Route, Routes } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import ProtectedRoutes from '../Middleware/ProtectedRoutes';
 import PublicRoutes from '../Middleware/PublicRoutes';
+import Loading from '../components/Alerts/Loading';
+import { apiCall } from '../services/apiRequestManager';
 import ToastMsg from '../components/Alerts/ToastMsg';
 import RewardApp from '../components/Reward';
 import AuthLayouts from '../layouts/AuthLayouts';
@@ -29,10 +33,49 @@ import Token from '../pages/Token/Token';
 import Wallets from '../pages/Wallets';
 
 function Router() {
+  const [isLoading, setIsLoading] = useState(true); 
+
+  const handleAuthentication = useCallback(async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+
+    if (token) {
+      try {
+        const authApi = process.env.REACT_APP_AUTH;
+        const response = await apiCall(`${authApi}/authWith/vendor`, 'post', { token });
+
+        if (response) {
+          // console.log("response", response);
+          
+          localStorage.setItem('token', response.data.accessToken);
+          localStorage.setItem('username', response.data.user.username);
+          localStorage.setItem('email', response.data.user.email);
+          localStorage.setItem('refresh', response.data.refreshToken);
+          // navigate('/dashboard');
+          window.location.href="/dashboard"
+        }
+      } catch (error) {
+        toast.error('Authentication failed. Redirecting to registration.');
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    handleAuthentication();
+  }, [handleAuthentication]);
+
+  
+
+  if (isLoading) {
+    return <Loading />; 
+  }
   return (
     <div className="w-100">
-      <BrowserRouter>
-        <Routes>
+      <Routes>
           {/* Protected Route start */}
           <Route path="/dashboard" element={<ProtectedRoutes />}>
             <Route path="/dashboard" element={<Dashboard />} />
@@ -74,7 +117,6 @@ function Router() {
             <Route path="/verify-account" element={<EmailVerification />} />
           </Route>
         </Routes>
-      </BrowserRouter>
 
       <ToastMsg />
     </div>
