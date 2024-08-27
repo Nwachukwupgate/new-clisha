@@ -8,9 +8,9 @@ import { apiCall } from '../../services/apiRequestManager';
 
 function Signin() {
   const auth_api = process.env.REACT_APP_AUTH;
-  const baseUrl = process.env.REACT_APP_VENDO_BASE_URL;
+  const vendoBaseUrl = process.env.REACT_APP_VENDO_API;  
   const clientId = process.env.REACT_APP_VENDO_CLIENT_ID;
-  const callbackUrl = process.env.REACT_APP_HOST_URL;
+  const callbackUrl = process.env.REACT_APP_BASE_URL;
   
   const navigate = useNavigate();
   // let dispatch = useDispatch();
@@ -86,7 +86,7 @@ function Signin() {
       // }
 
       // writeUserData(clishaRes);
-      const authUrl = `${baseUrl}/oauth/authorize?client=${clientId}&callback_url=${callbackUrl}`;
+      const authUrl = `${vendoBaseUrl}/oauth/authorize?client=${clientId}&callback_url=${callbackUrl}`;
       
       window.location.href = authUrl;
     } catch (err) {
