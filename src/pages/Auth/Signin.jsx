@@ -4,14 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loading from '../../components/Alerts/Loading';
 import ClishaLogin from './components/ClishaLogin';
-import VendoLogin from './components/VendoLogin';
 import { apiCall } from '../../services/apiRequestManager';
 
 function Signin() {
   const auth_api = process.env.REACT_APP_AUTH;
+  const vendoBaseUrl = process.env.REACT_APP_VENDO_API;  
+  const clientId = process.env.REACT_APP_VENDO_CLIENT_ID;
+  const callbackUrl = process.env.REACT_APP_BASE_URL;
+  
   const navigate = useNavigate();
   // let dispatch = useDispatch();
-  const [signInMethod, setSignInMethod] = useState('clisha');
   const [loading, setIsLoading] = useState(false);
   const dateEmail = (date) => moment(date).format('DD/MM/YYYY');
   const StartDate = 1675010512555;
@@ -71,70 +73,45 @@ function Signin() {
     setIsLoading(true);
 
     try {
-      const vendoData = await checkVendoAccount();
-      if (!vendoData) return;
-      const config = {
-        headers: { Authorization: `bearer ${vendoData.token}` },
-      };
+      // const vendoData = await checkVendoAccount();
+      // if (!vendoData) return;
+      // const config = {
+      //   headers: { Authorization: `bearer ${vendoData.token}` },
+      // };
 
-      let clishaRes = await checkClishaUser(vendoData, config);
-      if (!clishaRes) {
-        clishaRes = await registerClishaUser(vendoData, config);
-        if (!clishaRes) return;
-      }
+      // let clishaRes = await checkClishaUser(vendoData, config);
+      // if (!clishaRes) {
+      //   clishaRes = await registerClishaUser(vendoData, config);
+      //   if (!clishaRes) return;
+      // }
 
-      writeUserData(clishaRes);
+      // writeUserData(clishaRes);
+      const authUrl = `${vendoBaseUrl}/oauth/authorize?client=${clientId}&callback_url=${callbackUrl}`;
+      
+      window.location.href = authUrl;
     } catch (err) {
-      toast.error(err.message);
+      toast.error('Failed to initiate authentication:', err);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const checkVendoAccount = async () => {
-    const res = await apiCall(`${process.env.REACT_APP_VENDO_API}/login`, 'post', signupDetails);
+  // const checkVendoAccount = async () => {
+  //   const res = await apiCall(`${process.env.REACT_APP_VENDO_API}/login`, 'post', signupDetails);
 
-    if (res?.error) {
-      if (res?.error === 'Email not found') {
-        toast.error('No vendo user found with this email');
-      } else {
-        toast.error(res?.error);
-      }
-      return null;
-    }
+  //   if (res?.error) {
+  //     if (res?.error === 'Email not found') {
+  //       toast.error('No vendo user found with this email');
+  //     } else {
+  //       toast.error(res?.error);
+  //     }
+  //     return null;
+  //   }
 
-    return res.data;
-  };
+  //   return res.data;
+  // };
 
-  const checkClishaUser = async (config) => {
-    try {
-      return await apiCall(`${auth_api}/login`, 'post', signupDetails, config);
-    } catch (err) {
-      if (err?.response?.data?.message !== 'User Not found.') {
-        toast.error(err?.response?.data?.message);
-      }
 
-      return null;
-    }
-  };
-
-  const registerClishaUser = async (vendoData, config) => {
-    const firstname = vendoData?.name?.split(' ')[0];
-    const secondname = vendoData?.name?.split(' ')[1];
-
-    const data = {
-      username: vendoData?.username ?? firstname + secondname,
-      firstname,
-      lastname: secondname,
-      email: vendoData?.user,
-      password: signupDetails?.password,
-      confirmPassword: signupDetails?.password,
-      code: '',
-      isRegWithVendo: true,
-    };
-
-    return apiCall(`${auth_api}/register`, 'post', data, config);
-  };
 
   const showPassword = () => {
     const password = document.querySelector('#password');
@@ -149,26 +126,17 @@ function Signin() {
     <div>
       {loading && <Loading />}
 
-      {signInMethod === 'clisha' ? (
+      
         <ClishaLogin
           handleSubmit={handleSubmit}
           isPassword={isPassword}
           showPassword={showPassword}
           navigate={navigate}
           setSignupDetails={setSignupDetails}
-          setSignInMethod={setSignInMethod}
           signupDetails={signupDetails}
-        />
-      ) : (
-        <VendoLogin
           loginWithVendo={loginWithVendo}
-          setSignInMethod={setSignInMethod}
-          setSignupDetails={setSignupDetails}
-          signupDetails={signupDetails}
-          isPassword={isPassword}
-          showPassword={showPassword}
         />
-      )}
+    
     </div>
   );
 }
