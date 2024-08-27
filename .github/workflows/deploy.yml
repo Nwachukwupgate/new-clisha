@@ -26,6 +26,7 @@ jobs:
           REACT_APP_COMPANY=${{ secrets.REACT_APP_COMPANY}}
           REACT_APP_VENDO_API=${{ secrets.REACT_APP_VENDO_API}}
           REACT_APP_VENDO_USER_DASHBOARD=${{ secrets.REACT_APP_VENDO_USER_DASHBOARD}}
+          REACT_APP_VENDO_CLIENT_ID=${{ secrets.REACT_APP_VENDO_CLIENT_ID}}
           npm run build
 
       - name: Clear Hosting Directory
