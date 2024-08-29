@@ -10,7 +10,7 @@ function Signin() {
   const auth_api = process.env.REACT_APP_AUTH;
   const vendoBaseUrl = process.env.REACT_APP_VENDO_API;  
   const clientId = process.env.REACT_APP_VENDO_CLIENT_ID;
-  const callbackUrl = process.env.REACT_APP_BASE_URL;
+  const callbackUrl = process.env.REACT_APP_CLIENT_URL;
   
   const navigate = useNavigate();
   // let dispatch = useDispatch();
