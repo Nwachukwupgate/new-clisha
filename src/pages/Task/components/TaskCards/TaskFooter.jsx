@@ -1,4 +1,7 @@
 import { useSelector } from 'react-redux';
+import moment from 'moment';
+import { formatDuration } from '../../../../utils/functions/functions';
+
 
 function TaskFooter({ item }) {
   // let timeDiff = ;
@@ -8,9 +11,239 @@ function TaskFooter({ item }) {
 
   return (
     <>
+      {/* added validity section */}
+      <div
+        className="row m-0 header py-2 text-bold f-"
+        style={{ color: item?.token?.foreground ?? '#fff' }}
+      >
+        <div className="col-7">
+          {/* <img src="/images/Task/task2/Group 771.png" className="mr-2" alt="" /> */}
+          <svg
+            width="18"
+            height="20"
+            viewBox="0 0 448 512"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="mr-2"
+          >
+            <path
+              d="M128 0c13.3 0 24 10.7 24 24l0 40 144 0 0-40c0-13.3 10.7-24 24-24s24 10.7 24 24l0 40 40 0c35.3 0 64 28.7 64 64l0 16 0 48 0 256c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 192l0-48 0-16C0 92.7 28.7 64 64 64l40 0 0-40c0-13.3 10.7-24 24-24zM400 192L48 192l0 256c0 8.8 7.2 16 16 16l320 0c8.8 0 16-7.2 16-16l0-256zM329 297L217 409c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47 95-95c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
+              fill={item?.token?.foreground ?? 'black'}
+            />
+          </svg>
+          Validity
+        </div>
+        <div className="col-5 text-right">
+          {item.validity === "Valid (interaction points remaining)" && 
+            <svg
+            width="18"
+            height="20"
+            viewBox="0 0 448 512"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="mr-2"
+          >
+            <path
+              d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+              fill={item?.token?.foreground ?? 'green'}
+            />
+            </svg>                  
+          }
+
+          {item.validity === 'Invalid (no interaction points left)' && 
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="red"
+            height="20px"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z" />
+            </svg>              
+          }
+
+          {
+            item.validity.startsWith("Valid until:") && (
+              <>
+                {moment(item.period_end_at).format('YYMMDD')}
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="ml-2"
+                >
+                  <circle
+                    cx="10"
+                    cy="10"
+                    r="10"
+                    fill={item?.token?.foreground ?? 'black'}
+                  />
+                  <rect
+                    x="9.2"
+                    y="2.73"
+                    width="1.53"
+                    height="7.87"
+                    fill={item?.token?.foreground ?? 'black'}
+                  />
+                  <rect
+                    x="9.2"
+                    y="10.62"
+                    width="1.53"
+                    height="5.95"
+                    transform="rotate(-45 9.2 10.62)"
+                    fill={item?.token?.foreground ?? 'black'}
+                  />
+                  <circle
+                    cx="10"
+                    cy="10"
+                    r="1.33"
+                    fill={item?.token?.card_colors?.accent_color ?? '#28a745'}
+                  />
+                </svg>
+                </>
+              )
+          }
+        </div>
+      </div>
+
+      {/* show money or token  */}
+      <div
+        className="row m-0 header py-2 text-bold f-"
+        style={{ color: item?.token?.foreground ?? '#fff' }}
+      >
+        <div className="col-7">
+          {/* <img src="/images/Task/task2/Group 771.png" className="mr-2" alt="" /> */}
+          <svg
+            width="18"
+            height="20"
+            viewBox="0 0 512 512"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="mr-2"
+          >
+            <path
+              d="M448 64c17.67 0 32 14.33 32 32v16c35.35 0 64 28.65 64 64v224c0 35.35-28.65 64-64 64H64c-35.35 0-64-28.65-64-64V176c0-35.35 28.65-64 64-64V96c0-17.67 14.33-32 32-32h352z"
+              fill={item?.token?.foreground ?? "#28a744"}
+              style={{ clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)' }}
+            />
+
+            <path
+              d="M448 64c17.67 0 32 14.33 32 32v16c35.35 0 64 28.65 64 64v224c0 35.35-28.65 64-64 64H64c-35.35 0-64-28.65-64-64V176c0-35.35 28.65-64 64-64V96c0-17.67 14.33-32 32-32h352z"
+              fill={item?.token?.foreground ?? "#28a744"}
+              style={{ clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)' }}
+            />
+          </svg>
+
+          Earning Type
+        </div>
+        <div className="col-5 text-right">
+          {item?.earnings === "Earns Money" && 
+            // <svg
+            //   width="24"
+            //   height="24"
+            //   viewBox="0 0 512 512"
+            //   fill="none"
+            //   xmlns="http://www.w3.org/2000/svg"
+            //   className=""
+            // >
+            //   <path
+            //     fillRule="evenodd"
+            //     clipRule="evenodd"
+            //     d="M447.7,392.4c-12.1,41.5-49.9,71.6-95.4,71.6h-59.6c-44.3,0-84.7-19.2-114.5-50H208
+            //     c-12.3,0-22.3-9.9-22.3-22.3s9.9-22.3,22.3-22.3h16.5c-3.1-10-5-20.5-5.4-31.4H208c-12.3,0-22.3-9.9-22.3-22.3
+            //     s9.9-22.3,22.3-22.3h13.4c1.6-10.4,4.4-20.6,8.2-30.2H208c-12.3,0-22.3-9.9-22.3-22.3s9.9-22.3,22.3-22.3h30.4
+            //     c29.7-30.9,70.1-50,114.5-50h59.6c45.5,0,83.3,30.1,95.4,71.6c4.4,15.2-7.3,30.8-23.2,30.8c-9.5,0-18.1-6.1-21.2-15.1
+            //     c-8.7-27.8-34.2-47.3-64.1-47.3h-59.6c-34.7,0-66,17.4-84.6,43.9H392c12.3,0,22.3,9.9,22.3,22.3s-9.9,22.3-22.3,22.3H242.3
+            //     c-2.6,9.6-4.2,19.7-4.5,30.2H392c12.3,0,22.3,9.9,22.3,22.3s-9.9,22.3-22.3,22.3H237.8c18.7,26.5,50,43.9,84.6,43.9h59.6
+            //     c29.9,0,55.4-19.5,64.1-47.3c3.1-9,11.7-15.1,21.2-15.1C440.4,361.6,452.1,377.2,447.7,392.4z"
+            //     fill={item?.token?.foreground ?? "#000000"}
+            //   />
+            // </svg>
+
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              width="16" 
+              height="16" 
+              fill="currentColor" 
+              className="bi bi-currency-euro" 
+              viewBox="0 0 16 16"
+            >
+              <path d="M4 9.42h1.063C5.4 12.323 7.317 14 10.34 14c.622 0 1.167-.068 1.659-.185v-1.3c-.484.119-1.045.17-1.659.17-2.1 0-3.455-1.198-3.775-3.264h4.017v-.928H6.497v-.936q-.002-.165.008-.329h4.078v-.927H6.618c.388-1.898 1.719-2.985 3.723-2.985.614 0 1.175.05 1.659.177V2.194A6.6 6.6 0 0 0 10.341 2c-2.928 0-4.82 1.569-5.244 4.3H4v.928h1.01v1.265H4v.928z"/>
+            </svg>
+          }
+
+          {item?.earnings === "Earns Tokens" &&
+            <svg
+                height="24"
+                width="24"
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+                fill={item?.token?.foreground ?? "#000000"}
+              >
+                    <path d="M512 80c0 18-14.3 34.6-38.4 48c-29.1 16.1-72.5 27.5-122.3 30.9c-3.7-1.8-7.4-3.5-11.3-5C300.6 137.4 248.2 128 192 128c-8.3 0-16.4 .2-24.5 .6l-1.1-.6C142.3 114.6 128 98 128 80c0-44.2 86-80 192-80S512 35.8 512 80zM160.7 161.1c10.2-.7 20.7-1.1 31.3-1.1c62.2 0 117.4 12.3 152.5 31.4C369.3 204.9 384 221.7 384 240c0 4-.7 7.9-2.1 11.7c-4.6 13.2-17 25.3-35 35.5c0 0 0 0 0 0c-.1 .1-.3 .1-.4 .2c0 0 0 0 0 0s0 0 0 0c-.3 .2-.6 .3-.9 .5c-35 19.4-90.8 32-153.6 32c-59.6 0-112.9-11.3-148.2-29.1c-1.9-.9-3.7-1.9-5.5-2.9C14.3 274.6 0 258 0 240c0-34.8 53.4-64.5 128-75.4c10.5-1.5 21.4-2.7 32.7-3.5zM416 240c0-21.9-10.6-39.9-24.1-53.4c28.3-4.4 54.2-11.4 76.2-20.5c16.3-6.8 31.5-15.2 43.9-25.5l0 35.4c0 19.3-16.5 37.1-43.8 50.9c-14.6 7.4-32.4 13.7-52.4 18.5c.1-1.8 .2-3.5 .2-5.3zm-32 96c0 18-14.3 34.6-38.4 48c-1.8 1-3.6 1.9-5.5 2.9C304.9 404.7 251.6 416 192 416c-62.8 0-118.6-12.6-153.6-32C14.3 370.6 0 354 0 336l0-35.4c12.5 10.3 27.6 18.7 43.9 25.5C83.4 342.6 135.8 352 192 352s108.6-9.4 148.1-25.9c7.8-3.2 15.3-6.9 22.4-10.9c6.1-3.4 11.8-7.2 17.2-11.2c1.5-1.1 2.9-2.3 4.3-3.4l0 3.4 0 5.7 0 26.3zm32 0l0-32 0-25.9c19-4.2 36.5-9.5 52.1-16c16.3-6.8 31.5-15.2 43.9-25.5l0 35.4c0 10.5-5 21-14.9 30.9c-16.3 16.3-45 29.7-81.3 38.4c.1-1.7 .2-3.5 .2-5.3zM192 448c56.2 0 108.6-9.4 148.1-25.9c16.3-6.8 31.5-15.2 43.9-25.5l0 35.4c0 44.2-86 80-192 80S0 476.2 0 432l0-35.4c12.5 10.3 27.6 18.7 43.9 25.5C83.4 438.6 135.8 448 192 448z"/>
+
+            </svg>
+          }
+          {/* {item.token.duration >= 60 ? " min" : "sec"} */}
+          {/* <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="ml-2"
+          >
+            <path
+              d="M20 10C20 15.5228 15.5228 20 10 20C4.47715 20 0 15.5228 0 10C0 4.47715 4.47715 0 10 0C15.5228 0 20 4.47715 20 10ZM1.39032 10C1.39032 14.755 5.24501 18.6097 10 18.6097C14.755 18.6097 18.6097 14.755 18.6097 10C18.6097 5.24501 14.755 1.39032 10 1.39032C5.24501 1.39032 1.39032 5.24501 1.39032 10Z"
+              fill={item?.token?.foreground ?? 'black'}
+            />
+            <rect
+              x="9.2002"
+              y="2.7334"
+              width="1.53333"
+              height="7.86667"
+              fill={item?.token?.foreground ?? 'black'}
+            />
+            <rect
+              x="9.2002"
+              y="2.7334"
+              width="1.53333"
+              height="7.86667"
+              fill={item?.token?.foreground ?? 'black'}
+            />
+            <rect
+              x="9.2002"
+              y="10.6172"
+              width="1.53333"
+              height="5.95084"
+              transform="rotate(-45 9.2002 10.6172)"
+              fill={item?.token?.foreground ?? 'black'}
+            />
+            <rect
+              x="9.2002"
+              y="10.6172"
+              width="1.53333"
+              height="5.95084"
+              transform="rotate(-45 9.2002 10.6172)"
+              fill={item?.token?.foreground ?? 'black'}
+            />
+            <circle
+              cx="9.99984"
+              cy="10.0003"
+              r="1.33333"
+              fill={item?.token?.card_colors?.accent_color ?? '#28a745'}
+            />
+          </svg> */}
+
+          {/* <img src="/images/Task/task2/timer.png"  alt="" /> */}
+        </div>
+      </div>
+
       {/* last section1 task */}
       <div
-        className="row m-0 header py-3 text-bold f-"
+        className="row m-0 header py-2 text-bold f-"
         style={{ color: item?.token?.foreground ?? '#fff' }}
       >
         <div className="col-7">
@@ -60,10 +293,10 @@ function TaskFooter({ item }) {
               fill={item?.token?.foreground ?? 'black'}
             />
           </svg>
-          Remaning
+          Average Duration
         </div>
         <div className="col-5 text-right">
-          {item.end_in}
+          {formatDuration(item?.average_duration)} 
           {/* {item.token.duration >= 60 ? " min" : "sec"} */}
           <svg
             width="20"
@@ -118,9 +351,10 @@ function TaskFooter({ item }) {
           {/* <img src="/images/Task/task2/timer.png"  alt="" /> */}
         </div>
       </div>
+
       {/* last section2 task */}
       <div
-        className="row m-0 header  text-bold f-  "
+        className="row m-0 header py-2 text-bold f-  "
         style={{ color: item?.token?.foreground ?? '#fff' }}
       >
         <div className="col-7">

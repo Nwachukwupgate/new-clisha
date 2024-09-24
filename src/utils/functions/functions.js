@@ -14,3 +14,18 @@ export const pointsToDollar = (points) => {
 
   return (ratePerPoint * parseFloat(pointValue)).toFixed(2);
 };
+
+export const formatDuration = (seconds) => {
+  if (Number.isNaN(seconds) || seconds == null) return "0 secs";
+
+  const hrs = Math.floor(seconds / 3600);
+  const mins = Math.floor((seconds % 3600) / 60);
+  const secs = Math.floor(seconds % 60);
+
+  const result = [];
+  if (hrs > 0) result.push(`${hrs} hr${hrs > 1 ? "s" : ""}`);
+  if (mins > 0) result.push(`${mins} min${mins > 1 ? "s" : ""}`);
+  if (secs > 0) result.push(`${secs} sec${secs > 1 ? "s" : ""}`);
+
+  return result.length > 0 ? result.join(", ") : "0 secs";
+};
