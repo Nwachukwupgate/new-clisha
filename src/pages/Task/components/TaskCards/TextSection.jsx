@@ -6,7 +6,7 @@ function TextSection({ item }) {
     >
       Solve “{item.token.name}” Task,{' '}
       {item?.task_type === 'website_click' && (
-        <span>Stay for {item.website_click?.duration ?? item?.token?.duration}sec</span>
+        <span>Stay for {item.average_duration ?? item?.token?.duration}sec</span>
       )}{' '}
       and then come back to claim your bonus.
     </div>
