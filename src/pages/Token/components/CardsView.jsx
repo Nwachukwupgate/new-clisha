@@ -14,7 +14,7 @@ function CardsView() {
       <EarnToken earnedToken={earnedToken} />
 
       {/* All Token */}
-      <AllToken allToken={allToken} />
+      {/* <AllToken allToken={allToken} /> */}
 
       {/* Vqualis Token */}
       <VqualisToken bonusToken={bonusToken} />
