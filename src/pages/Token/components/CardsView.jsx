@@ -1,11 +1,10 @@
 import { useSelector } from 'react-redux';
-import AllToken from './AllToken';
 import EarnToken from './EarnToken';
 import VqualisToken from './VqualisToken';
 
 function CardsView() {
   const earnedToken = useSelector((state) => state.token?.earnedToken);
-  const allToken = useSelector((state) => state.token?.allToken?.tokens);
+  // const allToken = useSelector((state) => state.token?.allToken?.tokens);
   const bonusToken = useSelector((state) => state.token?.bonus);
   // console.log(bonusToken);
   return (
