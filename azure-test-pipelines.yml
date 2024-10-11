@@ -1,0 +1,34 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- main
+
+pool:
+  name: clisha-test
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '20.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install yarn@latest -g
+    yarn install
+    export NODE_ENV=production
+    npm run build
+  displayName: 'npm install and build'
+  env:
+    REACT_APP_BASE_URL: $(REACT_APP_BASE_URL)
+    REACT_APP_AUTH: $(REACT_APP_AUTH)
+    REACT_APP_API: $(REACT_APP_API)
+    REACT_APP_API_TASK: $(REACT_APP_API_TASK)
+    REACT_APP_API_COMMERCE: $(REACT_APP_API_COMMERCE)
+    REACT_APP_COMPANY: $(REACT_APP_COMPANY)
+    REACT_APP_VENDO_USER_DASHBOARD: $(REACT_APP_VENDO_USER_DASHBOARD)
+    REACT_APP_VENDO_API: $(REACT_APP_VENDO_API)
+    REACT_APP_VENDO_CLIENT_ID: $(REACT_APP_VENDO_CLIENT_ID)
+    REACT_APP_CLIENT_URL: $(REACT_APP_CLIENT_URL)
