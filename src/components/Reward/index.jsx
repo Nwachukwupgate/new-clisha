@@ -109,7 +109,7 @@ export default function RewardApp() {
             You Earn <CountUp start={0} end={0} duration={1} /> PTS
           </p>
           <h6 className="text-white">
-            0 Vqalis Bonus (Available to connected Vendo accounts only!)
+            You have earned Vqalis Bonus (Available to connected Vendo accounts only!)
           </h6>
           <div className="text-center pt-3">
             <button className="btn claim_coin shadow" onClick={handleFailed}>
