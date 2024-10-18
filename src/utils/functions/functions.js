@@ -29,3 +29,7 @@ export const formatDuration = (seconds) => {
 
   return result.length > 0 ? result.join(", ") : "0 secs";
 };
+
+export const openInNewTab = (url) => {
+  window.open(url, "_blank", "noreferrer");
+};
