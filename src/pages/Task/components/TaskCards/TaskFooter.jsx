@@ -6,8 +6,10 @@ import { formatDuration } from '../../../../utils/functions/functions';
 function TaskFooter({ item }) {
   // let timeDiff = ;
   // let time = moment.duration(timeDiff);
-  // console.log(moment(item.end_at).endOf('day').fromNow())
   const user = useSelector((state) => state.user.data);
+
+  const { vendoConnectStatus } = user?.user ?? "false"
+  
 
   return (
     <>
@@ -353,174 +355,177 @@ function TaskFooter({ item }) {
       </div>
 
       {/* last section2 task */}
-      <div
-        className="row m-0 header py-2 text-bold f-  "
-        style={{ color: item?.token?.foreground ?? '#fff' }}
-      >
-        <div className="col-7">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="mr-2"
-          >
-            <path
-              d="M3.3335 5.86621L9.93668 11.9297V17.3583L3.3335 5.86621Z"
-              fill={item?.token?.card_colors?.accent_color ?? '#28a745'}
-            />
-            <path
-              d="M16.6667 5.86621L10.0635 17.3583V11.9297L16.6667 5.86621Z"
-              fill={item?.token?.foreground ?? 'black'}
-            />
-            <path
-              d="M20 10C20 15.5228 15.5228 20 10 20C4.47715 20 0 15.5228 0 10C0 4.47715 4.47715 0 10 0C15.5228 0 20 4.47715 20 10ZM1.39032 10C1.39032 14.755 5.24501 18.6097 10 18.6097C14.755 18.6097 18.6097 14.755 18.6097 10C18.6097 5.24501 14.755 1.39032 10 1.39032C5.24501 1.39032 1.39032 5.24501 1.39032 10Z"
-              fill={item?.token?.card_colors?.accent_color ?? '#28a745'}
-            />
-          </svg>
-          {/* <img src="/images/Task/task2/quality.png" className="mr-2" alt="" /> */}
-          VQualis Bonus
+      {vendoConnectStatus && 
+        <div
+          className="row m-0 header py-2 text-bold f-  "
+          style={{ color: item?.token?.foreground ?? '#fff' }}
+        >
+          <div className="col-7">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="mr-2"
+            >
+              <path
+                d="M3.3335 5.86621L9.93668 11.9297V17.3583L3.3335 5.86621Z"
+                fill={item?.token?.card_colors?.accent_color ?? '#28a745'}
+              />
+              <path
+                d="M16.6667 5.86621L10.0635 17.3583V11.9297L16.6667 5.86621Z"
+                fill={item?.token?.foreground ?? 'black'}
+              />
+              <path
+                d="M20 10C20 15.5228 15.5228 20 10 20C4.47715 20 0 15.5228 0 10C0 4.47715 4.47715 0 10 0C15.5228 0 20 4.47715 20 10ZM1.39032 10C1.39032 14.755 5.24501 18.6097 10 18.6097C14.755 18.6097 18.6097 14.755 18.6097 10C18.6097 5.24501 14.755 1.39032 10 1.39032C5.24501 1.39032 1.39032 5.24501 1.39032 10Z"
+                fill={item?.token?.card_colors?.accent_color ?? '#28a745'}
+              />
+            </svg>
+            {/* <img src="/images/Task/task2/quality.png" className="mr-2" alt="" /> */}
+            VQualis Bonus
+          </div>
+          <div className="col-5 text-right">
+            {item?.bonus_points} Pts
+            <svg
+              width="20"
+              height="19"
+              viewBox="0 0 20 19"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="ml-2"
+            >
+              <rect
+                y="9.30273"
+                width="8.7907"
+                height="1.86047"
+                rx="0.930233"
+                fill={item?.token?.foreground ?? 'black'}
+              />
+              <rect
+                y="9.30273"
+                width="8.7907"
+                height="1.86047"
+                rx="0.930233"
+                fill={item?.token?.foreground ?? 'black'}
+              />
+              <rect
+                y="11.6279"
+                width="8.7907"
+                height="1.86047"
+                rx="0.930233"
+                fill={item?.token?.foreground ?? 'black'}
+              />
+              <rect
+                y="11.6279"
+                width="8.7907"
+                height="1.86047"
+                rx="0.930233"
+                fill={item?.token?.foreground ?? 'black'}
+              />
+              <rect
+                y="13.9531"
+                width="8.7907"
+                height="1.86047"
+                rx="0.930233"
+                fill={item?.token?.foreground ?? 'black'}
+              />
+              <rect
+                y="13.9531"
+                width="8.7907"
+                height="1.86047"
+                rx="0.930233"
+                fill={item?.token?.foreground ?? 'black'}
+              />
+              <rect
+                y="16.2793"
+                width="8.7907"
+                height="1.86047"
+                rx="0.930233"
+                fill={item?.token?.foreground ?? 'black'}
+              />
+              <rect
+                y="16.2793"
+                width="8.7907"
+                height="1.86047"
+                rx="0.930233"
+                fill={item?.token?.foreground ?? 'black'}
+              />
+              <rect
+                y="4.65137"
+                width="8.7907"
+                height="1.86047"
+                rx="0.930233"
+                fill={item?.token?.foreground ?? 'black'}
+              />
+              <rect
+                y="4.65137"
+                width="8.7907"
+                height="1.86047"
+                rx="0.930233"
+                fill={item?.token?.foreground ?? 'black'}
+              />
+              <rect
+                y="6.97656"
+                width="8.7907"
+                height="1.86047"
+                rx="0.930233"
+                fill={item?.token?.foreground ?? 'black'}
+              />
+              <rect
+                y="6.97656"
+                width="8.7907"
+                height="1.86047"
+                rx="0.930233"
+                fill={item?.token?.card_colors?.accent_color ?? '#28a745'}
+              />
+              <rect
+                x="9.30225"
+                y="4.65137"
+                width="8.7907"
+                height="1.86047"
+                rx="0.930233"
+                fill={item?.token?.foreground ?? 'black'}
+              />
+              <rect
+                x="9.30225"
+                y="4.65137"
+                width="8.7907"
+                height="1.86047"
+                rx="0.930233"
+                fill={item?.token?.foreground ?? 'black'}
+              />
+              <rect
+                x="9.30225"
+                width="8.7907"
+                height="1.86047"
+                rx="0.930233"
+                fill={item?.token?.foreground ?? 'black'}
+              />
+              <rect
+                x="9.30225"
+                width="8.7907"
+                height="1.86047"
+                rx="0.930233"
+                fill={item?.token?.foreground ?? 'black'}
+              />
+              <rect
+                x="9.30225"
+                y="2.3252"
+                width="8.7907"
+                height="1.86047"
+                rx="0.930233"
+                fill={item?.token?.card_colors?.accent_color ?? '#28a745'}
+              />
+              <path
+                d="M20 11.8601C20 15.328 17.1888 18.1392 13.721 18.1392C10.2531 18.1392 7.44189 15.328 7.44189 11.8601C7.44189 8.39229 10.2531 5.58105 13.721 5.58105C17.1888 5.58105 20 8.39229 20 11.8601ZM8.77834 11.8601C8.77834 14.5899 10.9912 16.8027 13.721 16.8027C16.4507 16.8027 18.6636 14.5899 18.6636 11.8601C18.6636 9.13039 16.4507 6.9175 13.721 6.9175C10.9912 6.9175 8.77834 9.13039 8.77834 11.8601Z"
+                fill={item?.token?.card_colors?.accent_color ?? '#28a745'}
+              />
+            </svg>
+          </div>
         </div>
-        <div className="col-5 text-right">
-          {item?.bonus_points} Pts
-          <svg
-            width="20"
-            height="19"
-            viewBox="0 0 20 19"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="ml-2"
-          >
-            <rect
-              y="9.30273"
-              width="8.7907"
-              height="1.86047"
-              rx="0.930233"
-              fill={item?.token?.foreground ?? 'black'}
-            />
-            <rect
-              y="9.30273"
-              width="8.7907"
-              height="1.86047"
-              rx="0.930233"
-              fill={item?.token?.foreground ?? 'black'}
-            />
-            <rect
-              y="11.6279"
-              width="8.7907"
-              height="1.86047"
-              rx="0.930233"
-              fill={item?.token?.foreground ?? 'black'}
-            />
-            <rect
-              y="11.6279"
-              width="8.7907"
-              height="1.86047"
-              rx="0.930233"
-              fill={item?.token?.foreground ?? 'black'}
-            />
-            <rect
-              y="13.9531"
-              width="8.7907"
-              height="1.86047"
-              rx="0.930233"
-              fill={item?.token?.foreground ?? 'black'}
-            />
-            <rect
-              y="13.9531"
-              width="8.7907"
-              height="1.86047"
-              rx="0.930233"
-              fill={item?.token?.foreground ?? 'black'}
-            />
-            <rect
-              y="16.2793"
-              width="8.7907"
-              height="1.86047"
-              rx="0.930233"
-              fill={item?.token?.foreground ?? 'black'}
-            />
-            <rect
-              y="16.2793"
-              width="8.7907"
-              height="1.86047"
-              rx="0.930233"
-              fill={item?.token?.foreground ?? 'black'}
-            />
-            <rect
-              y="4.65137"
-              width="8.7907"
-              height="1.86047"
-              rx="0.930233"
-              fill={item?.token?.foreground ?? 'black'}
-            />
-            <rect
-              y="4.65137"
-              width="8.7907"
-              height="1.86047"
-              rx="0.930233"
-              fill={item?.token?.foreground ?? 'black'}
-            />
-            <rect
-              y="6.97656"
-              width="8.7907"
-              height="1.86047"
-              rx="0.930233"
-              fill={item?.token?.foreground ?? 'black'}
-            />
-            <rect
-              y="6.97656"
-              width="8.7907"
-              height="1.86047"
-              rx="0.930233"
-              fill={item?.token?.card_colors?.accent_color ?? '#28a745'}
-            />
-            <rect
-              x="9.30225"
-              y="4.65137"
-              width="8.7907"
-              height="1.86047"
-              rx="0.930233"
-              fill={item?.token?.foreground ?? 'black'}
-            />
-            <rect
-              x="9.30225"
-              y="4.65137"
-              width="8.7907"
-              height="1.86047"
-              rx="0.930233"
-              fill={item?.token?.foreground ?? 'black'}
-            />
-            <rect
-              x="9.30225"
-              width="8.7907"
-              height="1.86047"
-              rx="0.930233"
-              fill={item?.token?.foreground ?? 'black'}
-            />
-            <rect
-              x="9.30225"
-              width="8.7907"
-              height="1.86047"
-              rx="0.930233"
-              fill={item?.token?.foreground ?? 'black'}
-            />
-            <rect
-              x="9.30225"
-              y="2.3252"
-              width="8.7907"
-              height="1.86047"
-              rx="0.930233"
-              fill={item?.token?.card_colors?.accent_color ?? '#28a745'}
-            />
-            <path
-              d="M20 11.8601C20 15.328 17.1888 18.1392 13.721 18.1392C10.2531 18.1392 7.44189 15.328 7.44189 11.8601C7.44189 8.39229 10.2531 5.58105 13.721 5.58105C17.1888 5.58105 20 8.39229 20 11.8601ZM8.77834 11.8601C8.77834 14.5899 10.9912 16.8027 13.721 16.8027C16.4507 16.8027 18.6636 14.5899 18.6636 11.8601C18.6636 9.13039 16.4507 6.9175 13.721 6.9175C10.9912 6.9175 8.77834 9.13039 8.77834 11.8601Z"
-              fill={item?.token?.card_colors?.accent_color ?? '#28a745'}
-            />
-          </svg>
-        </div>
-      </div>
+      }
+      
       {/* last section3 task */}
       <div
         className="row m-0 header py-3 text-bold f- "

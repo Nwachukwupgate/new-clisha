@@ -16,7 +16,8 @@ function Load_Task(props) {
             className="minicards"
             style={{
               background: item.background,
-              color: item.foreground,
+              // color: item.foreground,
+              color: '#ffffff',
             }}
           >
             <h6 className=" text-capitalize">
