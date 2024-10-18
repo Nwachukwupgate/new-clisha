@@ -10,7 +10,7 @@ function index({ card }) {
           data-aos-duration="1000"
           // data-aos-delay="100"
         >
-          <b>We Loves Our Affiliates</b>
+          <b>We Love Our Users</b>
         </h3>
         <p
           className="col-md-8  m-auto p-0 p-lg-2"
