@@ -6,10 +6,8 @@ import { formatDuration } from '../../../../utils/functions/functions';
 function TaskFooter({ item }) {
   // let timeDiff = ;
   // let time = moment.duration(timeDiff);
-  // console.log(moment(item.end_at).endOf('day').fromNow())
   const user = useSelector((state) => state.user.data);
 
-  // console.log("the user", user?.user?.vendoConnectStatus);
   const { vendoConnectStatus } = user?.user ?? "false"
   
 
