@@ -3,23 +3,23 @@ export const nav = [
     name: 'Home',
     url: '/',
   },
-  {
-    name: 'Become Partner',
-    url: '/#become-partner', // become-partner
-  },
-  {
-    name: 'All Products',
-    url: '/#all-products', // all-products
-  },
+  // {
+  //   name: 'Become Partner',
+  //   url: '/#become-partner', // become-partner
+  // },
+  // {
+  //   name: 'All Products',
+  //   url: '/#all-products', // all-products
+  // },
 
-  {
-    name: 'Membership',
-    url: '/#membership', // membership
-  },
-  {
-    name: 'Clisha User',
-    url: '/#clisha-users', // clisha-users
-  },
+  // {
+  //   name: 'Membership',
+  //   url: '/#membership', // membership
+  // },
+  // {
+  //   name: 'Clisha User',
+  //   url: '/#clisha-users', // clisha-users
+  // },
 ];
 
 export const partnersImg = [

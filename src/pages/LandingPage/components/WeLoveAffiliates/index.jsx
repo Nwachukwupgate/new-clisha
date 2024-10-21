@@ -42,9 +42,9 @@ function index({ card }) {
                   <div className="card-body">
                     <h4 className="card-title">{item.title}</h4>
                     <p className="card-text ">{item.description}</p>
-                    <a href="/" className="text-success  text-decoration-underline small">
+                    {/* <a href="/" className="text-success  text-decoration-underline small">
                       View More
-                    </a>
+                    </a> */}
                   </div>
                 </div>
               ))}

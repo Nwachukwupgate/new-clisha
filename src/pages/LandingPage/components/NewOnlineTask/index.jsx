@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { translate } from '../../../../utils/translation';
 
 function index() {
@@ -31,14 +32,15 @@ function index() {
               {translate('dailyTaskSubParagraph')}
             </p>
             <div className="text-center text-md-left">
-              <button
+              <Link
+                to="/signup"
                 className="btn signup shadow mx-auto"
                 data-aos="fade-right"
                 data-aos-duration="1500"
                 // data-aos-delay="600"
               >
                 Sign Up Today
-              </button>
+              </Link>
             </div>
           </div>
           <div className="col-md-6 text-right p-0 p-lg-2   order-first order-lg-last">
