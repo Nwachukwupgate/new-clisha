@@ -5,14 +5,14 @@ function FirstNavbar({ bg }) {
       <div className={`first-header  p-2   ${bg}`}>
         <div className="container  small ">
           <ul className="p-0">
-            <li className="border-right pr-3 border-warning">
+            {/* <li className="border-right pr-3 border-warning">
               <a href="/">Contact Us</a>
             </li>
             <li className="border-right pr-3 border-warning">
               <a href="/#about">About Us</a>
-            </li>
+            </li> */}
             <li className="border-right pr-2 border-0">
-              <a href="mailto:support@clisha.io">Support</a>
+              <a href="mailto:service@clisha.me">Support</a>
             </li>
           </ul>
 
@@ -35,9 +35,9 @@ function FirstNavbar({ bg }) {
                             </a> */}
             {/* </li> */}
             <li>
-              <a href="mailto:support@clisha.io">
+              <a href="mailto:service@clisha.me">
                 <img src="/images/globe.png" className="link mr-1" alt="" title="Visit" />
-                <span>support@clisha.io</span>
+                <span>service@clisha.me</span>
               </a>
             </li>
           </ul>

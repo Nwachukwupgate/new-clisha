@@ -50,7 +50,7 @@ function Header() {
                 data-aos-duration="1000"
                 data-aos-delay="1200"
               >
-                User Registration
+                Sign Up
               </Link>
               <Link
                 to="/become-partner"

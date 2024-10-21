@@ -60,7 +60,7 @@ function MainNavbar({ bg }) {
               className="btn ml-2  heaad-btn registration-btn shadow my-2 my-sm-0"
               type="button"
             >
-              Registration
+              Sign Up
             </Link>
           </form>
         </div>

@@ -5,7 +5,6 @@ import Header from './layouts/Header';
 import HowItWorks from './components/HowItWorks';
 import NumberTasks from './components/NumberTasks';
 import NewOnlineTask from './components/NewOnlineTask';
-import SpeedyMarketing from './components/SpeedyMarketing';
 import TopUser from './components/TopUser';
 import WeLoveAffiliates from './components/WeLoveAffiliates';
 import WhatinClisha from './components/WhatinClisha';
@@ -30,7 +29,7 @@ function Landingpage() {
       {/* We Loves Our Affiliates end */}
 
       {/* Speedy Marketing With Community start */}
-      <SpeedyMarketing />
+      {/* <SpeedyMarketing /> */}
       {/* Speedy Marketing With Community end */}
 
       {/* New Online Daily Task start */}
@@ -38,7 +37,7 @@ function Landingpage() {
       {/* New Online Daily Task end */}
 
       {/* What’s in Clisha start */}
-      <WhatinClisha />
+      {/* <WhatinClisha /> */}
       {/* What’s in Clisha start */}
 
       {/* Powerful Tools start */}
