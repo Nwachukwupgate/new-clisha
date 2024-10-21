@@ -20,7 +20,7 @@ function FirstNavbar({ bg }) {
             <li>
               <a href="/">
                 <img src="/images/mapmaker.png" className="link mr-1" alt="" title="Visit" />
-                <span>159 7/F, Grand Industrial Buildung Office</span>
+                <span>VQualis Limited, Grand Industrial Building, Office 7/F</span>
               </a>
             </li>
             {/* <li> */}

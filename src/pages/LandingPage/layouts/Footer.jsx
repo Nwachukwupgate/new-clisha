@@ -1,3 +1,5 @@
+import { openInNewTab } from "../../../utils/functions/functions";
+
 function Footer() {
   return (
     <footer>
@@ -15,9 +17,8 @@ function Footer() {
             </h6>
             <p>
               <small>
-                159 7/F, Grand Industrial Buildung Office <br />
-                165 Wo Yi Hop Road, Kwai Chung <br />
-                Kwai Tsing District.
+                VQualis Limited, Grand Industrial Building, Office 7/F <br />
+                159-165 Wo Yi Hop Road Kwai Chung, Hongkong. <br />
               </small>
             </p>
           </div>
@@ -44,8 +45,10 @@ function Footer() {
 
           <div className="col-lg-7 p-0">
             <ul className="footer-list2 text-center text-lg-left link  p-0">
-              <li>Privacy</li>
-              <li>Terms of Service</li>
+              <li onClick={() => openInNewTab("https://vqualis.com/privacy-policy/")}>Privacy</li>
+              <li onClick={() => openInNewTab("https://vqualis.com/terms-of-service/")}>
+                Terms of Service
+              </li>
               <li>Affiliation</li>
               <li>Reward Program</li>
               <li>Support Center</li>
@@ -75,7 +78,7 @@ function Footer() {
             <img src="images/Vector (6).png" className="ml-2 link" alt="" />
           </div>
           <div className="col-12  text-center  small mt-2">
-            <span>@Copyright 2022 Vqualis. All right reserved</span>
+          <span>@Copyright {new Date().getFullYear()} Vqualis. All right reserved</span>
           </div>
         </div>
       </div>
