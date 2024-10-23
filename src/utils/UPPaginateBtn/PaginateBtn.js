@@ -1,4 +1,4 @@
-function PaginateBtn({ containerId, leftId, rightId }) {
+function PaginateBtn({ containerId, leftId, rightId }) {  
   const floatRight = document.getElementById(rightId);
   const floatLeft = document.getElementById(leftId);
   const rankslider = document.getElementById(containerId);
