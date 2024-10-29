@@ -10,14 +10,17 @@ export default function RewardApp() {
   const user = useSelector((state) => state.user.data);
   const completeTaskLoading = useSelector((state) => state.task.completeTaskLoading);
   const vendoPackage = useSelector((state) => state.wallet.vendoPackage);
+  const vendoConnectStatus = user?.user?.vendoConnectStatus
+
 
   const { reward } = useReward('rewardId', 'confetti');
   const navigate = useNavigate();
   const sound = new Audio();
   const dispatch = useDispatch();
-  const [balance, setBalance] = useState(0);
-  const [isBonus, setIsBonus] = useState(false);
+  const [, setBalance] = useState(0);
+  const [isBonus, setIsBonus] = useState(vendoConnectStatus);
   // const user = useSelector((state) => state.user.data);
+
 
   const query = new URLSearchParams(window.location.search);
   const _task = query.get('t');
@@ -77,9 +80,9 @@ export default function RewardApp() {
           {isBonus && (
             <span>
               <h3 className="text-white mt-3">
-                <CountUp start={0} end={balance} duration={1} /> PTS
+                <CountUp start={0} end={_point} duration={1} /> PTS
               </h3>
-              <h6 className="text-white">{_bonus} Vqalis Bonus</h6>
+              <h6 className="text-white">{_bonus} VQ Points</h6>
               {(!user?.user?.vendoConnectStatus ||
                 vendoPackage?.data?.package_level === 'No package') && (
                 <h6 className="text-white">(Connect your Vendo account to receive VQ Points)</h6>
@@ -109,7 +112,7 @@ export default function RewardApp() {
             You Earn <CountUp start={0} end={0} duration={1} /> PTS
           </p>
           <h6 className="text-white">
-            You have earned Vqalis Bonus (Available to connected Vendo accounts only!)
+            You have not earned Vq Bonus (Available to connected Vendo accounts only!)
           </h6>
           <div className="text-center pt-3">
             <button className="btn claim_coin shadow" onClick={handleFailed}>
