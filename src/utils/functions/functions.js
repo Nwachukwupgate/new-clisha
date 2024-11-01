@@ -16,7 +16,7 @@ export const pointsToDollar = (points) => {
 };
 
 export const formatDuration = (seconds) => {
-  if (Number.isNaN(seconds) || seconds == null) return "0 secs";
+  if (Number.isNaN(seconds) || seconds == null) return "30 secs";
 
   const hrs = Math.floor(seconds / 3600);
   const mins = Math.floor((seconds % 3600) / 60);
