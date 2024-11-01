@@ -2,6 +2,7 @@ import moment from 'moment';
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../../components/Alerts/Loading';
@@ -18,6 +19,7 @@ import TimeTraker from './components/TimeTraker';
 import TodaysTask from './components/TodaysTask';
 import Wallet from './components/Wallet';
 
+
 function Dashboard() {
   const navigate = useNavigate();
 
@@ -29,6 +31,7 @@ function Dashboard() {
   const [isVqsClaimDay, setIsVqsClaimDay] = useState(false);
   const [isTransferVqsLoading, setIsTransferVqsLoading] = useState(false);
   const vendo_api = process.env.REACT_APP_VENDO_API;
+  const task_api = process.env.REACT_APP_API_TASK
   const vendoDashboard = process.env.REACT_APP_VENDO_USER_DASHBOARD;
   const [perProfile, setPerProfile] = useState(100);  
 
@@ -115,7 +118,8 @@ function Dashboard() {
       };
 
       const res = await apiCall(`${vendo_api}/clisha-addkickback`, 'post', body, config);
-
+      await axios.get(`${task_api}/clear/vqs`, config);
+      
       if (res?.status === 200) {
         toast.success(res?.message);
         window.location.reload();
@@ -125,7 +129,7 @@ function Dashboard() {
     } finally {
       setIsTransferVqsLoading(false);
     }
-  }, [user, vendo_api]);
+  }, [user, vendo_api, task_api]);
 
   useEffect(() => {
     profileCompletePercentage();
@@ -187,8 +191,10 @@ function Dashboard() {
                               )}{' '}
                               VQs booked in the Vendo system.
                               {isVqsClaimDay 
-                                ? ' Claim Now'
-                                : ' Upgrade your package to get more VQs or Claim Now.'}
+                                ? ' Claim Now'                               
+                                : vendoPackage?.data?.package_level !== 'proplus'
+                                ? ' Upgrade your package to get more VQs or Claim Now.'
+                                : null}
                             </p>
 
                             <p
@@ -209,7 +215,9 @@ function Dashboard() {
                               VQs.
                               {isVqsClaimDay
                                 ? ' Claim additional VQs now.'
-                                : ' Upgrade your package to claim additional VQs.'}
+                                : vendoPackage?.data?.package_level !== 'proplus'
+                                ? ' Upgrade your package to claim additional VQs.'
+                                : null}
                             </p>
                           </div>
 
