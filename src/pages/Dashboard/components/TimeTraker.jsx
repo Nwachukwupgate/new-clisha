@@ -1,7 +1,6 @@
 function TimeTraker() {
   const hasExt = window.localStorage.getItem('hasExt');
-  const testServerExt =
-    'https://clisha-assets.fra1.digitaloceanspaces.com/extension%2Fclicha-extension-150.crx';
+  const testServerExt = 'https://chrome.google.com/webstore/detail/clisha-extension/jagnnnnnooogbbpgjidbpockglhfoban'; 
   const liveServerExt =
     'https://chrome.google.com/webstore/detail/clisha-extension/jagnnnnnooogbbpgjidbpockglhfoban';
   const { host } = window.location;
@@ -14,7 +13,7 @@ function TimeTraker() {
             <h6 className="b">Get More Reward</h6>
             <small>
               click to add or update latest Chrome Browser Extension for more tasks and more rewards
-            </small>
+            </small> 
           </div>
           <div className="col-3 pl-0 ">
             {/* <img src="/images/timetraker.png" className="link" alt="" /> */}
