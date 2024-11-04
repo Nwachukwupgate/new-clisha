@@ -28,7 +28,6 @@ function BonusPopup({ user, vendoPackage, onClose }) {
     onClose()
   };
 
-  // Determine the message based on the user's upgrade status
   const getMessage = () => {
     if (vendoPackage?.data?.prev_package !== 'proplus' && vendoPackage?.data?.prev_package !== null && vendoPackage?.data?.package_level === 'proplus') {
         return `Congratulations on upgrading! Your new bonus points are ${user?.rank?.bonus_points}.`;

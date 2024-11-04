@@ -59,39 +59,29 @@ function TaskCard(props) {
   //   dispatch(getTaskWebsite({ page: currentItems, types: "website_click" }));
   // }, [dispatch, currentItems]);
 
-  const loadLink = (data, extCode) => {
+  const loadLink = (data) => {
     setshowCounter(true);
-    // setInterval(() => {
-    //   toast.warning("After 30sec and then come back to here claim your bonus ");
-    // }, 3000);
-
     setTimerCounter(secTime(data.website_click?.duration ?? data?.token?.duration));
-
+  
     const url = data.url.startsWith('http') ? data.url : `https://${data.url}`;
-
     const newTask = window.open(url, '_blank');
-    // newTask.moveTo(300, 70);
-    const timer = setInterval(() => {
-      window.addEventListener('beforeunload', (e) => {
-        // newTask.close();
-      });
-
+  
+    const prematureCloseCheck = setInterval(() => {
       if (newTask.closed) {
-        clearInterval(timer);
-        // window.location.href = `/dashboard/reward?t=${data.id}&p=${data.points}&status=failed`;
-        window.location.reload();
+        clearInterval(prematureCloseCheck);
+        clearTimeout(timerComplete);
+        navigate(`/dashboard/reward?t=${data.id}&p=${data.points}&status=failed`);
       }
     }, 500);
-    setInterval(
-      () => {
-        // newTask.close();
-        navigate(
-          `/dashboard/reward?t=${data.id}&p=${data.points}&status=done&b=${data?.bonus_points}`
-        );
-      },
-      secTime(data.website_click?.duration ?? data?.token?.duration)
-    );
+  
+    const timerComplete = setTimeout(() => {
+      clearInterval(prematureCloseCheck);
+      if (!newTask.closed) {
+        navigate(`/dashboard/reward?t=${data.id}&p=${data.points}&status=done&b=${data?.bonus_points}`);
+      }
+    }, secTime(data.website_click?.duration ?? data?.token?.duration));
   };
+  
 
   const handlePageClick = (event) => {
     const page = event.selected + 1;

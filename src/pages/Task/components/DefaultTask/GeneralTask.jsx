@@ -27,44 +27,67 @@ function GeneralTask(props) {
   const [timerCounter, setTimerCounter] = useState(0);
   const secTime = (time) => time * 1000;
 
-  const loadLink = (data, extCode) => {
-    setshowCounter(true);
-    // setInterval(() => {
-    //   toast.warning("After 30sec and then come back to here claim your bonus ");
-    // }, 3000);
+  // const loadLink = (data, extCode) => {
+  //   setshowCounter(true);
+  //   // setInterval(() => {
+  //   //   toast.warning("After 30sec and then come back to here claim your bonus ");
+  //   // }, 3000);
 
-    setTimerCounter(secTime(data.website_click?.duration ?? data?.token?.duration));
+  //   setTimerCounter(secTime(data.website_click?.duration ?? data?.token?.duration));
 
-    const url = data.url.startsWith('http') ? data.url : `https://${data.url}`;
+  //   const url = data.url.startsWith('http') ? data.url : `https://${data.url}`;
 
-    const newTask = window.open(url, '_blank');
-    // newTask.moveTo(300, 70);
-    const timer = setInterval(() => {
-      window.addEventListener('beforeunload', (e) => {
-        // newTask.close();
-      });
+  //   const newTask = window.open(url, '_blank');
+  //   // newTask.moveTo(300, 70);
+  //   const timer = setInterval(() => {
+  //     window.addEventListener('beforeunload', (e) => {
+  //       // newTask.close();
+  //     });
 
-      if (newTask.closed) {
-        clearInterval(timer);
-        // window.location.href = `/dashboard/reward?t=${data.id}&p=${data.points}&status=failed`;
-        window.location.reload();
-      }
-    }, 500);
-    setInterval(
-      () => {
-        // newTask.close();
-        navigate(
-          `/dashboard/reward?t=${data.id}&p=${data.points}&status=done&b=${data?.bonus_points}`
-        );
-      },
-      secTime(data.website_click?.duration ?? data?.token?.duration)
-    );
-  };
+  //     if (newTask.closed) {
+  //       clearInterval(timer);
+  //       // window.location.href = `/dashboard/reward?t=${data.id}&p=${data.points}&status=failed`;
+  //       window.location.reload();
+  //     }
+  //   }, 500);
+  //   setInterval(
+  //     () => {
+  //       // newTask.close();
+  //       navigate(
+  //         `/dashboard/reward?t=${data.id}&p=${data.points}&status=done&b=${data?.bonus_points}`
+  //       );
+  //     },
+  //     secTime(data.website_click?.duration ?? data?.token?.duration)
+  //   );
+  // };
 
   // const [currentItems] = useState(1);
   // useEffect(() => {
   //   dispatch(getTask({ page: currentItems, types: null }));
   // }, [dispatch, currentItems]);
+
+  const loadLink = (data) => {
+    setshowCounter(true);
+    setTimerCounter(secTime(data.website_click?.duration ?? data?.token?.duration));
+  
+    const url = data.url.startsWith('http') ? data.url : `https://${data.url}`;
+    const newTask = window.open(url, '_blank');
+  
+    const prematureCloseCheck = setInterval(() => {
+      if (newTask.closed) {
+        clearInterval(prematureCloseCheck);
+        clearTimeout(timerComplete);
+        navigate(`/dashboard/reward?t=${data.id}&p=${data.points}&status=failed`);
+      }
+    }, 500);
+  
+    const timerComplete = setTimeout(() => {
+      clearInterval(prematureCloseCheck);
+      if (!newTask.closed) {
+        navigate(`/dashboard/reward?t=${data.id}&p=${data.points}&status=done&b=${data?.bonus_points}`);
+      }
+    }, secTime(data.website_click?.duration ?? data?.token?.duration));
+  };
 
   const handlePageClick = (event) => {
     const page = event.selected + 1;
