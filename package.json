@@ -17,6 +17,7 @@
     "primeicons": "^7.0.0",
     "primereact": "^10.6.6",
     "react": "^18.3.1",
+    "react-bootstrap": "^2.10.5",
     "react-calendar": "^5.0.0",
     "react-countdown": "^2.3.5",
     "react-countup": "^6.5.3",
@@ -42,7 +43,8 @@
     "timezones-list": "^3.0.3",
     "toggle": "^1.0.1",
     "web-vitals": "^4.2.0",
-    "webfontloader": "^1.6.28"
+    "webfontloader": "^1.6.28",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
     "@eslint/compat": "^1.1.0",
