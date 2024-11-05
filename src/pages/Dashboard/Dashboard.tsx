@@ -37,6 +37,7 @@ function Dashboard() {
   const [perProfile, setPerProfile] = useState(100); 
   const [showBonusPopup, setShowBonusPopup] = useState(false);
 
+
   useEffect(() => {
     const hasSeenPopup = localStorage.getItem('hasSeenBonusPopup');
     if (!hasSeenPopup) {
@@ -103,7 +104,7 @@ function Dashboard() {
 
   const checkIfVQCliamPeriod = useCallback(() => {
     const nowDate = moment(Date.now()).date();
-    const claimDays = new Set([1, 2, 3, 4]);
+    const claimDays = new Set([1, 2, 3, 4, 5]);
   
     if (claimDays.has(nowDate)) {
       setIsVqsClaimPeriod(true);
@@ -196,10 +197,11 @@ function Dashboard() {
                                   : vendoPackage?.data?.package_level}
                               </b>{' '}
                               user, you currently have{' '}
-                              {getUserVQForVendo(
+                              {/* {getUserVQForVendo(
                                 user?.rank?.bonus_points,
                                 vendoPackage?.data?.vqRatio
-                              )}{' '}
+                              )} */}
+                              {user?.rank?.bonus_points?.toFixed() ?? 0}{' '}
                               VQs booked in the Vendo system.
                               {isVqsClaimDay 
                                 ? ' Claim Now'                               
@@ -212,17 +214,18 @@ function Dashboard() {
                               className="text-dark"
                               style={{ fontWeight: '700', marginBottom: '8px' }}
                             >
-                              {`You've earned ${user?.rank?.bonus_points?.toFixed() ?? 0} VQs, and as a{' '}`}
+                              {`You've earned ${user?.rank?.bonus_points?.toFixed() ?? 0} VQs, and as a`}
                               <b style={{ color: 'red' }}>
                                 {vendoPackage?.data?.package_level === 'proplus'
                                   ? 'Pro+'
                                   : vendoPackage?.data?.package_level}
                               </b>{' '}
                               user, you currently have access to{' '}
-                              {getUserVQForVendo(
+                              {/* {getUserVQForVendo(
                                 user?.rank?.bonus_points,
                                 vendoPackage?.data?.vqRatio
-                              )}{' '}
+                              )} */}
+                              {user?.rank?.bonus_points?.toFixed() ?? 0}{' '}
                               VQs.
                               {isVqsClaimDay
                                 ? ' Claim additional VQs now.'
@@ -294,7 +297,7 @@ function Dashboard() {
                                     </svg>  
                                     {' '} VQ Bonus Points Missed
                                   </p>
-                                  We noticed you didn’t qualify for the VQ Bonus Points this month. To earn the bonus next month, simply stay active by engaging with tasks for 25 days. We look forward to seeing you participate!
+                                  We noticed you didn’t qualify for the VQ Bonus Points this month. To earn the bonus next month, simply stay active by engaging with tasks for 25 days and complete minimum of 10 task daily. We look forward to seeing you participate!
                                 </p>
                               </div>  
                             </div> 
