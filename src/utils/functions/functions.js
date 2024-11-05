@@ -33,3 +33,13 @@ export const formatDuration = (seconds) => {
 export const openInNewTab = (url) => {
   window.open(url, "_blank", "noreferrer");
 };
+
+export const calculateBonusPoints = (packageLevel) => {
+  const multipliers = {
+    basic: 10,
+    plus: 20,
+    pro: 40,
+    proplus: 100,
+  };
+  return multipliers[packageLevel] || 1;
+}

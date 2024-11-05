@@ -18,6 +18,7 @@ import Task from './components/Task_Component';
 import TimeTraker from './components/TimeTraker';
 import TodaysTask from './components/TodaysTask';
 import Wallet from './components/Wallet';
+import BonusPopup from './components/BonusPopup';
 
 
 function Dashboard() {
@@ -33,7 +34,17 @@ function Dashboard() {
   const vendo_api = process.env.REACT_APP_VENDO_API;
   const task_api = process.env.REACT_APP_API_TASK
   const vendoDashboard = process.env.REACT_APP_VENDO_USER_DASHBOARD;
-  const [perProfile, setPerProfile] = useState(100);  
+  const [perProfile, setPerProfile] = useState(100); 
+  const [showBonusPopup, setShowBonusPopup] = useState(false);
+
+  useEffect(() => {
+    const hasSeenPopup = localStorage.getItem('hasSeenBonusPopup');
+    if (!hasSeenPopup) {
+      setShowBonusPopup(true);
+      localStorage.setItem('hasSeenBonusPopup', 'true'); // Set flag in localStorage
+    }
+  }, []);
+
 
   const goTask = useCallback(() => {
     navigate('/dashboard/task');
@@ -398,6 +409,10 @@ function Dashboard() {
           </div>
         </div>
       </div>
+
+      {showBonusPopup && (
+        <BonusPopup onClose={() => setShowBonusPopup(false)} user={user} vendoPackage={vendoPackage} />
+      )}
     </div>
   );
 }
