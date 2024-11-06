@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Countdown from 'react-countdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -61,10 +61,6 @@ function GeneralTask(props) {
   //   );
   // };
 
-  // const [currentItems] = useState(1);
-  // useEffect(() => {
-  //   dispatch(getTask({ page: currentItems, types: null }));
-  // }, [dispatch, currentItems]);
 
   const loadLink = (data) => {
     setshowCounter(true);
@@ -88,6 +84,11 @@ function GeneralTask(props) {
       }
     }, secTime(data.website_click?.duration ?? data?.token?.duration));
   };
+
+  const [currentItems] = useState(1);
+  useEffect(() => {
+    dispatch(getTask({ page: currentItems, types: null }));
+  }, [dispatch, currentItems]);
 
   const handlePageClick = (event) => {
     const page = event.selected + 1;
