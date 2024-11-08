@@ -4,14 +4,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import CountUp from 'react-countup';
 import MobileSidebar from './MobileSidebar';
-import { logoutAction } from '../store/Auth/auth';
+import { logoutAction, getUser } from '../store/Auth/auth';
 import ProfilePicture from '../utils/ProfilePicture';
+
 
 function Header() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.data);
   const vendoPackage = useSelector((state) => state?.wallet?.vendoPackage);
   const current_route = window.location.pathname;
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+
   const logout = () => {
     dispatch(logoutAction());
   };
@@ -101,8 +107,7 @@ function Header() {
                       end={user && user?.rank?.bonus}
                       duration={3.75}
                     />{" "} */}
-                    {userBalance}
-                    PTS
+                    {userBalance} POINTS
                   </small>
                 </span>
               </li>
