@@ -52,7 +52,7 @@ function Header() {
               >
                 Sign Up
               </Link>
-              <Link
+              {/* <Link
                 to="/become-partner"
                 className="btn py-2   btn-hero px-4 ml-lg-1 mx-2  publisher-btn shadow my-2 my-sm-0"
                 type="button"
@@ -62,7 +62,7 @@ function Header() {
                 data-aos-delay="900"
               >
                 Become A Publisher
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
