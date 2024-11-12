@@ -40,7 +40,7 @@ function MainNavbar({ bg }) {
                   className={`nav-link ${item?.url === link ? 'active-link' : ''}`}
                   to={item?.url}
                 >
-                  {item?.name}
+                  {/* {item?.name} */}
                 </Link>
               </li>
             ))}
@@ -57,7 +57,7 @@ function MainNavbar({ bg }) {
 
             <Link
               to="/signup"
-              className="btn ml-2  heaad-btn registration-btn shadow my-2 my-sm-0"
+              className="btn ml-2  heaad-btn registration-btn  shadow my-2 my-sm-0"
               type="button"
             >
               Sign Up

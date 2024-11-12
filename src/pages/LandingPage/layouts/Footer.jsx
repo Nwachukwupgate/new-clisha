@@ -79,7 +79,7 @@ function Footer() {
             <img src="images/Vector (6).png" className="ml-2 link" alt="" />
           </div> */}
           <div className="col-12  text-center  small mt-2">
-          <span>@Copyright {new Date().getFullYear()} Vqualis. All right reserved</span>
+          <span>© Copyright {new Date().getFullYear()} clisha.me powered by VQualis. All right reserved</span>
           </div>
         </div>
       </div>
