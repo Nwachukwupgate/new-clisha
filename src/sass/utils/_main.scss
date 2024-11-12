@@ -113,8 +113,8 @@ li {
 .registration-btn {
   padding: 5px;
   color: #ffffff;
-  background: #009add;
-  border: 1px solid #009add;
+  background: #fc9828;
+  border: 1px solid #fc9828;
   box-sizing: border-box;
   border-radius: 6px;
 }
@@ -333,7 +333,7 @@ footer {
 
 .scroll-top {
   width: 40px !important;
-  background-color: #8f64a5 !important;
+  background-color: gray !important;
   color: white !important;
   border: 0px !important;
   height: 40px !important;
@@ -341,10 +341,23 @@ footer {
   right: 20px !important;
   bottom: 40px !important;
   border-radius: 6px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   -ms-border-radius: 6px;
   -o-border-radius: 6px;
+}
+
+.scroll-top svg {
+  fill: #fc9828 !important;
+}
+
+.scroll-top:hover {
+  background-color: #fc9828 !important;
+}
+
+.scroll-top:hover svg {
+  fill: white !important;
 }
 
 .notify {

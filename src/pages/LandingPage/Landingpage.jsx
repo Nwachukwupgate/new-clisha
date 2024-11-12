@@ -8,6 +8,7 @@ import NewOnlineTask from './components/NewOnlineTask';
 import TopUser from './components/TopUser';
 import WeLoveAffiliates from './components/WeLoveAffiliates';
 import WhatinClisha from './components/WhatinClisha';
+import ScrollTop from '../../components/ScrollTop/ScrollTop';
 
 function Landingpage() {
   const card = cards;
@@ -78,8 +79,11 @@ function Landingpage() {
       {/* Resources end */}
 
       {/* scrollTop Start */}
-      {/* <ScrollTop /> */}
+      <ScrollTop />
       {/* SrollTop end */}
+
+      {/* Scroll to Top Button */}
+      {/* <ScrollToTopButton /> */}
 
       {/* Footer Start */}
       <Footer />

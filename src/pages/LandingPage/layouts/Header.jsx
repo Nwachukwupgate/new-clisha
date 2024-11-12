@@ -15,7 +15,7 @@ function Header() {
       <div className="bg ">
         <div className="nav-bg ">
           {/* first header start */}
-          <FirstNavbar />
+          {/* <FirstNavbar /> */}
           {/* navbar start */}
           <MainNavbar navColor=" bg-transparent     navbar-light " />
           {/* navbar ends */}
