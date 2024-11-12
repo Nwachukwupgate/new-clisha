@@ -9,6 +9,7 @@ import {
   getCalenderTaskReload,
   getCustomDateCallender,
 } from '../../../store/General';
+import ThumbsUp from '../../../assets/image/thumbs.jpg'
 
 const CalenderCard = () => {
   const [isHover, setIsHover] = useState(null);
@@ -137,6 +138,11 @@ const CalenderCard = () => {
                   {moment(item?.date).format('YY-MM-DD') <= moment(Date.now()).format('YY-MM-DD')
                     ? 'Completed'
                     : 'Future Task'}
+                  {item.completedTasks >= 10 ? (
+                    <img src={ThumbsUp} className="emojiCalendersm" alt="Thumbs Up" />
+                  ) : (
+                    ''
+                  )}
                   {item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
                     <img className="emojiCalendersm" src="/images/smiley.jpeg" alt="" />
                   ) : (
@@ -157,9 +163,28 @@ const CalenderCard = () => {
                 </div>
               )}
               {moment(item.date).format('D')}
-              {item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
+              {item.completedTasks >= 10 ? (
+                <img src={ThumbsUp} className="emojiCalender" alt="Thumbs Up" />
+              ) : item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
+                <img className="emojiCalender" src="/images/smiley.jpeg" alt="Smiley" />
+              ) : !item?.completedTasks &&
+                item?.createdTasks &&
+                moment(item?.date).format('YY-MM-DD') <= moment(Date.now()).format('YY-MM-DD') ? (
+                <img className="emojiCalender" src="/images/sad.png" alt="Sad" />
+              ) : item?.createdTasks && item?.createdTasks <= item?.completedTasks ? (
+                <img src="/images/rocket.png" className="isDate" alt="Rocket" />
+              ) : (
+                ''
+              )}
+              {/* {item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
                 <img className="emojiCalender" src="/images/smiley.jpeg" alt="" />
               ) : (
+                ''
+              )}
+              
+              {item.completedTasks >= 10 ? (
+                <img src={ThumbsUp} className="emojiCalendersm" alt="Thumbs Up" />
+                  ) : (
                 ''
               )}
               {!item?.completedTasks &&
@@ -173,7 +198,7 @@ const CalenderCard = () => {
                 <img src="/images/rocket.png" className="isDate" alt="" />
               ) : (
                 ''
-              )}
+              )} */}
               {/* {item.createdTasks ? <img src="/images/error.png" className='isDate' alt="" /> : ""} */}
             </a>
           ))}
