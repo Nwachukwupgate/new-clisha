@@ -11,13 +11,15 @@ import {
 } from '../../../store/General';
 import ThumbsUp from '../../../assets/image/thumbs.jpg'
 
-const CalenderCard = () => {
+const CalenderCard = ({verificationDate}) => {
   const [isHover, setIsHover] = useState(null);
   const [openCallender, SetopenCallender] = useState(null);
   const dispatch = useDispatch();
   // const [value, onChange] = useState(new Date());
   const calenderTask = useSelector((state) => state.general?.calenderTask?.monthlyData);
+
   const reloadingCalendar = useSelector(generalSelectReloadingCalendar);
+  const parsedVerificationDate = verificationDate ? moment(verificationDate) : null;
 
   // const callenderDate = useSelector((state) => state.general?.callenderDate);
   const [date, setDate] = useState({
@@ -44,6 +46,10 @@ const CalenderCard = () => {
     );
     dispatch(getCustomDateCallender({ callenderDate: item?.date }));
   };
+
+  const filteredTasks = calenderTask?.filter((item) =>
+    parsedVerificationDate ? moment(item.date).isSameOrAfter(parsedVerificationDate, 'day') : true
+  );
 
   return (
     <div className="Calender border rounded-lg text-center ">
@@ -101,8 +107,8 @@ const CalenderCard = () => {
         </div>
       </div>
       <ul className="row m-0 p-0" onMouseLeave={() => setIsHover(null)}>
-        {calenderTask &&
-          calenderTask.map((item, key) => (
+        {filteredTasks &&
+          filteredTasks.map((item, key) => (
             <a href="#/" className="col-2 py-3 link" key={key} onClick={() => setIsHover(key)}>
               {key === isHover && (
                 <div

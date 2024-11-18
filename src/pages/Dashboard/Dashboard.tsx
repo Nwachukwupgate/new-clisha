@@ -36,6 +36,8 @@ function Dashboard() {
   const vendoDashboard = process.env.REACT_APP_VENDO_USER_DASHBOARD;
   const [perProfile, setPerProfile] = useState(100); 
   const [showBonusPopup, setShowBonusPopup] = useState(false);
+  const verificationDate = user?.user?.email_verified_at
+  // console.log("datee", verificationDate)
 
 
   useEffect(() => {
@@ -114,10 +116,10 @@ function Dashboard() {
     }
   }, []);
 
-  const getUserVQForVendo = useCallback(
-    (vqs: number, percentage: number) => (vqs * (percentage / 100)).toFixed(1),
-    []
-  );
+  // const getUserVQForVendo = useCallback(
+  //   (vqs: number, percentage: number) => (vqs * (percentage / 100)).toFixed(1),
+  //   []
+  // );
 
   const transferUserVqsToVendo = useCallback(async () => {
     setIsTransferVqsLoading(true);
@@ -404,7 +406,7 @@ function Dashboard() {
                       </button>
                     </div>
                   </div>
-                  <CalenderCard />
+                  <CalenderCard verificationDate={verificationDate} />
                   <TodaysTask user={user} />
                 </div>
               </div>
