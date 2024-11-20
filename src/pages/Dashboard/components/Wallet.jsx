@@ -2,7 +2,7 @@ function Wallet({ user, vendoPackage }) {
   // console.log(vendoPackage);
   return (
     <div className="wallet shadow">
-      <h1>{user?.rank?.balance?.toFixed(2) ?? 0} Pts</h1>
+      <h1>{user?.rank?.balance?.toFixed(2) ?? 0} Points</h1>
       {vendoPackage?.status === true &&
         user?.user?.vendoConnectStatus &&
         vendoPackage.data.package_level === 'No package' && (

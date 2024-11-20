@@ -386,7 +386,7 @@ function TaskFooter({ item }) {
             VQualis Bonus
           </div>
           <div className="col-5 text-right">
-            {item?.bonus_points} Pts
+            {item?.bonus_points} Points
             <svg
               width="20"
               height="19"
@@ -561,7 +561,7 @@ function TaskFooter({ item }) {
           {item?.token?.name.slice(0, 15)}...
         </div>
         <div className="col-6 text-right pl-0">
-          {item.points} Pts
+          {item.points} Points
           <svg
             width="20"
             height="19"

@@ -62,7 +62,7 @@ function Header() {
                 // duration={3.75}
               />{" "} */}
               {userBalance}
-              PTS
+              Points
             </span>
           </small>
           <button

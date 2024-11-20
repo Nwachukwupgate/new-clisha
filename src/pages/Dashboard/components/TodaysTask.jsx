@@ -48,7 +48,7 @@ export const TaskCompleted = (props) => {
             {item.status === 1 ? (
               <p>
                 Task was completed succesfully and your wallet is credited with{' '}
-                <b> {item.points} PTS</b>
+                <b> {item.points} Points</b>
               </p>
             ) : (
               'You have failed this task and you didnt earn any point'

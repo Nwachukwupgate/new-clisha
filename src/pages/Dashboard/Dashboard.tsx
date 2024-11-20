@@ -344,7 +344,7 @@ function Dashboard() {
                     <div className="nav-link point d-block d-md-none m-0 p-0 py-3 shadow-m px-2 rounded my-2 bg-light">
                       <small className="d-block text-secondary pb-2">Total Coin</small>
                       <img src="/images/point.png" className="mail mr-2 " alt="" />
-                      <span className="text-dark b">{user && user?.rank?.balance} PTS</span>
+                      <span className="text-dark b">{user && user?.rank?.balance} Points</span>
                     </div>
                     <span className="text-muted font-weight-bold  text-capitalize">
                       hello, {user?.user?.username}!
