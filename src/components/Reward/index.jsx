@@ -86,7 +86,7 @@ export default function RewardApp() {
           {vendoConnectStatus ? (
             <>
               <h3 className="text-white mt-3">
-                <CountUp start={0} end={_point} duration={1} /> PTS
+                <CountUp start={0} end={_point} duration={1} /> Points
               </h3>
               <h6 className="text-white">{(_bonus === '0' || _bonus == null) ? vqPoints : _bonus} VQ Points</h6>
             </>
@@ -94,7 +94,7 @@ export default function RewardApp() {
         : (
             <span>
                 <h3 className="text-white mt-3">
-                  <CountUp start={0} end={_point} duration={1} /> PTS
+                  <CountUp start={0} end={_point} duration={1} /> Points
                 </h3>
                 {(!user?.user?.vendoConnectStatus ||
                   vendoPackage?.data?.package_level === 'No package') && (
