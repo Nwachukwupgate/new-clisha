@@ -1,6 +1,17 @@
+import { useEffect } from "react";
 import { openInNewTab } from "../../../utils/functions/functions";
 
 function Footer() {
+  useEffect(() => {
+    const tooltipTriggerList = [].slice.call(
+      document.querySelectorAll('[data-toggle="tooltip"]')
+    );
+    tooltipTriggerList.forEach((tooltipTriggerEl) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const tooltip = new window.bootstrap.Tooltip(tooltipTriggerEl);
+    });
+  }, []);
+
   return (
     <footer>
       <div className="container pt-5">
@@ -60,12 +71,12 @@ function Footer() {
               Follow Us on social media
             </span>
             <div className="border-span d-none d-md-inline  " />
-            <br className="d-block d-md-none" />
+            <br className="d-block d-md-none" />           
             <div className="social-link d-inline">
-              <img src="images/Vector (1).png" className="ml-3" alt="" />
-              <img src="images/Vector (2).png" className="ml-3" alt="" />
-              <img src="images/Vector (3).png" className="ml-3" alt="" />
-              <img src="images/Vector (4).png" className="ml-3" alt="" />
+              <img src="images/Vector (1).png" className="ml-3" alt="" data-toggle="tooltip" title="Coming Soon" />
+              <img src="images/Vector (2).png" className="ml-3" alt="" data-toggle="tooltip" title="Coming Soon" />
+              <img src="images/Vector (3).png" className="ml-3" alt=""  data-toggle="tooltip" title="Coming Soon"/>
+              <img src="images/Vector (4).png" className="ml-3" alt=""  data-toggle="tooltip" title="Coming Soon"/>
             </div>
           </div>
         </div>
