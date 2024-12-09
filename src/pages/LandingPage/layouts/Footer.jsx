@@ -33,13 +33,22 @@ function Footer() {
               </small>
             </p>
           </div>
-          <div className="col-md-4 ">
+          <div className="col-md-4">
             <h6>
               <i className="fa fa-envelope" aria-hidden="true" /> Email Information{' '}
             </h6>
-            <a href="malto:service@clisha.me" className="text-white ">
-              <small>service@clisha.me</small>
+            <a href="mailto:daniel.meyer@vqualis.com" className="text-white">
+              <small>daniel.meyer@vqualis.com</small>
             </a>
+
+            <div className="mt-3">
+              <h6>
+                <i className="fa fa-phone" aria-hidden="true" /> Phone Number{' '}
+              </h6>
+              <a href="tel:+352691966600" className="text-white">
+                <small>+352 691 966 600</small>
+              </a>
+            </div>
           </div>
           <div className="col-md-4 ">
             <h6>
