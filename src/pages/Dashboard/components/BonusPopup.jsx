@@ -56,9 +56,11 @@ function BonusPopup({ user, vendoPackage, onClose }) {
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button className='btn btn-primary' onClick={goToVendoUpgrade}>
-          Learn More About Upgrading
-        </Button>
+        {vendoPackage?.data?.package_level !== 'proplus' && (
+          <Button className="btn btn-primary" onClick={goToVendoUpgrade}>
+            Learn More About Upgrading
+          </Button>
+        )}
       </Modal.Footer>
     </Modal>
   );
