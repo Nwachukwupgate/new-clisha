@@ -54,7 +54,7 @@ function Verify() {
           id="emailHelpId"
           className="form-text d-block text-center  text-muted text-decoration-none"
         >
-          I have verify already
+          I have verified already
           <b className="text-primary text-decoration-hover-underline ml-2">Signin</b>
         </Link>
         {/* {timer !== 0 && (

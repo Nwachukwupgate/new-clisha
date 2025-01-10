@@ -12,7 +12,7 @@ function FirstNavbar({ bg }) {
               <a href="/#about">About Us</a>
             </li> */}
             <li className="border-right pr-2 border-0">
-              <a href="mailto:daniel.meyer@vqualis.com">Support</a>
+              <a href="mailto:contact@vqualis.com">Support</a>
             </li>
           </ul>
 
@@ -35,9 +35,9 @@ function FirstNavbar({ bg }) {
                             </a> */}
             {/* </li> */}
             <li>
-              <a href="mailto:daniel.meyer@vqualis.com">
+              <a href="mailto:contact@vqualis.com">
                 <img src="/images/globe.png" className="link mr-1" alt="" title="Visit" />
-                <span>daniel.meyer@vqualis.com</span>
+                <span>contact@vqualis.com</span>
               </a>
             </li>
           </ul>

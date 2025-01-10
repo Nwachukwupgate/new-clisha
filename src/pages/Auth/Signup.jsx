@@ -81,7 +81,7 @@ function Signup() {
             className="form-control "
             id="firstname"
             aria-describedby="emailHelpId"
-            placeholder="firstname e.g(Peter)"
+            placeholder="Firstname e.g(Peter)"
             value={signupDetails.firstname}
             required
             maxLength={25}
@@ -104,7 +104,7 @@ function Signup() {
             className="form-control "
             id="lastname"
             aria-describedby="emailHelpId"
-            placeholder="lasname e.g(Richard)"
+            placeholder="Lastname e.g(Richard)"
             value={signupDetails.lastname}
             required
             maxLength={25}
@@ -127,7 +127,7 @@ function Signup() {
             className="form-control "
             id="email"
             aria-describedby="emailHelpId"
-            placeholder="input your email"
+            placeholder="Input your Email"
             value={signupDetails.email}
             required
             onChange={(e) =>
@@ -150,7 +150,7 @@ function Signup() {
             className="form-control "
             id="password"
             aria-describedby="emailHelpId"
-            placeholder="Minimum password length is 8"
+            placeholder="Minimum Password Length is 8"
             value={signupDetails.password}
             required
             minLength={8}
@@ -184,7 +184,7 @@ function Signup() {
             className="form-control "
             id="password2"
             aria-describedby="emailHelpId"
-            placeholder="Retype password here "
+            placeholder="Retype Password Here "
             value={signupDetails.confirmPassword}
             required
             minLength={8}
@@ -208,7 +208,7 @@ function Signup() {
             className="form-control "
             id="code"
             aria-describedby="emailHelpId"
-            placeholder="input your referral code"
+            placeholder="Input your Referral Code"
             value={signupDetails?.code}
           />
           <small id="emailHelpId" className="form-text d-none text-danger">

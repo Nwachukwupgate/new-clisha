@@ -37,8 +37,8 @@ function Footer() {
             <h6>
               <i className="fa fa-envelope" aria-hidden="true" /> Email Information{' '}
             </h6>
-            <a href="mailto:daniel.meyer@vqualis.com" className="text-white">
-              <small>daniel.meyer@vqualis.com</small>
+            <a href="mailto:contact@vqualis.com" className="text-white">
+              <small>contact@vqualis.com</small>
             </a>
 
             <div className="mt-3">
@@ -46,7 +46,7 @@ function Footer() {
                 <i className="fa fa-phone" aria-hidden="true" /> Phone Number{' '}
               </h6>
               <a href="tel:+352691966600" className="text-white">
-                <small>+352 691 966 600</small>
+                <small>+34 695 335 447</small>
               </a>
             </div>
           </div>
