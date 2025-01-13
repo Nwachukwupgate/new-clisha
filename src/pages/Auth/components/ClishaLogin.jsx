@@ -22,7 +22,7 @@ export default function ClishaLogin({
           className="form-control "
           id="email"
           aria-describedby="emailHelpId"
-          placeholder="input your email"
+          placeholder="Input Your Email"
           onChange={(e) =>
             setSignupDetails({
               ...signupDetails,
@@ -42,7 +42,7 @@ export default function ClishaLogin({
           className="form-control "
           id="password"
           aria-describedby="emailHelpId"
-          placeholder="input your password "
+          placeholder="Input Your Password "
           onChange={(e) =>
             setSignupDetails({
               ...signupDetails,

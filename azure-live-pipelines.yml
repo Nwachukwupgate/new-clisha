@@ -12,37 +12,39 @@ pool:
   name: clishalive
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '20.x'
-  displayName: 'Install Node.js'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '20.x'
+    displayName: 'Install Node.js'
 
-- script: |
-    npm install yarn@latest -g
-    yarn install
-    export NODE_ENV=production
-    npm run build
-  displayName: 'npm install and build'
-  env:
-    REACT_APP_BASE_URL: $(REACT_APP_BASE_URL)
-    REACT_APP_AUTH: $(REACT_APP_AUTH)
-    REACT_APP_API: $(REACT_APP_API)
-    REACT_APP_API_TASK: $(REACT_APP_API_TASK)
-    REACT_APP_API_COMMERCE: $(REACT_APP_API_COMMERCE)
-    REACT_APP_COMPANY: $(REACT_APP_COMPANY)
-    REACT_APP_VENDO_USER_DASHBOARD: $(REACT_APP_VENDO_USER_DASHBOARD)
-    REACT_APP_VENDO_API: $(REACT_APP_VENDO_API)
-    REACT_APP_VENDO_CLIENT_ID: $(REACT_APP_VENDO_CLIENT_ID)
-    REACT_APP_CLIENT_URL: $(REACT_APP_CLIENT_URL)
+  - script: |
+      npm install yarn@latest -g
+      yarn install
+      export NODE_ENV=production
+      npm run build
+    displayName: 'npm install and build'
+    env:
+      REACT_APP_BASE_URL: $(REACT_APP_BASE_URL)
+      REACT_APP_AUTH: $(REACT_APP_AUTH)
+      REACT_APP_API: $(REACT_APP_API)
+      REACT_APP_API_TASK: $(REACT_APP_API_TASK)
+      REACT_APP_API_COMMERCE: $(REACT_APP_API_COMMERCE)
+      REACT_APP_COMPANY: $(REACT_APP_COMPANY)
+      REACT_APP_VENDO_USER_DASHBOARD: $(REACT_APP_VENDO_USER_DASHBOARD)
+      REACT_APP_VENDO_API: $(REACT_APP_VENDO_API)
+      REACT_APP_VENDO_CLIENT_ID: $(REACT_APP_VENDO_CLIENT_ID)
+      REACT_APP_CLIENT_URL: $(REACT_APP_CLIENT_URL)
+      REACT_APP_EMAIL: $(REACT_APP_EMAIL)
+      REACT_APP_PHONE_NUMBER: $(REACT_APP_PHONE_NUMBER)
 
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(System.DefaultWorkingDirectory)/build'
-    Contents: '**'
-    TargetFolder: '$(WWWDIR)'
-    CleanTargetFolder: true
-  displayName: 'Copy Build File'
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)/build'
+      Contents: '**'
+      TargetFolder: '$(WWWDIR)'
+      CleanTargetFolder: true
+    displayName: 'Copy Build File'
 
-- script: |
-    systemctl restart nginx
-  displayName: 'Restart nginx'
+  - script: |
+      systemctl restart nginx
+    displayName: 'Restart nginx'

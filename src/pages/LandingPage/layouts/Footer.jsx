@@ -2,6 +2,9 @@ import { useEffect } from "react";
 import { openInNewTab } from "../../../utils/functions/functions";
 
 function Footer() {
+  const email = process.env.REACT_APP_EMAIL;
+  const number = process.env.REACT_APP_PHONE_NUMBER;
+
   useEffect(() => {
     const tooltipTriggerList = [].slice.call(
       document.querySelectorAll('[data-toggle="tooltip"]')
@@ -37,16 +40,16 @@ function Footer() {
             <h6>
               <i className="fa fa-envelope" aria-hidden="true" /> Email Information{' '}
             </h6>
-            <a href="mailto:daniel.meyer@vqualis.com" className="text-white">
-              <small>daniel.meyer@vqualis.com</small>
+            <a href={`mailto:${email}`} className="text-white">
+              <small>{email}</small>
             </a>
 
             <div className="mt-3">
               <h6>
                 <i className="fa fa-phone" aria-hidden="true" /> Phone Number{' '}
               </h6>
-              <a href="tel:+352691966600" className="text-white">
-                <small>+352 691 966 600</small>
+              <a href={`tel:${number}`} className="text-white">
+                <small>{number}</small>
               </a>
             </div>
           </div>

@@ -1,4 +1,6 @@
 function FirstNavbar({ bg }) {
+  const email = process.env.REACT_APP_EMAIL;
+
   return (
     <div className="nav-bg ">
       {/* first header start */}
@@ -12,7 +14,7 @@ function FirstNavbar({ bg }) {
               <a href="/#about">About Us</a>
             </li> */}
             <li className="border-right pr-2 border-0">
-              <a href="mailto:daniel.meyer@vqualis.com">Support</a>
+              <a href={`mailto:${email}`}>Support</a>
             </li>
           </ul>
 
@@ -35,9 +37,9 @@ function FirstNavbar({ bg }) {
                             </a> */}
             {/* </li> */}
             <li>
-              <a href="mailto:daniel.meyer@vqualis.com">
+              <a href={`mailto:${email}`}>
                 <img src="/images/globe.png" className="link mr-1" alt="" title="Visit" />
-                <span>daniel.meyer@vqualis.com</span>
+                <span>{email}</span>
               </a>
             </li>
           </ul>
