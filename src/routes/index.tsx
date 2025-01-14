@@ -105,9 +105,7 @@ function Router() {
 
           {/* Auth Routes */}
           <Route path="/" element={<AuthLayouts />}>
-            <Route path="/signup" element={<PublicRoutes />}>
-              <Route path="" element={<Signup />} />
-            </Route>
+            <Route path="/signup" element={<Signup />} />
             <Route path="/signin" element={<PublicRoutes />}>
               <Route path="" element={<Signin />} />
             </Route>
