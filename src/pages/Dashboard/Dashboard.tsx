@@ -204,11 +204,11 @@ function Dashboard() {
                                 vendoPackage?.data?.vqRatio
                               )} */}
                               {user?.rank?.bonus_points?.toFixed() ?? 0}{' '}
-                              VQs booked in the Vendo system.
+                              Clisha Coins booked in the Vendo system.
                               {isVqsClaimDay 
                                 ? ' Claim Now'                               
                                 : vendoPackage?.data?.package_level !== 'proplus'
-                                ? ' Upgrade your package to get more VQs or Claim Now.'
+                                ? ' Upgrade your package to get more Clisha Coins or Claim Now.'
                                 : null}
                             </p>
 
@@ -216,7 +216,7 @@ function Dashboard() {
                               className="text-dark"
                               style={{ fontWeight: '700', marginBottom: '8px' }}
                             >
-                              {`You've earned ${user?.rank?.bonus_points?.toFixed() ?? 0} VQs, and as a`}
+                              {`You've earned ${user?.rank?.bonus_points?.toFixed() ?? 0} Clisha Coins, and as a`}
                               <b style={{ color: 'red' }}>
                                 {vendoPackage?.data?.package_level === 'proplus'
                                   ? 'Pro+'
@@ -228,11 +228,11 @@ function Dashboard() {
                                 vendoPackage?.data?.vqRatio
                               )} */}
                               {user?.rank?.bonus_points?.toFixed() ?? 0}{' '}
-                              VQs.
+                              Clisha Coins
                               {isVqsClaimDay
                                 ? ' Claim additional VQs now.'
                                 : vendoPackage?.data?.package_level !== 'proplus'
-                                ? ' Upgrade your package to claim additional VQs.'
+                                ? ' Upgrade your package to claim additional Clisha CoinS.'
                                 : null}
                             </p>
                           </div>
@@ -297,9 +297,9 @@ function Dashboard() {
                                         <path d="M164.666,0C73.871,0,0.004,73.871,0.004,164.672c0.009,90.792,73.876,164.656,164.662,164.656 c90.793,0,164.658-73.865,164.658-164.658C329.324,73.871,255.459,0,164.666,0z M164.666,30c31.734,0,60.933,11.042,83.975,29.477 L59.478,248.638c-18.431-23.04-29.471-52.237-29.474-83.967C30.004,90.413,90.413,30,164.666,30z M164.666,299.328 c-31.733,0-60.934-11.042-83.977-29.477L269.854,80.691c18.431,23.043,29.471,52.244,29.471,83.979 C299.324,238.921,238.917,299.328,164.666,299.328z"/>
                                       </g>
                                     </svg>  
-                                    {' '} VQ Bonus Points Missed
+                                    {' '} Clisha Coins Bonus Points Missed
                                   </p>
-                                  We noticed you didn’t qualify for the VQ Bonus Points this month. To earn the bonus next month, simply stay active by engaging with tasks for 25 days and complete minimum of 10 task daily. We look forward to seeing you participate!
+                                  We noticed you didn’t qualify for the Clisha Coins Points this month. To earn the bonus next month, simply stay active by engaging with tasks for 25 days and complete minimum of 10 task daily. We look forward to seeing you participate!
                                 </p>
                               </div>  
                             </div> 

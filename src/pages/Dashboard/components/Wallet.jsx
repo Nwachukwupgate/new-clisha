@@ -12,7 +12,7 @@ function Wallet({ user, vendoPackage }) {
         user?.user?.vendoConnectStatus &&
         vendoPackage.data.package_level !== 'No package' && (
           <h6>
-            {user?.rank?.bonus_points?.toFixed(2) ?? 0} VQs (
+            {user?.rank?.bonus_points?.toFixed(2) ?? 0} CTs (
             <b>{vendoPackage.data.package_level}</b> plan with {vendoPackage.data.vqRatio}%
             kickback)
             {/* {"Pro plan"}, {"50%"}) */}
