@@ -37,7 +37,7 @@ function BonusPopup({ user, vendoPackage, onClose }) {
       return `Upgrade to ProPlus to earn an additional ${calculateBonusPoints('proplus') * user.completedTasksThisMonth} points!`;
     }
 
-    return `Congrats, you are a ProPlus Member do more task to earn more VQ Bonus.`;
+    return `Congrats, you are a ProPlus Member do more task to earn more Clisha Coins.`;
   };
 
   const goToVendoUpgrade = useCallback(() => {
