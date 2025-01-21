@@ -93,7 +93,7 @@ function Header() {
                           end={user && user?.rank?.bonus_points}
                           duration={3.75}
                         />{' '}
-                        VQs
+                        CTs
                       </small>
                     </span>
                   </li>
