@@ -43,3 +43,38 @@ export const calculateBonusPoints = (packageLevel) => {
   };
   return multipliers[packageLevel] || 1;
 }
+
+export const validateSignupForm = (signupDetails, isDev) => {
+  const errors = {};
+
+  // First Name Validation
+  if (!signupDetails.firstname.trim()) {
+    errors.firstname = 'First name is required.';
+  } else if (!isDev && /\d/.test(signupDetails.firstname)) {
+    errors.firstname = 'First name cannot contain numbers.';
+  }
+
+  // Last Name Validation
+  if (!signupDetails.lastname.trim()) {
+    errors.lastname = 'Last name is required.';
+  } else if (!isDev && /\d/.test(signupDetails.lastname)) {
+    errors.lastname = 'Last name cannot contain numbers.';
+  }
+
+  // Email Validation
+  if (!signupDetails.email.trim()) {
+    errors.email = 'Email is required.';
+  }
+
+  // Password Validation
+  if (signupDetails.password.length < 8) {
+    errors.password = 'Password must be at least 8 characters.';
+  }
+
+  // Confirm Password Validation
+  if (signupDetails.password !== signupDetails.confirmPassword) {
+    errors.confirmPassword = 'Passwords do not match.';
+  }
+
+  return errors;
+};

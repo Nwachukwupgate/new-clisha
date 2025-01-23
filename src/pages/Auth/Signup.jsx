@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../../components/Alerts/Loading';
+import { validateSignupForm } from '../../utils/functions/functions';
 
 // import { Helmet } from "react-helmet";
 // import url from "../../json/config.json";
@@ -16,6 +17,7 @@ function Signup() {
   const [isPassword, setIsPassword] = useState(false);
   // const [itemData, setitemData] = useState(false);
   const [loading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const [signupDetails, setSignupDetails] = useState({
     username: '',
@@ -27,8 +29,16 @@ function Signup() {
     code,
   });
 
+  const validateInputs = () => {
+    const isDev = window.location.hostname === 'dev.clisha.me';
+    const validationErrors = validateSignupForm(signupDetails, isDev); 
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0; 
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validateInputs()) return;
     setIsLoading(true);
     axios
       .post(`${auth_api}/register`, signupDetails)
@@ -51,6 +61,7 @@ function Signup() {
         }
       });
   };
+
   const showPassword = () => {
     const password = document.querySelector('#password');
     const password2 = document.querySelector('#password2');
@@ -96,6 +107,7 @@ function Signup() {
           <small id="emailHelpId" className="form-text d-none text-danger">
             Help text
           </small>
+          {errors.firstname && <small className="text-danger">{errors.firstname}</small>}
         </div>
         <div className="form-group " data-aos="fade-left">
           <label htmlFor="name">Last Name</label>
@@ -119,6 +131,7 @@ function Signup() {
           <small id="emailHelpId" className="form-text d-none text-danger">
             Help text
           </small>
+          {errors.lastname && <small className="text-danger">{errors.lastname}</small>}
         </div>
         <div className="form-group" data-aos="fade-left">
           <label htmlFor="email">Email</label>
