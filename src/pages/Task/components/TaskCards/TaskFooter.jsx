@@ -383,7 +383,7 @@ function TaskFooter({ item }) {
               />
             </svg>
             {/* <img src="/images/Task/task2/quality.png" className="mr-2" alt="" /> */}
-            Clisha Coins
+            Clishacoins
           </div>
           <div className="col-5 text-right">
             {item?.bonus_points} Points
