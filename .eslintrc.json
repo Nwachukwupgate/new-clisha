@@ -88,6 +88,8 @@
     "import/no-duplicates": "error",
     "import/no-cycle": "off",
     // Should be enabled when the following issue is resolved
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "react/no-unescaped-entities": "off",
+    "react/jsx-curly-brace-presence": "off"
   }
 }

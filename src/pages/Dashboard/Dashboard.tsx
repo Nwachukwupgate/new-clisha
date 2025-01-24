@@ -19,6 +19,7 @@ import TimeTraker from './components/TimeTraker';
 import TodaysTask from './components/TodaysTask';
 import Wallet from './components/Wallet';
 import BonusPopup from './components/BonusPopup';
+import GuidePopup from './components/GuidePopup';
 
 
 function Dashboard() {
@@ -36,6 +37,7 @@ function Dashboard() {
   const vendoDashboard = process.env.REACT_APP_VENDO_USER_DASHBOARD;
   const [perProfile, setPerProfile] = useState(100); 
   const [showBonusPopup, setShowBonusPopup] = useState(false);
+  const [showGuide, setShowGuide] = useState(false);
   const verificationDate = user?.user?.email_verified_at
   // console.log("datee", verificationDate)
 
@@ -366,7 +368,7 @@ function Dashboard() {
                     />
                   </div>
                   <div className="d-block d-md-none">
-                    <TimeTraker />
+                    <TimeTraker setShowGuide={setShowGuide}  />
                   </div>
 
                   {/* only task features card */}
@@ -381,7 +383,7 @@ function Dashboard() {
                 </div>
                 <div className="col-lg-5  mx-auto mt-3 mt-md-5 p-0">
                   <div className="d-none d-md-block">
-                    <TimeTraker />
+                    <TimeTraker setShowGuide={setShowGuide} />
                   </div>
                   {/* start task component */}
 
@@ -418,6 +420,7 @@ function Dashboard() {
       {showBonusPopup && (
         <BonusPopup onClose={() => setShowBonusPopup(false)} user={user} vendoPackage={vendoPackage} />
       )}
+      {showGuide && <GuidePopup show={showGuide} onClose={() => setShowGuide(false)} />}
     </div>
   );
 }

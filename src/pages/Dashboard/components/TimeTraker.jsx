@@ -1,10 +1,18 @@
-function TimeTraker() {
+import { useState } from 'react';
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+
+
+function TimeTraker({setShowGuide}) {
+  const [showTooltip, setShowTooltip] = useState(false);
+  const extensionDownloadLink = '/clishaMe-Extension.zip';
+
   const hasExt = window.localStorage.getItem('hasExt');
-  const testServerExt = 'https://chrome.google.com/webstore/detail/clisha-extension/jagnnnnnooogbbpgjidbpockglhfoban'; 
-  const liveServerExt =
-    'https://chrome.google.com/webstore/detail/clisha-extension/jagnnnnnooogbbpgjidbpockglhfoban';
-  const { host } = window.location;
-  const newHost = 'clisha-frontend.suna.ai';
+
+  // const testServerExt = 'https://chrome.google.com/webstore/detail/clisha-extension/jagnnnnnooogbbpgjidbpockglhfoban'; 
+  // const liveServerExt =
+  //   'https://chrome.google.com/webstore/detail/clisha-extension/jagnnnnnooogbbpgjidbpockglhfoban';
+  // const { host } = window.location;
+  // const newHost = 'clisha-frontend.suna.ai';
   return (
     <div>
       {hasExt !== 'true' && (
@@ -18,15 +26,26 @@ function TimeTraker() {
           <div className="col-3 pl-0 ">
             {/* <img src="/images/timetraker.png" className="link" alt="" /> */}
             <div className="tracker_downloader shadow-sm link">
-              <a
-                title="Open Clisha Extention"
-                href={host === newHost ? liveServerExt : testServerExt}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-dark"
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip id="tooltip-top">Click to download manually and open installation guide</Tooltip>}
+                show={showTooltip}
               >
-                <i className="fa fa-download" aria-hidden="true" />
-              </a>
+                <a
+                  title="Download Clisha Extention"
+                  // href={host === newHost ? liveServerExt : testServerExt}
+                  href={extensionDownloadLink}
+                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-dark"
+                  onMouseEnter={() => setShowTooltip(true)}
+                  onMouseLeave={() => setShowTooltip(false)}
+                  onClick={() => setShowGuide(true)}
+                >
+                  <i className="fa fa-download" aria-hidden="true" />
+                </a>
+              </OverlayTrigger>
             </div>
           </div>
         </div>
