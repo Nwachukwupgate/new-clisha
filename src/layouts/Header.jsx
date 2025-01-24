@@ -78,7 +78,8 @@ function Header() {
               <li className="nav-item px-1">
                 <span className="nav-link point">
                   <small className="text-dark b ml-1 currency">
-                    ${Number(userEarned).toFixed(2)}
+                    {/* ${Number(userEarned).toFixed(2)} */}
+                    $0
                   </small>
                 </span>
               </li>
@@ -93,7 +94,7 @@ function Header() {
                           end={user && user?.rank?.bonus_points}
                           duration={3.75}
                         />{' '}
-                        CTs
+                        Clishacoins
                       </small>
                     </span>
                   </li>

@@ -88,7 +88,7 @@ export default function RewardApp() {
               <h3 className="text-white mt-3">
                 <CountUp start={0} end={_point} duration={1} /> Points
               </h3>
-              <h6 className="text-white">{(_bonus === '0' || _bonus == null) ? vqPoints : _bonus} Clisha Coin</h6>
+              <h6 className="text-white">{(_bonus === '0' || _bonus == null) ? vqPoints : _bonus} Clishacoins</h6>
             </>
           ) 
         : (
@@ -98,7 +98,7 @@ export default function RewardApp() {
                 </h3>
                 {(!user?.user?.vendoConnectStatus ||
                   vendoPackage?.data?.package_level === 'No package') && (
-                  <h6 className="text-white">(Connect your Vendo account to receive Clisha Coin)</h6>
+                  <h6 className="text-white">(Connect your Vendo account to receive Clishacoins)</h6>
                 )}
               </span>
           )
@@ -123,7 +123,7 @@ export default function RewardApp() {
             You Earn <CountUp start={0} end={0} duration={1} /> POINTS
           </p>
           <h6 className="text-white">
-            No Clisha Coin (Connect Vendo for Bonus!)
+            No Clishacoins (Connect Vendo for Bonus!)
           </h6>
           <button className="btn claim_coin shadow" onClick={handleFailed}>
             Go Back

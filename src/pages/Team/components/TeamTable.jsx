@@ -52,7 +52,7 @@ function TeamTable() {
               <th>Members</th>
               <th>Email</th>
               <th>Rank</th>
-              <th>Points/CTs</th>
+              <th>Points/Clishacoins</th>
               <th>Date Entry</th>
               <th />
             </tr>

@@ -3,8 +3,8 @@ function VqualisToken({ bonusToken }) {
     <div className="cardFirstCards   mt-3 ">
       <h6>
         {bonusToken?.totalBonusPoints !== 0
-          ? 'Clisha Coins'
-          : 'You have Not Recieved any Clisha Coins yet.'}
+          ? 'Clishacoins'
+          : 'You have Not Recieved any Clishacoins yet.'}
       </h6>
 
       <div className="carding ThirdCard m-0">
@@ -15,7 +15,7 @@ function VqualisToken({ bonusToken }) {
             </div>
             <div className="body ">
               <small className="font-weight-bold">
-                {bonusToken?.totalBonusPoints} Clisha Coins
+                {bonusToken?.totalBonusPoints} Clishacoins
               </small>
             </div>
           </div>
