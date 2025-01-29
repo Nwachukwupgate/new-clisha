@@ -1,12 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 
 function TimeTraker({setShowGuide}) {
   const [showTooltip, setShowTooltip] = useState(false);
-  const extensionDownloadLink = '/clishaMe-Extension.zip';
+  const extensionDownloadLink = '/Clisha-Extension.zip';
+  const [showUpdateTooltip, setShowUpdateTooltip] = useState(false);
 
   const hasExt = window.localStorage.getItem('hasExt');
+  const storedVersion = localStorage.getItem('extensionVersion');
+  // update stored version to show popup
+  const latestVersion = '1.2.0';
+
+  useEffect(() => {
+    if (storedVersion !== latestVersion) {
+      setShowUpdateTooltip(true);
+    }
+  }, [storedVersion, latestVersion]);
+
+  const handleDownload = () => {
+    setShowTooltip(false);
+    setShowGuide(true);
+    setShowUpdateTooltip(false);
+    localStorage.setItem('extensionVersion', latestVersion);
+  };
+
+  const handleUpdateDownload = () => {
+    localStorage.setItem('extensionVersion', latestVersion);
+  };
 
   // const testServerExt = 'https://chrome.google.com/webstore/detail/clisha-extension/jagnnnnnooogbbpgjidbpockglhfoban'; 
   // const liveServerExt =
@@ -15,8 +36,18 @@ function TimeTraker({setShowGuide}) {
   // const newHost = 'clisha-frontend.suna.ai';
   return (
     <div>
+      {showUpdateTooltip && (       
+        <div
+          className="update-tooltip shadow-sm text-center p-2 bg-warning text-dark rounded"
+          onClick={handleUpdateDownload}
+          style={{ cursor: 'pointer', marginBottom: '3px' }}
+        >
+          <strong>Download New Extension Update</strong>
+        </div>
+      )}
+
       {hasExt !== 'true' && (
-        <div className="time_tracer_card row m-0 px-md-3 mt-4 shadow">
+        <div className="time_tracer_card row m-0 px-md-3 mt-2 shadow">
           <div className="col-9 px-0 ">
             <h6 className="b">Get More Reward</h6>
             <small>
@@ -41,7 +72,7 @@ function TimeTraker({setShowGuide}) {
                   className="text-dark"
                   onMouseEnter={() => setShowTooltip(true)}
                   onMouseLeave={() => setShowTooltip(false)}
-                  onClick={() => setShowGuide(true)}
+                  onClick={handleDownload}
                 >
                   <i className="fa fa-download" aria-hidden="true" />
                 </a>
