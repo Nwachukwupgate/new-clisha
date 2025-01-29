@@ -4,12 +4,14 @@ import Footer from '../../layouts/Footer';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/Sidebar';
 import CardsView from './components/CardsView';
+import CommingSoon from '../../components/CommingSoon';
 // import CardsView from "./components/CardsView";
 function Token() {
   const user = useSelector((state) => state.user.data);
 
   return (
     <div className="body-content">
+      <CommingSoon />
       <div className="bg-muted ">
         <Header />
         <div className="row m-0 ">
