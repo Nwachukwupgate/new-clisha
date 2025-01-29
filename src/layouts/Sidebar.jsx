@@ -15,8 +15,12 @@ function Sidebar() {
       }, 1000);
     });
   };
-  const linkList = sideBarList.data;
+  const linkList = window.location.origin === "https://clisha.me"
+    ? sideBarList.data.filter(item => item.name !== "Token")
+    : sideBarList.data;
+
   const route = window.location.pathname;
+
   return (
     <div className="d-none d-md-block">
       <aside className="p-0 m-0 sideNav ">
