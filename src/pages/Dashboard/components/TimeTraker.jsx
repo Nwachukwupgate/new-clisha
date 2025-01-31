@@ -4,7 +4,7 @@ import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 function TimeTraker({setShowGuide}) {
   const [showTooltip, setShowTooltip] = useState(false);
-  const extensionDownloadLink = '/clishame202501311210-Extension.zip';
+  const extensionDownloadLink = '/clishaMe-Extension.zip';
   const [showUpdateTooltip, setShowUpdateTooltip] = useState(false);
 
   const hasExt = window.localStorage.getItem('hasExt');
