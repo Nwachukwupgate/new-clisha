@@ -4,13 +4,13 @@ import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 function TimeTraker({setShowGuide}) {
   const [showTooltip, setShowTooltip] = useState(false);
-  const extensionDownloadLink = '/clishaMe202501310805-Extension.zip';
+  const extensionDownloadLink = '/clishaMe202502011044-Extension.zip';
   const [showUpdateTooltip, setShowUpdateTooltip] = useState(false);
 
   const hasExt = window.localStorage.getItem('hasExt');
   const storedVersion = localStorage.getItem('extensionVersion');
   // update stored version to show popup
-  const latestVersion = '1.0.2';
+  const latestVersion = '1.0.3';
 
   useEffect(() => {
     if (storedVersion !== latestVersion) {
