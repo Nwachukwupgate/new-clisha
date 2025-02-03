@@ -141,11 +141,11 @@ function TodaysTask({ user }) {
                   </button>
                 </div>
                 <div className="modal-body  pb-4 pt-0">
-                  {customDateTask?.data?.completed?.rows?.slice(0, 3).map((item, index) => (
+                  {customDateTask?.data?.completed?.rows?.map((item, index) => (
                     <TaskCompleted key={index} item={item.task} />
                   ))}
 
-                  {customDateTask?.data?.completed?.rows?.length > 3 && (
+                  {/* {customDateTask?.data?.completed?.rows?.length > 3 && (
                     <div className="text-center p-4">
                       <button
                         // data-toggle="modal"
@@ -157,7 +157,11 @@ function TodaysTask({ user }) {
                         <i className="fa fa-long-arrow-right ml-2 shadow-none" aria-hidden="true" />
                       </button>
                     </div>
-                  )}
+                  )} */}
+
+                  {!callender_date && data?.map((item, index) => (
+                      <TaskCompleted key={index} item={item} />
+                  ))}
                 </div>
               </div>
             </div>
