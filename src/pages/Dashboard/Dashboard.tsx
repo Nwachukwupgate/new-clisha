@@ -247,7 +247,7 @@ function Dashboard() {
                             }}
                             className="authBtns"
                           >
-                            {vendoPackage?.data?.package_level === 'proplus' && (
+                            {vendoPackage?.data?.package_level !== 'proplus' && (
                               <button className="btn btn-primary" onClick={goToVendoUpgrade}>
                                 Upgrade
                               </button>
