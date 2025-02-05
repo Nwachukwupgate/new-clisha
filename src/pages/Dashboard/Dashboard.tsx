@@ -56,7 +56,7 @@ function Dashboard() {
   }, [navigate]);
 
   const goToVendoUpgrade = useCallback(() => {
-    window.open(`${vendoDashboard}/upgrade`, '__blank');
+    window.open(`${vendoDashboard}/signin?to=upgrade`, '__blank');
   }, [vendoDashboard]);
 
   const date = useCallback(() => moment(Date.now()).format('MMMM DD, YYYY'), []);
@@ -232,7 +232,7 @@ function Dashboard() {
                               {user?.rank?.bonus_points?.toFixed() ?? 0}{' '}
                               Clishacoins
                               {isVqsClaimDay
-                                ? ' Claim additional VQs now.'
+                                ? ' Claim additional CCs now.'
                                 : vendoPackage?.data?.package_level !== 'proplus'
                                 ? ' Upgrade your package to claim additional Clishacoins.'
                                 : null}
@@ -247,7 +247,7 @@ function Dashboard() {
                             }}
                             className="authBtns"
                           >
-                            {vendoPackage?.data?.package_level !== 'proplus' && (
+                            {vendoPackage?.data?.package_level === 'proplus' && (
                               <button className="btn btn-primary" onClick={goToVendoUpgrade}>
                                 Upgrade
                               </button>
