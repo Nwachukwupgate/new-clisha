@@ -62,8 +62,11 @@ function RankCards({ user }) {
                   </span>
 
                   <img
-                    src={`/images/rank/${item?.rankName?.slice(7) ?? 'bronze'}.png`}
-                    alt=""
+                    src={`/images/rank/${
+                      (item?.rankName?.slice(7) || "").charAt(0).toUpperCase() +
+                      (item?.rankName?.slice(8) || "").toLowerCase() || "Bronze"
+                    }.png`}
+                    alt="Rank Badge"
                     className="ranking_Community_badges"
                   />
                   <div className="total_point float-right ">{item.total_points}</div>
