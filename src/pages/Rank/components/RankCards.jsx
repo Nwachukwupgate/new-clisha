@@ -62,7 +62,7 @@ function RankCards({ user }) {
                   </span>
 
                   <img
-                    src={`/images/rank/${
+                    src={`/rank/${
                       (item?.rankName?.slice(7) || "").charAt(0).toUpperCase() +
                       (item?.rankName?.slice(8) || "").toLowerCase() || "Bronze"
                     }.png`}
