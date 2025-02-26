@@ -103,12 +103,12 @@ function Header() {
                 <span className="nav-link point">
                   <img src="/images/point.png" className="mail" alt="" />
                   <small className="text-dark b ml-1">
-                    {/* <CountUp
-                      start={balance ?? 0}
-                      end={user && user?.rank?.bonus}
+                    <CountUp
+                      start={user?.rank?.total_points ?? 0}
+                      end={user && user?.rank?.total_points}
                       duration={3.75}
-                    />{" "} */}
-                    {userBalance} POINTS
+                    />{" "}
+                    {/* {userBalance}  */} POINTS
                   </small>
                 </span>
               </li>
