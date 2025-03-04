@@ -253,7 +253,7 @@ function Dashboard() {
                               </button>
                             )}
                             {isVqsClaimDay &&
-                              user?.rank?.bonus_eligibility &&
+                              user?.user?.prevMonthTaskStatus &&
                             (
                               <button
                                 className=" btn btn-primary vendoBtn"
@@ -267,7 +267,7 @@ function Dashboard() {
                         </div>
                       )}
 
-                      {!user?.rank?.bonus_eligibility &&
+                      {!user?.user?.prevMonthTaskStatus &&
                         isVqsClaimDay &&
                         vendoPackage?.status === 200 &&
                         user?.user?.vendoConnectStatus &&
