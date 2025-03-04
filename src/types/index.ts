@@ -37,6 +37,7 @@ export interface User {
   username: string;
   vendoConnectStatus: boolean;
   vendoEmail: string;
+  prevMonthTaskStatus: boolean;
 }
 
 export interface Rank {
