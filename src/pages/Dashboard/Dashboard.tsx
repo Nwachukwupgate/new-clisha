@@ -134,7 +134,7 @@ function Dashboard() {
       };
 
       const res = await apiCall(`${vendo_api}/clisha-addkickback`, 'post', body, config);
-      await axios.get(`${task_api}/clear/vqs`, config);
+      await axios.get(`${task_api}/vendo/clear/vqs`, config);
       
       if (res?.status === 200) {
         toast.success(res?.message);
