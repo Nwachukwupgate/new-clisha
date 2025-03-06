@@ -13,10 +13,13 @@ import ThumbsUp from '../../../assets/image/thumbs.jpg'
 
 const CalenderCard = ({verificationDate}) => {
   const [isHover, setIsHover] = useState(null);
-  const [openCallender, SetopenCallender] = useState(null);
+  const [openCallender, SetopenCallender] = useState(false);
   const dispatch = useDispatch();
   // const [value, onChange] = useState(new Date());
   const calenderTask = useSelector((state) => state.general?.calenderTask?.monthlyData);
+  const { loading } = useSelector((state) => state.general);
+
+  console.log('loading', loading);
 
   const reloadingCalendar = useSelector(generalSelectReloadingCalendar);
   const parsedVerificationDate = verificationDate ? moment(verificationDate) : null;
@@ -61,7 +64,7 @@ const CalenderCard = ({verificationDate}) => {
               <i
                 title="Pick Month"
                 className="ml-3 link fa fa-calendar"
-                // onClick={() => SetopenCallender(true)}
+                onClick={() => SetopenCallender(true)}
                 aria-hidden="true"
               />
             </div>
@@ -98,118 +101,126 @@ const CalenderCard = ({verificationDate}) => {
                   />
                 </div>
                 {/* <div className="col-6 p-1">
-                <label htmlFor="end_date">End Date</label> <br />
-                <input type="date" className='form-control' onChange={setDateFunc} name="end_date" />
-              </div> */}
+                  <label htmlFor="end_date">End Date</label> <br />
+                  <input type="date" className='form-control' onChange={setDateFunc} name="end_date" />
+                </div>  */}
               </div>
             </div>
           )}
         </div>
       </div>
-      <ul className="row m-0 p-0" onMouseLeave={() => setIsHover(null)}>
-        {filteredTasks &&
-          filteredTasks.map((item, key) => (
-            <a href="#/" className="col-2 py-3 link" key={key} onClick={() => setIsHover(key)}>
-              {key === isHover && (
-                <div
-                  className={`data-event-hover shadow border 
-              ${
-                item?.createdTasks && item?.createdTasks <= item?.completedTasks
-                  ? 'border-success'
-                  : ''
-              } 
-              ${
-                item?.completedTasks && item?.createdTasks > item?.completedTasks
-                  ? 'border-warning'
-                  : ''
-              } 
-              ${
-                !item?.completedTasks &&
-                item?.createdTasks &&
-                moment(item?.date).format('YY-MM-DD') <= moment(Date.now()).format('YY-MM-DD')
-                  ? 'border-danger'
-                  : ''
-              } 
-              `}
-                  data-toggle="modal"
-                  data-target="#load"
-                  onClick={() => {
-                    getTodaysList(item);
-                  }}
-                >
-                  {(item.completedTasks > item.createdTasks
-                    ? item.createdTasks
-                    : item.completedTasks) ?? 0}
-                  /{item.createdTasks ?? 0}{' '}
-                  {moment(item?.date).format('YY-MM-DD') <= moment(Date.now()).format('YY-MM-DD')
-                    ? 'Completed'
-                    : 'Future Task'}
-                  {item.completedTasks >= 10 ? (
-                    <img src={ThumbsUp} className="emojiCalendersm" alt="Thumbs Up" />
-                  ) : (
-                    ''
-                  )}
-                  {item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
-                    <img className="emojiCalendersm" src="/images/smiley.jpeg" alt="" />
-                  ) : (
-                    ''
-                  )}
-                  {!item?.completedTasks &&
+      {loading ? (
+        <div className="text-center my-3">
+          <div className="spinner-border text-primary" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+      ) : (
+        <ul className="row m-0 p-0" onMouseLeave={() => setIsHover(null)}>
+          {filteredTasks &&
+            filteredTasks.map((item, key) => (
+              <a href="#/" className="col-2 py-3 link" key={key} onClick={() => setIsHover(key)}>
+                {key === isHover && (
+                  <div
+                    className={`data-event-hover shadow border 
+                ${
+                  item?.createdTasks && item?.createdTasks <= item?.completedTasks
+                    ? 'border-success'
+                    : ''
+                } 
+                ${
+                  item?.completedTasks && item?.createdTasks > item?.completedTasks
+                    ? 'border-warning'
+                    : ''
+                } 
+                ${
+                  !item?.completedTasks &&
+                  item?.createdTasks &&
+                  moment(item?.date).format('YY-MM-DD') <= moment(Date.now()).format('YY-MM-DD')
+                    ? 'border-danger'
+                    : ''
+                } 
+                `}
+                    data-toggle="modal"
+                    data-target="#load"
+                    onClick={() => {
+                      getTodaysList(item);
+                    }}
+                  >
+                    {(item.completedTasks > item.createdTasks
+                      ? item.createdTasks
+                      : item.completedTasks) ?? 0}
+                    /{item.createdTasks ?? 0}{' '}
+                    {moment(item?.date).format('YY-MM-DD') <= moment(Date.now()).format('YY-MM-DD')
+                      ? 'Completed'
+                      : 'Future Task'}
+                    {item.completedTasks >= 10 ? (
+                      <img src={ThumbsUp} className="emojiCalendersm" alt="Thumbs Up" />
+                    ) : (
+                      ''
+                    )}
+                    {item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
+                      <img className="emojiCalendersm" src="/images/smiley.jpeg" alt="" />
+                    ) : (
+                      ''
+                    )}
+                    {!item?.completedTasks &&
+                    item?.createdTasks &&
+                    moment(item?.date).format('YY-MM-DD') <= moment(Date.now()).format('YY-MM-DD') ? (
+                      <img className="emojiCalendersm" src="/images/sad.png" alt="" />
+                    ) : (
+                      ''
+                    )}
+                    {item?.createdTasks && item?.createdTasks <= item?.completedTasks ? (
+                      <img src="/images/rocket.png" className="emojiCalendersm rot" alt="" />
+                    ) : (
+                      ''
+                    )}
+                  </div>
+                )}
+                {moment(item.date).format('D')}
+                {item.completedTasks >= 10 ? (
+                  <img src={ThumbsUp} className="emojiCalender" alt="Thumbs Up" />
+                ) : item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
+                  <img className="emojiCalender" src="/images/smiley.jpeg" alt="Smiley" />
+                ) : !item?.completedTasks &&
                   item?.createdTasks &&
                   moment(item?.date).format('YY-MM-DD') <= moment(Date.now()).format('YY-MM-DD') ? (
-                    <img className="emojiCalendersm" src="/images/sad.png" alt="" />
-                  ) : (
-                    ''
-                  )}
-                  {item?.createdTasks && item?.createdTasks <= item?.completedTasks ? (
-                    <img src="/images/rocket.png" className="emojiCalendersm rot" alt="" />
-                  ) : (
-                    ''
-                  )}
-                </div>
-              )}
-              {moment(item.date).format('D')}
-              {item.completedTasks >= 10 ? (
-                <img src={ThumbsUp} className="emojiCalender" alt="Thumbs Up" />
-              ) : item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
-                <img className="emojiCalender" src="/images/smiley.jpeg" alt="Smiley" />
-              ) : !item?.completedTasks &&
+                  <img className="emojiCalender" src="/images/sad.png" alt="Sad" />
+                ) : item?.createdTasks && item?.createdTasks <= item?.completedTasks ? (
+                  <img src="/images/rocket.png" className="isDate" alt="Rocket" />
+                ) : (
+                  ''
+                )}
+                {/* {item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
+                  <img className="emojiCalender" src="/images/smiley.jpeg" alt="" />
+                ) : (
+                  ''
+                )}
+                
+                {item.completedTasks >= 10 ? (
+                  <img src={ThumbsUp} className="emojiCalendersm" alt="Thumbs Up" />
+                    ) : (
+                  ''
+                )}
+                {!item?.completedTasks &&
                 item?.createdTasks &&
                 moment(item?.date).format('YY-MM-DD') <= moment(Date.now()).format('YY-MM-DD') ? (
-                <img className="emojiCalender" src="/images/sad.png" alt="Sad" />
-              ) : item?.createdTasks && item?.createdTasks <= item?.completedTasks ? (
-                <img src="/images/rocket.png" className="isDate" alt="Rocket" />
-              ) : (
-                ''
-              )}
-              {/* {item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
-                <img className="emojiCalender" src="/images/smiley.jpeg" alt="" />
-              ) : (
-                ''
-              )}
-              
-              {item.completedTasks >= 10 ? (
-                <img src={ThumbsUp} className="emojiCalendersm" alt="Thumbs Up" />
-                  ) : (
-                ''
-              )}
-              {!item?.completedTasks &&
-              item?.createdTasks &&
-              moment(item?.date).format('YY-MM-DD') <= moment(Date.now()).format('YY-MM-DD') ? (
-                <img className="emojiCalender" src="/images/sad.png" alt="" />
-              ) : (
-                ''
-              )}
-              {item?.createdTasks && item?.createdTasks <= item?.completedTasks ? (
-                <img src="/images/rocket.png" className="isDate" alt="" />
-              ) : (
-                ''
-              )} */}
-              {/* {item.createdTasks ? <img src="/images/error.png" className='isDate' alt="" /> : ""} */}
-            </a>
-          ))}
-      </ul>
-      {!calenderTask?.length && (
+                  <img className="emojiCalender" src="/images/sad.png" alt="" />
+                ) : (
+                  ''
+                )}
+                {item?.createdTasks && item?.createdTasks <= item?.completedTasks ? (
+                  <img src="/images/rocket.png" className="isDate" alt="" />
+                ) : (
+                  ''
+                )} */}
+                {/* {item.createdTasks ? <img src="/images/error.png" className='isDate' alt="" /> : ""} */}
+              </a>
+            ))}
+        </ul>
+      )}
+      {!loading && !calenderTask?.length && (
         <div className="nocalenderTask shadow text-danger">
           There is no task for the month of {moment(date.start_date).format('MMMM')}
         </div>

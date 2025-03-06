@@ -111,6 +111,7 @@ export const generalSlice = createSlice({
     notification: '',
     taskModalList: [],
     reloadingCalendar: false,
+    loading: false,
   },
 
   reducers: {
@@ -143,10 +144,18 @@ export const generalSlice = createSlice({
       // Add user to the state array
       state.message = action.payload;
     });
-    builder.addCase(getCalenderTask.fulfilled, (state, action) => {
-      // Add user to the state array
-      state.calenderTask = action.payload;
-    });
+    builder
+      .addCase(getCalenderTask.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getCalenderTask.fulfilled, (state, action) => {
+        // Add user to the state array
+        state.calenderTask = action.payload;
+        state.loading = false;
+      })
+      .addCase(getCalenderTask.rejected, (state) => {
+        state.loading = false;
+      });
     builder.addCase(getCalenderTaskReload.pending, (state) => {
       state.reloadingCalendar = true;
     });
@@ -158,10 +167,18 @@ export const generalSlice = createSlice({
     builder.addCase(getCalenderTaskReload.rejected, (state) => {
       state.reloadingCalendar = false;
     });
-    builder.addCase(addCalenderTask.fulfilled, (state, action) => {
-      // Add user to the state array
-      state.calenderTask = action.payload;
-    });
+    builder
+      .addCase(addCalenderTask.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addCalenderTask.fulfilled, (state, action) => {
+        // Add user to the state array
+        state.calenderTask = action.payload;
+        state.loading = false;
+      })
+      .addCase(addCalenderTask.rejected, (state) => {
+        state.loading = false;
+      });
     builder.addCase(getExperience.fulfilled, (state, action) => {
       // Add user to the state array
       state.experience = action.payload;
