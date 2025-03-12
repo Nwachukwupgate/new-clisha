@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 function ExperienceBar() {
   const experience = useSelector((state) => state.general.experience);
-  const per = (experience.rank.current / experience.rank.target) * 100;
+  const per = ((experience?.rank?.current ?? 0) / (experience?.rank?.target ?? 1)) * 100;
   // window.localStorage.setItem("current", experience?.rank?.current)
   // window.localStorage.setItem("target", experience?.rank?.target)
   // window.localStorage.setItem("target", experience?.rank?.target)
