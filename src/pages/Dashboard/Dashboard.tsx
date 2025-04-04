@@ -39,6 +39,7 @@ function Dashboard() {
   const [showBonusPopup, setShowBonusPopup] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
   const verificationDate = user?.user?.email_verified_at
+  const [qualifiedForBonus, setQualifiedForBonus] = useState(false);
   // console.log("datee", verificationDate)
 
 
@@ -125,6 +126,7 @@ function Dashboard() {
 
   const transferUserVqsToVendo = useCallback(async () => {
     setIsTransferVqsLoading(true);
+    setQualifiedForBonus(true);
     try {
       const token = window.localStorage.getItem('token');
       const config = { headers: { Authorization: `bearer ${token}` } };
@@ -154,6 +156,20 @@ function Dashboard() {
   useEffect(() => {
     checkIfVQCliamPeriod();
   }, [checkIfVQCliamPeriod]);
+
+  const resetBonusState = () => {
+    const nowDate = moment(Date.now()).date();
+    if (nowDate !== 5) {
+      setQualifiedForBonus(false);
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      resetBonusState();
+    }, 24 * 60 * 60 * 1000); // Check every 24 hours
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div>
@@ -272,6 +288,7 @@ function Dashboard() {
                         vendoPackage?.status === 200 &&
                         user?.user?.vendoConnectStatus &&
                         vendoPackage.data.package_level !== 'No package' &&
+                        !qualifiedForBonus &&
                         (
                           <div
                           className="alert shadow-sm rounded-x alert-warning alert-dismissible fade show"
