@@ -123,7 +123,7 @@ function Dashboard() {
   //   (vqs: number, percentage: number) => (vqs * (percentage / 100)).toFixed(1),
   //   []
   // );
-
+  
   const transferUserVqsToVendo = useCallback(async () => {
     setIsTransferVqsLoading(true);
     setQualifiedForBonus(true);
