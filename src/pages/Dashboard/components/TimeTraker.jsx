@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
-import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+// import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 
 function TimeTraker({setShowGuide}) {
-  const [showTooltip, setShowTooltip] = useState(false);
-  const extensionDownloadLink = '/clishaMe20250325-Extension.zip';
+  // const [showTooltip, setShowTooltip] = useState(false);
+  // const extensionDownloadLink = '/clishaMe20250325-Extension.zip';
   const [showUpdateTooltip, setShowUpdateTooltip] = useState(false);
 
   const hasExt = window.localStorage.getItem('hasExt');
   const storedVersion = localStorage.getItem('extensionVersion');
   // update stored version to show popup
-  const latestVersion = '1.0.4';
+  const latestVersion = '1.0.0';
 
   useEffect(() => {
     if (storedVersion !== latestVersion) {
@@ -19,8 +19,8 @@ function TimeTraker({setShowGuide}) {
   }, [storedVersion, latestVersion]);
 
   const handleDownload = () => {
-    setShowTooltip(false);
-    setShowGuide(true);
+    // setShowTooltip(false);
+    // setShowGuide(true);
     setShowUpdateTooltip(false);
     localStorage.setItem('extensionVersion', latestVersion);
   };
@@ -29,11 +29,11 @@ function TimeTraker({setShowGuide}) {
     localStorage.setItem('extensionVersion', latestVersion);
   };
 
-  // const testServerExt = 'https://chrome.google.com/webstore/detail/clisha-extension/jagnnnnnooogbbpgjidbpockglhfoban'; 
-  // const liveServerExt =
-  //   'https://chrome.google.com/webstore/detail/clisha-extension/jagnnnnnooogbbpgjidbpockglhfoban';
-  // const { host } = window.location;
-  // const newHost = 'clisha-frontend.suna.ai';
+  const testServerExt = 'https://chromewebstore.google.com/detail/clishame/fggiejockcliimogohnaiakpbcjaafcl'; 
+  const liveServerExt =
+    'https://chromewebstore.google.com/detail/clishame/fggiejockcliimogohnaiakpbcjaafcl'
+  const { host } = window.location;
+  const newHost = 'clisha.me';
   return (
     <div>
       {showUpdateTooltip && (       
@@ -54,8 +54,8 @@ function TimeTraker({setShowGuide}) {
               click to add or update latest Chrome Browser Extension for more tasks and more rewards
             </small> 
           </div>
-          <div className="col-3 pl-0 ">
-            {/* <img src="/images/timetraker.png" className="link" alt="" /> */}
+          {/* <div className="col-3 pl-0 ">
+            <img src="/images/timetraker.png" className="link" alt="" />
             <div className="tracker_downloader shadow-sm link">
               <OverlayTrigger
                 placement="top"
@@ -77,6 +77,20 @@ function TimeTraker({setShowGuide}) {
                   <i className="fa fa-download" aria-hidden="true" />
                 </a>
               </OverlayTrigger>
+            </div>
+          </div> */}
+
+          <div className="col-3 pl-0 ">
+            <div className="tracker_downloader shadow-sm link">
+              <a
+                title="Open Clisha Extention"
+                href={host === newHost ? liveServerExt : testServerExt}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-dark"
+              >
+                <i className="fa fa-download" aria-hidden="true" onClick={handleDownload} />
+              </a>
             </div>
           </div>
         </div>
