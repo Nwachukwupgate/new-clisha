@@ -187,6 +187,7 @@ const CalenderCard = ({verificationDate}) => {
                 ) : item.completedTasks >= 10 ? (
                   <img src={ThumbsUp} className="emojiCalender" alt="Thumbs Up" />
                 ) : null}
+                
 
                 {/* {item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
                   <img className="emojiCalender" src="/images/smiley.jpeg" alt="" />
