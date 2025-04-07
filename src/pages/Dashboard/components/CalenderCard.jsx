@@ -177,16 +177,16 @@ const CalenderCard = ({verificationDate}) => {
                 )}
                 {moment(item.date).format('D')}
                 {item?.createdTasks && item?.createdTasks <= item?.completedTasks ? (
-  <img src="/images/rocket.png" className="isDate" alt="Rocket" />
-) : item?.completedTasks >= 10 ? (
-  <img src={ThumbsUp} className="emojiCalender" alt="Thumbs Up" />
-) : item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
-  <img className="emojiCalender" src="/images/smiley.jpeg" alt="Smiley" />
-) : !item?.completedTasks &&
-  item?.createdTasks &&
-  moment(item?.date).format('YY-MM-DD') <= moment(Date.now()).format('YY-MM-DD') ? (
-  <img className="emojiCalender" src="/images/sad.png" alt="Sad" />
-) : null}
+                  <img src="/images/rocket.png" className="isDate" alt="Rocket" />
+                ) : item?.completedTasks >= 10 ? (
+                  <img src={ThumbsUp} className="emojiCalender" alt="Thumbs Up" />
+                ) : item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
+                  <img className="emojiCalender" src="/images/smiley.jpeg" alt="Smiley" />
+                ) : !item?.completedTasks &&
+                  item?.createdTasks &&
+                  moment(item?.date).format('YY-MM-DD') <= moment(Date.now()).format('YY-MM-DD') ? (
+                  <img className="emojiCalender" src="/images/sad.png" alt="Sad" />
+                ) : null}
 
 
                 {/* {item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
