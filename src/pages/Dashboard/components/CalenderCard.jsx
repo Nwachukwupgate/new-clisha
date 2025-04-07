@@ -154,7 +154,9 @@ const CalenderCard = ({verificationDate}) => {
                     {moment(item?.date).format('YY-MM-DD') <= moment(Date.now()).format('YY-MM-DD')
                       ? 'Completed'
                       : 'Future Task'}
-                    {item.completedTasks >= 10 ? (
+                    {item?.createdTasks && item?.createdTasks <= item?.completedTasks ? (
+                      <img src="/images/rocket.png" className="emojiCalendersm rot" alt="Rocket" />
+                    ) : item.completedTasks >= 10 ? (
                       <img src={ThumbsUp} className="emojiCalendersm" alt="Thumbs Up" />
                     ) : (
                       ''
@@ -171,17 +173,10 @@ const CalenderCard = ({verificationDate}) => {
                     ) : (
                       ''
                     )}
-                    {item?.createdTasks && item?.createdTasks <= item?.completedTasks ? (
-                      <img src="/images/rocket.png" className="emojiCalendersm rot" alt="" />
-                    ) : (
-                      ''
-                    )}
                   </div>
                 )}
                 {moment(item.date).format('D')}
-                {item.completedTasks >= 10 ? (
-                  <img src={ThumbsUp} className="emojiCalender" alt="Thumbs Up" />
-                ) : item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
+                {item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
                   <img className="emojiCalender" src="/images/smiley.jpeg" alt="Smiley" />
                 ) : !item?.completedTasks &&
                   item?.createdTasks &&
@@ -189,9 +184,10 @@ const CalenderCard = ({verificationDate}) => {
                   <img className="emojiCalender" src="/images/sad.png" alt="Sad" />
                 ) : item?.createdTasks && item?.createdTasks <= item?.completedTasks ? (
                   <img src="/images/rocket.png" className="isDate" alt="Rocket" />
-                ) : (
-                  ''
-                )}
+                ) : item.completedTasks >= 10 ? (
+                  <img src={ThumbsUp} className="emojiCalender" alt="Thumbs Up" />
+                ) : null}
+
                 {/* {item?.completedTasks && item?.createdTasks > item?.completedTasks ? (
                   <img className="emojiCalender" src="/images/smiley.jpeg" alt="" />
                 ) : (
