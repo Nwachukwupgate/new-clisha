@@ -37,11 +37,11 @@ export const TaskCompleted = (props) => {
       title="Click on the task to see more details"
     >
       {isModal && <div className="hrline" />}
-      {isModal && <img src="/images/roundimg.png" className="roundimg" alt="" />}
+      {isModal && <img src="/images/roundimg.png" className="roundimg" alt="earn money online, paid to click, social media rewards clisha" />}
       <div className="col-10">
         <h6>
           {/* <b>{item?.token?.name ? item?.token?.name : "Venooor"}</b> */}
-          <img src={item?.token?.photo} alt="" className="ImgPhoto" />
+          <img src={item?.token?.photo} alt="earn money online, paid to click, social media rewards clisha" className="ImgPhoto" />
         </h6>
         {isDetails && (
           <div className="details text-center">
@@ -66,7 +66,7 @@ export const TaskCompleted = (props) => {
       <div className="col-12 p-0 py-1">
         <div className="row m-0 header p-0">
           <div className="col-5 p-0 text-right">
-            <img src="/images/Task/task2/finger.png" alt="" />
+            <img src="/images/Task/task2/finger.png" alt="earn money online, paid to click, social media rewards clisha" />
             <span>Task ID: </span>
           </div>
           <div className={`col-7 p-0 text-left pl-2 ${!isCopy ? '' : 'text-success'}`}>
@@ -76,7 +76,7 @@ export const TaskCompleted = (props) => {
               <i
                 className={`link visitImg ml-1 fa ${!isCopy ? 'fa-copy' : ' fa-check'}`}
                 onClick={(e) => handleCopy(item.task_code)}
-                alt=""
+                alt="earn money online, paid to click, social media rewards clisha"
               />
             </b>
           </div>

@@ -50,7 +50,7 @@ function index() {
               data-aos="zoom-in"
               data-aos-duration="1500"
               // data-aos-delay="100"
-              alt=""
+              alt="earn money online, paid to click, social media rewards clisha"
             />
           </div>
         </div>

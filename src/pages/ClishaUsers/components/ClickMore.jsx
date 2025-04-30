@@ -3,7 +3,7 @@ function ClickMore() {
     <div className="headBox ClickMore">
       <div className="row m-0">
         <div className="col-md-6 order-md-first p-0">
-          <img src="/images/partner/headBox3.png" className="w-100" alt="" />
+          <img src="/images/partner/headBox3.png" className="w-100" alt="social media rewards clisha" />
         </div>
         <div className="col-md-6 order-md-last p-0">
           <div className="secondPars col-md-10 ml-auto">

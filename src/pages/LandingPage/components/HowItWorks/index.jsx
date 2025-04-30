@@ -17,14 +17,14 @@ function index() {
         data-aos-duration="1700"
         src="images/howitworksimage 2.png"
         className="w-75 d-none d-lg-block mt-2 mx-auto"
-        alt=""
+        alt="earn money online, paid to click, social media rewards clisha"
       />
       <img
         data-aos="zoom-in"
         data-aos-duration="1700"
         src="images/howitworksimage 2 (1).png"
         className="w-100 d-block d-lg-none mt-2"
-        alt=""
+        alt="earn money online, paid to click, social media rewards clisha"
       />
     </div>
   );

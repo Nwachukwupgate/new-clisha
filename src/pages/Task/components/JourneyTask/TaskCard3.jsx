@@ -21,7 +21,7 @@ function TaskCard2(props) {
           <img
             src="/images/No data-amico.png"
             className="notFound p-0 m-0 col-12 col-md-8 shadow mx-auto"
-            alt=""
+            alt="earn money online, paid to click, social media rewards, "
           />
         </div>
       ) : (

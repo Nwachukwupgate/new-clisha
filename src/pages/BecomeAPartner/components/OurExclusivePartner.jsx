@@ -16,7 +16,7 @@ function OurExclusivePartner() {
           {partnersImg?.map((item, key) => (
             <div className="col-md-4 " key={key}>
               <div className="card">
-                <img className="card-img-top" src={item?.img} alt="" />
+                <img className="card-img-top" src={item?.img} alt="social media rewards clisha" />
                 <div className="card-body p-2">
                   <h4 className="card-title">{item?.name}</h4>
                   <p className="card-text">{item?.position}</p>

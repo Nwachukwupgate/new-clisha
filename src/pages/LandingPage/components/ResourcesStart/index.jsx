@@ -27,7 +27,7 @@ function index({ card }) {
                   key={innerIndex}
                   className="card bg-transparent col-lg-4 last-col p-0 mt-3 mx-auto"
                 >
-                  <img className="card-img-top" src={item.img} alt="" />
+                  <img className="card-img-top" src={item.img} alt="earn money online, paid to click, social media rewards clisha" />
                   <div className="card-body pt-2 pl-2">
                     <div className="card-content p-0 text-left">
                       <span className="span-border">

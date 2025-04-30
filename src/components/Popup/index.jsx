@@ -12,11 +12,11 @@ function Popup({ item, text, handleCopyGo }) {
       <div className="modal-content  task2_popup clisha_bg">
         <div className="modal-body text-center ">
           <div className="my-3">
-            <img src="/images/popup/Group 1948 (1).png" alt="" />
+            <img src="/images/popup/Group 1948 (1).png" alt="earn money online, paid to click, social media rewards, " />
           </div>
 
           <div>
-            <img src="/images/popup/Group 76566.png" alt="" />
+            <img src="/images/popup/Group 76566.png" alt="social media rewards clisha" />
           </div>
           {item?.task_type === 'website_click' && (
             <div>

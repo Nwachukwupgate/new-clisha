@@ -33,7 +33,7 @@ function index({ card }) {
                     innerIndex === 3 || innerIndex === 2 ? 'last-img' : ''
                   }`}
                   src={item.img}
-                  alt=""
+                  alt="earn money online, paid to click, social media rewards clisha"
                 />
                 <div className="badge-number  ">
                   <span>{innerIndex + 1}</span>

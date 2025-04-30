@@ -264,11 +264,11 @@ function Plan() {
                     </ul>
                   </h6>
                   <h6>
-                    <img src="images/Group 2194.png" alt="" />
+                    <img src="images/Group 2194.png" alt="earn money online, paid to click, social media rewards clisha" />
                     <span className="text-white ml-3">Multiplier</span>
                     <ul className="plan-list">
                       <li>
-                        <img src="images/Group 2204.png" alt="" />
+                        <img src="images/Group 2204.png" alt="earn money online, paid to click, social media rewards clisha" />
                       </li>
                     </ul>
                   </h6>
@@ -276,9 +276,9 @@ function Plan() {
               </ul>
             </div>
             <div className="downtxt">
-              <img src="images/Pro 3 (1).png" alt="" />
+              <img src="images/Pro 3 (1).png" alt="earn money online, paid to click, social media rewards clisha" />
               <span>EXCLUSIV</span>
-              <img src="images/Group 2207.png" alt="" />
+              <img src="images/Group 2207.png" alt="earn money online, paid to click, social media rewards clisha" />
             </div>
             <button className="btn plan-btn shadow">Get Started</button>
             <br />

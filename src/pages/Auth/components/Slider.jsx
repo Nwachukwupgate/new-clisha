@@ -30,7 +30,7 @@ function Slider() {
           <div className="carousel-item active">
             <img
               src="/images/bgsignin.png"
-              alt=""
+              alt="social media rewards clisha"
               data-aos="zoom-in"
               data-aos-duration="1100"
               data-aos-delay="1000"
@@ -40,7 +40,7 @@ function Slider() {
           <div className="carousel-item">
             <img
               src="/images/bgsignup.png"
-              alt=""
+              alt="social media rewards clisha"
               data-aos="zoom-in"
               data-aos-duration="1100"
               data-aos-delay="1000"
@@ -50,7 +50,7 @@ function Slider() {
           <div className="carousel-item">
             <img
               src="/images/bgsignin.png"
-              alt=""
+              alt="social media rewards clisha"
               data-aos="zoom-in"
               data-aos-duration="1100"
               data-aos-delay="1000"

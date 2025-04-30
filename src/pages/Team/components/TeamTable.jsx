@@ -67,7 +67,7 @@ function TeamTable() {
                         gender: 'male',
                         photo: item?.photo,
                       })}
-                      alt=""
+                      alt="earn money online, paid to click, social media rewards, clisha"
                       className="profileImage shadow  rounded-circle d-md-inline  d-none"
                     />
                     <span className="nameSet">
@@ -81,7 +81,7 @@ function TeamTable() {
                     <img
                       src={`/images/rank/${item?.rank?.rankName?.slice(7)}.png`}
                       className="rankImage "
-                      alt=""
+                      alt="earn money online, paid to click, social media rewards, "
                     />
                     <small className={`badge ${item?.rank?.rankName?.slice(7)}`}>
                       {item?.rank?.rankName.slice(7)}

@@ -3,7 +3,7 @@ function AboutProducts() {
   return (
     <div className="AboutProducts">
       <div className="bigBg">
-        <img src="/images/tech-devices.png" className="w-100" alt="" />
+        <img src="/images/tech-devices.png" className="w-100" alt="social media rewards clisha" />
       </div>
 
       <div className="sliderProducts" />
@@ -28,7 +28,7 @@ function AboutProducts() {
               <div className="col-md-3" key={key}>
                 <div className="card">
                   <div className="img">
-                    <img className="card-img-top" src="/images/system1.png" alt="" />
+                    <img className="card-img-top" src="/images/system1.png" alt="paid to click social media rewards clisha" />
                   </div>
                   <div className="card-body">
                     <h4 className="card-title">Real Time Product</h4>

@@ -73,7 +73,7 @@ function ProfilePhoto({ user }) {
         <img
           src={`/images/rank/${user?.rank?.rankName.slice(7).toLowerCase()}.png`}
           className="logo-rank"
-          alt=""
+          alt="earn money online, paid to click, social media rewards, clisha"
         />
         <button
           className="btn fa bg-light shadow fa-camera text-muted rounded-circle uploadCamera"
@@ -99,7 +99,7 @@ function ProfilePhoto({ user }) {
           })}
           title="Change profile picture"
           className="logo profileImageAdvata"
-          alt=""
+          alt="earn money online, paid to click, social media rewards, clisha"
         />
 
         <img
@@ -108,7 +108,7 @@ function ProfilePhoto({ user }) {
           data-target="#uploadProfile"
           title="Change profile picture"
           className="dimg link "
-          alt=""
+          alt="earn money online, paid to click, social media rewards, clisha"
         />
       </div>
     </div>

@@ -40,7 +40,7 @@ function RankCards({ user }) {
                       gender: item?.user?.gender,
                       photo: item?.user?.photo,
                     })}
-                    alt=""
+                    alt="earn money online, paid to click, social media rewards clisha"
                     className="profile miniavatar shadow "
                   />
                   <span className="ml-2  ">
@@ -54,7 +54,7 @@ function RankCards({ user }) {
                   </span>
                 </div>
                 <div className="footer_content px-2 mt-3">
-                  <img src="/images/single_star.png" alt="" className="star" />
+                  <img src="/images/single_star.png" alt="earn money online, paid to click, social media rewards clisha" className="star" />
                   <span className="rank_text z-2">AdStar</span>
 
                   <span className="rank_text2 z-2">
