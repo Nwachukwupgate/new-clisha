@@ -78,6 +78,15 @@ export const taskCompleted = createAsyncThunk('task/complete', async (task) => {
   }
 });
 
+export const taskReported = createAsyncThunk('task/report', async (task) => {
+  try {
+    const { data } = await axios.post(`${api_completeTask}/report/task`, task, config);
+    return data;
+  } catch (err) {
+    return {};
+  }
+});
+
 export const taskSlice = createSlice({
   name: 'task',
   initialState: {
@@ -96,6 +105,8 @@ export const taskSlice = createSlice({
     getTaskJourneyLoading: false,
     getTaskSearchJourneyLoading: false,
     completeTaskLoading: false,
+    taskReportLoading: false,
+    reportedData: null,
   },
   reducers: {
     setshowCounter: (state, action) => {
@@ -166,6 +177,14 @@ export const taskSlice = createSlice({
     builder.addCase(taskCompleted.fulfilled, (state) => {
       state.completeTaskLoading = false;
       // console.log(action.payload, "++++++++++++++++++++++++++++");
+    });
+    builder.addCase(taskReported.pending, (state) => {
+      state.taskReportLoading = true;
+    });
+    builder.addCase(taskReported.fulfilled, (state, action) => {
+      state.taskReportLoading = false;
+      // console.log(action.payload, "++++++++++++++++++++++++++++");
+      state.reportedData = action.payload;
     });
   },
 });

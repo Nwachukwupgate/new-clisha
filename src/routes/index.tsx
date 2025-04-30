@@ -7,6 +7,7 @@ import Loading from '../components/Alerts/Loading';
 import { apiCall } from '../services/apiRequestManager';
 import ToastMsg from '../components/Alerts/ToastMsg';
 import RewardApp from '../components/Reward';
+import ReportApp from '../components/Report';
 import AuthLayouts from '../layouts/AuthLayouts';
 import AllProducts from '../pages/AllProducts';
 import EmailVerification from '../pages/Auth/EmailVerification';
@@ -88,6 +89,7 @@ function Router() {
             <Route path="/dashboard/settings" element={<Settings />} />
             <Route path="/dashboard/task" element={<Task />} />
             <Route path="/dashboard/reward" element={<RewardApp />} />
+            <Route path="/dashboard/report" element={<ReportApp />} />
             <Route path="/dashboard/wallet" element={<Wallets />} />
           </Route>
 
