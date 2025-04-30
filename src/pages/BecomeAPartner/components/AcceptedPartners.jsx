@@ -13,7 +13,7 @@ function AcceptedPartners() {
           </p>
         </div>
         <div className="col-md-6">
-          <img src="/images/partner/imgbg1.png" className="w-100" alt="" />
+          <img src="/images/partner/imgbg1.png" className="w-100" alt="social media rewards clisha" />
         </div>
       </div>
     </div>

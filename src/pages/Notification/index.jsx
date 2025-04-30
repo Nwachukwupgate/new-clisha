@@ -13,7 +13,7 @@ function Notification() {
       <Header />
       <div className="notification_messages container">
         <h4 onClick={() => navigate(-1)}>
-          <img src="/images/navlink.png" alt="" /> <span className="ml-2">Messages</span>
+          <img src="/images/navlink.png" alt="earn money online, paid to click, social media rewards clisha" /> <span className="ml-2">Messages</span>
         </h4>
 
         {notification?.length > 0 ? (
@@ -22,7 +22,7 @@ function Notification() {
           </div>
         ) : (
           <div className="row">
-            <img src="/images/no_message.webp" alt="" className="  col-md-8 m-auto no_message" />
+            <img src="/images/no_message.webp" alt="earn money online, paid to click, social media rewards clisha" className="  col-md-8 m-auto no_message" />
           </div>
         )}
       </div>

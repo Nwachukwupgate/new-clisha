@@ -69,7 +69,7 @@ function Sidebar(props) {
             <b>Recent Ranking</b>
           </h6>
 
-          <img src="/images/bage.png" className="logo-recent-rank mx-2" alt="" />
+          <img src="/images/bage.png" className="logo-recent-rank mx-2" alt="earn money online, paid to click, social media rewards, clisha" />
           {/* <img
             src="/images/crown1.png"
             className="logo-recent-rank mx-2"

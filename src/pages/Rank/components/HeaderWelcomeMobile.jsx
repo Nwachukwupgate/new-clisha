@@ -29,13 +29,13 @@ function HeaderWelcomeMobile(props) {
                 photo: user?.user?.photo,
               })}
               className="avatar"
-              alt=""
+              alt="earn money online, paid to click, social media rewards clisha"
             />
             <span className="ml-2 username"> {username}</span>
             <img
               src={`/images/stars/${user?.rank?.rankName?.slice(7) ?? 'bronze'}.png`}
               className="stars mt-4"
-              alt=""
+              alt="earn money online, paid to click, social media rewards clisha"
             />
           </div>
           <div className="check_rank">
@@ -46,7 +46,7 @@ function HeaderWelcomeMobile(props) {
           <img
             src={`/images/rank/${user?.rank?.rankName?.slice(7).toLowerCase()}.png`}
             className="latest_rank"
-            alt=""
+            alt="earn money online, paid to click, social media rewards clisha"
           />
 
           {/* <div className="col-5 text-right pt-5 pr-2"> */}

@@ -31,7 +31,7 @@ function index() {
           <div className="message-box col-lg-9 col-12 mx-auto p-3 p-lg-4 ">
             <div className="row m-0">
               <div className="logo col-3  d-none d-lg-block">
-                <img src="images/image 37.png" alt="" />
+                <img src="images/image 37.png" alt="earn money online, paid to click, social media rewards clisha" />
               </div>
               <div className="message col-9 text-left">
                 <div className="message-star">
@@ -49,7 +49,7 @@ function index() {
             </div>
           </div>
           <div className="client-img ">
-            <img src="images/Ellipse 9.png" alt="" />
+            <img src="images/Ellipse 9.png" alt="earn money online, paid to click, social media rewards clisha" />
             <div className="client-details pt-2">
               <h3 className="name">Mehedi Hasan</h3>
               <span className="position ">a2i ( ICT Division ).</span>

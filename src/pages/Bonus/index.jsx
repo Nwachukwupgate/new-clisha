@@ -72,7 +72,7 @@ function Bonus() {
             <div className="modal-body p-0">
               {accepted && (
                 <div className="bonus">
-                  <img src="/images/congrat.png" className="w-100" alt="" />
+                  <img src="/images/congrat.png" className="w-100" alt="social media rewards clisha" />
                 </div>
               )}
               {!accepted && (

@@ -1,3 +1,8 @@
-# https://www.robotstxt.org/robotstxt.html
+# Allow all crawlers full access, except sensitive directories
 User-agent: *
-Disallow:
+Disallow: /admin/
+Disallow: /private-data/
+Allow: /
+
+# Point bots to your sitemap
+Sitemap: https://clisha.me/sitemap.xml

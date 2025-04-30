@@ -12,7 +12,7 @@ function ListOfProducts() {
             data-aos-duration="1000"
             // data-aos-delay="600"
           >
-            <img className={`card-img m-auto img-getters mb-3  `} src={item.img} alt="" />
+            <img className={`card-img m-auto img-getters mb-3  `} src={item.img} alt="social media rewards clisha" />
 
             <div className="card-body">
               <a href="/" className="text-success  text-decoration-underline ">

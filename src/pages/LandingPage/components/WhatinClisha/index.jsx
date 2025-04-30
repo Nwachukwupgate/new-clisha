@@ -66,7 +66,7 @@ function index() {
             // data-aos-delay="600"
             src="images/laptop.png"
             className="col-12 col-lg-8  p-0 mt-5 mx-auto"
-            alt=""
+            alt="earn money online, paid to click, social media rewards clisha"
           />
         </div>
       </div>

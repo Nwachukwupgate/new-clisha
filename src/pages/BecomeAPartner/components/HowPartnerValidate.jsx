@@ -24,7 +24,7 @@ function HowPartnerValidate() {
                   data-aos-duration="1000"
                   // data-aos-delay="600"
                 >
-                  <img className={`card-img m-auto img-getters mb-3  `} src={item.img} alt="" />
+                  <img className={`card-img m-auto img-getters mb-3  `} src={item.img} alt="social media rewards clisha" />
 
                   <div className="card-body">
                     <p className="text-left p-0 row m-0">
@@ -56,7 +56,7 @@ function HowPartnerValidate() {
             <span>
               <b>4.95</b> based on <b className="text-warning">1848</b> Review
             </span>
-            <img src="/images/partner/alexa.png" alt="" />
+            <img src="/images/partner/alexa.png" alt="social media rewards clisha" />
           </div>
         </div>
       </div>

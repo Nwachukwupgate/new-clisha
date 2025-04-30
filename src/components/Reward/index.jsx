@@ -82,7 +82,7 @@ export default function RewardApp() {
         <div className="confetti text-center">
           <h5>{!vendoConnectStatus ? "💲 Task Completed 💰" : " 💲 Congratulations on Earning 👇"}</h5>
           <span id="rewardId" />
-          <img src="/images/money-bag_1f4b0.png" alt="money" />
+          <img src="/images/money-bag_1f4b0.png" alt="social media rewards clisha" />
           {vendoConnectStatus ? (
             <>
               <h3 className="text-white mt-3">

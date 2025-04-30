@@ -41,7 +41,7 @@ function HeaderWelcome(props) {
                 photo: user?.user?.photo,
               })}
               className="avatar "
-              alt=""
+              alt="earn money online, paid to click, social media rewards clisha"
             />
             <span className="ml-2 username my-username">
               {(user && user?.user?.firstname) ?? username}
@@ -67,7 +67,7 @@ function HeaderWelcome(props) {
             <img
               src={`/images/rank/${user?.rank?.rankName?.slice(7).toLowerCase()}.png`}
               className="latest_rank"
-              alt=""
+              alt="earn money online, paid to click, social media rewards clisha"
             />
             <span className="rank_text mt-4 text-white impact">AdStar</span>
 

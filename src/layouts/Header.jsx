@@ -51,10 +51,10 @@ function Header() {
       >
         <div className=" px-4 x-width ">
           <a className="navbar-brand" href="/dashboard">
-            <img src="/logo.png" alt="" />
+            <img src="/logo.png" alt=" paid to click, social media rewards clisha" />
           </a>
           <small className="d-md-none d-inline ">
-            <img src="/images/point.png" className="mail mr-1 " alt="" />
+            <img src="/images/point.png" className="mail mr-1 " alt="paid to click, social media rewards clisha" />
             <span className="text-dark b">
               {/* <CountUp
                 start={balance ?? 0}
@@ -87,7 +87,7 @@ function Header() {
                 vendoPackage?.data?.package_level !== 'No package' && (
                   <li className="nav-item px-1">
                     <span className="nav-link point">
-                      <img src="/images/vqs.png" className="mail" alt="" />
+                      <img src="/images/vqs.png" className="mail" alt="social media rewards clisha" />
                       <small className="text-dark b ml-1">
                         <CountUp
                           start={user?.rank?.bonus_points}
@@ -101,7 +101,7 @@ function Header() {
                 )}
               <li className="nav-item px-1 ">
                 <span className="nav-link point">
-                  <img src="/images/point.png" className="mail" alt="" />
+                  <img src="/images/point.png" className="mail" alt="social media rewards clisha" />
                   <small className="text-dark b ml-1">
                     <CountUp
                       start={user?.rank?.total_points ?? 0}
@@ -116,7 +116,7 @@ function Header() {
 
             <ul className="navbar-nav  ml-md-auto mt-2 mt-lg-0">
               <li className="nav-item px-1 mt-2" onClick={() => navigate('/notification')}>
-                <img src="/images/bell.png" className="mail link" alt="" />
+                <img src="/images/bell.png" className="mail link" alt=" social media rewards clisha" />
               </li>
 
               <li className="nav-item ">

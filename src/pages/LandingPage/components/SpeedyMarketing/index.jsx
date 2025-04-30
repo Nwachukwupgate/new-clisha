@@ -22,7 +22,7 @@ function index() {
             // data-aos-delay="600"
             src="images/speedymarketing.png"
             className=" d-none d-lg-block w-75 mx-auto  mt-4"
-            alt=""
+            alt="earn money online, paid to click, social media rewards clisha"
           />
           <img
             data-aos="zoom-in"
@@ -30,7 +30,7 @@ function index() {
             // data-aos-delay="600"
             src="images/speedymarketingmobile.png"
             className="mt-4 d-block d-lg-none w-100"
-            alt=""
+            alt="earn money online, paid to click, social media rewards clisha"
           />
         </div>
       </div>

@@ -33,7 +33,7 @@ function index({ card }) {
                 <img
                   className={`card-img m-auto ${innerIndex === 3 ? 'img2' : ''}`}
                   src={item.img}
-                  alt=""
+                  alt="earn money online, paid to click, social media rewards clisha"
                 />
 
                 <div className="card-body">

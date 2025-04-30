@@ -21,7 +21,7 @@ function FirstNavbar({ bg }) {
           <ul className="second-ul p-0 d-none d-lg-flex">
             <li>
               <a href="/">
-                <img src="/images/mapmaker.png" className="link mr-1" alt="" title="Visit" />
+                <img src="/images/mapmaker.png" className="link mr-1" alt="earn money online" title="Visit" />
                 <span>VQualis Limited, Grand Industrial Building, Office 7/F</span>
               </a>
             </li>
@@ -38,7 +38,7 @@ function FirstNavbar({ bg }) {
             {/* </li> */}
             <li>
               <a href={`mailto:${email}`}>
-                <img src="/images/globe.png" className="link mr-1" alt="" title="Visit" />
+                <img src="/images/globe.png" className="link mr-1" alt="social media rewards " title="Visit" />
                 <span>{email}</span>
               </a>
             </li>

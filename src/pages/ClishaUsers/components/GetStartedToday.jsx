@@ -10,19 +10,19 @@ function GetStartedToday() {
 
       <div className="row mt-4 mx-0 ">
         <div className="col-md-4">
-          <img src="/images/users/pointer 1.png" alt="" />
+          <img src="/images/users/pointer 1.png" alt="social media rewards clisha" />
           <h6> Register for an ICO</h6>
         </div>
         <div className="col-md-4">
-          <img src="/images/users/line.png" className="lf line d-md-block d-none" alt="" />
+          <img src="/images/users/line.png" className="lf line d-md-block d-none" alt="earn money online, paid to click, social media rewards clisha" />
 
-          <img src="/images/users/pointer 2.png" alt="" />
+          <img src="/images/users/pointer 2.png" alt="earn money online, paid to click, social media rewards clisha" />
           <h6>Select Plans</h6>
         </div>
         <div className="col-md-4">
-          <img src="/images/users/line.png" className="rf line d-md-block d-none" alt="" />
+          <img src="/images/users/line.png" className="rf line d-md-block d-none" alt="earn money online, paid to click, social media rewards clisha" />
 
-          <img src="/images/users/pointer 3.png" alt="" />
+          <img src="/images/users/pointer 3.png" alt="earn money online, paid to click, social media rewards clisha" />
           <h6>Complete Daily Task and Earn</h6>
         </div>
       </div>

@@ -28,7 +28,7 @@ function TestimonialsCards() {
                 </p>
 
                 <div className="imgContainer ">
-                  <img src="/images/users/avatar.png" alt="" />
+                  <img src="/images/users/avatar.png" alt="earn money online, paid to click, social media rewards clisha" />
                   <div className="lText">
                     <h3>Marina W.</h3>
                     <p className="rankText">Rank #0012</p>
@@ -54,7 +54,7 @@ function TestimonialsCards() {
         <span>
           <b>4.95</b> based on <b className="text-warning">2.5 milion </b> Review
         </span>
-        <img src="/images/partner/alexa.png" alt="" />
+        <img src="/images/partner/alexa.png" alt="earn money online, paid to click, social media rewards clisha" />
       </div>
     </div>
   );

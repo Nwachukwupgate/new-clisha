@@ -91,12 +91,12 @@ function Paginate() {
                   gender: item?.user?.gender,
                   photo: item?.user?.photo,
                 })}
-                alt=""
+                alt="earn money online, paid to click, social media rewards clisha"
               />
               <img
                 className="card-img images4 rank_landing_page"
                 src={`/images/rank/${item?.rankName?.slice(7) ?? 'bronze'}.png`}
-                alt=""
+                alt="earn money online, paid to click, social media rewards clisha"
               />
               <div className="badge-number badge-number2 ">
                 <span>#{item.position}</span>

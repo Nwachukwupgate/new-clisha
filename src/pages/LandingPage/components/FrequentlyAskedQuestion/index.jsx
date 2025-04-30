@@ -236,9 +236,9 @@ function index() {
 
         <div className="team-faq">
           <div className="team-img">
-            <img src="images/Ellipse 506.png" className="item item1" alt="" />
-            <img src="images/Ellipse 504.png" className="item item2" alt="" />
-            <img src="images/Ellipse 505.png" className="item item3" alt="" />
+            <img src="images/Ellipse 506.png" className="item item1" alt="earn money online, paid to click, social media rewards clisha" />
+            <img src="images/Ellipse 504.png" className="item item2" alt="earn money online, paid to click, social media rewards clisha" />
+            <img src="images/Ellipse 505.png" className="item item3" alt="earn money online, paid to click, social media rewards clisha" />
           </div>
           <h6>Still have questions ?</h6>
           <p className="col-lg-8 mx-auto">

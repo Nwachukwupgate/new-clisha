@@ -14,8 +14,8 @@ function MainNavbar({ bg }) {
     <nav id="mynav_bar" className={`navbar  navbar-expand-lg border-bottom     w-100 ${bg}`}>
       <div className="container">
         <a className="navbar-brand " href="/">
-          {bg === undefined && <img src="logo2.png" id="navbar-brand" alt="" />}
-          {bg === 'nav-white-bg' && <img src="/images/logo4.png" id="navbar-brand" alt="" />}
+          {bg === undefined && <img src="logo2.png" id="navbar-brand" alt="clisha social media rewards, " />}
+          {bg === 'nav-white-bg' && <img src="/images/logo4.png" id="navbar-brand" alt="earn money online clisha.me" />}
         </a>
         <button
           className="navbar-toggler shadow-sm p-2  d-lg-none"

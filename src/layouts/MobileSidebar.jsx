@@ -16,7 +16,7 @@ function MobileSidebar() {
         <div className="modal-header border-0">
           <h5 className="modal-title">
             <a className="navbar-brand" href="/dashboard">
-              <img src="/logo2.png" alt="" />
+              <img src="/logo2.png" alt="social media rewards clisha" />
             </a>
           </h5>
           <button type="button" className="close" data-dismiss="modal" aria-label="Close">
