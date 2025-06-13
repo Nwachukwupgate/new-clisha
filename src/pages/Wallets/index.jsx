@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CommingSoon from '../../components/CommingSoon';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/Sidebar';
+import SidebarTour from '../../layouts/SidebarTour';
 import AddWallets from './components/AddWallets';
 import AvailableBallance from './components/AvailableBallance';
 import Payout from './components/Payout';
@@ -36,6 +37,7 @@ function Wallets() {
         <div className="row m-0 ">
           <div className="col-md-4 col-lg-2 p-0 bg-white m-0">
             <Sidebar />
+            <SidebarTour />
           </div>
           <div className="col-md-8 col-lg-10 py-3 scroll-bg bg-white p-0">
             <div className="container text-center p-0 p-md-3 pt-4">

@@ -6,6 +6,7 @@ import CountUp from 'react-countup';
 import MobileSidebar from './MobileSidebar';
 import { logoutAction, getUser } from '../store/Auth/auth';
 import ProfilePicture from '../utils/ProfilePicture';
+import { useTour } from '../context/TourContext';
 
 
 function Header() {
@@ -13,6 +14,7 @@ function Header() {
   const user = useSelector((state) => state.user.data);
   const vendoPackage = useSelector((state) => state?.wallet?.vendoPackage);
   const current_route = window.location.pathname;
+  const { setTriggerTour } = useTour();
 
   useEffect(() => {
     dispatch(getUser());
@@ -23,13 +25,13 @@ function Header() {
   };
   const navigate = useNavigate();
   const balance = window.localStorage.getItem('balance');
-  const earned = window.localStorage.getItem('earned');
+  // const earned = window.localStorage.getItem('earned');
   const [userBalance, setUserBalance] = useState(balance ?? 0);
-  const [userEarned, setUserEarned] = useState(earned ?? 0);
+  // const [userEarned, setUserEarned] = useState(earned ?? 0);
 
   useEffect(() => {
     setUserBalance(user?.rank?.balance ?? 0);
-    setUserEarned(user?.rank?.earned_amount ?? 0);
+    // setUserEarned(user?.rank?.earned_amount ?? 0);
   }, [user]);
 
   return (
@@ -115,6 +117,23 @@ function Header() {
             </ul>
 
             <ul className="navbar-nav  ml-md-auto mt-2 mt-lg-0">
+              <li className="nav-item mr-2 mt-2">
+                <button
+                  onClick={() => setTriggerTour(true)}
+                  className="btn btn-sm btn-primary shadow-sm rounded-pill tour-btn"
+                  style={{
+                    padding: '6px 14px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    background: '#0e223b',
+                    border: 'none',
+                  }}
+                >
+                  <i className="fa fa-magic mr-1" />
+                  Start Tour Guide
+                </button>
+              </li>
+
               <li className="nav-item px-1 mt-2" onClick={() => navigate('/notification')}>
                 <img src="/images/bell.png" className="mail link" alt=" social media rewards clisha" />
               </li>

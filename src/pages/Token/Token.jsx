@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import Welcome from '../../components/Welcome/Welcome';
 import Footer from '../../layouts/Footer';
 import Header from '../../layouts/Header';
+import SidebarTour from '../../layouts/SidebarTour';
 import Sidebar from '../../layouts/Sidebar';
 import CardsView from './components/CardsView';
 import CommingSoon from '../../components/CommingSoon';
@@ -17,6 +18,7 @@ function Token() {
         <div className="row m-0 ">
           <div className="col-md-4 col-lg-2 p-0 bg-white m-0">
             <Sidebar />
+            <SidebarTour />
           </div>
           <div className="col-md-8 col-lg-10 py-3 scroll-bg bg-white p-0">
             <div className="p-0 p-md-3 ">

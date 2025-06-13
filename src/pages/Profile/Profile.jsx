@@ -5,6 +5,7 @@ import ShowProfile from './components/ShowProfile';
 import EditProfile from './components/EditProfile';
 import Header from '../../layouts/Header';
 import Sidebar from './Layouts/Sidebar';
+import SidebarTour from '../../layouts/SidebarTour';
 
 function Profile() {
   const user = useSelector((state) => state.user.data);
@@ -18,6 +19,7 @@ function Profile() {
         <div className="row m-0 ">
           <div className="col-md-4 col-lg-3 p-0 bg-white">
             <Sidebar user={user} />
+            <SidebarTour />
           </div>
           <div className="col-md-8 col-lg-9 scroll-bg mx-auto py-3 bg-white p-0 p-md-3">
             <div className="container">
