@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import Sidebar from '../../layouts/Sidebar';
 import Header from '../../layouts/Header';
+import SidebarTour from '../../layouts/SidebarTour';
 import Loading from '../../components/Alerts/Loading';
 
 function Help() {
@@ -48,6 +49,7 @@ function Help() {
         <div className="row m-0 ">
           <div className="col-md-4 col-lg-2 p-0 bg-white m-0">
             <Sidebar />
+            <SidebarTour />
           </div>
           <div className="col-md-8 col-lg-10 py-3 scroll-bg bg-white p-0">
             <div className="container text-center p-0 p-md-3 pt-4">

@@ -31,6 +31,7 @@ function Sidebar() {
                 {(index === 4 || index === 6) && <hr />}
                 <NavLink
                   to={item.url}
+                  id={`sidebar-${item.name.toLowerCase()}`}
                   className={` nav-link ${route === item.url ? 'selectedLink' : ' '} `}
                 >
                   <i className={`fa fa-${item.icon}`} aria-hidden="true" />

@@ -19,8 +19,6 @@ const CalenderCard = ({verificationDate}) => {
   const calenderTask = useSelector((state) => state.general?.calenderTask?.monthlyData);
   const { loading } = useSelector((state) => state.general);
 
-  console.log('loading', loading);
-
   const reloadingCalendar = useSelector(generalSelectReloadingCalendar);
   const parsedVerificationDate = verificationDate ? moment(verificationDate) : null;
 
