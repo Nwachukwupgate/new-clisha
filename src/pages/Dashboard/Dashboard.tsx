@@ -48,7 +48,7 @@ function Dashboard() {
     const hasSeenPopup = localStorage.getItem('hasSeenBonusPopup');
     if (!hasSeenPopup) {
       setShowBonusPopup(true);
-      localStorage.setItem('hasSeenBonusPopup', 'true'); // Set flag in localStorage
+      localStorage.setItem('hasSeenBonusPopup', 'true'); 
     }
   }, []);
 
@@ -90,23 +90,6 @@ function Dashboard() {
     }
   }, [user]);
 
-  // const checkIfVQCliamPeriod = useCallback(() => {
-  //   const dateArr = new Set();
-  //   const nowDate = moment(Date.now()).format('DD-MM-YYYY');
-  //   const lastDate = moment().endOf('month').format('DD-MM-YYYY');
-
-  //   for (let x = 0; x <= 3; x += 1) {
-  //     const temp = moment().endOf('month').subtract(x, 'd');
-  //     dateArr.add(temp.format('DD-MM-YYYY'));
-  //   }
-
-  //   if (dateArr.has(nowDate)) {
-  //     setIsVqsClaimPeriod(true);
-  //     if (lastDate === nowDate) {
-  //       setIsVqsClaimDay(true);
-  //     }
-  //   }
-  // }, []);
 
   const checkIfVQCliamPeriod = useCallback(() => {
     const nowDate = moment(Date.now()).date();
@@ -119,11 +102,6 @@ function Dashboard() {
       }
     }
   }, []);
-
-  // const getUserVQForVendo = useCallback(
-  //   (vqs: number, percentage: number) => (vqs * (percentage / 100)).toFixed(1),
-  //   []
-  // );
   
   const transferUserVqsToVendo = useCallback(async () => {
     setIsTransferVqsLoading(true);
