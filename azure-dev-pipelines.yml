@@ -7,7 +7,7 @@ trigger:
   - main
 
 pool:
-  name: clisha-dev-frontend
+  name: dev-clisha
 
 steps:
   - task: NodeTool@0
