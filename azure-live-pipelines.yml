@@ -9,7 +9,7 @@ trigger:
       - release/*
 
 pool:
-  name: clishalive
+  name: prod-clisha
 
 steps:
   - task: NodeTool@0
