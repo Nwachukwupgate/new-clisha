@@ -1,6 +1,7 @@
 import { useState } from 'react';
 // import Calendar from 'react-calendar'
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import {
   addCalenderTask,
@@ -12,6 +13,7 @@ import {
 import ThumbsUp from '../../../assets/image/thumbs.jpg'
 
 const CalenderCard = ({verificationDate}) => {
+  const {t} = useTranslation();
   const [isHover, setIsHover] = useState(null);
   const [openCallender, SetopenCallender] = useState(false);
   const dispatch = useDispatch();
@@ -58,9 +60,9 @@ const CalenderCard = ({verificationDate}) => {
         <div className="current text-uppercase">
           <div className="calendarCard__header">
             <div className="calendarCard__datePicker">
-              {date && moment(date.start_date).format('MMMM YYYY')} Statistics
+              {date && moment(date.start_date).format('MMMM YYYY')} {t('calendarStatistics')}
               <i
-                title="Pick Month"
+                title={t('pickMonth')}
                 className="ml-3 link fa fa-calendar"
                 onClick={() => SetopenCallender(true)}
                 aria-hidden="true"
@@ -90,7 +92,7 @@ const CalenderCard = ({verificationDate}) => {
                     className=" fa fa-close bg-secondary"
                     onClick={() => SetopenCallender(false)}
                   />
-                  <label htmlFor="start_date">Pick Month</label> <br />
+                  <label htmlFor="start_date">{t('pickMonth')}</label> <br />
                   <input
                     type="month"
                     className="form-control"
@@ -110,7 +112,7 @@ const CalenderCard = ({verificationDate}) => {
       {loading ? (
         <div className="text-center my-3">
           <div className="spinner-border text-primary" role="status">
-            <span className="sr-only">Loading...</span>
+            <span className="sr-only">{t('loading')}</span>
           </div>
         </div>
       ) : (
@@ -150,8 +152,8 @@ const CalenderCard = ({verificationDate}) => {
                       : item.completedTasks) ?? 0}
                     /{item.createdTasks ?? 0}{' '}
                     {moment(item?.date).format('YY-MM-DD') <= moment(Date.now()).format('YY-MM-DD')
-                      ? 'Completed'
-                      : 'Future Task'}
+                      ? t('completed')
+                      : t('futureTask')}
                     {item?.createdTasks && item?.createdTasks <= item?.completedTasks ? (
                       <img src="/images/rocket.png" className="emojiCalendersm rot" alt="Rocket" />
                     ) : item.completedTasks >= 10 ? (

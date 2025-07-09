@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
+import { useTranslation } from 'react-i18next';
 import { openInNewTab } from "../../../utils/functions/functions";
 import paypal from "../../../assets/Icons/paypal.svg";
 import visa from "../../../assets/Icons/visa.svg";
@@ -6,8 +7,11 @@ import mastercard from "../../../assets/Icons/mastercard.svg";
 import express from "../../../assets/Icons/express.svg";
 
 function Footer() {
+  const { t, i18n } = useTranslation();
   const email = process.env.REACT_APP_EMAIL;
   const number = process.env.REACT_APP_PHONE_NUMBER;
+
+  const [selectedLang, setSelectedLang] = useState('EN');
 
   useEffect(() => {
     const tooltipTriggerList = [].slice.call(
@@ -18,6 +22,38 @@ function Footer() {
       const tooltip = new window.bootstrap.Tooltip(tooltipTriggerEl);
     });
   }, []);
+
+  const languages = useMemo(() => [
+    { code: 'EN', name: 'English' },
+    { code: 'FR', name: 'French' },
+    { code: 'DE', name: 'German' },
+    { code: 'ES', name: 'Spanish' },
+    { code: 'IT', name: 'Italian' },
+    { code: 'ZH', name: 'Chinese' },
+    { code: 'PT', name: 'Portuguese' },
+  ], []);
+
+  const getUserLanguage = useCallback(() => {
+    const browserLang = navigator.language || navigator.userLanguage;
+    const langCode = browserLang.split('-')[0].toUpperCase();
+    return languages.find(lang => lang.code === langCode) ? langCode : 'EN';
+  }, [languages]);
+
+  useEffect(() => {
+    const storedLang = localStorage.getItem('lang');
+    const userLang = storedLang || getUserLanguage();
+    setSelectedLang(userLang);
+    i18n.changeLanguage(userLang);
+  }, [getUserLanguage, i18n]);
+
+
+  const handleChange = (e) => {
+    const lang = e.target.value;
+    setSelectedLang(lang);
+    i18n.changeLanguage(lang);
+    localStorage.setItem('lang', lang);
+  };
+
 
   const paymentGateways = [
     { img: paypal, altText: "Pay securely using PayPal" },
@@ -32,7 +68,23 @@ function Footer() {
         <div className="row m-0">
           <div className="col-lg-5">
             <img src="images/Group 2311.png" alt="" />
-            <span className="en-txt">EN</span>
+            <select
+              className="form-select w-auto"
+              value={selectedLang}
+              onChange={handleChange}
+              style={{ 
+                backgroundColor: 'inherit',
+                color: 'white',
+                border: 'none',
+                boxShadow: 'none', 
+              }}
+            >
+              {languages.map(lang => (
+                <option key={lang.code} value={lang.code}>
+                  {lang.code}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <div className="row m-0 mt-4">
@@ -41,10 +93,10 @@ function Footer() {
 
             <p>
               <small>
-              Turn everyday users into your biggest promoters Clisha.me delivers high-impact advertising through real interactions, not bots. <br />
+              {t("footer.description")} <br />
               </small>
             </p>
-            <p className="fw-bold" style={{ fontSize: '18px' }}>GET IN TOUCH – COMING SOON</p>
+            <p className="fw-bold" style={{ fontSize: '18px' }}>{t("footer.get_in_touch")}</p>
 
             <div className="d-inline">
               <img src="images/Vector (1).png" className="ml-3" alt="" data-toggle="tooltip" title="Coming Soon" />
@@ -54,9 +106,9 @@ function Footer() {
             </div>
           </div>
           <div className="col-md-4">
-            <p className="fw-bold" style={{ fontSize: '24px' }}>Contact Info</p>
+            <p className="fw-bold" style={{ fontSize: '24px' }}>{t("footer.contact_info")}</p>
             <h6>
-              <i className="fa fa-envelope" aria-hidden="true" /> Email Information{' '}
+              <i className="fa fa-envelope" aria-hidden="true" /> {t("footer.email")}
             </h6>
             <a href={`mailto:${email}`} className="text-white">
               <small>{email}</small>
@@ -64,7 +116,7 @@ function Footer() {
 
             <div className="mt-3">
               <h6>
-                <i className="fa fa-phone" aria-hidden="true" /> Phone Number{' '}
+                <i className="fa fa-phone" aria-hidden="true" /> {t("footer.phone")}
               </h6>
               <a href={`tel:${number}`} className="text-white">
                 <small>{number}</small>
@@ -73,7 +125,7 @@ function Footer() {
 
             <div className="mt-3">
               <h6>
-                <i className="fa fa-map-marker" aria-hidden="true" /> Address Information{' '}
+                <i className="fa fa-map-marker" aria-hidden="true" /> {t("footer.address")}
               </h6>
               <p>
               <small>
@@ -85,10 +137,10 @@ function Footer() {
           </div>
           <div className="col-md-4 ">
             <h6>
-              <i className="fa fa-globe" aria-hidden="true" /> SECURE PAYMENT{' '}
+              <i className="fa fa-globe" aria-hidden="true" /> {t("footer.secure_payment")}
             </h6>
-            
-            <p className="p-0">With our secure payment options, you can choose from a variety of methods for your convenience. Pay easily using Visa, PayPal, or CoinPayments for cryptocurrency transactions. Enjoy modern, secure transactions with maximum flexibility and reliability.</p>
+
+            <p className="p-0">{t("footer.payment_description")}</p>
 
             <div className="d-flex flex-wrap gap-4">
               {paymentGateways.map(({ img, altText }, index) => (
@@ -109,7 +161,7 @@ function Footer() {
               aria-label="Sign up to Clisha"
               title="Sign up to Clisha"
             >
-              Become A Member
+              {t("footer.become_member")}
             </a>
           </div>
 
@@ -131,15 +183,15 @@ function Footer() {
       <div className="container row m-0 d-flex justify-content-between align-items-center p-1">
         <div className="col-md-6 text-center mb-2 mb-md-0">
           <div className="col-12  text-center  small mt-2">
-          <span>© {new Date().getFullYear()} clisha.me, powered by VQualis. All right reserved</span>
+          <span>© {new Date().getFullYear()} {t("footer.rights")}</span>
           </div>
         </div>
 
         <div className="col-md-6 d-flex justify-content-md-end justify-content-center">
           <ul className="list-unstyled d-flex gap-3 mb-0">
-            <li onClick={() => openInNewTab("https://vqualis.com/privacy-policy/")} className="mx-2 link">Privacy</li>
+            <li onClick={() => openInNewTab("https://vqualis.com/privacy-policy/")} className="mx-2 link">{t("footer.privacy")}</li>
             <li onClick={() => openInNewTab("https://vqualis.com/terms-of-service/")} className="mx-2 link">
-              Terms of Service
+              {t("footer.terms")}
             </li>
           </ul>
         </div>

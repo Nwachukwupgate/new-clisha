@@ -1,6 +1,8 @@
-import { translate } from '../../../../utils/translation';
+import { useTranslation } from 'react-i18next';
 
-function index({ card }) {
+function WeLoveAffiliates({ card }) {
+  const { t } = useTranslation();
+  const cards = t('card1', { returnObjects: true }) || card.card1;
   return (
     <div className="we-love-affiliate p-md-4 p-1 pt-5">
       <div className="container text-center mt-3">
@@ -10,7 +12,7 @@ function index({ card }) {
           data-aos-duration="1000"
           // data-aos-delay="100"
         >
-          <b>We Love Our Users</b>
+          <b>{t('weLoveUsers')}</b>
         </h3>
         <p
           className="col-md-8  m-auto p-0 p-lg-2"
@@ -18,14 +20,14 @@ function index({ card }) {
           data-aos-duration="1300"
           // data-aos-delay="600"
         >
-          {translate('weLoveAffifialte')}
+          {t('weLoveAffifialte')}
         </p>
       </div>
       <div className="bg-we-love-2">
         <div className="container pt-lg-5">
           <div className="row m-0 mt-5">
-            {card &&
-              card.card1.map((item, innerIndex) => (
+            {cards &&
+              cards.map((item, innerIndex) => (
                 <div
                   className="card maincard mb-4 bg-white shadow text-center p-3 mx-auto col-lg-6 "
                   key={innerIndex}
@@ -55,4 +57,4 @@ function index({ card }) {
   );
 }
 
-export default index;
+export default WeLoveAffiliates;

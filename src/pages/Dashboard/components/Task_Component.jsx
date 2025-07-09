@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 function Task_Component() {
+  const { t } = useTranslation();
   const topUsers = useSelector((state) => state.general.topUsers);
   // console.log(topUsers)
   // const imgNull = "http://app.clisha.me/api/assets/profile/null";
@@ -21,7 +23,7 @@ function Task_Component() {
                 aria-controls="nav-home"
                 aria-selected="true"
               >
-                Latest Top 10
+                {t('latestTop10')}
               </button>
             </div>
           </nav>
@@ -32,7 +34,7 @@ function Task_Component() {
               role="tabpanel"
               aria-labelledby="nav-home-tab"
             >
-              <span className="text-muted com_Txt  pl-2"> Community Member completed tasks</span>
+              <span className="text-muted com_Txt  pl-2"> {t('communityCompleted')}</span>
 
               {/* images group */}
               <div className="users_groups">

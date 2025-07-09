@@ -1,7 +1,9 @@
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import ProfilePicture from '../../../utils/ProfilePicture';
 
 function HeaderWelcomeMobile(props) {
+  const { t } = useTranslation();
   const username = localStorage.getItem('username');
   const { date, user } = props;
   const rank = useSelector((state) => state.rank);
@@ -9,13 +11,16 @@ function HeaderWelcomeMobile(props) {
   return (
     <div className="welcome mobile p-0 my-4  d-block d-lg-none">
       <span className="text-muted font-weight-bold d-block text-capitalize p-2">
-        hello, {username}! <small className="float-right">{date}</small>
+        {t('headerWelcome.greeting', { username })} <small className="float-right">{date}</small>
       </span>
       <div className="section-head p-2">
         <h6 className=" text-capitalize mt-3 d-inline">
           <b>
             {' '}
-            your Ranking Position {user && user?.rank?.position}/{rank?.data?.totalItems}
+            {t('headerWelcome.ranking', {
+              position: user && user?.rank?.position,
+              total: rank?.data?.totalItems,
+            })}
           </b>
         </h6>
       </div>

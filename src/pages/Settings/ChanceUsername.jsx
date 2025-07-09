@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 // import { useDispatch } from 'react-redux';
 import Loading from '../../components/Alerts/Loading';
 // import { ChangePasswordData } from '../../store/General';
@@ -11,6 +12,8 @@ function ChangeUsername() {
   const config = { headers: { Authorization: `bearer ${token}` } };
   const [userDetails, setUserDetails] = useState();
   const [loading, setIsLoading] = useState(false);
+  const { t } = useTranslation();
+  // const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,7 +36,7 @@ function ChangeUsername() {
 
       {/* <p> */}
       <h6 className="p-0 m-0">
-        Change Username
+        {t('account.change_username')}
         <a
           className="link float-right text-dark p-1"
           data-toggle="collapse"
@@ -49,12 +52,12 @@ function ChangeUsername() {
       <form className="collapse" id="changeusername" onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="New Username"
+          placeholder={t('account.new_username')}
           className="form-control"
           onChange={(e) => setUserDetails({ ...userDetails, username: e.target.value })}
         />
 
-        <button className="btn btn-primary">Update</button>
+        <button className="btn btn-primary">{t('account.update')}</button>
       </form>
       <ToastContainer
         position="top-right"

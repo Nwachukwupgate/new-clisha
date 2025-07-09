@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import Sidebar from '../../layouts/Sidebar';
 import Header from '../../layouts/Header';
 import SidebarTour from '../../layouts/SidebarTour';
 import Loading from '../../components/Alerts/Loading';
 
 function Help() {
+  const { t } = useTranslation();
   const api = process.env.REACT_APP_API;
   const token = window.localStorage.getItem('token');
   const user = useSelector((state) => state.user.data);
@@ -54,10 +56,10 @@ function Help() {
           <div className="col-md-8 col-lg-10 py-3 scroll-bg bg-white p-0">
             <div className="container text-center p-0 p-md-3 pt-4">
               <form className="changepassword col-md-6 shadow" onSubmit={handleSubmit}>
-                <h6>Contact Us</h6>
+                <h6>{t('help.contact_us')}</h6>
                 <input
                   type="text"
-                  placeholder="Subject"
+                  placeholder={t('help.subject')}
                   className="form-control"
                   onChange={(e) => setUserDetails({ ...userDetails, subject: e.target.value })}
                 />
@@ -66,12 +68,12 @@ function Help() {
                   id=""
                   cols="30"
                   rows="10"
-                  placeholder="Write here..."
+                  placeholder={t('help.message_placeholder')}
                   className="form-control mb-3"
                   onChange={(e) => setUserDetails({ ...userDetails, message: e.target.value })}
                 />
                 <button className="btn btn-primary">
-                  Post <i className="fa fa-paper-plane" aria-hidden="true" />
+                  {t('help.post')} <i className="fa fa-paper-plane" aria-hidden="true" />
                 </button>
               </form>
             </div>

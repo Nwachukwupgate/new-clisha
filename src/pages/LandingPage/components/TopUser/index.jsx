@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { getRank } from '../../../../store/Rank';
 import ProfilePicture from '../../../../utils/ProfilePicture';
 import Loading from '../../../../components/Alerts/Loading';
@@ -51,6 +52,8 @@ function Paginate() {
     //   floatRight.removeEventListener('click', handleRightClick);
     // };
   }, [rank]); 
+
+  const { t } = useTranslation();
   
   if (loading) {
     return <Loading />;
@@ -62,7 +65,7 @@ function Paginate() {
         <div className="row mb-4 mx-0">
           <div className="col-7">
             <h3 className="top-companies-txt ml-md-3">
-              <b>Top 10 Users (Rank)</b>
+              <b>{t('topUsersRank')}</b>
             </h3>
           </div>
           <div className="col-5 text-right">
@@ -104,7 +107,7 @@ function Paginate() {
 
               <div className="card-body px-2">
                 <div className="investment">
-                  <small>Total Point</small>
+                  <small>{t('totalPoint')}</small>
                   <span className="float-right">
                     <span className="m-text">{item.total_points}</span>
                   </span>
@@ -116,7 +119,7 @@ function Paginate() {
                   title="coming soon"
                   className="btn btn-danger mt-3 shadow rounded-x w-100"
                 >
-                  <small>View Profile</small>
+                  <small>{t('viewProfile')}</small>
                 </button>
               </div>
             </div>

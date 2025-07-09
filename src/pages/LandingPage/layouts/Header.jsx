@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import NavBarScroll from '../../../utils/NavBarScroll';
 import MainNavbar from '../../../components/Nav/MainNavbar';
 import FirstNavbar from '../../../components/Nav/FirstNavbar';
 
 function Header() {
+  const { t } = useTranslation();
   useEffect(() => NavBarScroll(), []);
 
   return (
@@ -29,7 +31,7 @@ function Header() {
             data-aos-duration="900"
             data-aos-delay="1000"
           >
-            The future for digital advertising
+            {t('header.futureAd')}
           </p>
           <h2
             className="col-lg-6 col-12 mx-auto my-lg-2"
@@ -37,7 +39,7 @@ function Header() {
             data-aos-easing="ease-in-sine"
             data-aos-duration="1000"
           >
-            <b>Click, Like, Share, and get profits from the companies.</b>
+            <b>{t('header.ctaHeadline')}</b>
           </h2>
           <div className=" mt-4 row m-0">
             <div className="col-8 mx-auto">
@@ -50,7 +52,7 @@ function Header() {
                 data-aos-duration="1000"
                 data-aos-delay="1200"
               >
-                Sign Up
+                {t('navbar.signup')}
               </Link>
               {/* <Link
                 to="/become-partner"

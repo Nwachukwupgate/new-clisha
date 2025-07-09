@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/Sidebar';
 import SidebarTour from '../../layouts/SidebarTour';
@@ -20,6 +21,7 @@ import {
 } from '../../store/Task';
 
 function Task() {
+  const { t } = useTranslation();
   const [isChrome, setIsChrome] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -77,10 +79,10 @@ function Task() {
           </div>
           <div className="col-md-8 col-lg-10 py-3 scroll-bg bg-white p-0 p-md-3">
             <div className="container">
-              <Welcome welcome="Your Tasks" />
+              <Welcome welcome={t('yourTasks')} />
               {!isChrome && showPopup && (
                 <div className="alert alert-warning" role="alert">
-                  For a better experience and more tasks, please use Google Chrome browser.
+                  {t('chromeWarning')}
                 </div>
               )}
               <nav>
@@ -99,7 +101,7 @@ function Task() {
                       aria-controls="nav-home"
                       aria-selected="true"
                     >
-                      <span className="  d-none d-md-block">All Task</span>
+                      <span className="  d-none d-md-block">{t('allTasks')}</span>
                       <i className="fa fa-tags  d-md-none" aria-hidden="true" />
                     </a>
                   )}
@@ -112,7 +114,7 @@ function Task() {
                     aria-controls="nav-profile"
                     aria-selected="false"
                   >
-                    <span className="  d-none d-md-block">Website Task</span>
+                    <span className="  d-none d-md-block">{t('websiteTask')}</span>
                     <i className="fa fa-globe  d-md-none" aria-hidden="true" />
                   </a>
                   {isChrome && (
@@ -126,7 +128,7 @@ function Task() {
                         aria-controls="nav-contact"
                         aria-selected="false"
                       >
-                        <span className="d-none d-md-block">Google Task</span>
+                        <span className="d-none d-md-block">{t('googleTask')}</span>
                         <i className="fa fa-search  d-md-none " aria-hidden="true" />
                       </a>
                       <a
@@ -138,7 +140,7 @@ function Task() {
                         aria-controls="nav-journey"
                         aria-selected="false"
                       >
-                        <span className="  d-none d-md-block">Journey Task</span>
+                        <span className="  d-none d-md-block">{t('journeyTask')}</span>
                         <i className="fa fa-search fa-rocket  d-md-none " aria-hidden="true" />
                       </a>
                       <a
@@ -150,7 +152,7 @@ function Task() {
                         aria-controls="nav-search-journey"
                         aria-selected="false"
                       >
-                        <span className="d-none d-md-block">Search Journey</span>
+                        <span className="d-none d-md-block">{t('searchJourney')}</span>
                         <i className="fas fa-vr-cardboard d-md-none" />
                       </a>
                     </>

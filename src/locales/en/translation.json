@@ -1,0 +1,163 @@
+{
+  "footer": {
+    "description": "Turn everyday users into your biggest promoters. Clisha.me delivers high-impact advertising through real interactions, not bots.",
+    "get_in_touch": "GET IN TOUCH – COMING SOON",
+    "contact_info": "Contact Info",
+    "email": "Email Information",
+    "phone": "Phone Number",
+    "address": "Address Information",
+    "secure_payment": "SECURE PAYMENT",
+    "payment_description": "With our secure payment options, you can choose from a variety of methods for your convenience. Pay easily using Visa, PayPal, or CoinPayments for cryptocurrency transactions. Enjoy modern, secure transactions with maximum flexibility and reliability.",
+    "become_member": "Become A Member",
+    "rights": "powered by VQualis. All rights reserved",
+    "privacy": "Privacy",
+    "terms": "Terms of Service"
+  },
+  "navbar": {
+    "login": "Login",
+    "signup": "Sign Up"
+  },
+  "header": {
+    "futureAd": "The future for digital advertising",
+    "ctaHeadline": "Click, Like, Share, and get profits from the companies."
+  },
+  "usePlatform": "Earn money by clicking, liking and sharing – Our platform pays you in tokens, real money and credits. Boost your bank balance.",
+  "usePlatformSignup": "Clisha offers easy registration and lets you expand your profile. This helps you earn more and make the most of the platform.",
+  "usePlatformGetTask": "Complete daily tasks from various companies on Clisha to earn money, tokens, or credits.",
+  "usePlatformGainPoint": "Cash out USDT directly to your wallet with Clisha for fast and secure transfers.",
+  "weLoveAffiliate": "Clisha lets you earn by clicking, liking, and sharing. Earn tokens, real money, or credits as you engage online, and recruit others to boost your income.",
+  "weLoveAffiliatesSignup": "Sign up for free now and start helping companies with their digital marketing.",
+  "weLoveAffiliatesAccounts": "Complete your profile to get better-tailored daily tasks that match your interests.",
+  "weLoveAffiliatesTools": "Use our digital tools to successfully complete daily marketing tasks.",
+  "weLoveAffiliatesAccountsGetReward": "Rise on the leaderboard by completing tasks and gain Clisha recognition.",
+  "SpeedyMarketing": "By joining Clisha as a business, you can leverage the power of community to position your company and increase visibility. With Clisha, you can increase your profits by reaching a wider audience and engaging with customers in a more interactive way. Whether you're a small business or a large corporation, Clisha is an effective way to boost your online presence and drive sales. Sign up now and see the difference for yourself.",
+  "dailyTaskParagraph": "Become part of our Clisha community and benefit from daily daily tasks for your brand to increase your company's visibility and increase your profits. As a business in our community, you have the opportunity to see your business grow daily, gaining higher visibility and increased profits.",
+  "dailyTaskSubParagraph": "Take the chance to place yourself in the future of marketing and increase your income. Be there and become part of Clisha!",
+  "whatisClishaUserActivity": "Gain access to a growing daily community that strengthens your online presence and revenue.",
+  "whatisClishaUserActivityDailyTask": "Create daily tasks tailored to your needs and track progress in real time.",
+  "whatisClishaUserActivityDailyTaskDigitalTools": "Use our digital tools for more effective community engagement and faster results.",
+  "whatisClishaUserActivityDailyTaskPublisher": "Let the community take an active role by publishing content that highlights your business.",
+  "FlexiblePlan": "Choose flexible monthly billing or enjoy discounts with annual prepayment.",
+  "users_on_platform": "How Users Work on Our Platform",
+  "getTask": "Get Task",
+  "earnPoint": "Earn Point",
+  "weLoveAffifialte": "We at Clisha believe in empowering our users by helping them earn while supporting businesses.",
+   "card1": [
+    {
+      "img": "images/card1.png",
+      "title": "Signup",
+      "description": "Sign up now for free and start immediately supporting companies in their digital marketing efforts."
+    },
+    {
+      "img": "images/card2.png",
+      "title": "Accounts",
+      "description": "Expand your account and fill out your profile with questions to receive daily tasks that are better tailored to your interests."
+    },
+    {
+      "img": "images/card3.png",
+      "title": "Tools",
+      "description": "Use the various tools we provide you to successfully complete your daily tasks in digital marketing."
+    },
+    {
+      "img": "images/card4.png",
+      "title": "Get Reward",
+      "description": "Clisha recognition and increase your ranking by completing your daily tasks and rising to the top of the leader board."
+    }
+  ],
+  "weLoveUsers": "We Love Our Users",
+  "newOnlineDailyTask": "New Online Daily Task",
+  "signUpToday": "Sign Up Today",
+  "topUsersRank": "Top 10 Users (Rank)",
+  "totalPoint": "Total Point",
+  "viewProfile": "View Profile",
+  "helloUser": "Hello, {{username}}!",
+  "todayHeading": "Today",
+  "startTasks": "Start tasks",
+  "totalCoin": "Total Coin",
+  "youAreDone": "You are {{percent}}% done",
+  "verifyAccount": "Please verify your account here",
+  "updateProfile": "Please update your profile here",
+  "claimBonus": "Claim bonus",
+  "upgrade": "Upgrade",
+  "profileAlert": "Your profile is {{percent}}% complete",
+  "claimNoticeTitle": "Clishacoins Bonus Points Notice! 🌟",
+  "claimNoticeBody": "This month, you didn’t qualify for the bonus, but no worries—you can earn it next month! Just stay active by engaging with tasks for 25 days and completing at least 10 tasks daily. We’re excited to see you participate and achieve your rewards!",
+  "updateNotice": "Download New Extension Update",
+  "cardTitle": "Get More Reward",
+  "cardText": "click to add or update latest Chrome Browser Extension for more tasks and more rewards",
+  "downloadTitle": "Open Clisha Extension",
+  "calendarStatistics": "Statistics",
+  "pickMonth": "Pick Month",
+  "loading": "Loading...",
+  "completed": "Completed",
+  "futureTask": "Future Task",
+  "noTasksForMonth": "There is no task for the month of {{month}}",
+  "YouGot": "You’ve got",
+  "latestTop10": "Latest Top 10",
+  "communityCompleted": "Community Member completed tasks",
+  "yourTasks": "Your Tasks",
+  "chromeWarning": "For a better experience and more tasks, please use Google Chrome browser.",
+  "allTasks": "All Tasks",
+  "websiteTask": "Website Task",
+  "googleTask": "Google Task",
+  "journeyTask": "Journey Task",
+  "searchJourney": "Search Journey",
+  "teamTable": {
+    "title": "All Referred Members",
+    "searchPlaceholder": "Search for members",
+    "headerMembers": "Members",
+    "headerEmail": "Email",
+    "headerRank": "Rank",
+    "headerPoints": "Points/Clishacoins",
+    "headerDate": "Date Entry",
+    "copyEmail": "Copy Email",
+    "userNotFound": "User Not Found"
+  },
+  "headerWelcome": {
+    "greeting": "hello, {{username}}!",
+    "ranking": "your Ranking Position {{position}}/{{total}}",
+    "rankTitle": "AdStar",
+    "rankNamePrefix": ""
+  },
+  "profilePage": {
+    "backToDashboard": "Back to Dashboard",
+    "showProfilePhoto": "Show Profile Photo",
+    "editProfile": "Edit Profile",
+    "closeEditor": "Close Editor"
+  },
+  "profile": {
+    "personal_info": "Personal Info",
+    "name": "Name",
+    "gender": "Gender",
+    "birth_date": "Birth Date",
+    "contact_info": "Contact Info",
+    "email": "E‑mail",
+    "phone": "Phone",
+    "country": "Country",
+    "language": "Language",
+    "region": "Region"
+  },
+
+  "account": {
+    "change_username": "Change Username",
+    "new_username": "New Username",
+    "update": "Update",
+    "change_password": "Change Password",
+    "current_password": "Current Password",
+    "new_password": "New Password",
+    "confirm_password": "Confirm Password",
+    "success_username": "Successfully Updated Username",
+    "error_username": "Invalid Username details",
+    "success_password": "Successfully Updated Password",
+    "error_password": "Invalid Password details"
+  },
+
+  "help": {
+    "contact_us": "Contact Us",
+    "subject": "Subject",
+    "message_placeholder": "Write here...",
+    "post": "Post",
+    "message_sent": "Message sent successfully! We will respond within 24 hours",
+    "message_error": "Message was not sent"
+  }
+}

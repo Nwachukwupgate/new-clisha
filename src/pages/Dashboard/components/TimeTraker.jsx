@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 // import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 
 function TimeTraker({setShowGuide}) {
   // const [showTooltip, setShowTooltip] = useState(false);
   // const extensionDownloadLink = '/clishaMe20250325-Extension.zip';
+  const { t } = useTranslation();
   const [showUpdateTooltip, setShowUpdateTooltip] = useState(false);
 
   const hasExt = window.localStorage.getItem('hasExt');
@@ -42,16 +44,16 @@ function TimeTraker({setShowGuide}) {
           onClick={handleUpdateDownload}
           style={{ cursor: 'pointer', marginBottom: '3px' }}
         >
-          <strong>Download New Extension Update</strong>
+          <strong>{t('updateNotice')}</strong>
         </div>
       )}
 
       {hasExt !== 'true' && (
         <div className="time_tracer_card row m-0 px-md-3 mt-2 shadow">
           <div className="col-9 px-0 ">
-            <h6 className="b">Get More Reward</h6>
+            <h6 className="b">{t('cardTitle')}</h6>
             <small>
-              click to add or update latest Chrome Browser Extension for more tasks and more rewards
+              {t('cardText')}
             </small> 
           </div>
           {/* <div className="col-3 pl-0 ">

@@ -1,10 +1,12 @@
 import moment from 'moment';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import ProfilePicture from '../../../utils/ProfilePicture/index';
 
 function TeamTable() {
   const teams = useSelector((state) => state.general.teams);
+  const { t } = useTranslation();
   const [isCopy, setIsCopy] = useState(null);
   const [search, setSearch] = useState();
 
@@ -36,12 +38,12 @@ function TeamTable() {
     <div>
       <div className="inputBoxSearch">
         <h6 className="p-2">
-          All Referred Members <i className="fa fa-users" aria-hidden="true" />
+          {t('teamTable.title')} <i className="fa fa-users" aria-hidden="true" />
         </h6>
         <input
           className="form-control"
           type="search"
-          placeholder="Search for members"
+          placeholder={t('teamTable.searchPlaceholder')}
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
@@ -49,11 +51,11 @@ function TeamTable() {
         <table className="table text-left table-hover table-striped ">
           <thead>
             <tr>
-              <th>Members</th>
-              <th>Email</th>
-              <th>Rank</th>
-              <th>Points/Clishacoins</th>
-              <th>Date Entry</th>
+              <th>{t('teamTable.headerMembers')}</th>
+              <th>{t('teamTable.headerEmail')}</th>
+              <th>{t('teamTable.headerRank')}</th>
+              <th>{t('teamTable.headerPoints')}</th>
+              <th>{t('teamTable.headerDate')}</th>
               <th />
             </tr>
           </thead>
@@ -98,7 +100,7 @@ function TeamTable() {
                       <i
                         className="fa fa-clipboard text-muted link"
                         onClick={() => copyFunc(item, key)}
-                        title="Copy Email"
+                        title={t('teamTable.copyEmail')}
                         aria-hidden="true"
                       />
                     ) : (
@@ -113,7 +115,7 @@ function TeamTable() {
         {teams && !searchFunc().length && (
           <div className="text-center  font-weight-bold">
             <div>
-              <h4>User Not Found</h4>
+              <h4>{t('teamTable.userNotFound')}</h4>
               <img src="/images/usernotfound.png" className="w-75 m-auto" alt="" />
             </div>
           </div>

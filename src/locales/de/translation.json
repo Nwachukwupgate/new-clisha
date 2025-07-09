@@ -1,0 +1,157 @@
+{
+  "footer": {
+    "description": "Machen Sie alltägliche Nutzer zu Ihren größten Fürsprechern. Clisha.me liefert wirkungsvolle Werbung durch echte Interaktionen, nicht durch Bots.",
+    "get_in_touch": "KONTAKTIEREN SIE UNS – DEMNÄCHST VERFÜGBAR",
+    "contact_info": "Kontaktinformationen",
+    "email": "E-Mail-Informationen",
+    "phone": "Telefonnummer",
+    "address": "Adressinformationen",
+    "secure_payment": "SICHERE ZAHLUNG",
+    "payment_description": "Mit unseren sicheren Zahlungsmethoden können Sie bequem aus verschiedenen Optionen wählen. Bezahlen Sie einfach mit Visa, PayPal oder CoinPayments für Kryptowährungs-Transaktionen. Genießen Sie moderne, sichere Transaktionen mit maximaler Flexibilität und Zuverlässigkeit.",
+    "become_member": "Mitglied werden",
+    "rights": "bereitgestellt von VQualis. Alle Rechte vorbehalten",
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen"
+  },
+  "navbar": {
+    "login": "Anmelden",
+    "signup": "Registrieren"
+  },
+  "header": {
+    "futureAd": "Die Zukunft der digitalen Werbung",
+    "ctaHeadline": "Klicken, Liken, Teilen und von den Unternehmen profitieren."
+  },
+  "usePlatform": "Mit Klicks, Likes und Shares Geld verdienen – Unsere Plattform zahlt in Token, echtem Geld und Credits. Steigern Sie Ihr Guthaben.",
+  "usePlatformSignup": "Einfach anmelden und Ihr Profil erweitern – so verdienen Sie mehr und holen alles aus Clisha heraus.",
+  "usePlatformGetTask": "Erledigen Sie täglich Aufgaben für Unternehmen auf Clisha und verdienen Sie Geld, Token oder Credits.",
+  "usePlatformGainPoint": "Zahlen Sie USDT direkt auf Ihr Wallet aus – schnell und sicher mit Clisha.",
+  "weLoveAffiliate": "Verdienen Sie bei Clisha durch Klicken, Liken und Teilen. Erhalten Sie Token, echtes Geld oder Credits und rekrutieren Sie weitere Nutzer für mehr Einnahmen.",
+  "weLoveAffiliatesSignup": "Jetzt kostenlos anmelden und Unternehmen im digitalen Marketing unterstützen.",
+  "weLoveAffiliatesAccounts": "Füllen Sie Ihr Profil aus, um täglich besser passende Aufgaben zu erhalten.",
+  "weLoveAffiliatesTools": "Nutzen Sie unsere digitalen Tools, um Ihre Marketingaufgaben erfolgreich zu meistern.",
+  "weLoveAffiliatesAccountsGetReward": "Erklimmen Sie die Rangliste durch Aufgaben und erhalten Sie Anerkennung bei Clisha.",
+  "SpeedyMarketing": "Indem Sie Clisha als Unternehmen beitreten, können Sie die Kraft der Gemeinschaft nutzen, um Ihr Unternehmen zu positionieren und die Sichtbarkeit zu erhöhen. Mit Clisha steigern Sie Ihre Gewinne, indem Sie ein breiteres Publikum erreichen und mit Kunden auf interaktive Weise kommunizieren. Ob kleines Unternehmen oder großer Konzern – Clisha ist ein effektiver Weg, Ihre Online-Präsenz zu stärken und den Umsatz zu steigern. Melden Sie sich jetzt an und erleben Sie den Unterschied selbst.",
+  "dailyTaskParagraph": "Werden Sie Teil der Clisha-Community und profitieren Sie von täglichen Aufgaben für Ihre Marke, um die Sichtbarkeit Ihres Unternehmens zu erhöhen und Ihre Gewinne zu steigern. Als Unternehmen in unserer Community haben Sie die Chance, Ihr Geschäft täglich wachsen zu sehen – mit mehr Sichtbarkeit und mehr Gewinn.",
+  "dailyTaskSubParagraph": "Nutzen Sie die Chance, sich in der Zukunft des Marketings zu positionieren und Ihr Einkommen zu steigern. Seien Sie dabei und werden Sie Teil von Clisha!",
+  "whatisClishaUserActivity": "Profitieren Sie täglich von einer wachsenden Community, die Ihre Online-Präsenz und Einnahmen stärkt.",
+  "whatisClishaUserActivityDailyTask": "Erstellen Sie tägliche Aufgaben nach Ihren Bedürfnissen und verfolgen Sie den Fortschritt in Echtzeit.",
+  "whatisClishaUserActivityDailyTaskDigitalTools": "Nutzen Sie unsere digitalen Tools für effektivere Community‑Interaktion und schnellere Ergebnisse.",
+  "whatisClishaUserActivityDailyTaskPublisher": "Ermöglichen Sie der Community, aktiv Inhalte zu veröffentlichen, die Ihr Unternehmen hervorheben.",
+  "FlexiblePlan": "Wählen Sie eine flexible Monatszahlung oder sichern Sie sich Rabatte bei jährlicher Vorauszahlung.",
+  "users_on_platform": "Wie Nutzer auf unserer Plattform arbeiten",
+  "getTask": "Aufgabe erhalten",
+  "earnPoint": "Punkt verdienen",
+  "weLoveAffifialte": "Bei Clisha glauben wir daran, unsere Nutzer zu stärken, indem wir ihnen helfen, durch die Unterstützung von Unternehmen Geld zu verdienen.",
+  "card1": [
+    {
+      "img": "images/card1.png",
+      "title": "Registrieren",
+      "description": "Melden Sie sich jetzt kostenlos an und beginnen Sie sofort, Unternehmen bei ihren digitalen Marketingaktivitäten zu unterstützen."
+    },
+    {
+      "img": "images/card2.png",
+      "title": "Konten",
+      "description": "Erweitern Sie Ihr Konto und füllen Sie Ihr Profil mit Fragen aus, um tägliche Aufgaben zu erhalten, die besser auf Ihre Interessen abgestimmt sind."
+    },
+    {
+      "img": "images/card3.png",
+      "title": "Werkzeuge",
+      "description": "Nutzen Sie die verschiedenen Tools, die wir Ihnen zur Verfügung stellen, um Ihre täglichen Aufgaben im digitalen Marketing erfolgreich zu erledigen."
+    },
+    {
+      "img": "images/card4.png",
+      "title": "Belohnung erhalten",
+      "description": "Erhalten Sie Anerkennung von Clisha und steigern Sie Ihr Ranking, indem Sie Ihre täglichen Aufgaben erfüllen und an die Spitze der Bestenliste aufsteigen."
+    }
+  ],
+  "weLoveUsers": "Wir lieben unsere Nutzer",
+  "newOnlineDailyTask": "Neue tägliche Online-Aufgabe",
+  "signUpToday": "Jetzt registrieren",
+  "topUsersRank": "Top 10 Benutzer",
+  "totalPoint": "Gesamtpunktzahl",
+  "viewProfile": "Profil anzeigen",
+  "helloUser": "Hallo, {{username}}!",
+  "todayHeading": "Heute",
+  "startTasks": "Aufgaben starten",
+  "totalCoin": "Gesamt-Coin",
+  "youAreDone": "Sie sind zu {{percent}} % fertig",
+  "verifyAccount": "Bitte verifizieren Sie hier Ihr Konto",
+  "updateProfile": "Bitte aktualisieren Sie hier Ihr Profil",
+  "claimBonus": "Bonus einfordern",
+  "upgrade": "Aktualisieren",
+  "profileAlert": "Ihr Profil ist zu {{percent}} % vollständig",
+  "claimNoticeTitle": "Clishacoins Bonuspunkte Hinweis! 🌟",
+  "claimNoticeBody": "Diesen Monat haben Sie den Bonus nicht erreicht – kein Problem! Sie können ihn nächstes Monat bekommen: bleiben Sie aktiv mit 25 Tagen Aufgaben und mindestens 10 Aufgaben pro Tag. Wir freuen uns auf Ihren Erfolg!",
+  "updateNotice": "Neue Erweiterungsaktualisierung herunterladen",
+  "cardTitle": "Mehr Belohnungen erhalten",
+  "cardText": "Klicken Sie, um die neueste Chrome-Erweiterung hinzuzufügen oder zu aktualisieren und mehr Aufgaben und Belohnungen zu erhalten",
+  "downloadTitle": "Clisha-Erweiterung öffnen",
+  "calendarStatistics": "Statistiken",
+  "pickMonth": "Monat wählen",
+  "loading": "Wird geladen...",
+  "completed": "Abgeschlossen",
+  "futureTask": "Zukünftige Aufgabe",
+  "noTasksForMonth": "Es gibt keine Aufgabe für den Monat {{month}}",
+  "YouGot": "Sie haben",
+  "latestTop10": "Neueste Top 10",
+  "communityCompleted": "Gemeinschaftsmitglied hat Aufgaben abgeschlossen",
+  "yourTasks": "Deine Aufgaben",
+  "chromeWarning": "Für eine bessere Erfahrung und mehr Aufgaben verwenden Sie bitte den Google Chrome Browser.",
+  "allTasks": "Alle Aufgaben",
+  "websiteTask": "Webseiten-Aufgabe",
+  "googleTask": "Google-Aufgabe",
+  "journeyTask": "Journey-Aufgabe",
+  "searchJourney": "Search Journey",
+  "teamTable": {
+    "title": "Alle geworbenen Mitglieder",
+    "searchPlaceholder": "Nach Mitgliedern suchen",
+    "headerMembers": "Mitglieder",
+    "headerEmail": "E-Mail",
+    "headerRank": "Rang",
+    "headerPoints": "Punkte/Clishacoins",
+    "headerDate": "Eintrittsdatum",
+    "copyEmail": "E-Mail kopieren",
+    "userNotFound": "Benutzer nicht gefunden"
+  },
+  "profilePage": {
+    "backToDashboard": "Zurück zum Dashboard",
+    "showProfilePhoto": "Profilbild anzeigen",
+    "editProfile": "Profil bearbeiten",
+    "closeEditor": "Editor schließen"
+  },
+  "profile": {
+    "personal_info": "Persönliche Daten",
+    "name": "Name",
+    "gender": "Geschlecht",
+    "birth_date": "Geburtsdatum",
+    "contact_info": "Kontaktinformationen",
+    "email": "E‑Mail",
+    "phone": "Telefon",
+    "country": "Land",
+    "language": "Sprache",
+    "region": "Region"
+  },
+
+  "account": {
+    "change_username": "Benutzernamen ändern",
+    "new_username": "Neuer Benutzername",
+    "update": "Aktualisieren",
+    "change_password": "Passwort ändern",
+    "current_password": "Aktuelles Passwort",
+    "new_password": "Neues Passwort",
+    "confirm_password": "Passwort bestätigen",
+    "success_username": "Benutzername erfolgreich aktualisiert",
+    "error_username": "Ungültige Benutzerdaten",
+    "success_password": "Passwort erfolgreich aktualisiert",
+    "error_password": "Ungültige Passworteingaben"
+  },
+
+  "help": {
+    "contact_us": "Kontaktieren Sie uns",
+    "subject": "Betreff",
+    "message_placeholder": "Hier schreiben...",
+    "post": "Senden",
+    "message_sent": "Nachricht erfolgreich gesendet! Wir antworten innerhalb von 24 Stunden",
+    "message_error": "Nachricht wurde nicht gesendet"
+  }
+}

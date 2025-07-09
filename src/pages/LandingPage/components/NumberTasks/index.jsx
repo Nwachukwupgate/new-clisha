@@ -1,6 +1,8 @@
-import { translate } from '../../../../utils/translation';
+import { useTranslation } from 'react-i18next';
 
-function index() {
+
+function NumberTasks() {
+  const { t } = useTranslation();
   return (
     <div className="numbering-task container p-2 ">
       <div className="row m-0 bg-white col-lg-12 mx-auto">
@@ -11,8 +13,8 @@ function index() {
           // data-aos-delay="100"
         >
           <h1>1</h1>
-          <h4>Signup</h4>
-          <p>{translate('usePlatformSignup')}</p>
+          <h4>{t('navbar.signup')}</h4>
+          <p>{t('usePlatformSignup')}</p>
         </div>
         <div
           className="col-lg-4 col-md-6 mx-auto task task2 shadow mt-3 mt-md-0"
@@ -21,8 +23,8 @@ function index() {
           // data-aos-delay="600"
         >
           <h1 className="text-white">2</h1>
-          <h4>Get Task</h4>
-          <p>{translate('usePlatformGetTask')}</p>
+          <h4>{t('getTask')}</h4>
+          <p>{t('usePlatformGetTask')}</p>
         </div>
         <div
           className="col-lg-4 col-md-6 mx-auto mx-md-auto mx-lg-0 task shadow mt-3 mt-md-0  bg-white"
@@ -31,12 +33,12 @@ function index() {
           // data-aos-delay="600"
         >
           <h1>3</h1>
-          <h4>Earn Point</h4>
-          <p>{translate('usePlatformGainPoint')}</p>
+          <h4>{t('earnPoint')}</h4>
+          <p>{t('usePlatformGainPoint')}</p>
         </div>
       </div>
     </div>
   );
 }
 
-export default index;
+export default NumberTasks;

@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { nav } from '../../json/nav';
 
 function MainNavbar({ bg }) {
@@ -10,6 +11,7 @@ function MainNavbar({ bg }) {
     navbar_brand.src = 'logo.png';
   };
   const link = useLocation()?.pathname;
+  const { t } = useTranslation();
   return (
     <nav id="mynav_bar" className={`navbar  navbar-expand-lg border-bottom     w-100 ${bg}`}>
       <div className="container">
@@ -52,7 +54,7 @@ function MainNavbar({ bg }) {
               type="button"
               id="login_btn"
             >
-              Login
+              {t('navbar.login')}
             </Link>
 
             <Link
@@ -60,7 +62,7 @@ function MainNavbar({ bg }) {
               className="btn ml-2  heaad-btn registration-btn  shadow my-2 my-sm-0"
               type="button"
             >
-              Sign Up
+              {t('navbar.signup')}
             </Link>
           </form>
         </div>
