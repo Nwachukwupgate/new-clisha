@@ -1,27 +1,29 @@
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 function ShowProfile(props) {
+  const { t } = useTranslation();
   const formatDate = (dob) => moment(dob).format('Do MMMM YYYY');
   const { user } = props;
   const data = user.user;
   return (
     <div>
       <div className="personal-info border rounded shadow-sm py-2">
-        <span className="headText  ">PERSONAL INFO</span>
+        <span className="headText  ">{t('profile.personal_info')}</span>
 
         <div className="row m-0 bodyText p-0">
           <div className="col-lg-3 col-md-4">
-            <small>NAME</small>
+            <small>{t('profile.name')}</small>
             <span>
               {data?.firstname} {data?.lastname}
             </span>
           </div>
           <div className="col-lg-3 col-md-4">
-            <small>GENDER</small>
+            <small>{t('profile.gender')}</small>
             <span>{data?.gender}</span>
           </div>
           <div className="col-lg-3 col-md-4">
-            <small>BIRTH DATE</small>
+            <small>{t('profile.birth_date')}</small>
             <span>{formatDate(data?.birth_date)}</span>
           </div>
           {/* <div className="col-lg-3 col-md-4 d-none">
@@ -36,27 +38,27 @@ function ShowProfile(props) {
         </div>
       </div>
       <div className="personal-info my-4 border rounded shadow-sm py-2">
-        <span className="headText  ">CONTACT INFO</span>
+        <span className="headText  ">{t('profile.contact_info')}</span>
 
         <div className="row m-0 bodyText p-0">
           <div className="col-lg-3 col-md-4">
-            <small>E-MAIL</small>
+            <small>{t('profile.email')}</small>
             <span>{data?.email}</span>
           </div>
           <div className="col-lg-3 col-md-4">
-            <small>PHONE</small>
+            <small>{t('profile.phone')}</small>
             <span>{data?.phone}</span>
           </div>
           <div className="col-lg-3 col-md-4">
-            <small>COUNTRY</small>
+            <small>{t('profile.country')}</small>
             <span>{data?.country}</span>
           </div>
           <div className="col-lg-3 col-md-4">
-            <small>LANGUAGE</small>
+            <small>{t('profile.language')}</small>
             <span>{data?.language}</span>
           </div>
           <div className="col-lg-3 col-md-4">
-            <small>REGION</small>
+            <small>{t('profile.region')}</small>
             <span>{data?.region}</span>
           </div>
         </div>

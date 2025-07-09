@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -25,6 +26,7 @@ import GuidePopup from './components/GuidePopup';
 
 function Dashboard() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const user = useSelector((state: RootState) => state.user.data);
   const vendoPackage = useSelector((state: RootState) => state.wallet.vendoPackage);
@@ -245,7 +247,7 @@ function Dashboard() {
                           >
                             {vendoPackage?.data?.package_level !== 'proplus' && (
                               <button className="btn btn-primary" onClick={goToVendoUpgrade}>
-                                Upgrade
+                                {t('upgrade')}
                               </button>
                             )}
                             {isVqsClaimDay &&
@@ -256,7 +258,7 @@ function Dashboard() {
                                 onClick={transferUserVqsToVendo}
                               >
                                 {isTransferVqsLoading && <i className="fa fa-spinner fa-spin" />}{' '}
-                                Claim bonus
+                                {t('claimBonus')}
                               </button>
                             )}
                           </div>
@@ -296,9 +298,9 @@ function Dashboard() {
                                         <path d="M164.666,0C73.871,0,0.004,73.871,0.004,164.672c0.009,90.792,73.876,164.656,164.662,164.656 c90.793,0,164.658-73.865,164.658-164.658C329.324,73.871,255.459,0,164.666,0z M164.666,30c31.734,0,60.933,11.042,83.975,29.477 L59.478,248.638c-18.431-23.04-29.471-52.237-29.474-83.967C30.004,90.413,90.413,30,164.666,30z M164.666,299.328 c-31.733,0-60.934-11.042-83.977-29.477L269.854,80.691c18.431,23.043,29.471,52.244,29.471,83.979 C299.324,238.921,238.917,299.328,164.666,299.328z"/>
                                       </g>
                                     </svg>  
-                                    {' '} Clishacoins Bonus Points Notice! 🌟
+                                    {' '} {t('claimNoticeTitle')}
                                   </p>
-                                  This month, you didn’t qualify for the bonus, but no worries—you can earn it next month! Just stay active by engaging with tasks for 25 days and completing at least 10 tasks daily. We’re excited to see you participate and achieve your rewards!
+                                  {t('claimNoticeBody')}
                                 </p>
                               </div>  
                             </div> 
@@ -322,11 +324,11 @@ function Dashboard() {
                         </button>
                         {!user?.user?.email_verified_at ? (
                           <Link to="/verify" className="text-dark">
-                            <b>Please verify your account here</b>
+                            <b>{t('verifyAccount')}</b>
                           </Link>
                         ) : (
                           <Link to="/dashboard/profile" className="text-dark">
-                            <b>Please update your profile here</b>
+                            <b>{t('updateProfile')}</b>
                           </Link>
                         )}
                         <span className="d-block ">
@@ -341,15 +343,15 @@ function Dashboard() {
                       </div>
                     )}
                     <div className="nav-link point d-block d-md-none m-0 p-0 py-3 shadow-m px-2 rounded my-2 bg-light">
-                      <small className="d-block text-secondary pb-2">Total Coin</small>
+                      <small className="d-block text-secondary pb-2">{t('totalCoin')}</small>
                       <img src="/images/point.png" className="mail mr-2 " alt="" />
                       <span className="text-dark b">{user && user?.rank?.balance} Points</span>
                     </div>
                     <span className="text-muted font-weight-bold  text-capitalize">
-                      hello, {user?.user?.username}!
+                      {t('helloUser', { username: user?.user?.username })}
                     </span>
                     <h4 className=" text-capitalize mt-3 text-secondary">
-                      You’ve got{' '}
+                      {t('YouGot')}{' '}
                       {/* {task?.totalItems && task?.totalItems !== 'Undefined'
                         ? task?.totalItems + ' tasks Today'
                         : ' no task yet'} */}
@@ -394,14 +396,14 @@ function Dashboard() {
                           }`}
                         </span>
                       )}
-                      <h4>Today</h4>
+                      <h4>{t('todayHeading')}</h4>
                     </div>
                     <div className="col-6 p-0  text-right">
                       <button
                         onClick={goTask}
                         className="btn btn_task  px-md-5 px-4 shadow py-md-3"
                       >
-                        Start tasks
+                        {t('startTasks')}
                       </button>
                     </div>
                   </div>

@@ -1,14 +1,17 @@
-import { translate } from '../../../../utils/translation';
+import { useTranslation } from 'react-i18next';
 
-function index() {
+
+function HowItWorks() {
+  const { t } = useTranslation();
   return (
     <div className="how-it-works text-center p-4 ">
       <div className="col-md-8 col-lg-5 m-auto " data-aos="fade-right" data-aos-duration="1000">
         <h2 className="howitworktxt">
-          <b>How Users Work on Our Platform</b>
+          <b>{t('users_on_platform')}</b>
         </h2>
         <p data-aos="fade-left" data-aos-duration="1200">
-          {translate('usePlatform')}
+          {/* {translate('usePlatform')} */}
+          {t('usePlatform')}
         </p>
       </div>
 
@@ -30,4 +33,4 @@ function index() {
   );
 }
 
-export default index;
+export default HowItWorks;

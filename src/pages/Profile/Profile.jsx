@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import ShowProfile from './components/ShowProfile';
 import EditProfile from './components/EditProfile';
 import Header from '../../layouts/Header';
@@ -8,6 +9,7 @@ import Sidebar from './Layouts/Sidebar';
 import SidebarTour from '../../layouts/SidebarTour';
 
 function Profile() {
+  const { t } = useTranslation();
   const user = useSelector((state) => state.user.data);
   const [isEditable, setisEditable] = useState(false);
   window.localStorage.setItem('isProfile', true);
@@ -25,14 +27,14 @@ function Profile() {
             <div className="container">
               <Link to="/dashboard" className="navigator d-none d-md-block text-dark small link">
                 <i className="fa fa-long-arrow-left " aria-hidden="true" />
-                <span> Back to Dashboard</span>
+                <span> {t('profilePage.backToDashboard')}</span>
               </Link>
               <Link
                 to="/dashboard/profile-image"
                 className="navigator d-block d-md-none text-dark small link"
               >
                 <i className="fa fa-long-arrow-left " aria-hidden="true" />
-                <span> Show Profle Photo</span>
+                <span> {t('profilePage.showProfilePhoto')}</span>
               </Link>
 
               <div className="header row m-0 py-4">
@@ -55,7 +57,7 @@ function Profile() {
                       onClick={() => setisEditable(true)}
                       className="btn btn-purple col-8 col-md-8 m-auto py-md-3 py-2 b rounded-x shadow "
                     >
-                      Edit Profile
+                      {t('profilePage.editProfile')}
                     </button>
                   )}
                   {isEditable && (
@@ -63,7 +65,7 @@ function Profile() {
                       onClick={() => setisEditable(false)}
                       className="btn btn-purple col-8 col-md-8 m-auto py-md-3 py-2 b rounded-x shadow "
                     >
-                      Close Editor
+                      {t('profilePage.closeEditor')}
                     </button>
                   )}
                 </p>

@@ -6,6 +6,7 @@ import App from './App';
 import './sass/index.scss';
 import { TourProvider } from './context/TourContext';
 import { store } from './store/store';
+import './i18n'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(

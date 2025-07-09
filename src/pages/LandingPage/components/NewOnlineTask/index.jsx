@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { translate } from '../../../../utils/translation';
 
-function index() {
+function NewOnlineTask() {
+  const { t } = useTranslation();
   return (
     <div className="new-online ">
       <div className="container py-4 mb-5">
@@ -13,7 +15,7 @@ function index() {
               data-aos-duration="1500"
               // data-aos-delay="600"
             >
-              New Online Daily Task
+              {t('newOnlineDailyTask')}
             </h1>
             <p
               className="new-online-paragraph"
@@ -21,7 +23,7 @@ function index() {
               data-aos-duration="1500"
               // data-aos-delay="600"
             >
-              {translate('dailyTaskParagraph')}
+              {t('dailyTaskParagraph')}
             </p>
             <p
               className="new-online-paragraph d-none d-lg-block"
@@ -29,7 +31,7 @@ function index() {
               data-aos-duration="1500"
               // data-aos-delay="600"
             >
-              {translate('dailyTaskSubParagraph')}
+              {t('dailyTaskSubParagraph')}
             </p>
             <div className="text-center text-md-left">
               <Link
@@ -39,7 +41,7 @@ function index() {
                 data-aos-duration="1500"
                 // data-aos-delay="600"
               >
-                Sign Up Today
+                {t('signUpToday')}
               </Link>
             </div>
           </div>
@@ -59,4 +61,4 @@ function index() {
   );
 }
 
-export default index;
+export default NewOnlineTask;
