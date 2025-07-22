@@ -3,6 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import { RootState } from '../store';
 import { MessageType } from '../../types';
+import { completeTask } from '../Rank';
 
 // import url from "../../json/config";
 const api = process.env.REACT_APP_API;
@@ -95,6 +96,11 @@ export const getNotification = createAsyncThunk('task/getNotification', async ()
   return res.data.data.notifications;
 });
 
+export const getSurveyProfile = createAsyncThunk('task/getSurveyProfile', async () => {
+  const res = await axios.get(`${api}/user/survey/status`, config);
+  return res.data.data;
+});
+
 export const generalSlice = createSlice({
   name: 'general',
   initialState: {
@@ -112,6 +118,7 @@ export const generalSlice = createSlice({
     taskModalList: [],
     reloadingCalendar: false,
     loading: false,
+    completeSurveyProfile: false,
   },
 
   reducers: {
@@ -203,6 +210,15 @@ export const generalSlice = createSlice({
     builder.addCase(getNotification.fulfilled, (state, action) => {
       // Add user to the state array
       state.notification = action.payload;
+    });
+    builder
+    .addCase(getSurveyProfile.pending, (state) => {
+        state.loading = true;
+    })
+    .addCase(getSurveyProfile.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.completeSurveyProfile = action.payload;
+      state.loading = false;
     });
   },
 });

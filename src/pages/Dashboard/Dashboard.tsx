@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -12,7 +12,8 @@ import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/Sidebar';
 import SidebarTour from '../../layouts/SidebarTour';
 import { apiCall } from '../../services/apiRequestManager';
-import { RootState } from '../../store/store';
+import { RootState, AppDispatch } from '../../store/store';
+import { getSurveyProfile } from '../../store/General';
 import { User } from '../../types';
 import CalenderCard from './components/CalenderCard';
 import LoadTask from './components/Load_Task';
@@ -22,16 +23,24 @@ import TodaysTask from './components/TodaysTask';
 import Wallet from './components/Wallet';
 import BonusPopup from './components/BonusPopup';
 import GuidePopup from './components/GuidePopup';
+import SurveyForm from '../Profile/components/survey/SurveyForm';
 
 
 function Dashboard() {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(getSurveyProfile());
+  }, [dispatch]);
 
   const user = useSelector((state: RootState) => state.user.data);
   const vendoPackage = useSelector((state: RootState) => state.wallet.vendoPackage);
+  const surveyProfileLoading = useSelector((state: RootState) => state.general.loading);
   const userLoading = useSelector((state: RootState) => state.user.loading);
   const task = useSelector((state: RootState) => state.task.data);
+  const completeSurveyProfile = useSelector((state: RootState) => state.general.completeSurveyProfile);
   const [isVqsClaimPeriod, setIsVqsClaimPeriod] = useState(false);
   const [isVqsClaimDay, setIsVqsClaimDay] = useState(false);
   const [isTransferVqsLoading, setIsTransferVqsLoading] = useState(false);
@@ -43,7 +52,6 @@ function Dashboard() {
   const [showGuide, setShowGuide] = useState(false);
   const verificationDate = user?.user?.email_verified_at
   const [qualifiedForBonus, setQualifiedForBonus] = useState(false);
-  // console.log("datee", verificationDate)
 
 
   useEffect(() => {
@@ -420,6 +428,7 @@ function Dashboard() {
         <BonusPopup onClose={() => setShowBonusPopup(false)} user={user} vendoPackage={vendoPackage} />
       )}
       {showGuide && <GuidePopup show={showGuide} onClose={() => setShowGuide(false)} />}
+      {!surveyProfileLoading && !completeSurveyProfile && <SurveyForm />}
     </div>
   );
 }
