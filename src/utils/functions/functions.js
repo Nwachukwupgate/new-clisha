@@ -78,3 +78,52 @@ export const validateSignupForm = (signupDetails, isDev) => {
 
   return errors;
 };
+
+export const handleSingleChoice = (questionKey, value, setFormData) => {
+  if (questionKey === 'hasChildren') {
+    setFormData(prev => ({
+      ...prev,
+      hasChildren: value.toLowerCase().replace(' ', '_')
+      }));
+    } else if (questionKey === 'consentLevel') {
+      const consentMap = {
+        "Yes, that's fine": 'yes',
+        "No, I'd prefer not": 'no',
+        "Only anonymously": 'anonymous'
+      };
+      setFormData(prev => ({
+        ...prev,
+        consentLevel: consentMap[value]
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        singleChoiceAnswers: {
+          ...prev.singleChoiceAnswers,
+          [questionKey]: value
+        }
+      }));
+    }
+};
+
+// Handle multi choice answers
+export const handleMultiChoice = (questionKey, value, checked, setFormData) => {
+    setFormData(prev => {
+      const currentAnswers = prev.multiChoiceAnswers[questionKey] || [];
+      let newAnswers;
+
+      if (checked) {
+        newAnswers = [...currentAnswers, value];
+      } else {
+        newAnswers = currentAnswers.filter(answer => answer !== value);
+      }
+
+      return {
+        ...prev,
+        multiChoiceAnswers: {
+          ...prev.multiChoiceAnswers,
+          [questionKey]: newAnswers
+        }
+      };
+    });
+};
