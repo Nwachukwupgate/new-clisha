@@ -4,7 +4,13 @@ import { useTranslation } from 'react-i18next';
 function ShowProfile(props) {
   const { t } = useTranslation();
   const formatDate = (dob) => moment(dob).format('Do MMMM YYYY');
-  const { user } = props;
+  const { user, surveyProfile } = props;
+
+  function formatKey(key) {
+    if (typeof key !== 'string') return '';
+    return key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  }
+
   const data = user.user;
   return (
     <div>
@@ -63,6 +69,64 @@ function ShowProfile(props) {
           </div>
         </div>
       </div>
+
+      <div className="personal-info my-4 border rounded shadow-sm py-2">
+        <span className="headText">More Details</span>
+
+        <div className="row m-0 bodyText p-0">
+          {surveyProfile?.hasChildren !== null && (
+            <div className="col-lg-3 col-md-4">
+              <small>Has Children:</small>
+              <span> {formatKey(surveyProfile?.hasChildren)}</span>
+            </div>
+          )}
+
+          {surveyProfile?.numberOfChildren && (
+            <div className="col-lg-3 col-md-4">
+              <small>Number of Children:</small>
+              <span> {surveyProfile?.numberOfChildren}</span>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {surveyProfile?.singleChoiceAnswers?.length > 0 && (
+        <div className="personal-info my-4 border rounded shadow-sm py-2">
+          <span className="headText">Single Choice Answers</span>
+
+          <div className="row m-0 bodyText p-0">
+            {surveyProfile.singleChoiceAnswers.map((ans, i) => (
+              <div className="col-lg-3 col-md-4" key={i}>
+                <small>{formatKey(ans.questionKey)}:</small>
+                <span> {ans.value}</span>
+              </div>               
+            ))}
+          </div>
+        </div>    
+      )}
+      
+      {surveyProfile?.multiChoiceAnswers?.length > 0 && (
+      <div className="personal-info my-4 border rounded shadow-sm py-2">
+        <span className="headText">Multi Choice Answers</span>
+
+        <div className="row m-0 bodyText p-0">      
+          {Object.entries(
+            surveyProfile.multiChoiceAnswers.reduce((acc, ans) => {
+              if (!acc[ans.questionKey]) acc[ans.questionKey] = [];
+              acc[ans.questionKey].push(ans.value);
+              return acc;
+            }, {})
+          ).map(([questionKey, values]) => (
+            <div className="col-lg-3 col-md-4" key={values}>
+              <small>{formatKey(questionKey)}:</small>
+              <span> {values.join(', ')}</span>
+            </div>
+          ))}        
+        </div>
+      </div>
+      )}
+
+
       <div className="personal-info border rounded shadow-sm py-2 d-none">
         <span className="headText">HOBBIE</span>
         <div className="row m-0 bodyText p-0">
