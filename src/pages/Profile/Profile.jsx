@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ShowProfile from './components/ShowProfile';
@@ -7,12 +7,22 @@ import EditProfile from './components/EditProfile';
 import Header from '../../layouts/Header';
 import Sidebar from './Layouts/Sidebar';
 import SidebarTour from '../../layouts/SidebarTour';
+import { getUserSurveyProfile } from '../../store/General';
+
 
 function Profile() {
   const { t } = useTranslation();
   const user = useSelector((state) => state.user.data);
+  const surveyProfile = useSelector((state) => state.general.surveyProfile);
+  const dispatch = useDispatch();
   const [isEditable, setisEditable] = useState(false);
   window.localStorage.setItem('isProfile', true);
+
+  useEffect(() => {
+    if (!surveyProfile) {
+      dispatch(getUserSurveyProfile());
+    }
+  }, [surveyProfile, dispatch]);
 
   return (
     <div className="body-content">
@@ -71,7 +81,7 @@ function Profile() {
                 </p>
               </div>
               <div className="body">
-                {!isEditable && <ShowProfile user={user} isEditable={isEditable} />}
+                {!isEditable && <ShowProfile user={user} isEditable={isEditable} surveyProfile={surveyProfile} />}
                 {isEditable && <EditProfile user={user} isEditable={isEditable} />}
               </div>
             </div>
