@@ -17,7 +17,13 @@ const SurveyForm = () => {
             <h4 className="modal-title text-primary fw-bold">
               <i className="fas fa-clipboard-list me-2" />Complete Your Profile
             </h4>
-            {/* <button className="btn-close" onClick={() => setShowModal(false)} /> */}
+            <button
+              onClick={() => setShowModal(false)}
+              className="btn text-dark fs-3 lh-1 border-0 bg-transparent"
+              aria-label="Close"
+            >
+              &times;
+            </button>
           </div>
 
           <div className="modal-body p-0">
