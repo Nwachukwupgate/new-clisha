@@ -123,7 +123,7 @@ export const generalSlice = createSlice({
     taskModalList: [],
     reloadingCalendar: false,
     loading: false,
-    completeSurveyProfile: false,
+    completeSurveyProfile: null as any,
     surveyProfile: null as any,
   },
 

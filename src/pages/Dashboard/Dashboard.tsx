@@ -428,7 +428,13 @@ function Dashboard() {
         <BonusPopup onClose={() => setShowBonusPopup(false)} user={user} vendoPackage={vendoPackage} />
       )}
       {showGuide && <GuidePopup show={showGuide} onClose={() => setShowGuide(false)} />}
-      {!surveyProfileLoading && !completeSurveyProfile && <SurveyForm />}
+      {!surveyProfileLoading && completeSurveyProfile?.shouldShow && 
+      <SurveyForm 
+        initialSurveyData={completeSurveyProfile.survey}
+        initialStep={completeSurveyProfile.currentStep || 1}
+        isUpdate={completeSurveyProfile.isUpdate || false}
+        // onComplete={handleSurveyComplete} 
+      />}
     </div>
   );
 }
