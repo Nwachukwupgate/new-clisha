@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { getSurveyProfile } from '../store/General';
 import { steps } from '../json/survey';
 
 
-export const useSurveyForm = () => {
+export const useSurveyForm = (initialSurveyData = null, initialStep = 1) => {
   const [formData, setFormData] = useState({
     hasChildren: '',
     numberOfChildren: null,
@@ -19,10 +19,25 @@ export const useSurveyForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(true);
+  const [isUpdate, setIsUpdate] = useState(false);
 
   const api = process.env.REACT_APP_API;
   const token = window.localStorage.getItem('token');
   const config = { headers: { Authorization: `bearer ${token}` } };
+
+  useEffect(() => {
+    if (initialSurveyData) {
+      setFormData({
+        hasChildren: initialSurveyData.hasChildren || '',
+        numberOfChildren: initialSurveyData.numberOfChildren || null,
+        consentLevel: initialSurveyData.consentLevel || '',
+        singleChoiceAnswers: initialSurveyData.singleChoiceAnswers || {},
+        multiChoiceAnswers: initialSurveyData.multiChoiceAnswers || {}
+      });
+      setCurrentStep(initialSurveyData.currentStep || initialStep);
+      setIsUpdate(initialSurveyData.completed || false);
+    }
+  }, [initialSurveyData, initialStep]);
 
   const handleSingleChoice = (questionKey, value) => {
     if (questionKey === 'hasChildren') {
@@ -55,32 +70,74 @@ export const useSurveyForm = () => {
   };
 
   const goToNextStep = () => {
-    if (currentStep < steps.length) setCurrentStep(currentStep + 1);
+    if (currentStep < steps.length) {
+      const nextStep = currentStep + 1;
+      setCurrentStep(nextStep);
+      // Save progress when moving to next step
+      saveProgress(nextStep);
+    }
   };
 
   const goToPreviousStep = () => {
-    if (currentStep > 1) setCurrentStep(currentStep - 1);
+    if (currentStep > 1) {
+      const prevStep = currentStep - 1;
+      setCurrentStep(prevStep);
+      // Save progress when moving to previous step
+      saveProgress(prevStep);
+    }
   };
 
   const goToStep = (stepNumber) => {
     setCurrentStep(stepNumber);
+    saveProgress(stepNumber);
+  };
+
+  // Save progress without completing
+  const saveProgress = async (step = currentStep) => {
+    try {
+      const progressData = {
+        ...formData,
+        currentStep: step,
+        isComplete: false
+      };
+
+      await axios.post(`${api}/user/submit/survey/profile`, progressData, config);
+    } catch (error) {
+      console.error('Error saving progress:', error);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    axios
-        .post(`${api}/user/submit/survey/profile`, formData, config)
-        .then((result) => {
-        setIsLoading(false);
-        setShowModal(false);
-        dispatch(getSurveyProfile());
-        toast.success('Survey Profile submitted successfully!');
-        })
-        .catch((err) => {
-        toast.error('Error submitting Profile.');
-        setIsLoading(false);
-        });
+    
+    try {
+      const submitData = {
+        ...formData,
+        currentStep: steps.length,
+        isComplete: true
+      };
+
+      const result = await axios.post(`${api}/user/submit/survey/profile`, submitData, config);
+      
+      setIsLoading(false);
+      setShowModal(false);
+      dispatch(getSurveyProfile());
+      
+      const message = isUpdate ? 'Survey updated successfully!' : 'Survey completed successfully!';
+      toast.success(message);
+      
+    } catch (err) {
+      console.error('Submit error:', err);
+      toast.error('Error submitting survey.');
+      setIsLoading(false);
+    }
+  };
+
+  const handleClose = () => {
+    // Save current progress before closing
+    saveProgress();
+    setShowModal(false);
   };
 
   const currentStepData = steps.find(step => step.id === currentStep);
@@ -107,6 +164,7 @@ export const useSurveyForm = () => {
     isLoading,
     showModal,
     showChildrenDetails,
+    isUpdate,
     handleSingleChoice,
     handleMultiChoice,
     handleNumberOfChildren,
@@ -114,6 +172,8 @@ export const useSurveyForm = () => {
     goToPreviousStep,
     goToStep,
     handleSubmit,
-    setShowModal
+    setShowModal,
+    handleClose,
+    saveProgress
   };
 };
