@@ -90,40 +90,40 @@ function ShowProfile(props) {
         </div>
       </div>
 
-      {surveyProfile?.singleChoiceAnswers?.length > 0 && (
+      {surveyProfile?.singleChoiceAnswers &&
+      Object.entries(surveyProfile.singleChoiceAnswers).length > 0 && (
         <div className="personal-info my-4 border rounded shadow-sm py-2">
           <span className="headText">Single Choice Answers</span>
 
           <div className="row m-0 bodyText p-0">
-            {surveyProfile.singleChoiceAnswers.map((ans, i) => (
-              <div className="col-lg-3 col-md-4" key={i}>
-                <small>{formatKey(ans.questionKey)}:</small>
-                <span> {ans.value}</span>
-              </div>               
-            ))}
+            {Object.entries(surveyProfile.singleChoiceAnswers).map(
+              ([questionKey, value], i) => (
+                <div className="col-lg-3 col-md-4" key={i}>
+                  <small>{formatKey(questionKey)}:</small>
+                  <span> {value}</span>
+                </div>
+              )
+            )}
           </div>
-        </div>    
+        </div>
       )}
       
-      {surveyProfile?.multiChoiceAnswers?.length > 0 && (
-      <div className="personal-info my-4 border rounded shadow-sm py-2">
-        <span className="headText">Multi Choice Answers</span>
+      {surveyProfile?.multiChoiceAnswers &&
+      Object.entries(surveyProfile.multiChoiceAnswers).length > 0 && (
+        <div className="personal-info my-4 border rounded shadow-sm py-2">
+          <span className="headText">Multi Choice Answers</span>
 
-        <div className="row m-0 bodyText p-0">      
-          {Object.entries(
-            surveyProfile.multiChoiceAnswers.reduce((acc, ans) => {
-              if (!acc[ans.questionKey]) acc[ans.questionKey] = [];
-              acc[ans.questionKey].push(ans.value);
-              return acc;
-            }, {})
-          ).map(([questionKey, values]) => (
-            <div className="col-lg-3 col-md-4" key={values}>
-              <small>{formatKey(questionKey)}:</small>
-              <span> {values.join(', ')}</span>
-            </div>
-          ))}        
+          <div className="row m-0 bodyText p-0">
+            {Object.entries(surveyProfile.multiChoiceAnswers).map(
+              ([questionKey, values], i) => (
+                <div className="col-lg-3 col-md-4" key={i}>
+                  <small>{formatKey(questionKey)}:</small>
+                  <span> {values.join(', ')}</span>
+                </div>
+              )
+            )}
+          </div>
         </div>
-      </div>
       )}
 
 
