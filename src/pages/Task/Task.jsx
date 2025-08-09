@@ -19,11 +19,17 @@ import {
   getTaskSearchJourney,
   getTaskWebsite,
 } from '../../store/Task';
+import SocialMediaModal from './components/SocialMedia/MediaModal';
 
 function Task() {
   const { t } = useTranslation();
   const [isChrome, setIsChrome] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  
+  const [showSocialModal, setShowSocialModal] = useState(false);
+  const [missedTasks, setMissedTasks] = useState({});
+  const [existingPlatforms, setExistingPlatforms] = useState([]);
+  const [shouldShowReminder, setShouldShowReminder] = useState(false);
 
   const task = useSelector((state) => state.task.data);
   const website_click = useSelector((state) => state.task.website_click);
@@ -61,157 +67,198 @@ function Task() {
     init();
   }, [init]);
 
-  return (
-    <div className="body-content">
-      {(getTaskLoading ||
-        (isChrome &&
-          (getTaskWebsiteLoading ||
-            getTaskGoogleLoading ||
-            getTaskJourneyLoading ||
-            getTaskSearchJourneyLoading))) && <Loading />}
+  useEffect(() => {
+    const api = process.env.REACT_APP_API;
+    const token = window.localStorage.getItem('token');
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    };
+    const checkSocialReminder = async () => {
+      try {
+        const response = await fetch(`${api}/user/social-reminder-check`, config);
+        const res = await fetch(`${api}/user/social-preferences`, config);
+        const dataPref = await res.json();
 
-      <div className="bg-muted ">
-        <Header />
-        <div className="row m-0 ">
-          <div className="col-md-4 col-lg-2 p-0 bg-white m-0">
-            <Sidebar />
-            <SidebarTour />
-          </div>
-          <div className="col-md-8 col-lg-10 py-3 scroll-bg bg-white p-0 p-md-3">
-            <div className="container">
-              <Welcome welcome={t('yourTasks')} />
-              {!isChrome && showPopup && (
-                <div className="alert alert-warning" role="alert">
-                  {t('chromeWarning')}
-                </div>
-              )}
-              <nav>
-                <div
-                  className="nav nav-tabs justify-content-center my_task_nav"
-                  id="nav-tab"
-                  role="tablist"
-                >
-                  {isChrome && (
-                    <a
-                      className="nav-link active text-blue"
-                      id="nav-home-tab"
-                      data-toggle="tab"
-                      href="#nav-home"
-                      role="tab"
-                      aria-controls="nav-home"
-                      aria-selected="true"
-                    >
-                      <span className="  d-none d-md-block">{t('allTasks')}</span>
-                      <i className="fa fa-tags  d-md-none" aria-hidden="true" />
-                    </a>
-                  )}
-                  <a
-                    className="nav-link text-blue"
-                    id="nav-profile-tab"
-                    data-toggle="tab"
-                    href="#nav-profile"
-                    role="tab"
-                    aria-controls="nav-profile"
-                    aria-selected="false"
+        setExistingPlatforms(dataPref?.data?.platforms || []);
+        if (response.ok) {
+          const data = await response.json();
+          if (data?.data?.shouldShow) {
+            setMissedTasks(data?.data?.missedTasks);
+            setShouldShowReminder(true);
+            setShowSocialModal(true);
+          }
+        }
+      } catch (error) {
+        console.error('Error checking social reminder:', error);
+      }
+    };
+
+    checkSocialReminder();
+  }, []);
+
+  const handleModalUpdate = () => {
+    // Refresh the page or reload tasks
+    window.location.reload();
+  };
+
+
+  return (
+    <>
+      <div className="body-content">
+        {(getTaskLoading ||
+          (isChrome &&
+            (getTaskWebsiteLoading ||
+              getTaskGoogleLoading ||
+              getTaskJourneyLoading ||
+              getTaskSearchJourneyLoading))) && <Loading />}
+
+        <div className="bg-muted ">
+          <Header />
+          <div className="row m-0 ">
+            <div className="col-md-4 col-lg-2 p-0 bg-white m-0">
+              <Sidebar />
+              <SidebarTour />
+            </div>
+            <div className="col-md-8 col-lg-10 py-3 scroll-bg bg-white p-0 p-md-3">
+              <div className="container">
+                <Welcome welcome={t('yourTasks')} />
+                {!isChrome && showPopup && (
+                  <div className="alert alert-warning" role="alert">
+                    {t('chromeWarning')}
+                  </div>
+                )}
+                <nav>
+                  <div
+                    className="nav nav-tabs justify-content-center my_task_nav"
+                    id="nav-tab"
+                    role="tablist"
                   >
-                    <span className="  d-none d-md-block">{t('websiteTask')}</span>
-                    <i className="fa fa-globe  d-md-none" aria-hidden="true" />
-                  </a>
+                    {isChrome && (
+                      <a
+                        className="nav-link active text-blue"
+                        id="nav-home-tab"
+                        data-toggle="tab"
+                        href="#nav-home"
+                        role="tab"
+                        aria-controls="nav-home"
+                        aria-selected="true"
+                      >
+                        <span className="  d-none d-md-block">{t('allTasks')}</span>
+                        <i className="fa fa-tags  d-md-none" aria-hidden="true" />
+                      </a>
+                    )}
+                    <a
+                      className="nav-link text-blue"
+                      id="nav-profile-tab"
+                      data-toggle="tab"
+                      href="#nav-profile"
+                      role="tab"
+                      aria-controls="nav-profile"
+                      aria-selected="false"
+                    >
+                      <span className="  d-none d-md-block">{t('websiteTask')}</span>
+                      <i className="fa fa-globe  d-md-none" aria-hidden="true" />
+                    </a>
+                    {isChrome && (
+                      <>
+                        <a
+                          className="nav-link text-blue"
+                          id="nav-contact-tab"
+                          data-toggle="tab"
+                          href="#nav-contact"
+                          role="tab"
+                          aria-controls="nav-contact"
+                          aria-selected="false"
+                        >
+                          <span className="d-none d-md-block">{t('googleTask')}</span>
+                          <i className="fa fa-search  d-md-none " aria-hidden="true" />
+                        </a>
+                        <a
+                          className="nav-link text-blue"
+                          id="nav-journey-tab"
+                          data-toggle="tab"
+                          href="#nav-journey"
+                          role="tab"
+                          aria-controls="nav-journey"
+                          aria-selected="false"
+                        >
+                          <span className="  d-none d-md-block">{t('journeyTask')}</span>
+                          <i className="fa fa-search fa-rocket  d-md-none " aria-hidden="true" />
+                        </a>
+                        <a
+                          className="nav-link text-blue"
+                          id="nav-search-journey-tab"
+                          data-toggle="tab"
+                          href="#nav-search-journey"
+                          role="tab"
+                          aria-controls="nav-search-journey"
+                          aria-selected="false"
+                        >
+                          <span className="d-none d-md-block">{t('searchJourney')}</span>
+                          <i className="fas fa-vr-cardboard d-md-none" />
+                        </a>
+                      </>
+                    )}
+                  </div>
+                </nav>
+                <div className="tab-content" id="nav-tabContent">
+                {isChrome && (
+                  <div
+                    className="tab-pane fade show active py-3"
+                    id="nav-home"
+                    role="tabpanel"
+                    aria-labelledby="nav-home-tab"
+                  >
+                    <GeneralTask task={task} />
+                  </div>
+                )}
+                  <div
+                    className="tab-pane fade py-3"
+                    id="nav-profile"
+                    role="tabpanel"
+                    aria-labelledby="nav-profile-tab"
+                  >
+                    <TaskCard task={website_click} />
+                  </div>
                   {isChrome && (
                     <>
-                      <a
-                        className="nav-link text-blue"
-                        id="nav-contact-tab"
-                        data-toggle="tab"
-                        href="#nav-contact"
-                        role="tab"
-                        aria-controls="nav-contact"
-                        aria-selected="false"
+                      <div
+                        className="tab-pane fade py-3"
+                        id="nav-contact"
+                        role="tabpanel"
+                        aria-labelledby="nav-contact-tab"
                       >
-                        <span className="d-none d-md-block">{t('googleTask')}</span>
-                        <i className="fa fa-search  d-md-none " aria-hidden="true" />
-                      </a>
-                      <a
-                        className="nav-link text-blue"
-                        id="nav-journey-tab"
-                        data-toggle="tab"
-                        href="#nav-journey"
-                        role="tab"
-                        aria-controls="nav-journey"
-                        aria-selected="false"
+                        <TaskCard2 task={google_search} />
+                      </div>
+                      <div
+                        className="tab-pane fade py-3"
+                        id="nav-journey"
+                        role="tabpanel"
+                        aria-labelledby="nav-journey-tab"
                       >
-                        <span className="  d-none d-md-block">{t('journeyTask')}</span>
-                        <i className="fa fa-search fa-rocket  d-md-none " aria-hidden="true" />
-                      </a>
-                      <a
-                        className="nav-link text-blue"
-                        id="nav-search-journey-tab"
-                        data-toggle="tab"
-                        href="#nav-search-journey"
-                        role="tab"
-                        aria-controls="nav-search-journey"
-                        aria-selected="false"
+                        <TaskCard3 task={journey} />
+                      </div>
+                      <div
+                        className="tab-pane fade py-3"
+                        id="nav-search-journey"
+                        role="tabpanel"
+                        aria-labelledby="nav-search-journey-tab"
                       >
-                        <span className="d-none d-md-block">{t('searchJourney')}</span>
-                        <i className="fas fa-vr-cardboard d-md-none" />
-                      </a>
+                        <TaskCard4 task={search_journey} />
+                      </div>
                     </>
                   )}
                 </div>
-              </nav>
-              <div className="tab-content" id="nav-tabContent">
-              {isChrome && (
-                <div
-                  className="tab-pane fade show active py-3"
-                  id="nav-home"
-                  role="tabpanel"
-                  aria-labelledby="nav-home-tab"
-                >
-                  <GeneralTask task={task} />
-                </div>
-              )}
-                <div
-                  className="tab-pane fade py-3"
-                  id="nav-profile"
-                  role="tabpanel"
-                  aria-labelledby="nav-profile-tab"
-                >
-                  <TaskCard task={website_click} />
-                </div>
-                {isChrome && (
-                  <>
-                    <div
-                      className="tab-pane fade py-3"
-                      id="nav-contact"
-                      role="tabpanel"
-                      aria-labelledby="nav-contact-tab"
-                    >
-                      <TaskCard2 task={google_search} />
-                    </div>
-                    <div
-                      className="tab-pane fade py-3"
-                      id="nav-journey"
-                      role="tabpanel"
-                      aria-labelledby="nav-journey-tab"
-                    >
-                      <TaskCard3 task={journey} />
-                    </div>
-                    <div
-                      className="tab-pane fade py-3"
-                      id="nav-search-journey"
-                      role="tabpanel"
-                      aria-labelledby="nav-search-journey-tab"
-                    >
-                      <TaskCard4 task={search_journey} />
-                    </div>
-                  </>
-                )}
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <SocialMediaModal  isOpen={showSocialModal} onClose={() => setShowSocialModal(false)} onUpdate={handleModalUpdate} missedTasks={missedTasks} existingPlatforms={existingPlatforms} />
+    </>
   );
 }
 
