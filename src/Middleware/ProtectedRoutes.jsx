@@ -1,8 +1,15 @@
 import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth as useAuthenticate } from '../context/AuthContext';
 // import Bonus from "../pages/Bonus";
 
 const useAuth = () => {
+  const { user, loading } = useAuthenticate();
   const isAuth = localStorage.getItem('token');
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   if (!isAuth || isAuth === null) {
     return false;
   }

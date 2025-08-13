@@ -32,6 +32,7 @@ import Task from '../pages/Task/Task';
 import Team from '../pages/Team/Team';
 import Token from '../pages/Token/Token';
 import Wallets from '../pages/Wallets';
+import AuthCallback from '../pages/Auth/AuthCallback';
 
 function Router() {
   const [isLoading, setIsLoading] = useState(true); 
@@ -108,6 +109,7 @@ function Router() {
           {/* Auth Routes */}
           <Route path="/" element={<AuthLayouts />}>
             <Route path="/signup" element={<Signup />} />
+            <Route path="/auth/clisha" element={<AuthCallback />} />
             <Route path="/signin" element={<PublicRoutes />}>
               <Route path="" element={<Signin />} />
             </Route>

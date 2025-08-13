@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from './App';
 import './sass/index.scss';
+import { AuthProvider } from './context/AuthContext';
 import { TourProvider } from './context/TourContext';
 import { store } from './store/store';
 import './i18n'
@@ -13,9 +14,11 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <TourProvider>
-          <App />
-        </TourProvider>
+        <AuthProvider>
+          <TourProvider>
+            <App />
+          </TourProvider>
+        </AuthProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

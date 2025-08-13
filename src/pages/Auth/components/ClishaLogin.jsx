@@ -7,7 +7,9 @@ export default function ClishaLogin({
   isPassword,
   showPassword,
   navigate,
-  loginWithVendo
+  loginWithVendo,
+  handleSignIn,
+  LoginHint
 }) {
   return (
     <form className="p-lg-3 pt-5" onSubmit={handleSubmit}>
@@ -88,7 +90,17 @@ export default function ClishaLogin({
         >
           Login with vendo
         </button>
+
+        <button
+          type=""
+          className="btn btn-primary clishaBtn w-100"
+          onClick={handleSignIn}
+        >
+          Login with Clisha
+        </button>
       </div>
+
+      
 
       <Link
         to="/signup"
