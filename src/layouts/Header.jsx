@@ -5,23 +5,30 @@ import { useDispatch, useSelector } from 'react-redux';
 import CountUp from 'react-countup';
 import MobileSidebar from './MobileSidebar';
 import { logoutAction, getUser } from '../store/Auth/auth';
+import { useAuth } from '../context/AuthContext';
 import ProfilePicture from '../utils/ProfilePicture';
 import { useTour } from '../context/TourContext';
 
 
 function Header() {
   const dispatch = useDispatch();
+  const { signOut } = useAuth();
   const user = useSelector((state) => state.user.data);
   const vendoPackage = useSelector((state) => state?.wallet?.vendoPackage);
   const current_route = window.location.pathname;
   const { setTriggerTour } = useTour();
+  const loginType = localStorage.getItem('loginType')
 
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
 
   const logout = () => {
-    dispatch(logoutAction());
+    if (loginType) {
+      signOut()
+    } else {
+      dispatch(logoutAction());
+    }
   };
   const navigate = useNavigate();
   const balance = window.localStorage.getItem('balance');
@@ -174,8 +181,12 @@ function Header() {
                     <div className="dropdown-divider" />
                     <a
                       className="dropdown-item font-weight-bold link"
-                      onClick={logout}
-                      href="/signin"
+                      onClick={(e) => {
+                        e.preventDefault(); 
+                        logout();
+                      }}
+                      href="#"
+                      style={{ cursor: 'pointer' }}
                     >
                       Logout
                     </a>

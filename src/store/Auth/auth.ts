@@ -62,6 +62,8 @@ export const authSlice = createSlice({
   reducers: {
     logoutAction: () => {
       localStorage.removeItem('token');
+      localStorage.clear();
+      sessionStorage.clear();
       window.location.href = '/signin';
     },
     updateUserWalletId: (state, action: PayloadAction<string>) => {

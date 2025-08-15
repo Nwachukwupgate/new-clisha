@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
       'GET'
     );
 
-    const { user: userData, accessToken, refreshToken, message } = data.data;
+    const { user: userData, accessToken, refreshToken, message, loginType } = data.data;
     
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
@@ -67,6 +67,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('email', userData.email);
     localStorage.setItem('token', accessToken);
     localStorage.setItem('refresh', refreshToken);
+    localStorage.setItem('loginType', loginType)
 
     // sessionStorage.removeItem('clishaSessionId');
 
@@ -90,22 +91,30 @@ export const AuthProvider = ({ children }) => {
         { headers: { 'Content-Type': 'application/json' } }
       );
 
-      // Clear local storage
       localStorage.removeItem('user');
       localStorage.removeItem('username');
       localStorage.removeItem('email');
       localStorage.removeItem('token');
       localStorage.removeItem('refresh');
-      sessionStorage.removeItem('clishaSessionId');
+      localStorage.removeItem('loginType');
+      
       
       setUser(null);
 
+      // console.log('Logout response:', data);
+
       if (data?.data?.logoutUrl) {
+        localStorage.clear();
+        sessionStorage.clear();
+        setUser(null);
         // Redirect to OIDC provider logout
         window.location.href = data.data.logoutUrl;
       } else {
         // Fallback to local redirect
-        window.location.href = '/signed-out';
+        localStorage.clear();
+        sessionStorage.clear();
+        setUser(null);
+        window.location.href = '/';
       }
     } catch (error) {
       console.error('Sign out error:', error);
@@ -113,7 +122,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.clear();
       sessionStorage.clear();
       setUser(null);
-      window.location.href = '/signed-out';
+      window.location.href = '/';
     } finally {
       setLoading(false);
     }
