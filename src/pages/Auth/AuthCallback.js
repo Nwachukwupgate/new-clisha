@@ -1,11 +1,12 @@
 import { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext'
 import Loading from '../../components/Alerts/Loading';
 
+
 const AuthCallback = () => {
   const { handleCallback, loading } = useAuth();
-  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [error, setError] = useState(null);
   const hasRun = useRef(false);
 
@@ -18,12 +19,23 @@ const AuthCallback = () => {
 
     const processCallback = async () => {
       try {
-        const response = await handleCallback();
+        const errorParam = searchParams.get('error');
+        if (errorParam) {
+          throw new Error(decodeURIComponent(errorParam));
+        }
 
-        localStorage.setItem('token', response);
+        const successParam = searchParams.get('success');
+        const tokenId = searchParams.get('tokenId');
+
+        if (successParam !== 'true' || !tokenId) {
+          throw new Error('Invalid callback parameters');
+        }
+
+        // Retrieve tokens from backend
+        const response = await handleCallback(tokenId);
         setTimeout(() => {
           window.location.href="/dashboard"
-        }, 1000);
+        }, 1000); 
       } catch (err) {
         setError(err.message);
         hasRun.current = false;
@@ -31,7 +43,7 @@ const AuthCallback = () => {
     };
 
     processCallback();
-  }, [handleCallback, navigate]);
+  }, [handleCallback, searchParams]);
 
   useEffect(() => {
     if (error) {

@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
-import { AuthClient, LoginHint } from '@clisha/clisha-auth-client';
 import { apiCall } from '../services/apiRequestManager';
 
 const AuthContext = createContext();
@@ -16,13 +15,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const api = process.env.REACT_APP_API;
-  const [authClient] = useState(
-    () =>
-      new AuthClient({
-        authority: process.env.REACT_APP_CLISHA_AUTHORITY,
-        clientId: process.env.REACT_APP_CLISHA_CLIENT_ID,
-      })
-  );
+  
 
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
@@ -47,8 +40,9 @@ export const AuthProvider = ({ children }) => {
 
       if (!data) throw new Error('Failed to initiate sign-in');
 
-      const { authUrl, sessionId } = (data && data.data) || {};
-      sessionStorage.setItem('sessionId', sessionId);
+      const { authUrl } = (data && data.data) || {};
+      // console.log(authUrl)
+      // sessionStorage.setItem('sessionId', sessionId);
       window.location.href = authUrl;
     } catch (error) {
       setLoading(false);
@@ -56,70 +50,110 @@ export const AuthProvider = ({ children }) => {
     }
   }, [api]);
 
-  const handleCallback = useCallback(async () => {
-    try {
-      setLoading(true);
-      const sessionId = sessionStorage.getItem('sessionId');
-      if (!sessionId) {
-        throw new Error('No session ID found');
-      }
+  const handleCallback = useCallback(async (tokenId) => {
+  try {
+    setLoading(true);
+    
+    const data = await apiCall(
+      `${api}/auth/tokens/${tokenId}`, 
+      'GET'
+    );
 
-      const callbackUrl = window.location.href;
-      const data = await apiCall(
-        `${api}/auth/clisha/callback`,
-        'POST',
-        { sessionId, callbackUrl },
-        { headers: { 'Content-Type': 'application/json' } }
-      );
+    const { user: userData, accessToken, refreshToken, message } = data.data;
+    
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('username', userData.username);
+    localStorage.setItem('email', userData.email);
+    localStorage.setItem('token', accessToken);
+    localStorage.setItem('refresh', refreshToken);
 
-      if (!data) throw new Error('Callback handling failed');
+    // sessionStorage.removeItem('clishaSessionId');
 
-      const { user: userData, accessToken, refreshToken } = (data && data.data) || {};
-      setUser(userData);
-
-      localStorage.setItem('user', JSON.stringify(userData));
-      localStorage.setItem('username', userData.username);
-      localStorage.setItem('email', userData.email);
-      localStorage.setItem('token', accessToken);
-      localStorage.setItem('refresh', refreshToken);
-
-      
-      sessionStorage.removeItem('sessionId');
-
-      return accessToken;
-    } catch (error) {
-      setLoading(false);
-      throw error;
-    }
-  }, [api]);
+    setLoading(false);
+    return { userData, accessToken, message };
+    
+  } catch (error) {
+    setLoading(false);
+    throw error;
+  }
+}, [api]);
 
   const signOut = useCallback(async () => {
     try {
       setLoading(true);
+      
       const data = await apiCall(
-        '/api/auth/signout',
+        `${api}/auth/signout/clisha`,
         'POST',
-        {
-          userId: user?.id,
-          redirectUri: `${window.location.origin}/signed-out`,
-        },
+        { userId: user?.id },
         { headers: { 'Content-Type': 'application/json' } }
       );
 
-      if (data?.logoutUrl) {
-        localStorage.removeItem('user');
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('clishaAccessToken');
-        localStorage.removeItem('clishaIdToken');
-        setUser(null);
-        window.location.href = data.logoutUrl;
+      // Clear local storage
+      localStorage.removeItem('user');
+      localStorage.removeItem('username');
+      localStorage.removeItem('email');
+      localStorage.removeItem('token');
+      localStorage.removeItem('refresh');
+      sessionStorage.removeItem('clishaSessionId');
+      
+      setUser(null);
+
+      if (data?.data?.logoutUrl) {
+        // Redirect to OIDC provider logout
+        window.location.href = data.data.logoutUrl;
+      } else {
+        // Fallback to local redirect
+        window.location.href = '/signed-out';
       }
     } catch (error) {
       console.error('Sign out error:', error);
+      // Even if API call fails, clear local state
+      localStorage.clear();
+      sessionStorage.clear();
+      setUser(null);
+      window.location.href = '/signed-out';
     } finally {
       setLoading(false);
     }
-  }, [user]);
+  }, [user?.id, api]);
+
+  const refreshAccessToken = useCallback(async () => {
+    try {
+      const refreshToken = localStorage.getItem('refresh');
+      if (!refreshToken) {
+        throw new Error('No refresh token available');
+      }
+
+      const data = await apiCall(
+        `${api}/auth/refresh`,
+        'POST',
+        { refreshToken },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+
+      if (!data || !data.data) {
+        throw new Error('Failed to refresh token');
+      }
+
+      const { accessToken: newAccessToken, refreshToken: newRefreshToken } = data.data;
+      
+      localStorage.setItem('token', newAccessToken);
+      localStorage.setItem('refresh', newRefreshToken);
+
+      return newAccessToken;
+    } catch (error) {
+      console.error('Token refresh error:', error);
+      // If refresh fails, redirect to sign-in
+      localStorage.clear();
+      sessionStorage.clear();
+      setUser(null);
+      window.location.href = '/signin';
+      throw error;
+    }
+  }, [api]);
+
 
   const value = useMemo(
     () => ({
@@ -128,9 +162,9 @@ export const AuthProvider = ({ children }) => {
       signIn,
       signOut,
       handleCallback,
-      authClient,
+      refreshAccessToken
     }),
-    [user, loading, signIn, signOut, handleCallback, authClient]
+    [user, loading, signIn, signOut, handleCallback, refreshAccessToken]
   );
 
   return (
