@@ -2,9 +2,12 @@ import moment from 'moment';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { LoginHint } from '@clisha/clisha-auth-client';
+import { useAuth } from '../../context/AuthContext';
 import Loading from '../../components/Alerts/Loading';
 import ClishaLogin from './components/ClishaLogin';
 import { apiCall } from '../../services/apiRequestManager';
+
 
 function Signin() {
   const auth_api = process.env.REACT_APP_AUTH;
@@ -22,6 +25,7 @@ function Signin() {
     password: '',
   });
   const [isPassword, setIsPassword] = useState(false);
+  const { signIn, loading: isLoading } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -96,6 +100,14 @@ function Signin() {
     }
   };
 
+  const handleSignIn = async () => {
+    try {
+      await signIn();
+    } catch (error) {
+      toast.error('Sign-in error:', error);
+    }
+  };
+
   // const checkVendoAccount = async () => {
   //   const res = await apiCall(`${process.env.REACT_APP_VENDO_API}/login`, 'post', signupDetails);
 
@@ -112,7 +124,6 @@ function Signin() {
   // };
 
 
-
   const showPassword = () => {
     const password = document.querySelector('#password');
     setIsPassword(!isPassword);
@@ -122,6 +133,7 @@ function Signin() {
       password.type = 'text';
     }
   };
+
   return (
     <div>
       {loading && <Loading />}
@@ -135,6 +147,8 @@ function Signin() {
           setSignupDetails={setSignupDetails}
           signupDetails={signupDetails}
           loginWithVendo={loginWithVendo}
+          handleSignIn={handleSignIn}
+          LoginHint={LoginHint}
         />
     
     </div>

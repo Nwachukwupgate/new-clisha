@@ -5,7 +5,7 @@ import { Rank, Timezone, User } from '../../types';
 // import url from "../../json/config";
 const api = process.env.REACT_APP_API;
 
-const token = window.localStorage.getItem('token');
+const token = localStorage.getItem('token');
 const config = { headers: { Authorization: `bearer ${token}` } };
 const links = ['signup', 'signin', 'forgot-password', 'new-password', 'verify'];
 
@@ -62,6 +62,8 @@ export const authSlice = createSlice({
   reducers: {
     logoutAction: () => {
       localStorage.removeItem('token');
+      localStorage.clear();
+      sessionStorage.clear();
       window.location.href = '/signin';
     },
     updateUserWalletId: (state, action: PayloadAction<string>) => {

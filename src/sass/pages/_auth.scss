@@ -29,6 +29,17 @@
   vendoBtn:active {
     background: #c89161 !important;
   }
+
+  .clishaBtn {
+    background: #fff3cd;
+    border: 1px solid #e6dbb7;
+    color: #000;
+  }
+
+  .clishaBtn:focus,
+  .clishaBtn:active {
+    background: #fff3cd !important;
+  }
 }
 
 .vendoLoginModal {
