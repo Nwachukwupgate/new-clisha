@@ -2,10 +2,10 @@ function Popup({ item, text, handleCopyGo }) {
   const testServerExt =
     'https://clisha-assets.fra1.digitaloceanspaces.com/extension%2Fclicha-extension-150.crx';
   const liveServerExt =
-    'https://chrome.google.com/webstore/detail/clisha-extension/jagnnnnnooogbbpgjidbpockglhfoban';
+    'https://chromewebstore.google.com/detail/fggiejockcliimogohnaiakpbcjaafcl';
   const hasExt = window.localStorage.getItem('hasExt');
   const history = window.location?.host;
-  const newHost = 'clisha-frontend.suan.ai';
+  const newHost = 'http://localhost:3001';
 
   return (
     <div className="modal-dialog modal-sm" role="document">
