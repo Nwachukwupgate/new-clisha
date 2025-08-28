@@ -12,7 +12,7 @@ export default function ClishaLogin({
   LoginHint
 }) {
   return (
-    <form className="p-lg-3 pt-5" onSubmit={handleSubmit}>
+    <form className="p-lg-3 pt-5">
       <h2 data-aos="fade-down" data-aos-duration="1000">
         Welcome back!
       </h2>
@@ -79,7 +79,7 @@ export default function ClishaLogin({
       </div>
 
       <div className="form-group authBtns pt-3 mt-5">
-        <button type="submit" className="btn btn-primary w-100" id="submit">
+        <button type="submit" className="btn btn-primary w-100" id="submit" onClick={handleSubmit}>
           Login
         </button>
         <button
