@@ -9,7 +9,8 @@ export default function ClishaLogin({
   navigate,
   loginWithVendo,
   handleSignIn,
-  LoginHint
+  LoginHint,
+  isLoading
 }) {
   return (
     <form className="p-lg-3 pt-5">
@@ -95,8 +96,9 @@ export default function ClishaLogin({
           type=""
           className="btn btn-primary clishaBtn w-100"
           onClick={handleSignIn}
+          disabled={isLoading}         
         >
-          Login with Clisha
+          {isLoading ? 'Loading...' : 'Login with Clisha'}
         </button>
       </div>
 

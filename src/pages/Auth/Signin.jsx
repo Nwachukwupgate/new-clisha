@@ -149,6 +149,7 @@ function Signin() {
           loginWithVendo={loginWithVendo}
           handleSignIn={handleSignIn}
           LoginHint={LoginHint}
+          isLoading={isLoading}
         />
     
     </div>
