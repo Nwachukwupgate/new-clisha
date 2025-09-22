@@ -98,7 +98,7 @@ export default function ClishaLogin({
           onClick={handleSignIn}
           disabled={isLoading}         
         >
-          {isLoading ? 'Loading...' : 'Login with Clisha'}
+          {isLoading ? 'Loading...' : 'Login with Clisha.'}
         </button>
       </div>
 
