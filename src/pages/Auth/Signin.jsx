@@ -2,10 +2,8 @@ import moment from 'moment';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { LoginHint } from '@clisha/clisha-auth-client';
 import { useAuth } from '../../context/AuthContext';
 import Loading from '../../components/Alerts/Loading';
-import ClishaLogin from './components/ClishaLogin';
 import { apiCall } from '../../services/apiRequestManager';
 
 
@@ -148,7 +146,6 @@ function Signin() {
           signupDetails={signupDetails}
           loginWithVendo={loginWithVendo}
           handleSignIn={handleSignIn}
-          LoginHint={LoginHint}
           isLoading={isLoading}
         />
     
