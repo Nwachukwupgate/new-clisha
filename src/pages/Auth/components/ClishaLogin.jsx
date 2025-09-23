@@ -9,7 +9,6 @@ export default function ClishaLogin({
   navigate,
   loginWithVendo,
   handleSignIn,
-  LoginHint,
   isLoading
 }) {
   return (
