@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
 import Loading from '../../components/Alerts/Loading';
+import ClishaLogin from './components/ClishaLogin';
 import { apiCall } from '../../services/apiRequestManager';
 
 
