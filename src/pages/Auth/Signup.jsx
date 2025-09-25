@@ -75,6 +75,10 @@ function Signup() {
     }
   };
 
+  if(code){
+    return <Loading />;
+  }
+
   return (
     <div>
       {loading && <Loading />}

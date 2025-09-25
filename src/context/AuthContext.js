@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { apiCall } from '../services/apiRequestManager';
 
 const AuthContext = createContext();
@@ -15,9 +15,11 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const api = process.env.REACT_APP_API;
+  const hasRunRef = useRef(false);
   
 
   useEffect(() => {
+    setLoading(true);
     const savedUser = localStorage.getItem('user');
     const savedToken = localStorage.getItem('token');
 
@@ -28,13 +30,18 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const signIn = useCallback(async () => {
+  const signIn = useCallback(async (referredBy) => {
     try {
       setLoading(true);
+
+      const body = referredBy ? { referredBy } : undefined;
+      if (referredBy) localStorage.removeItem("referredBy");
+
+
       const data = await apiCall(
         `${api}/auth/signin/clisha`,
         'POST',
-        // { loginHint },
+        body,
         { headers: { 'Content-Type': 'application/json' } }
       );
 
@@ -49,6 +56,19 @@ export const AuthProvider = ({ children }) => {
       throw error;
     }
   }, [api]);
+
+  useEffect(() => {
+    if (hasRunRef.current) return;
+    hasRunRef.current = true;
+
+    const query = new URLSearchParams(window.location.search);
+    const referredBy = query.get("code");
+
+    if (referredBy) {
+      localStorage.setItem("referredBy", referredBy);
+      signIn(referredBy);
+    }
+  }, [signIn]);
 
   const handleCallback = useCallback(async (tokenId) => {
   try {
