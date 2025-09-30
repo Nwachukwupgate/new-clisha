@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { apiCall } from '../services/apiRequestManager';
+import { clearAuthStorage } from '../utils/functions/functions';
 
 const AuthContext = createContext();
 
@@ -109,17 +110,10 @@ export const AuthProvider = ({ children }) => {
         'POST',
         { userId: user?.id },
         { headers: { 'Content-Type': 'application/json' } }
-      );
-
-      localStorage.removeItem('user');
-      localStorage.removeItem('username');
-      localStorage.removeItem('email');
-      localStorage.removeItem('token');
-      localStorage.removeItem('refresh');
-      localStorage.removeItem('loginType');
-      
+      );     
       
       setUser(null);
+      clearAuthStorage();
 
       // console.log('Logout response:', data);
 
@@ -130,18 +124,13 @@ export const AuthProvider = ({ children }) => {
         // Redirect to OIDC provider logout
         window.location.href = data.data.logoutUrl;
       } else {
-        // Fallback to local redirect
-        localStorage.clear();
-        sessionStorage.clear();
         setUser(null);
+        clearAuthStorage();
         window.location.href = '/';
       }
     } catch (error) {
-      console.error('Sign out error:', error);
-      // Even if API call fails, clear local state
-      localStorage.clear();
-      sessionStorage.clear();
       setUser(null);
+      clearAuthStorage();
       window.location.href = '/';
     } finally {
       setLoading(false);

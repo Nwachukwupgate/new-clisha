@@ -127,3 +127,24 @@ export const handleMultiChoice = (questionKey, value, checked, setFormData) => {
       };
     });
 };
+
+export function clearAuthStorage() {
+  const keysToRemove = [
+    "refresh",
+    "token",
+    "user",
+    "username",
+    "email",
+    "loginType",
+    "isDev",
+    "false", 
+    "earned_amount",
+    "balance",
+  ];
+
+  keysToRemove.forEach((key) => {
+    localStorage.removeItem(key);
+  });
+
+  sessionStorage.clear();
+}

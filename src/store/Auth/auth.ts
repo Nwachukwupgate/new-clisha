@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 import axios from 'axios';
+import { clearAuthStorage } from '../../utils/functions/functions';
 import { Rank, Timezone, User } from '../../types';
 // import url from "../../json/config";
 const api = process.env.REACT_APP_API;
@@ -61,9 +62,7 @@ export const authSlice = createSlice({
   } as UserState,
   reducers: {
     logoutAction: () => {
-      localStorage.removeItem('token');
-      localStorage.clear();
-      sessionStorage.clear();
+      clearAuthStorage();
       window.location.href = '/signin';
     },
     updateUserWalletId: (state, action: PayloadAction<string>) => {
