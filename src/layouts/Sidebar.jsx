@@ -47,7 +47,7 @@ function Sidebar() {
               </React.Fragment>
             ))}
           <button
-            onClick={(e) => copyRefFunc(user?.user?.clishaId)}
+            onClick={(e) => copyRefFunc(user?.user?.clishaReferralCode || user?.user?.clishaId)}
             className="btn rounded-pill text-white btn-sm  mt-4 shadow btn-invite btn-blue"
           >
             {' '}

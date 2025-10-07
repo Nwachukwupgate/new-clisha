@@ -45,7 +45,7 @@ function Sidebar(props) {
             <input
               type="text"
               className="form-control w-75 m-auto"
-              value={`${user?.user?.clishaId?.slice(0, 15)}...`}
+              value={`${(user?.user?.clishaReferralCode || user?.user?.clishaId)?.slice(0, 15)}...`}
               onChange={() => {}}
             />
             <button
