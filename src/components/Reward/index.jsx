@@ -122,9 +122,9 @@ export default function RewardApp() {
           <p className="text-white mt-3">
             You Earn <CountUp start={0} end={0} duration={1} /> POINTS
           </p>
-          <h6 className="text-white">
+          {/* <h6 className="text-white">
             No Clishacoins (Connect Vendo for Bonus!)
-          </h6>
+          </h6> */}
           <button className="btn claim_coin shadow" onClick={handleFailed}>
             Go Back
           </button>
