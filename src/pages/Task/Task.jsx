@@ -26,10 +26,10 @@ function Task() {
   const [isChrome, setIsChrome] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   
-  const [showSocialModal, setShowSocialModal] = useState(false);
-  const [missedTasks, setMissedTasks] = useState({});
-  const [existingPlatforms, setExistingPlatforms] = useState([]);
-  const [shouldShowReminder, setShouldShowReminder] = useState(false);
+  // const [showSocialModal, setShowSocialModal] = useState(false);
+  // const [missedTasks, setMissedTasks] = useState({});
+  // const [existingPlatforms, setExistingPlatforms] = useState([]);
+  // const [shouldShowReminder, setShouldShowReminder] = useState(false);
 
   const task = useSelector((state) => state.task.data);
   const website_click = useSelector((state) => state.task.website_click);
@@ -67,41 +67,41 @@ function Task() {
     init();
   }, [init]);
 
-  useEffect(() => {
-    const api = process.env.REACT_APP_API;
-    const token = window.localStorage.getItem('token');
-    const config = {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      },
-    };
-    const checkSocialReminder = async () => {
-      try {
-        const response = await fetch(`${api}/user/social-reminder-check`, config);
-        const res = await fetch(`${api}/user/social-preferences`, config);
-        const dataPref = await res.json();
+  // useEffect(() => {
+  //   const api = process.env.REACT_APP_API;
+  //   const token = window.localStorage.getItem('token');
+  //   const config = {
+  //     headers: {
+  //       'Authorization': `Bearer ${token}`
+  //     },
+  //   };
+  //   const checkSocialReminder = async () => {
+  //     try {
+  //       const response = await fetch(`${api}/user/social-reminder-check`, config);
+  //       const res = await fetch(`${api}/user/social-preferences`, config);
+  //       const dataPref = await res.json();
 
-        setExistingPlatforms(dataPref?.data?.platforms || []);
-        if (response.ok) {
-          const data = await response.json();
-          if (data?.data?.shouldShow) {
-            setMissedTasks(data?.data?.missedTasks);
-            setShouldShowReminder(true);
-            setShowSocialModal(true);
-          }
-        }
-      } catch (error) {
-        console.error('Error checking social reminder:', error);
-      }
-    };
+  //       setExistingPlatforms(dataPref?.data?.platforms || []);
+  //       if (response.ok) {
+  //         const data = await response.json();
+  //         if (data?.data?.shouldShow) {
+  //           setMissedTasks(data?.data?.missedTasks);
+  //           setShouldShowReminder(true);
+  //           setShowSocialModal(true);
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error('Error checking social reminder:', error);
+  //     }
+  //   };
 
-    checkSocialReminder();
-  }, []);
+  //   checkSocialReminder();
+  // }, []);
 
-  const handleModalUpdate = () => {
-    // Refresh the page or reload tasks
-    window.location.reload();
-  };
+  // const handleModalUpdate = () => {
+  //   // Refresh the page or reload tasks
+  //   window.location.reload();
+  // };
 
 
   return (
@@ -257,7 +257,7 @@ function Task() {
         </div>
       </div>
 
-      <SocialMediaModal  isOpen={showSocialModal} onClose={() => setShowSocialModal(false)} onUpdate={handleModalUpdate} missedTasks={missedTasks} existingPlatforms={existingPlatforms} />
+      {/* <SocialMediaModal  isOpen={showSocialModal} onClose={() => setShowSocialModal(false)} onUpdate={handleModalUpdate} missedTasks={missedTasks} existingPlatforms={existingPlatforms} /> */}
     </>
   );
 }

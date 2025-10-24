@@ -1,27 +1,27 @@
-export const steps = [
+export const steps = [   
     {
       id: 1,
-      title: "Job & Education",
-      icon: "👔",
+      title: "Social & Content",
+      icon: "📱",
       questions: [
         {
-          key: "industry",
-          label: "Which industry do you work in?",
-          type: "single",
-          tooltip: "This helps match you with tasks related to your field – so you earn more for what you're already familiar with.",
+          key: "social_platforms",
+          label: "Which social platforms do you actively use?",
+          type: "multi",
+          tooltip: "So we only show you tasks from platforms you actually use – and reward you for real interaction.",
           options: [
-            "Education", "Hospitality", "Construction / Trades", "Finance / Insurance",
-            "Retail", "IT / Tech", "Healthcare", "Media / Creative", "Other"
+            "Facebook", "Instagram", "YouTube", "TikTok", "X (Twitter)",
+            "LinkedIn", "Pinterest", "Reddit", "None"
           ]
         },
         {
-          key: "education",
-          label: "What is your highest level of education?",
-          type: "single",
-          tooltip: "We tailor content to your level – so tasks are neither too easy nor too complex.",
+          key: "content_types",
+          label: "What types of content do you enjoy most?",
+          type: "multi",
+          tooltip: "To show you tasks in formats you like – so completing them feels natural, not forced.",
           options: [
-            "No formal education", "Secondary / Vocational school", "High school diploma",
-            "Bachelor's degree", "Master's degree", "Doctorate / PhD", "Other"
+            "Text-based content", "Images / graphics", "Videos",
+            "Podcasts / audio", "Interactive tasks (quizzes, polls, etc.)"
           ]
         }
       ]
@@ -97,27 +97,27 @@ export const steps = [
     },
     {
       id: 5,
-      title: "Social & Content",
-      icon: "📱",
+      title: "Job & Education",
+      icon: "👔",
       questions: [
         {
-          key: "social_platforms",
-          label: "Which social platforms do you actively use?",
-          type: "multi",
-          tooltip: "So we only show you tasks from platforms you actually use – and reward you for real interaction.",
+          key: "industry",
+          label: "Which industry do you work in?",
+          type: "single",
+          tooltip: "This helps match you with tasks related to your field – so you earn more for what you're already familiar with.",
           options: [
-            "Facebook", "Instagram", "YouTube", "TikTok", "X (Twitter)",
-            "LinkedIn", "Pinterest", "Reddit", "None"
+            "Education", "Hospitality", "Construction / Trades", "Finance / Insurance",
+            "Retail", "IT / Tech", "Healthcare", "Media / Creative", "Other"
           ]
         },
         {
-          key: "content_types",
-          label: "What types of content do you enjoy most?",
-          type: "multi",
-          tooltip: "To show you tasks in formats you like – so completing them feels natural, not forced.",
+          key: "education",
+          label: "What is your highest level of education?",
+          type: "single",
+          tooltip: "We tailor content to your level – so tasks are neither too easy nor too complex.",
           options: [
-            "Text-based content", "Images / graphics", "Videos",
-            "Podcasts / audio", "Interactive tasks (quizzes, polls, etc.)"
+            "No formal education", "Secondary / Vocational school", "High school diploma",
+            "Bachelor's degree", "Master's degree", "Doctorate / PhD", "Other"
           ]
         }
       ]

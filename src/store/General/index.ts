@@ -106,6 +106,11 @@ export const getUserSurveyProfile = createAsyncThunk('task/getUserSurveyProfile'
   return res.data.survey;
 });
 
+export const getUserSurveyStatus = createAsyncThunk('task/getUserSurveyStatus', async () => {
+  const res = await axios.get(`${api}/user/status`, config);
+  return res.data;
+});
+
 export const generalSlice = createSlice({
   name: 'general',
   initialState: {
@@ -125,6 +130,7 @@ export const generalSlice = createSlice({
     loading: false,
     completeSurveyProfile: null as any,
     surveyProfile: null as any,
+    statusSurveyProfile: null as any,
   },
 
   reducers: {
@@ -228,6 +234,15 @@ export const generalSlice = createSlice({
     });
     builder.addCase(getUserSurveyProfile.fulfilled, (state, action) => {
       state.surveyProfile = action.payload;
+    });
+    builder
+    .addCase(getUserSurveyStatus.pending, (state) => {
+        state.loading = true;
+    })
+    .addCase(getUserSurveyStatus.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.statusSurveyProfile = action.payload;
+      state.loading = false;
     });
   },
 });
