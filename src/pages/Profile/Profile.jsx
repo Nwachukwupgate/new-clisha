@@ -8,12 +8,15 @@ import Header from '../../layouts/Header';
 import Sidebar from './Layouts/Sidebar';
 import SidebarTour from '../../layouts/SidebarTour';
 import { getUserSurveyProfile } from '../../store/General';
+import SurveyForm from './components/survey/SurveyForm';
 
 
 function Profile() {
   const { t } = useTranslation();
   const user = useSelector((state) => state.user.data);
   const surveyProfile = useSelector((state) => state.general.surveyProfile);
+  const completeSurveyProfile = useSelector((state) => state.general.completeSurveyProfile);
+  const [showSurvey, setShowSurvey] = useState(false)
   const dispatch = useDispatch();
   const [isEditable, setisEditable] = useState(false);
   window.localStorage.setItem('isProfile', true);
@@ -61,13 +64,21 @@ function Profile() {
                     <small className="bg-warning ml-2 rounded p-1 b">{user?.rank?.rankName}</small>
                   </span>
                 </p>
-                <p className="col-md-6  text-md-right text-left p-0 p-md-2">
+                <p className="col-12 col-md-6 d-flex flex-column flex-md-row justify-content-md-end align-items-center gap-2 p-0 p-md-2">
                   {!isEditable && (
                     <button
                       onClick={() => setisEditable(true)}
-                      className="btn btn-purple col-8 col-md-8 m-auto py-md-3 py-2 b rounded-x shadow "
+                      className="btn btn-purple py-2 px-4 rounded-x shadow flex-fill flex-md-none mr-4"
                     >
                       {t('profilePage.editProfile')}
+                    </button>
+                  )}
+                  {!isEditable && (
+                    <button
+                      onClick={() => setShowSurvey(true)}
+                      className="btn btn-purple py-2 px-4 rounded-x shadow flex-fill flex-md-none"
+                    >
+                      Update Survey Profile
                     </button>
                   )}
                   {isEditable && (
@@ -83,6 +94,7 @@ function Profile() {
               <div className="body">
                 {!isEditable && <ShowProfile user={user} isEditable={isEditable} surveyProfile={surveyProfile} />}
                 {isEditable && <EditProfile user={user} isEditable={isEditable} />}
+                {showSurvey && <SurveyForm initialSurveyData={completeSurveyProfile?.survey} initialStep={completeSurveyProfile?.currentStep || 1} isUpdate={completeSurveyProfile?.isUpdate || false} />}
               </div>
             </div>
           </div>

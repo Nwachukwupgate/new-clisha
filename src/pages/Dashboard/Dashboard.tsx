@@ -24,6 +24,7 @@ import Wallet from './components/Wallet';
 import BonusPopup from './components/BonusPopup';
 import GuidePopup from './components/GuidePopup';
 import SurveyForm from '../Profile/components/survey/SurveyForm';
+import SurveyPrompt from '../Profile/components/SurveyPopUps/SurveyPrompt';
 
 
 function Dashboard() {
@@ -435,6 +436,7 @@ function Dashboard() {
         isUpdate={completeSurveyProfile.isUpdate || false}
         // onComplete={handleSurveyComplete} 
       />}
+      <SurveyPrompt />
     </div>
   );
 }
