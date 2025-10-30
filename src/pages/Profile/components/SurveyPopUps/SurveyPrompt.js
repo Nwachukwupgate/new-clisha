@@ -8,18 +8,30 @@ const SurveyPrompt = () => {
   const { show, setShow, questionData } = useSurveyReminder();
   const [showContinue, setShowContinue] = useState(false);
 
+  console.log("should show", show)
+
   const api = process.env.REACT_APP_API;
   const token = window.localStorage.getItem('token');
   const config = { headers: { Authorization: `bearer ${token}` } };
 
-
   const handleSubmit = async (answers) => {
     if (!questionData) return;
 
+    const { question } = questionData;
+    const { step } = questionData;
+    
+    //  NEW: Determine if single or multi choice based on question type
     const surveyData = {
-        multiChoiceAnswers: { [questionData.question.key]: answers },
-        currentStep: questionData.step.id,
-        isComplete: false,
+      currentStep: questionData.step.id,
+      isComplete: false,
+    };
+
+    if (question.type === 'single') {
+      // For single choice, store as singleChoiceAnswers
+      surveyData.singleChoiceAnswers = { [question.key]: answers };
+    } else {
+      // For multi choice, store as multiChoiceAnswers
+      surveyData.multiChoiceAnswers = { [question.key]: answers };
     }
 
     await axios.post(`${api}/user/my-profile`, surveyData, config);
