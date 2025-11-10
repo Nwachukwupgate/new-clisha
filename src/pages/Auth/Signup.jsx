@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../../components/Alerts/Loading';
 import { validateSignupForm } from '../../utils/functions/functions';
+import { apiCall } from '../../services/apiRequestManager';
 
 // import { Helmet } from "react-helmet";
 // import url from "../../json/config.json";
@@ -21,6 +22,7 @@ function Signup() {
   const [errors, setErrors] = useState({});
   const [referralUser, setReferralUser] = useState(null);
   const [countdown, setCountdown] = useState(5);
+  const api = process.env.REACT_APP_API;
 
   console.log('Referral Code:', referralUser);
 
@@ -86,18 +88,18 @@ function Signup() {
 
     const fetchReferral = async () => {
       try {
-        const res = await axios.get(
-          `https://accounts.dev.clisha.site/user/referral-user/${code}`
+        const res = await apiCall(
+          `${api}/auth/referrer/${code}`
         );
         console.log('Referral User Data:', res);
-        setReferralUser(res.data?.data || null);
+        setReferralUser(res?.name || null);
       } catch (err) {
         console.error('Error fetching referral details:', err);
       }
     };
 
     fetchReferral();
-  }, [code]);
+  }, [code, api]);
 
   useEffect(() => {
     let timer;
@@ -110,7 +112,7 @@ function Signup() {
           }
           return prev - 1;
         });
-      }, 1000);
+      }, 2000);
     }
 
     // Always return a cleanup function
@@ -134,7 +136,7 @@ function Signup() {
             <h2 className="referral-title">Welcome to Clisha 👋</h2>
             <p className="referral-text">
               Hi there! You were referred by{' '}
-              <span className="referral-name">{referralUser?.username || 'a Clisha user'}</span>.
+              <span className="referral-name">{referralUser || 'a Clisha user'}</span>.
             </p>
             <p className="referral-subtext">
               Redirecting you to your Clisha account setup in{' '}

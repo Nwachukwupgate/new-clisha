@@ -9,7 +9,8 @@ export default function ClishaLogin({
   navigate,
   loginWithVendo,
   handleSignIn,
-  isLoading
+  isLoading,
+  handleSignUp
 }) {
   return (
     <form className="p-lg-3 pt-5">
@@ -104,7 +105,8 @@ export default function ClishaLogin({
       
 
       <Link
-        to="/signup"
+        // to="/signup"
+        onClick={handleSignUp}
         id="emailHelpId"
         className="form-text d-block text-center  text-muted text-decoration-none"
       >

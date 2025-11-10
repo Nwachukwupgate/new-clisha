@@ -107,6 +107,14 @@ function Signin() {
     }
   };
 
+  const handleSignUp = async () => {
+    try {
+      await signIn(null, "signup");
+    } catch (error) {
+      toast.error('Sign-up error:', error);
+    }
+  };
+
   // const checkVendoAccount = async () => {
   //   const res = await apiCall(`${process.env.REACT_APP_VENDO_API}/login`, 'post', signupDetails);
 
@@ -148,6 +156,7 @@ function Signin() {
           loginWithVendo={loginWithVendo}
           handleSignIn={handleSignIn}
           isLoading={isLoading}
+          handleSignUp={handleSignUp}
         />
     
     </div>
