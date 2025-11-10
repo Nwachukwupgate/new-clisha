@@ -31,11 +31,11 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const signIn = useCallback(async (referredBy) => {
+  const signIn = useCallback(async (referredBy, loginHint) => {
     try {
       setLoading(true);
-
-      const body = referredBy ? { referredBy } : undefined;
+       
+      const body =  { referredBy, loginHint };
       if (referredBy) localStorage.removeItem("referredBy");
 
 
@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }) => {
 
     if (referredBy) {
       localStorage.setItem("referredBy", referredBy);
-      signIn(referredBy);
+      signIn(referredBy, "signup");
     }
   }, [signIn]);
 
