@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { useAuth } from '../../../context/AuthContext';
 import NavBarScroll from '../../../utils/NavBarScroll';
 import MainNavbar from '../../../components/Nav/MainNavbar';
 import FirstNavbar from '../../../components/Nav/FirstNavbar';
@@ -8,6 +10,15 @@ import FirstNavbar from '../../../components/Nav/FirstNavbar';
 function Header() {
   const { t } = useTranslation();
   useEffect(() => NavBarScroll(), []);
+  const { signIn } = useAuth();
+
+  const handleSignIn = async () => {
+    try {
+      await signIn(null, "signup");
+    } catch (error) {
+      toast.error('Sign-in error:', error);
+    }
+  };
 
   return (
     <div>
@@ -42,9 +53,9 @@ function Header() {
             <b>{t('header.ctaHeadline')}</b>
           </h2>
           <div className=" mt-4 row m-0">
-            <div className="col-8 mx-auto">
+            <div className="col-8 mx-auto" onClick={handleSignIn}>
               <Link
-                to="/signup"
+                // to="/signup"
                 className="btn mr-lg-1 btn-hero px-4 mx-2 user-btn   shadow my-2 my-sm-0   "
                 type="button"
                 data-aos="fade-right"

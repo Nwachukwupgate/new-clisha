@@ -1,8 +1,20 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { useAuth } from '../../context/AuthContext';
 import { nav } from '../../json/nav';
 
 function MainNavbar({ bg }) {
+  const { signIn } = useAuth();
+
+  const handleSignIn = async () => {
+    try {
+      await signIn(null, "signup");
+    } catch (error) {
+      toast.error('Sign-in error:', error);
+    }
+  };
+
   const onHandleToggle = () => {
     const myNav = document.getElementById('mynav_bar');
     const navbar_brand = document.getElementById('navbar-brand');
@@ -58,7 +70,8 @@ function MainNavbar({ bg }) {
             </Link>
 
             <Link
-              to="/signup"
+              // to="/signup"
+              onClick={handleSignIn}
               className="btn ml-2  heaad-btn registration-btn  shadow my-2 my-sm-0"
               type="button"
             >

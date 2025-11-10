@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,15 +9,20 @@ import { validateSignupForm } from '../../utils/functions/functions';
 // import { Helmet } from "react-helmet";
 // import url from "../../json/config.json";
 
-const query = new URLSearchParams(window.location.search);
-const code = query.get('code');
+
 function Signup() {
+  const query = new URLSearchParams(window.location.search);
+  const code = query.get('code');
   const auth_api = process.env.REACT_APP_AUTH;
   const navigate = useNavigate();
   const [isPassword, setIsPassword] = useState(false);
   // const [itemData, setitemData] = useState(false);
   const [loading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const [referralUser, setReferralUser] = useState(null);
+  const [countdown, setCountdown] = useState(5);
+
+  console.log('Referral Code:', referralUser);
 
   const [signupDetails, setSignupDetails] = useState({
     username: '',
@@ -74,9 +79,77 @@ function Signup() {
       password.type = 'text';
     }
   };
+  
+  // eslint-disable-next-line consistent-return
+  useEffect(() => {
+    if (!code) return undefined;
 
-  if(code){
-    return <Loading />;
+    const fetchReferral = async () => {
+      try {
+        const res = await axios.get(
+          `https://accounts.dev.clisha.site/user/referral-user/${code}`
+        );
+        console.log('Referral User Data:', res);
+        setReferralUser(res.data?.data || null);
+      } catch (err) {
+        console.error('Error fetching referral details:', err);
+      }
+    };
+
+    fetchReferral();
+  }, [code]);
+
+  useEffect(() => {
+    let timer;
+
+    if (referralUser) {
+      timer = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev === 1) {
+            clearInterval(timer);
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+
+    // Always return a cleanup function
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [referralUser]);
+
+  // if(code){
+  //   return <Loading />;
+  // }
+
+  if (code) {
+    // Show referral screen
+    return (
+      <div className="referral-screen flex-center">
+        {!referralUser ? (
+          <Loading />
+        ) : (
+          <div className="referral-card" data-aos="fade-up">
+            <h2 className="referral-title">Welcome to Clisha 👋</h2>
+            <p className="referral-text">
+              Hi there! You were referred by{' '}
+              <span className="referral-name">{referralUser?.username || 'a Clisha user'}</span>.
+            </p>
+            <p className="referral-subtext">
+              Redirecting you to your Clisha account setup in{' '}
+              <span className="countdown">{countdown}</span> seconds...
+            </p>
+            <div className="loading-bar">
+              <div
+                className="loading-progress"
+                style={{ width: `${(100 * (5 - countdown)) / 5}%` }}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    );
   }
 
   return (
