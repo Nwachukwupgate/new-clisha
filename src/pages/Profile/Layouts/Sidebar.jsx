@@ -49,7 +49,7 @@ function Sidebar(props) {
               onChange={() => {}}
             />
             <button
-              onClick={(e) => copyFunc(user?.user?.clishaId)}
+              onClick={(e) => copyFunc(user?.user?.clishaReferralCode || user?.user?.clishaId)}
               disabled={isCopy}
               className="btn btn-sm"
             >
@@ -58,7 +58,7 @@ function Sidebar(props) {
           </div>
           <div>
             <button
-              onClick={(e) => copyRefFunc(user?.user?.clishaId)}
+              onClick={(e) => copyRefFunc(user?.user?.clishaReferralCode || user?.user?.clishaId)}
               className="btn rounded-pill text-white btn-sm  my-3 shadow btn-invite"
             >
               {' '}
