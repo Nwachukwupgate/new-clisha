@@ -94,11 +94,11 @@ export default function ClishaLogin({
 
         <button
           type=""
-          className="btn btn-primary clishaBtn w-100"
+          className="btn btn-primary vendoBtn w-100"
           onClick={handleSignIn}
           disabled={isLoading}         
         >
-          {isLoading ? 'Loading...' : 'Login with Clisha'}
+          {isLoading ? 'Loading...' : 'Login with Clisha Account'}
         </button>
       </div>
 
