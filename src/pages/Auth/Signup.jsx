@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAuth } from '../../context/AuthContext';
 import Loading from '../../components/Alerts/Loading';
 import { validateSignupForm } from '../../utils/functions/functions';
 import { apiCall } from '../../services/apiRequestManager';
@@ -23,8 +24,17 @@ function Signup() {
   const [referralUser, setReferralUser] = useState(null);
   const [countdown, setCountdown] = useState(5);
   const api = process.env.REACT_APP_API;
+  const { signIn, loading: isLoading } = useAuth();
 
-  console.log('Referral Code:', referralUser);
+  const handleSignIn = async () => {
+    try {
+      await signIn(code, "signup");
+    } catch (error) {
+      toast.error('Sign-in error:', error);
+    }
+  };
+
+  // console.log('Referral Code:', referralUser);
 
   const [signupDetails, setSignupDetails] = useState({
     username: '',
@@ -138,10 +148,16 @@ function Signup() {
               Hi there! You were referred by{' '}
               <span className="referral-name">{referralUser || 'a Clisha user'}</span>.
             </p>
-            <p className="referral-subtext">
-              Redirecting you to your Clisha account setup in{' '}
-              <span className="countdown">{countdown}</span> seconds...
-            </p>
+            
+            <button
+              type=""
+              className="btn btn-primary clishaBtn w-100"
+              onClick={handleSignIn}
+              disabled={isLoading}         
+            >
+              {isLoading ? 'Loading...' : 'Login with Clisha'}
+            </button>
+
             <div className="loading-bar">
               <div
                 className="loading-progress"

@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }) => {
 
     if (referredBy) {
       localStorage.setItem("referredBy", referredBy);
-      signIn(referredBy, "signup");
+      // signIn(referredBy, "signup");
     }
   }, [signIn]);
 
