@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
     hasRunRef.current = true;
 
     const query = new URLSearchParams(window.location.search);
-    const referredBy = query.get("code");
+    const referredBy = query.get("referredBy");
 
     if (referredBy) {
       localStorage.setItem("referredBy", referredBy);

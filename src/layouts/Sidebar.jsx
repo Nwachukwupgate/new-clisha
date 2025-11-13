@@ -7,7 +7,7 @@ function Sidebar() {
   const user = useSelector((state) => state.user.data);
   const [isCopyUserRef, setisCopyUserRef] = useState(false);
   const copyRefFunc = (msg) => {
-    const data = `${window.location.origin}/signup?code=${msg}`;
+    const data = `${window.location.origin}/signup?referredBy=${msg}`;
     navigator.clipboard.writeText(data).then(() => {
       setisCopyUserRef(true);
       setTimeout(() => {

@@ -14,7 +14,7 @@ import { apiCall } from '../../services/apiRequestManager';
 
 function Signup() {
   const query = new URLSearchParams(window.location.search);
-  const code = query.get('code');
+  const code = query.get('referredBy');
   const auth_api = process.env.REACT_APP_AUTH;
   const navigate = useNavigate();
   const [isPassword, setIsPassword] = useState(false);
@@ -26,7 +26,7 @@ function Signup() {
   const api = process.env.REACT_APP_API;
   const { signIn, loading: isLoading } = useAuth();
 
-  const handleSignIn = async () => {
+  const handleSignUp = async () => {
     try {
       await signIn(code, "signup");
     } catch (error) {
@@ -34,7 +34,13 @@ function Signup() {
     }
   };
 
-  // console.log('Referral Code:', referralUser);
+  const handleSignIn = async () => {
+    try {
+      await signIn();
+    } catch (error) {
+      toast.error('Sign-in error:', error);
+    }
+  };
 
   const [signupDetails, setSignupDetails] = useState({
     username: '',
@@ -101,7 +107,6 @@ function Signup() {
         const res = await apiCall(
           `${api}/auth/referrer/${code}`
         );
-        console.log('Referral User Data:', res);
         setReferralUser(res?.name || null);
       } catch (err) {
         console.error('Error fetching referral details:', err);
@@ -125,25 +130,21 @@ function Signup() {
       }, 2000);
     }
 
-    // Always return a cleanup function
     return () => {
       if (timer) clearInterval(timer);
     };
   }, [referralUser]);
 
-  // if(code){
-  //   return <Loading />;
-  // }
+
 
   if (code) {
-    // Show referral screen
     return (
       <div className="referral-screen flex-center">
         {!referralUser ? (
           <Loading />
         ) : (
-          <div className="referral-card" data-aos="fade-up">
-            <h2 className="referral-title">Welcome to Clisha 👋</h2>
+          <div className="referral-card authBtns" data-aos="fade-up">
+            <h2 className="referral-title">Welcome to Clisha</h2>
             <p className="referral-text">
               Hi there! You were referred by{' '}
               <span className="referral-name">{referralUser || 'a Clisha user'}</span>.
@@ -151,19 +152,16 @@ function Signup() {
             
             <button
               type=""
-              className="btn btn-primary clishaBtn w-100"
-              onClick={handleSignIn}
+              className="btn vendoBtn btn-primary w-100"
+              onClick={handleSignUp}
               disabled={isLoading}         
             >
-              {isLoading ? 'Loading...' : 'Login with Clisha'}
+              {isLoading ? 'Loading...' : 'Register with Clisha Account'}
             </button>
 
-            <div className="loading-bar">
-              <div
-                className="loading-progress"
-                style={{ width: `${(100 * (5 - countdown)) / 5}%` }}
-              />
-            </div>
+            <p className="referral-subtext" onClick={handleSignIn}>
+              Already have an account <span className="loginText">Login</span>
+            </p>
           </div>
         )}
       </div>

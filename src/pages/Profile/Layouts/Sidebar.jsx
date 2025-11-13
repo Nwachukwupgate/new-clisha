@@ -27,7 +27,7 @@ function Sidebar(props) {
   };
 
   const copyRefFunc = (msg) => {
-    const data = `${window.location.origin}/signup?code=${msg}`;
+    const data = `${window.location.origin}/signup?referredBy=${msg}`;
     navigator.clipboard.writeText(data).then(() => {
       setisCopyUserRef(true);
       setTimeout(() => {
