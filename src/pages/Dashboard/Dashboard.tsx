@@ -74,6 +74,35 @@ function Dashboard() {
 
   const date = useCallback(() => moment(Date.now()).format('MMMM DD, YYYY'), []);
 
+  const getCurrentTime = useCallback(() => {
+    // If server timezone is available, validate and use it
+    if (user?.timezone?.time) {
+      const serverTime = user.timezone.time;
+      const [hours, minutes] = serverTime.split(':').map(Number);
+      
+      // Validate the time format
+      if (!Number.isNaN(hours) && !Number.isNaN(minutes) && hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59) {
+        const now = new Date();
+        const currentHours = now.getHours();
+        
+        // Check if server time is roughly in sync (within 2 hours tolerance)
+        const hourDiff = Math.abs(currentHours - hours);
+        if (hourDiff <= 2 || hourDiff >= 22) {
+          const period = hours >= 12 ? 'pm' : 'am';
+          const displayHours = hours % 12 || 12;
+          return `${displayHours}:${minutes.toString().padStart(2, '0')} ${period}`;
+        }
+      }
+    }
+    
+    // Fallback: Use browser's native timezone
+    return new Date().toLocaleTimeString([], { 
+      hour: 'numeric', 
+      minute: '2-digit',
+      hour12: true 
+    }).toLowerCase();
+  }, [user?.timezone?.time]);
+
   const profileCompletePercentage = useCallback(() => {
     let completed = 0;
     const userEntries: (keyof User)[] = [
@@ -397,14 +426,9 @@ function Dashboard() {
 
                   <div className="row mx-0 my-3  mt-5 start_task_component">
                     <div className="col-6">
-                      {user?.timezone?.time && (
-                        <span>
-                          {date()} -{' '}
-                          {`${user?.timezone?.time} ${
-                            parseInt(user?.timezone?.time.split(':')[0], 10) > 12 ? 'pm' : 'am'
-                          }`}
-                        </span>
-                      )}
+                      <span>
+                        {date()} - {getCurrentTime()}
+                      </span>
                       <h4>{t('todayHeading')}</h4>
                     </div>
                     <div className="col-6 p-0  text-right">
