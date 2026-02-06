@@ -23,15 +23,13 @@ function Signup() {
   const [errors, setErrors] = useState({});
   const [referralUser, setReferralUser] = useState(null);
   const [countdown, setCountdown] = useState(5);
+  const [showForm, setShowForm] = useState(false);
   const api = process.env.REACT_APP_API;
   const { signIn, loading: isLoading } = useAuth();
 
-  const handleSignUp = async () => {
-    try {
-      await signIn(code, "signup");
-    } catch (error) {
-      toast.error('Sign-in error:', error);
-    }
+  /** When user came via referral link: show form to register with email/password (code pre-filled). */
+  const handleContinueToRegister = () => {
+    setShowForm(true);
   };
 
   const handleSignIn = async () => {
@@ -63,24 +61,37 @@ function Signup() {
     e.preventDefault();
     if (!validateInputs()) return;
     setIsLoading(true);
+    const payload = {
+      firstName: signupDetails.firstname.trim(),
+      lastName: signupDetails.lastname.trim(),
+      email: signupDetails.email.trim().toLowerCase(),
+      password: signupDetails.password,
+      referredBy: signupDetails.code?.trim() || undefined,
+    };
     axios
-      .post(`${auth_api}/register`, signupDetails)
+      .post(`${auth_api}/register`, payload)
       .then((res) => {
         setIsLoading(false);
-        window.localStorage.setItem('username', res.data.data.user.username);
-        window.localStorage.setItem('email', res.data.data.user.email);
-        // window.localStorage.setItem("token", res.data.data.accessToken);
-        window.localStorage.setItem('refresh', res.data.data.refreshToken);
-        navigate(`/verify`);
-        // window.location.href = "/dashboard";
+        const { user, accessToken, refreshToken } = res.data.data || {};
+        if (user) {
+          window.localStorage.setItem('username', user.username);
+          window.localStorage.setItem('email', user.email);
+        }
+        if (accessToken) window.localStorage.setItem('token', accessToken);
+        if (refreshToken) window.localStorage.setItem('refresh', refreshToken);
+        navigate('/dashboard');
       })
       .catch((err) => {
         setIsLoading(false);
-        if (err.response.status === 400) {
-          const error = err.response.data.errors;
-          toast.error(`${error[0].param}: ${error[0].msg}`);
+        const data = err.response?.data;
+        if (err.response?.status === 400) {
+          if (Array.isArray(data?.errors) && data.errors.length) {
+            toast.error(`${data.errors[0].param}: ${data.errors[0].msg}`);
+          } else {
+            toast.error(data?.message || 'Invalid request');
+          }
         } else {
-          toast.error('Oops try again later!');
+          toast.error(data?.message || 'Oops try again later!');
         }
       });
   };
@@ -137,7 +148,7 @@ function Signup() {
 
 
 
-  if (code) {
+  if (code && !showForm) {
     return (
       <div className="referral-screen flex-center">
         {!referralUser ? (
@@ -149,14 +160,14 @@ function Signup() {
               Hi there! You were referred by{' '}
               <span className="referral-name">{referralUser || 'a Clisha user'}</span>.
             </p>
-            
+
             <button
-              type=""
+              type="button"
               className="btn vendoBtn btn-primary w-100"
-              onClick={handleSignUp}
-              disabled={isLoading}         
+              onClick={handleContinueToRegister}
+              disabled={isLoading}
             >
-              {isLoading ? 'Loading...' : 'Register with Clisha Account'}
+              Continue to register
             </button>
 
             <p className="referral-subtext" onClick={handleSignIn}>

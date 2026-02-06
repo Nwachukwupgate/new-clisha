@@ -13,7 +13,7 @@ export default function ClishaLogin({
   handleSignUp
 }) {
   return (
-    <form className="p-lg-3 pt-5">
+    <form className="p-lg-3 pt-5" onSubmit={(e) => { e.preventDefault(); handleSubmit(e); }}>
       <h2 data-aos="fade-down" data-aos-duration="1000">
         Welcome back!
       </h2>
@@ -92,21 +92,22 @@ export default function ClishaLogin({
           Login with vendo
         </button>
 
-        <button
-          type=""
+        {/* Login with Clisha (OIDC) – commented out; sign-in is email/password only */}
+        {/* <button
+          type="button"
           className="btn btn-primary vendoBtn w-100"
           onClick={handleSignIn}
-          disabled={isLoading}         
+          disabled={isLoading}
         >
           {isLoading ? 'Loading...' : 'Login with Clisha Account'}
-        </button>
+        </button> */}
       </div>
 
       
 
       <Link
-        // to="/signup"
-        onClick={handleSignUp}
+        to="/signup"
+        // onClick={handleSignUp}
         id="emailHelpId"
         className="form-text d-block text-center  text-muted text-decoration-none"
       >
