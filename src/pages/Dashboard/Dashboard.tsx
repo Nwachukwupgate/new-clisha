@@ -122,8 +122,8 @@ function Dashboard() {
       }
     });
 
-    // check is user data has returned
-    const userInputs = Object.entries(user?.user);
+    // check is user data has returned (guard: Object.entries(undefined) throws)
+    const userInputs = Object.entries(user?.user ?? {});
     if (userInputs.length > 0) {
       // update user completed profile percentage
       setPerProfile(Math.round((completed / 9) * 100));

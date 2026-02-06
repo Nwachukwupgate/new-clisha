@@ -35,39 +35,38 @@ function Signin() {
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
-      if (err.response.status === 403) {
-        toast.error(err.response.data.message);
-      }
-      if (err.response.status === 404) {
-        const error = err.response.data.message;
-        toast.error(error);
-      } else if (err.response.status === 400) {
-        const error = err.response.data.errors;
-        toast.error(error[0].msg);
-      } else if (err.response.status === 401) {
-        toast.error('Incorrect Password or Email');
-      } else {
-        toast.error('Oops try again later!');
-      }
+      const status = err.response?.status;
+      const data = err.response?.data;
+      if (status === 403) toast.error(data?.message || 'Account inactive');
+      else if (status === 404) toast.error(data?.message || 'User not found');
+      else if (status === 400) {
+        const errors = data?.errors;
+        toast.error(errors?.[0]?.msg || data?.message || 'Invalid request');
+      } else if (status === 401) toast.error(data?.message || 'Incorrect password or email');
+      else if (status === 503) toast.error(data?.message || 'Service temporarily unavailable');
+      else toast.error(data?.message || 'Oops try again later!');
     }
   };
 
   const writeUserData = (res) => {
-    if (res) {
-      window.localStorage.setItem('username', res.data.user.username);
-      window.localStorage.setItem('email', res.data.user.email);
+    if (!res) return;
+    // Backend returns { status, data: { user, accessToken, refreshToken }, message }
+    const data = res.data?.data || res.data;
+    const user = data?.user;
+    if (!user) return;
+    window.localStorage.setItem('username', user.username);
+    window.localStorage.setItem('email', user.email);
 
-      if (
-        !res.data.user?.email_verified_at &&
-        dateEmail(StartDate) >= dateEmail(res.data.user?.createdAt)
-      ) {
-        toast.error('Please Verify your Email');
-        window.location.href = '/verify';
-      } else {
-        window.localStorage.setItem('token', res.data.accessToken); // access token
-        window.localStorage.setItem('refresh', res.data.refreshToken);
-        window.location.href = '/dashboard';
-      }
+    if (
+      !user?.email_verified_at &&
+      dateEmail(StartDate) >= dateEmail(user?.createdAt)
+    ) {
+      toast.error('Please Verify your Email');
+      window.location.href = '/verify';
+    } else {
+      if (data.accessToken) window.localStorage.setItem('token', data.accessToken);
+      if (data.refreshToken) window.localStorage.setItem('refresh', data.refreshToken);
+      window.location.href = '/dashboard';
     }
   };
 
