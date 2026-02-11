@@ -19,7 +19,7 @@ import {
   getTaskSearchJourney,
   getTaskWebsite,
 } from '../../store/Task';
-import SocialMediaModal from './components/SocialMedia/MediaModal';
+// import SocialMediaModal from './components/SocialMedia/MediaModal';
 
 function Task() {
   const { t } = useTranslation();
@@ -256,6 +256,7 @@ function Task() {
           </div>
         </div>
       </div>
+
 
       {/* <SocialMediaModal  isOpen={showSocialModal} onClose={() => setShowSocialModal(false)} onUpdate={handleModalUpdate} missedTasks={missedTasks} existingPlatforms={existingPlatforms} /> */}
     </>
