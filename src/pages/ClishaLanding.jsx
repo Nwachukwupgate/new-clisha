@@ -115,13 +115,7 @@ const CSS = `
     border-bottom:1px solid var(--border);
   }
   .nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
-  .nav-logo-icon {
-    width:36px; height:36px; border-radius:10px;
-    background:linear-gradient(135deg,#f5c842,#e8a800);
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Bebas Neue',sans-serif; font-size:20px; color:#0c0800;
-  }
-  .nav-logo-text { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--text); letter-spacing:1px; }
+  .nav-logo-img { height:36px; width:auto; object-fit:contain; display:block; }
   .nav-links { display:flex; align-items:center; gap:28px; }
   .nav-links a { font-size:14px; font-weight:500; color:var(--muted); text-decoration:none; transition:color 0.2s; }
   .nav-links a:hover { color:var(--text); }
@@ -229,6 +223,7 @@ const CSS = `
   .site-footer { background:var(--dark2); border-top:1px solid var(--border); padding:60px clamp(16px,5vw,60px) 30px; }
   .footer-grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; }
   .footer-logo-row { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+  .footer-logo-img { height:30px; width:auto; object-fit:contain; display:block; }
   .footer-desc { font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:20px; }
   .footer-col h4 { font-size:13px; font-weight:700; color:var(--text); letter-spacing:0.8px; text-transform:uppercase; margin-bottom:16px; }
   .footer-col a { display:block; font-size:13px; color:var(--muted); text-decoration:none; margin-bottom:10px; transition:color 0.2s; }
@@ -361,12 +356,14 @@ export default function ClishaLanding() {
   ];
 
   const tasks = [
-    { icon: "👍", name: "Like & Share Product Post",    coins: 50,  time: "2 min",  diff: "Easy",   diffC: "#4ade80", diffB: "rgba(74,222,128,0.12)"  },
-    { icon: "▶️", name: "Watch Brand Video (30s)",      coins: 80,  time: "5 min",  diff: "Easy",   diffC: "#4ade80", diffB: "rgba(74,222,128,0.12)"  },
-    { icon: "⭐", name: "Leave a Google Review",        coins: 150, time: "8 min",  diff: "Medium", diffC: "#f5c842", diffB: "rgba(245,200,66,0.12)"  },
-    { icon: "🔍", name: "SEO Keyword Research",         coins: 200, time: "12 min", diff: "Medium", diffC: "#f5c842", diffB: "rgba(245,200,66,0.12)"  },
-    { icon: "📱", name: "Social Media Profile Setup",   coins: 300, time: "15 min", diff: "Hard",   diffC: "#f87171", diffB: "rgba(248,113,113,0.12)" },
+    { icon: "👍", name: "Like & Share Product Post", coins: 50, time: "2 min", diff: "Easy", diffC: "#4ade80", diffB: "rgba(74,222,128,0.12)" },
+    { icon: "▶️", name: "Watch Brand Video (30s)", coins: 80, time: "5 min", diff: "Easy", diffC: "#4ade80", diffB: "rgba(74,222,128,0.12)" },
+    { icon: "⭐", name: "Leave a Google Review", coins: 150, time: "8 min", diff: "Medium", diffC: "#f5c842", diffB: "rgba(245,200,66,0.12)" },
+    { icon: "🔍", name: "SEO Keyword Research", coins: 200, time: "12 min", diff: "Medium", diffC: "#f5c842", diffB: "rgba(245,200,66,0.12)" },
+    { icon: "📱", name: "Social Media Profile Setup", coins: 300, time: "15 min", diff: "Hard", diffC: "#f87171", diffB: "rgba(248,113,113,0.12)" },
   ];
+
+  console.log("rank", rank);
 
   const topUsers = rank?.ranking?.slice(0, 5).map((item, i) => {
     const displayName = item?.user?.firstname ?? item?.user?.username ?? "User";
@@ -384,6 +381,8 @@ export default function ClishaLanding() {
     };
   }) ?? [];
 
+  console.log("topUsers", topUsers);
+
   const testimonials = [
     { text: "I complete a handful of tasks every morning with my coffee. My coin balance has been growing steadily for months now. It's become part of my routine.", name: "Sarah M.", role: "Member since 2023", avatar: "S", color: "#f5c842" },
     { text: "The leaderboard keeps me competitive. I love checking my rank every day and pushing to stay in the top 10. Clisha made task-doing actually fun.", name: "Marcus T.", role: "Top 5 User", avatar: "M", color: "#38bdf8" },
@@ -398,7 +397,7 @@ export default function ClishaLanding() {
     { q: "What are the daily streak bonuses?", a: "Log in and complete at least one task each day to keep your streak alive. The longer your streak, the bigger your daily login bonus coins." },
   ];
 
-  const langs = ["EN","FR","DE","ES","IT","ZH","PT"];
+  const langs = ["EN", "FR", "DE", "ES", "IT", "ZH", "PT"];
 
   return (
     <>
@@ -407,13 +406,12 @@ export default function ClishaLanding() {
 
         {/* ═══════════════════════════════ NAVBAR ════════════════════════════ */}
         <nav className={`main-nav${scrolled ? " scrolled" : ""}`}>
-          <a className="nav-logo" href="#">
-            <div className="nav-logo-icon">C</div>
-            <span className="nav-logo-text">Clisha</span>
+          <a className="nav-logo" href="/">
+            <img src="/logo2.png" alt="Clisha" className="nav-logo-img" />
           </a>
           <div className="nav-links">
-            {["How it Works","Features","Tasks","Leaderboard"].map(l => (
-              <a key={l} href="#" onClick={e => { e.preventDefault(); scrollTo(l.toLowerCase().replace(/\s/g,'_')); }}>{l}</a>
+            {["How it Works", "Features", "Tasks", "Leaderboard"].map(l => (
+              <a key={l} href="#" onClick={e => { e.preventDefault(); scrollTo(l.toLowerCase().replace(/\s/g, '_')); }}>{l}</a>
             ))}
           </div>
           <div className="nav-cta">
@@ -425,46 +423,46 @@ export default function ClishaLanding() {
         {/* ═══════════════════════════════ HERO ══════════════════════════════ */}
         <section className="hero" id="hero">
           {/* Background rings */}
-          {[600,900,1200].map((s,i) => (
-            <div key={s} className="hero-bg-ring" style={{ width:s, height:s, top:`calc(50% - ${s/2}px)`, left:`calc(50% - ${s/2}px)`, opacity: 0.4 - i*0.1 }} />
+          {[600, 900, 1200].map((s, i) => (
+            <div key={s} className="hero-bg-ring" style={{ width: s, height: s, top: `calc(50% - ${s / 2}px)`, left: `calc(50% - ${s / 2}px)`, opacity: 0.4 - i * 0.1 }} />
           ))}
           {/* Floating coins */}
-          {[{l:"12%",t:"22%",d:"0s",dur:"5s"},{l:"80%",t:"18%",d:"1.2s",dur:"4.2s"},{l:"6%",t:"65%",d:"2s",dur:"6s"},{l:"88%",t:"60%",d:"0.7s",dur:"5.5s"},{l:"45%",t:"82%",d:"1.8s",dur:"4.8s"}].map((c,i) => (
-            <div key={i} className="floating-coin" style={{ left:c.l, top:c.t, "--delay":c.d, "--dur":c.dur, animationDelay:c.d, animationDuration:c.dur }}>🪙</div>
+          {[{ l: "12%", t: "22%", d: "0s", dur: "5s" }, { l: "80%", t: "18%", d: "1.2s", dur: "4.2s" }, { l: "6%", t: "65%", d: "2s", dur: "6s" }, { l: "88%", t: "60%", d: "0.7s", dur: "5.5s" }, { l: "45%", t: "82%", d: "1.8s", dur: "4.8s" }].map((c, i) => (
+            <div key={i} className="floating-coin" style={{ left: c.l, top: c.t, "--delay": c.d, "--dur": c.dur, animationDelay: c.d, animationDuration: c.dur }}>🪙</div>
           ))}
 
           {/* Radial glow */}
-          <div style={{ position:"absolute", top:"30%", left:"50%", transform:"translate(-50%,-50%)", width:700, height:700, borderRadius:"50%", background:"radial-gradient(circle,rgba(245,200,66,0.07),transparent 65%)", pointerEvents:"none" }} />
+          <div style={{ position: "absolute", top: "30%", left: "50%", transform: "translate(-50%,-50%)", width: 700, height: 700, borderRadius: "50%", background: "radial-gradient(circle,rgba(245,200,66,0.07),transparent 65%)", pointerEvents: "none" }} />
 
-          <div className="section-label fade-up" style={{ animationDelay:"0.1s" }}>
+          <div className="section-label fade-up" style={{ animationDelay: "0.1s" }}>
             <CoinSVG size={12} /> Earn coins doing everyday online tasks
           </div>
-          <h1 className="hero-title fade-up" style={{ animationDelay:"0.2s" }}>
+          <h1 className="hero-title fade-up" style={{ animationDelay: "0.2s" }}>
             COMPLETE TASKS.<br />
             <span className="gold">COLLECT COINS.</span><br />
-            RULE THE BOARD. 
+            RULE THE BOARD.
           </h1>
-          <p className="hero-sub fade-up" style={{ animationDelay:"0.35s" }}>
-            Clisha rewards you with coins for completing simple digital tasks every day. 
+          <p className="hero-sub fade-up" style={{ animationDelay: "0.35s" }}>
+            Clisha rewards you with coins for completing simple digital tasks every day.
             Join thousands of earners on the leaderboard and build your score.
           </p>
-          <div className="hero-btns fade-up" style={{ animationDelay:"0.5s" }}>
+          <div className="hero-btns fade-up" style={{ animationDelay: "0.5s" }}>
             <button className="btn-primary-cta">🚀 Start Earning Free</button>
             <button className="btn-ghost" onClick={() => scrollTo("how_it_works")}>See How It Works →</button>
           </div>
 
-          <div className="hero-social-proof fade-up" style={{ animationDelay:"0.65s" }}>
+          <div className="hero-social-proof fade-up" style={{ animationDelay: "0.65s" }}>
             <div className="hero-avatars">
-              {["#f5c842","#38bdf8","#4ade80","#a855f7","#ff7b2f"].map((c,i) => (
-                <div key={i} className="hero-avatar" style={{ background:c, color:"#0c0800", zIndex:5-i }}>
-                  {["K","M","S","A","J"][i]}
+              {["#f5c842", "#38bdf8", "#4ade80", "#a855f7", "#ff7b2f"].map((c, i) => (
+                <div key={i} className="hero-avatar" style={{ background: c, color: "#0c0800", zIndex: 5 - i }}>
+                  {["K", "M", "S", "A", "J"][i]}
                 </div>
               ))}
             </div>
             <p className="hero-proof-text">
               <strong>12,000+</strong> users earning coins daily
             </p>
-            <div style={{ width:1, height:20, background:"var(--border)" }} />
+            <div style={{ width: 1, height: 20, background: "var(--border)" }} />
             <p className="hero-proof-text">⭐ <strong>4.8/5</strong> from 800+ reviews</p>
           </div>
         </section>
@@ -472,7 +470,7 @@ export default function ClishaLanding() {
         {/* ═══════════════════════════════ TICKER ════════════════════════════ */}
         <div className="ticker-wrap">
           <div className="ticker-inner">
-            {Array(2).fill(["🪙 Daily Tasks","🔥 Streak Bonuses","🏆 Live Leaderboard","👥 Referral Rewards","⚡ New Tasks Daily","🌍 7 Languages","✅ Free to Join","🎯 SEO & Social Tasks"]).flat().map((item, i) => (
+            {Array(2).fill(["🪙 Daily Tasks", "🔥 Streak Bonuses", "🏆 Live Leaderboard", "👥 Referral Rewards", "⚡ New Tasks Daily", "🌍 7 Languages", "✅ Free to Join", "🎯 SEO & Social Tasks"]).flat().map((item, i) => (
               <div key={i} className="ticker-item">
                 <div className="ticker-dot" />
                 <span>{item}</span>
@@ -485,12 +483,12 @@ export default function ClishaLanding() {
         <div className="stats-strip" id="stats">
           <div className="stats-grid">
             {[
-              { n: 12000, s:"+", label: "Active Users"     },
-              { n: 500000,s:"+", label: "Tasks Completed"  },
-              { n: 7,     s:"",  label: "Languages"        },
-              { n: 98,    s:"%", label: "Satisfaction Rate" },
-            ].map((s,i) => (
-              <div key={i} className="stat-item reveal" style={{ transitionDelay:`${i*0.1}s` }}>
+              { n: 12000, s: "+", label: "Active Users" },
+              { n: 500000, s: "+", label: "Tasks Completed" },
+              { n: 7, s: "", label: "Languages" },
+              { n: 98, s: "%", label: "Satisfaction Rate" },
+            ].map((s, i) => (
+              <div key={i} className="stat-item reveal" style={{ transitionDelay: `${i * 0.1}s` }}>
                 <div className="stat-num"><AnimCount to={s.n} suffix={s.s} /></div>
                 <div className="stat-label">{s.label}</div>
               </div>
@@ -499,27 +497,27 @@ export default function ClishaLanding() {
         </div>
 
         {/* ═══════════════════════════════ HOW IT WORKS ══════════════════════ */}
-        <section className="section-wrap" id="how_it_works" style={{ background:"var(--dark)" }}>
+        <section className="section-wrap" id="how_it_works" style={{ background: "var(--dark)" }}>
           <div className="section-inner">
-            <div style={{ textAlign:"center" }}>
+            <div style={{ textAlign: "center" }}>
               <div className="section-label reveal">⚡ Simple Process</div>
-              <h2 className="section-title reveal" style={{ textAlign:"center" }}>HOW CLISHA WORKS</h2>
-              <p className="section-sub reveal" style={{ margin:"0 auto 0", textAlign:"center" }}>
+              <h2 className="section-title reveal" style={{ textAlign: "center" }}>HOW CLISHA WORKS</h2>
+              <p className="section-sub reveal" style={{ margin: "0 auto 0", textAlign: "center" }}>
                 Three steps is all it takes. Start earning coins in the next 5 minutes.
               </p>
             </div>
             <div className="hiw-steps">
-              {steps.map((s,i) => (
-                <div key={i} className={`hiw-step glass-card reveal reveal-delay-${i+1}`}>
-                  <div className="hiw-step-num">{i+1}</div>
-                  <div className="hiw-step-icon" style={{ background:s.bg }}>
-                    <span style={{ fontSize:26 }}>{s.icon}</span>
+              {steps.map((s, i) => (
+                <div key={i} className={`hiw-step glass-card reveal reveal-delay-${i + 1}`}>
+                  <div className="hiw-step-num">{i + 1}</div>
+                  <div className="hiw-step-icon" style={{ background: s.bg }}>
+                    <span style={{ fontSize: 26 }}>{s.icon}</span>
                   </div>
                   <h3>{s.title}</h3>
                   <p>{s.desc}</p>
                   {/* Connector arrow */}
                   {i < 2 && (
-                    <div style={{ position:"absolute", right:-28, top:"50%", transform:"translateY(-50%)", fontSize:22, color:"rgba(245,200,66,0.3)", display:"none" }}>→</div>
+                    <div style={{ position: "absolute", right: -28, top: "50%", transform: "translateY(-50%)", fontSize: 22, color: "rgba(245,200,66,0.3)", display: "none" }}>→</div>
                   )}
                 </div>
               ))}
@@ -528,9 +526,9 @@ export default function ClishaLanding() {
         </section>
 
         {/* ═══════════════════════════════ FEATURES ══════════════════════════ */}
-        <section className="section-wrap" id="Features" style={{ background:"var(--dark2)" }}>
+        <section className="section-wrap" id="Features" style={{ background: "var(--dark2)" }}>
           <div className="section-inner">
-            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:60, alignItems:"center" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
               <div>
                 <div className="section-label reveal">🎯 Platform Features</div>
                 <h2 className="section-title reveal">EVERYTHING YOU NEED TO EARN MORE</h2>
@@ -538,28 +536,28 @@ export default function ClishaLanding() {
                   Clisha is built around one goal: making it easy and rewarding to complete tasks and see your coins grow every single day.
                 </p>
               </div>
-              <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                 {[
-                  { label:"Tasks Refreshed", val:"Every 24h", icon:"🔄" },
-                  { label:"Average Coins per Task", val:"50–300", icon:"🪙" },
-                  { label:"Streak Multiplier", val:"Up to 3×", icon:"🔥" },
-                ].map((m,i) => (
-                  <div key={i} className={`reveal reveal-delay-${i+1}`} style={{ display:"flex", alignItems:"center", gap:16, background:"rgba(255,255,255,0.03)", border:"1px solid var(--border)", borderRadius:14, padding:"16px 20px" }}>
-                    <span style={{ fontSize:24 }}>{m.icon}</span>
+                  { label: "Tasks Refreshed", val: "Every 24h", icon: "🔄" },
+                  { label: "Average Coins per Task", val: "50–300", icon: "🪙" },
+                  { label: "Streak Multiplier", val: "Up to 3×", icon: "🔥" },
+                ].map((m, i) => (
+                  <div key={i} className={`reveal reveal-delay-${i + 1}`} style={{ display: "flex", alignItems: "center", gap: 16, background: "rgba(255,255,255,0.03)", border: "1px solid var(--border)", borderRadius: 14, padding: "16px 20px" }}>
+                    <span style={{ fontSize: 24 }}>{m.icon}</span>
                     <div>
-                      <div style={{ fontSize:12, color:"var(--muted)", marginBottom:2 }}>{m.label}</div>
-                      <div style={{ fontSize:18, fontWeight:800, color:"var(--gold)", fontFamily:"'Bebas Neue',sans-serif", letterSpacing:"0.5px" }}>{m.val}</div>
+                      <div style={{ fontSize: 12, color: "var(--muted)", marginBottom: 2 }}>{m.label}</div>
+                      <div style={{ fontSize: 18, fontWeight: 800, color: "var(--gold)", fontFamily: "'Bebas Neue',sans-serif", letterSpacing: "0.5px" }}>{m.val}</div>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="features-grid" style={{ marginTop:52 }}>
-              {features.map((f,i) => (
-                <div key={i} className={`feature-card glass-card reveal reveal-delay-${(i%4)+1}`}>
-                  <div className="feature-icon" style={{ background:f.bg }}>
-                    <span style={{ fontSize:22 }}>{f.icon}</span>
+            <div className="features-grid" style={{ marginTop: 52 }}>
+              {features.map((f, i) => (
+                <div key={i} className={`feature-card glass-card reveal reveal-delay-${(i % 4) + 1}`}>
+                  <div className="feature-icon" style={{ background: f.bg }}>
+                    <span style={{ fontSize: 22 }}>{f.icon}</span>
                   </div>
                   <div>
                     <h3>{f.title}</h3>
@@ -572,60 +570,60 @@ export default function ClishaLanding() {
         </section>
 
         {/* ═══════════════════════════════ DAILY TASK PREVIEW ════════════════ */}
-        <section className="section-wrap" id="Tasks" style={{ background:"var(--dark)" }}>
+        <section className="section-wrap" id="Tasks" style={{ background: "var(--dark)" }}>
           <div className="section-inner">
             <div className="daily-task-grid">
               <div>
                 <div className="section-label reveal">📋 Daily Tasks</div>
                 <h2 className="section-title reveal">NEW ONLINE TASKS — EVERY SINGLE DAY</h2>
-                <p className="section-sub reveal" style={{ marginBottom:28 }}>
+                <p className="section-sub reveal" style={{ marginBottom: 28 }}>
                   Wake up to a fresh list of tasks. SEO work, social media engagement, reviews, forum activity — each one pays out in coins the moment you complete it.
                 </p>
-                <ul className="reveal" style={{ listStyle:"none", display:"flex", flexDirection:"column", gap:12, marginBottom:32 }}>
-                  {["Earn coins instantly on task completion","No experience required to get started","Tasks take as little as 2 minutes","Build streaks for multiplied rewards"].map((pt,i) => (
-                    <li key={i} style={{ display:"flex", alignItems:"center", gap:12, fontSize:14, color:"var(--muted)" }}>
-                      <div style={{ width:20, height:20, borderRadius:"50%", background:"rgba(74,222,128,0.15)", border:"1px solid rgba(74,222,128,0.3)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:11, color:"#4ade80", flexShrink:0 }}>✓</div>
+                <ul className="reveal" style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
+                  {["Earn coins instantly on task completion", "No experience required to get started", "Tasks take as little as 2 minutes", "Build streaks for multiplied rewards"].map((pt, i) => (
+                    <li key={i} style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 14, color: "var(--muted)" }}>
+                      <div style={{ width: 20, height: 20, borderRadius: "50%", background: "rgba(74,222,128,0.15)", border: "1px solid rgba(74,222,128,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, color: "#4ade80", flexShrink: 0 }}>✓</div>
                       {pt}
                     </li>
                   ))}
                 </ul>
                 <button className="btn-primary-cta reveal">View All Tasks →</button>
               </div>
-              <div className="task-visual reveal" style={{ animationDelay:"0.2s" }}>
+              <div className="task-visual reveal" style={{ animationDelay: "0.2s" }}>
                 <div className="task-card-mock">
-                  <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:18 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
                     <div>
-                      <div style={{ fontSize:13, fontWeight:700, color:"var(--text)" }}>Today's Tasks</div>
-                      <div style={{ fontSize:11, color:"var(--muted)", marginTop:2 }}>5 tasks available</div>
+                      <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text)" }}>Today's Tasks</div>
+                      <div style={{ fontSize: 11, color: "var(--muted)", marginTop: 2 }}>5 tasks available</div>
                     </div>
-                    <div style={{ display:"flex", alignItems:"center", gap:6, background:"rgba(245,200,66,0.1)", border:"1px solid rgba(245,200,66,0.2)", borderRadius:20, padding:"5px 12px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, background: "rgba(245,200,66,0.1)", border: "1px solid rgba(245,200,66,0.2)", borderRadius: 20, padding: "5px 12px" }}>
                       <CoinSVG size={13} glow />
-                      <span style={{ fontSize:12, fontWeight:800, color:"#f5c842" }}>780 coins total</span>
+                      <span style={{ fontSize: 12, fontWeight: 800, color: "#f5c842" }}>780 coins total</span>
                     </div>
                   </div>
-                  {tasks.map((t,i) => (
-                    <div key={i} className="task-row" style={{ animationDelay:`${i*0.08}s` }}>
+                  {tasks.map((t, i) => (
+                    <div key={i} className="task-row" style={{ animationDelay: `${i * 0.08}s` }}>
                       <div className="task-row-icon">{t.icon}</div>
                       <div className="task-row-info">
                         <div className="name">{t.name}</div>
                         <div className="meta">⏱ {t.time}</div>
                       </div>
-                      <span className="task-row-badge" style={{ background:t.diffB, color:t.diffC }}>{t.diff}</span>
+                      <span className="task-row-badge" style={{ background: t.diffB, color: t.diffC }}>{t.diff}</span>
                       <div className="task-row-coin">
                         <CoinSVG size={12} glow />
                         +{t.coins}
                       </div>
                     </div>
                   ))}
-                  <button style={{ width:"100%", marginTop:16, background:"linear-gradient(135deg,#f5c842,#e8a800)", color:"#0c0800", border:"none", borderRadius:12, padding:"12px", fontSize:13, fontWeight:800, cursor:"pointer" }}>
+                  <button style={{ width: "100%", marginTop: 16, background: "linear-gradient(135deg,#f5c842,#e8a800)", color: "#0c0800", border: "none", borderRadius: 12, padding: "12px", fontSize: 13, fontWeight: 800, cursor: "pointer" }}>
                     ⚡ Start Earning Today
                   </button>
                 </div>
 
                 {/* Floating badge */}
-                <div className="float-el" style={{ position:"absolute", top:-20, right:-20, background:"rgba(74,222,128,0.15)", border:"1px solid rgba(74,222,128,0.3)", borderRadius:14, padding:"12px 16px", backdropFilter:"blur(12px)" }}>
-                  <div style={{ fontSize:11, color:"#4ade80", fontWeight:700 }}>✓ Just completed</div>
-                  <div style={{ fontSize:13, fontWeight:800, color:"#fff", marginTop:2 }}>+150 coins earned</div>
+                <div className="float-el" style={{ position: "absolute", top: -20, right: -20, background: "rgba(74,222,128,0.15)", border: "1px solid rgba(74,222,128,0.3)", borderRadius: 14, padding: "12px 16px", backdropFilter: "blur(12px)" }}>
+                  <div style={{ fontSize: 11, color: "#4ade80", fontWeight: 700 }}>✓ Just completed</div>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: "#fff", marginTop: 2 }}>+150 coins earned</div>
                 </div>
               </div>
             </div>
@@ -633,12 +631,12 @@ export default function ClishaLanding() {
         </section>
 
         {/* ═══════════════════════════════ TOP USERS ══════════════════════════ */}
-        <section className="section-wrap" id="Leaderboard" style={{ background:"var(--dark2)" }}>
+        <section className="section-wrap" id="Leaderboard" style={{ background: "var(--dark2)" }}>
           <div className="section-inner">
-            <div style={{ textAlign:"center" }}>
+            <div style={{ textAlign: "center" }}>
               <div className="section-label reveal">🏆 Hall of Fame</div>
-              <h2 className="section-title reveal" style={{ textAlign:"center" }}>TOP EARNERS THIS WEEK</h2>
-              <p className="section-sub reveal" style={{ margin:"0 auto", textAlign:"center" }}>
+              <h2 className="section-title reveal" style={{ textAlign: "center" }}>TOP EARNERS THIS WEEK</h2>
+              <p className="section-sub reveal" style={{ margin: "0 auto", textAlign: "center" }}>
                 The leaderboard resets weekly. Complete more tasks, climb the ranks, and earn your spot at the top.
               </p>
             </div>
@@ -654,16 +652,16 @@ export default function ClishaLanding() {
               <>
                 <div className="users-grid">
                   {topUsers.map((u, i) => (
-                    <div key={u.id ?? i} className={`user-card glass-card reveal reveal-delay-${i + 1}`} style={{ background: i === 0 ? "rgba(245,200,66,0.06)" : undefined, borderColor: i === 0 ? "rgba(245,200,66,0.2)" : undefined }}>
+                    <div key={u?.id ?? i} className={`user-card glass-card reveal visible reveal-delay-${i + 1}`} style={{ background: i === 0 ? "rgba(245,200,66,0.06)" : undefined, borderColor: i === 0 ? "rgba(245,200,66,0.2)" : undefined }}>
                       {i === 0 && <div style={{ position: "absolute", top: -1, left: "50%", transform: "translateX(-50%)", background: "linear-gradient(135deg,#f5c842,#e8a800)", color: "#0c0800", fontSize: 9, fontWeight: 800, padding: "4px 12px", borderRadius: "0 0 8px 8px", letterSpacing: "1px" }}>👑 TOP EARNER</div>}
                       <div className="user-rank">#{i + 1} RANK</div>
-                      <div className="user-avatar" style={{ background: `${u.color}22`, border: `3px solid ${u.color}44`, overflow: "hidden" }}>
+                      <div className="user-avatar" style={{ background: `${u?.color}22`, border: `3px solid ${u?.color}44`, overflow: "hidden" }}>
                         <img src={ProfilePicture({ gender: u.gender, photo: u.photo })} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                       </div>
-                      <div className="user-name">{u.name}</div>
+                      <div className="user-name">{u?.name}</div>
                       <div className="user-coins">
                         <CoinSVG size={12} glow />
-                        {u.coins}
+                        {u?.coins}
                       </div>
                     </div>
                   ))}
@@ -677,20 +675,20 @@ export default function ClishaLanding() {
         </section>
 
         {/* ═══════════════════════════════ TESTIMONIALS ══════════════════════ */}
-        <section className="section-wrap" style={{ background:"var(--dark)" }}>
+        <section className="section-wrap" style={{ background: "var(--dark)" }}>
           <div className="section-inner">
-            <div style={{ textAlign:"center" }}>
+            <div style={{ textAlign: "center" }}>
               <div className="section-label reveal">💬 User Stories</div>
-              <h2 className="section-title reveal" style={{ textAlign:"center" }}>WHAT EARNERS SAY</h2>
+              <h2 className="section-title reveal" style={{ textAlign: "center" }}>WHAT EARNERS SAY</h2>
             </div>
             <div className="testi-grid">
-              {testimonials.map((t,i) => (
-                <div key={i} className={`testi-card glass-card reveal reveal-delay-${i+1}`}>
+              {testimonials.map((t, i) => (
+                <div key={i} className={`testi-card glass-card reveal reveal-delay-${i + 1}`}>
                   <div className="testi-stars">★★★★★</div>
                   <p className="testi-text">"{t.text}"</p>
                   <div className="testi-author">
-                    <div className="testi-avatar" style={{ background:`${t.color}22`, border:`2px solid ${t.color}44` }}>
-                      <span style={{ color:t.color }}>{t.avatar}</span>
+                    <div className="testi-avatar" style={{ background: `${t.color}22`, border: `2px solid ${t.color}44` }}>
+                      <span style={{ color: t.color }}>{t.avatar}</span>
                     </div>
                     <div>
                       <div className="testi-name">{t.name}</div>
@@ -704,21 +702,21 @@ export default function ClishaLanding() {
         </section>
 
         {/* ═══════════════════════════════ FAQ ════════════════════════════════ */}
-        <section className="section-wrap" style={{ background:"var(--dark2)" }}>
-          <div className="section-inner" style={{ maxWidth:760 }}>
-            <div style={{ textAlign:"center" }}>
+        <section className="section-wrap" style={{ background: "var(--dark2)" }}>
+          <div className="section-inner" style={{ maxWidth: 760 }}>
+            <div style={{ textAlign: "center" }}>
               <div className="section-label reveal">❓ FAQ</div>
-              <h2 className="section-title reveal" style={{ textAlign:"center" }}>QUESTIONS? ANSWERED.</h2>
+              <h2 className="section-title reveal" style={{ textAlign: "center" }}>QUESTIONS? ANSWERED.</h2>
             </div>
-            <div style={{ marginTop:44, display:"flex", flexDirection:"column", gap:10 }}>
-              {faqs.map((f,i) => (
-                <div key={i} className="reveal" style={{ background:"rgba(255,255,255,0.03)", border:`1px solid ${activeFaq===i ? "rgba(245,200,66,0.3)" : "var(--border)"}`, borderRadius:14, overflow:"hidden", transition:"border-color 0.2s" }}>
-                  <button onClick={() => setActiveFaq(activeFaq===i ? null : i)} style={{ width:"100%", background:"none", border:"none", padding:"18px 22px", display:"flex", justifyContent:"space-between", alignItems:"center", cursor:"pointer", color:"var(--text)", fontFamily:"'Outfit',sans-serif", fontWeight:600, fontSize:14, textAlign:"left" }}>
+            <div style={{ marginTop: 44, display: "flex", flexDirection: "column", gap: 10 }}>
+              {faqs.map((f, i) => (
+                <div key={i} className="reveal" style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${activeFaq === i ? "rgba(245,200,66,0.3)" : "var(--border)"}`, borderRadius: 14, overflow: "hidden", transition: "border-color 0.2s" }}>
+                  <button onClick={() => setActiveFaq(activeFaq === i ? null : i)} style={{ width: "100%", background: "none", border: "none", padding: "18px 22px", display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer", color: "var(--text)", fontFamily: "'Outfit',sans-serif", fontWeight: 600, fontSize: 14, textAlign: "left" }}>
                     {f.q}
-                    <span style={{ fontSize:18, color:"var(--gold)", transition:"transform 0.2s", transform:activeFaq===i ? "rotate(45deg)" : "rotate(0deg)", flexShrink:0, marginLeft:12 }}>+</span>
+                    <span style={{ fontSize: 18, color: "var(--gold)", transition: "transform 0.2s", transform: activeFaq === i ? "rotate(45deg)" : "rotate(0deg)", flexShrink: 0, marginLeft: 12 }}>+</span>
                   </button>
-                  {activeFaq===i && (
-                    <div style={{ padding:"0 22px 18px", fontSize:14, color:"var(--muted)", lineHeight:1.7 }}>{f.a}</div>
+                  {activeFaq === i && (
+                    <div style={{ padding: "0 22px 18px", fontSize: 14, color: "var(--muted)", lineHeight: 1.7 }}>{f.a}</div>
                   )}
                 </div>
               ))}
@@ -729,21 +727,21 @@ export default function ClishaLanding() {
         {/* ═══════════════════════════════ FINAL CTA ══════════════════════════ */}
         <section className="cta-section">
           <div className="cta-bg" />
-          <div style={{ position:"relative", zIndex:1, maxWidth:700, margin:"0 auto" }}>
+          <div style={{ position: "relative", zIndex: 1, maxWidth: 700, margin: "0 auto" }}>
             {/* Decorative ring */}
-            <div className="spin-slow" style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:500, height:500, borderRadius:"50%", border:"1px dashed rgba(245,200,66,0.1)", pointerEvents:"none" }} />
-            <div className="section-label reveal" style={{ margin:"0 auto 20px" }}>🚀 Get Started</div>
-            <h2 className="section-title reveal" style={{ textAlign:"center", fontSize:"clamp(40px,6vw,80px)" }}>
-              READY TO START<br /><span style={{ background:"linear-gradient(135deg,#f5c842,#ff9d00)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>COLLECTING COINS?</span>
+            <div className="spin-slow" style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 500, height: 500, borderRadius: "50%", border: "1px dashed rgba(245,200,66,0.1)", pointerEvents: "none" }} />
+            <div className="section-label reveal" style={{ margin: "0 auto 20px" }}>🚀 Get Started</div>
+            <h2 className="section-title reveal" style={{ textAlign: "center", fontSize: "clamp(40px,6vw,80px)" }}>
+              READY TO START<br /><span style={{ background: "linear-gradient(135deg,#f5c842,#ff9d00)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>COLLECTING COINS?</span>
             </h2>
-            <p className="section-sub reveal" style={{ textAlign:"center", margin:"0 auto 36px" }}>
+            <p className="section-sub reveal" style={{ textAlign: "center", margin: "0 auto 36px" }}>
               Join over 12,000 users completing tasks and growing their coin balance every day. It's free, it's fast, and your first tasks are waiting.
             </p>
-            <div className="reveal" style={{ display:"flex", gap:14, justifyContent:"center", flexWrap:"wrap" }}>
-              <button className="btn-primary-cta" style={{ padding:"16px 36px", fontSize:16 }}>🪙 Create Free Account</button>
-              <button className="btn-ghost" style={{ padding:"16px 28px", fontSize:16 }}>Learn More</button>
+            <div className="reveal" style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
+              <button className="btn-primary-cta" style={{ padding: "16px 36px", fontSize: 16 }}>🪙 Create Free Account</button>
+              <button className="btn-ghost" style={{ padding: "16px 28px", fontSize: 16 }}>Learn More</button>
             </div>
-            <p className="reveal" style={{ textAlign:"center", marginTop:20, fontSize:12, color:"var(--muted)" }}>
+            <p className="reveal" style={{ textAlign: "center", marginTop: 20, fontSize: 12, color: "var(--muted)" }}>
               No credit card · No download · Just sign up and earn
             </p>
           </div>
@@ -755,16 +753,16 @@ export default function ClishaLanding() {
             {/* Brand col */}
             <div>
               <div className="footer-logo-row">
-                <div className="nav-logo-icon" style={{ width:30, height:30, fontSize:17, borderRadius:9 }}>C</div>
-                <span style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:22, color:"var(--text)", letterSpacing:"1px" }}>Clisha</span>
+                <img src="/logo2.png" alt="Clisha" className="footer-logo-img" />
+                <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 22, color: "var(--text)", letterSpacing: "1px" }}>Clisha</span>
               </div>
               <p className="footer-desc">
                 Clisha is a gamified task-reward platform operated by VQualis Limited. Complete digital tasks daily and grow your coin balance.
               </p>
               <div className="social-icons">
-                {["𝕏","in","f","▶"].map((s,i) => <div key={i} className="social-icon">{s}</div>)}
+                {["𝕏", "in", "f", "▶"].map((s, i) => <div key={i} className="social-icon">{s}</div>)}
               </div>
-              <div style={{ marginTop:16 }}>
+              <div style={{ marginTop: 16 }}>
                 <select className="lang-select" value={langVal} onChange={e => setLangVal(e.target.value)}>
                   {langs.map(l => <option key={l} value={l}>{l}</option>)}
                 </select>
@@ -774,24 +772,24 @@ export default function ClishaLanding() {
             {/* Links cols */}
             <div className="footer-col">
               <h4>Platform</h4>
-              {["How It Works","Daily Tasks","Leaderboard","Referral Program","Pricing Plans"].map(l => <a key={l} href="#">{l}</a>)}
+              {["How It Works", "Daily Tasks", "Leaderboard", "Referral Program", "Pricing Plans"].map(l => <a key={l} href="#">{l}</a>)}
             </div>
             <div className="footer-col">
               <h4>Company</h4>
-              {["About Us","Blog","Careers","Press Kit","Affiliates"].map(l => <a key={l} href="#">{l}</a>)}
+              {["About Us", "Blog", "Careers", "Press Kit", "Affiliates"].map(l => <a key={l} href="#">{l}</a>)}
             </div>
             <div className="footer-col">
               <h4>Contact</h4>
-              <a href={`mailto:${(typeof process !== 'undefined' && process.env?.REACT_APP_EMAIL) || "support@clisha.me"}`} style={{ wordBreak:"break-all" }}>{(typeof process !== 'undefined' && process.env?.REACT_APP_EMAIL) || "support@clisha.me"}</a>
-              <div style={{ fontSize:13, color:"var(--muted)", lineHeight:1.6, marginTop:8 }}>
+              <a href={`mailto:${(typeof process !== 'undefined' && process.env?.REACT_APP_EMAIL) || "support@clisha.me"}`} style={{ wordBreak: "break-all" }}>{(typeof process !== 'undefined' && process.env?.REACT_APP_EMAIL) || "support@clisha.me"}</a>
+              <div style={{ fontSize: 13, color: "var(--muted)", lineHeight: 1.6, marginTop: 8 }}>
                 VQualis Limited<br />
                 Grand Industrial Building, 7/F<br />
                 159-165 Wo Yi Hop Rd, Kwai Chung, HK
               </div>
-              <div style={{ marginTop:16 }}>
-                <div style={{ fontSize:12, fontWeight:700, color:"var(--muted)", marginBottom:8, letterSpacing:"0.5px", textTransform:"uppercase" }}>Secure Payments</div>
+              <div style={{ marginTop: 16 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)", marginBottom: 8, letterSpacing: "0.5px", textTransform: "uppercase" }}>Secure Payments</div>
                 <div className="payment-badges">
-                  {["PayPal","Visa","MC","Amex"].map(p => <span key={p} className="pay-badge">{p}</span>)}
+                  {["PayPal", "Visa", "MC", "Amex"].map(p => <span key={p} className="pay-badge">{p}</span>)}
                 </div>
               </div>
             </div>
