@@ -21,6 +21,7 @@ import ClishaUsers from '../pages/ClishaUsers';
 import Contact from '../pages/Contacts';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import Help from '../pages/Help/Help';
+import ClishaLanding from '../pages/ClishaLanding';
 import Landingpage from '../pages/LandingPage/Landingpage';
 import Membership from '../pages/Membership';
 import Notification from '../pages/Notification';
@@ -98,6 +99,7 @@ function Router() {
 
           {/* Public Route start */}
           <Route path="/" element={<Landingpage />} />
+          <Route path="/clisha" element={<ClishaLanding />} />
           <Route path="/become-partner" element={<BecomeAPartner />} />
           <Route path="/clisha-users" element={<ClishaUsers />} />
           <Route path="/membership" element={<Membership />} />
