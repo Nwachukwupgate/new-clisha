@@ -317,10 +317,45 @@ const CSS = `
     .stat-item::after { display:none; }
   }
   @media(max-width:640px) {
-    .nav-links { display:none; }
+    .nav-links, .nav-cta { display:none !important; }
+    .nav-mobile-actions { display:flex !important; }
+    .nav-hamburger { display:flex !important; }
     .users-grid { grid-template-columns:repeat(2,1fr); }
     .footer-grid { grid-template-columns:1fr; }
   }
+  .nav-mobile-actions { display:none; align-items:center; gap:4px; }
+  @media(min-width:641px) {
+    .nav-hamburger, .nav-mobile-menu { display:none !important; }
+  }
+  .nav-hamburger {
+    display:none; width:44px; height:44px; border-radius:10px;
+    border:1px solid var(--border); background:transparent;
+    flex-direction:column; align-items:center; justify-content:center; gap:5px;
+    cursor:pointer; transition:all 0.2s;
+  }
+  .nav-hamburger:hover { border-color:rgba(245,200,66,0.4); background:rgba(245,200,66,0.08); }
+  .nav-hamburger span { display:block; width:18px; height:2px; background:var(--text); border-radius:1px; transition:transform 0.2s; }
+  .nav-hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity:0; }
+  .nav-hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+  .nav-mobile-menu {
+    display:none; position:fixed; top:68px; left:0; right:0; bottom:0;
+    background:var(--dark); z-index:999; overflow-y:auto;
+    padding:24px; flex-direction:column; gap:8px;
+    border-top:1px solid var(--border);
+  }
+  .nav-mobile-menu.open { display:flex; }
+  .nav-mobile-menu a, .nav-mobile-menu .nav-mobile-item {
+    padding:14px 18px; border-radius:12px; font-size:15px; font-weight:600;
+    color:var(--text); text-decoration:none; background:rgba(255,255,255,0.03);
+    border:1px solid var(--border); transition:all 0.2s;
+  }
+  .nav-mobile-menu a:hover, .nav-mobile-menu .nav-mobile-item:hover {
+    background:rgba(255,255,255,0.06); border-color:rgba(245,200,66,0.22);
+  }
+  .nav-mobile-menu .nav-mobile-cta-row { display:flex; gap:10px; margin-top:8px; }
+  .nav-mobile-menu .nav-mobile-cta-row .btn-ghost,
+  .nav-mobile-menu .nav-mobile-cta-row .btn-primary-cta { flex:1; justify-content:center; }
 `;
 
 // ─── Tiny helpers ─────────────────────────────────────────────────────────────
@@ -399,7 +434,9 @@ export default function ClishaLanding() {
   });
   const [activeFaq, setActiveFaq] = useState(null);
   const [langVal, setLangVal] = useState("EN");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const closeMobileMenu = () => setMobileMenuOpen(false);
   const toggleTheme = () => {
     const next = theme === "light" ? "dark" : "light";
     setTheme(next);
@@ -411,6 +448,18 @@ export default function ClishaLanding() {
   useEffect(() => {
     dispatch(getRank(1));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (mobileMenuOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    const onResize = () => { if (window.innerWidth > 640) setMobileMenuOpen(false); };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   /* ── Data ── */
   const steps = [
@@ -494,7 +543,30 @@ export default function ClishaLanding() {
             <button className="btn-ghost" style={{ padding: "9px 18px", fontSize: 13 }}>Log In</button>
             <button className="btn-primary-cta" style={{ padding: "9px 20px", fontSize: 13 }}>Sign Up Free</button>
           </div>
+          <div className="nav-mobile-actions">
+            <button type="button" className="theme-toggle" onClick={toggleTheme} title={theme === "light" ? "Switch to dark mode" : "Switch to light mode"} aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}>
+              {theme === "light" ? "🌙" : "☀️"}
+            </button>
+            <button type="button" className={`nav-hamburger${mobileMenuOpen ? " open" : ""}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu" aria-expanded={mobileMenuOpen}>
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
         </nav>
+
+        {/* ═══════════════════════════════ MOBILE MENU ═════════════════════════ */}
+        <div className={`nav-mobile-menu${mobileMenuOpen ? " open" : ""}`}>
+          {["How it Works", "Features", "Tasks", "Leaderboard"].map(l => (
+            <a key={l} href="#" onClick={e => { e.preventDefault(); scrollTo(l.toLowerCase().replace(/\s/g, '_')); closeMobileMenu(); }}>
+              {l}
+            </a>
+          ))}
+          <div className="nav-mobile-cta-row">
+            <a href="/signin" className="btn-ghost" style={{ padding: "14px 20px", fontSize: 15, textDecoration: "none" }} onClick={closeMobileMenu}>Log In</a>
+            <a href="/signup" className="btn-primary-cta" style={{ padding: "14px 20px", fontSize: 15, textDecoration: "none" }} onClick={closeMobileMenu}>Sign Up Free</a>
+          </div>
+        </div>
 
         {/* ═══════════════════════════════ HERO ══════════════════════════════ */}
         <section className="hero" id="hero">
@@ -830,7 +902,7 @@ export default function ClishaLanding() {
             <div>
               <div className="footer-logo-row">
                 <img src={theme === "light" ? "/images/logo4.png" : "/logo2.png"} alt="Clisha" className="footer-logo-img" />
-                <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 22, color: "var(--text)", letterSpacing: "1px" }}>Clisha</span>
+                {/* <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 22, color: "var(--text)", letterSpacing: "1px" }}></span> */}
               </div>
               <p className="footer-desc">
                 Clisha is a gamified task-reward platform operated by VQualis Limited. Complete digital tasks daily and grow your coin balance.
