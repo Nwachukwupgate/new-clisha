@@ -17,7 +17,7 @@ const CSS = `
   html { scroll-behavior: smooth; }
   body { background: #05080f; overflow-x: hidden; }
 
-  :root {
+  .clisha-landing {
     --gold:    #f5c842;
     --gold2:   #e8a800;
     --dark:    #05080f;
@@ -28,6 +28,59 @@ const CSS = `
     --border:  rgba(255,255,255,0.07);
     --radius:  18px;
   }
+  .clisha-landing[data-theme="light"] {
+    --gold:    #d4a012;
+    --gold2:   #b8860b;
+    --dark:    #f8fafc;
+    --dark2:   #f1f5f9;
+    --dark3:   #e2e8f0;
+    --text:    #0f172a;
+    --muted:   rgba(15,23,42,0.6);
+    --border:  rgba(0,0,0,0.08);
+  }
+  .clisha-landing[data-theme="light"] .section-label {
+    background: rgba(212,160,18,0.12);
+    border-color: rgba(212,160,18,0.3);
+  }
+  .clisha-landing[data-theme="light"] .glass-card {
+    background: rgba(255,255,255,0.8);
+    border-color: rgba(0,0,0,0.06);
+  }
+  .clisha-landing[data-theme="light"] .glass-card:hover {
+    background: rgba(255,255,255,0.95);
+    border-color: rgba(212,160,18,0.25);
+  }
+  .clisha-landing[data-theme="light"] .btn-ghost:hover {
+    border-color: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.04);
+  }
+  .clisha-landing[data-theme="light"] nav.main-nav.scrolled {
+    background: rgba(248,250,252,0.96);
+    border-color: rgba(0,0,0,0.08);
+  }
+  .clisha-landing[data-theme="light"] .social-icon {
+    background: rgba(0,0,0,0.04);
+    border-color: rgba(0,0,0,0.08);
+  }
+  .clisha-landing[data-theme="light"] .social-icon:hover {
+    background: rgba(212,160,18,0.12);
+    border-color: rgba(212,160,18,0.3);
+  }
+  .clisha-landing[data-theme="light"] .lang-select {
+    background: rgba(0,0,0,0.04);
+    border-color: rgba(0,0,0,0.08);
+  }
+  .clisha-landing[data-theme="light"] .lang-select option { background: #f8fafc; }
+  .clisha-landing[data-theme="light"] .pay-badge {
+    background: rgba(0,0,0,0.04);
+    border-color: rgba(0,0,0,0.08);
+  }
+  .clisha-landing[data-theme="light"] .task-card-mock { background: #fff; border-color: rgba(0,0,0,0.08); }
+  .clisha-landing[data-theme="light"] .task-row { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.06); }
+  .clisha-landing[data-theme="light"] .task-row:hover { background: rgba(0,0,0,0.04); }
+  .clisha-landing[data-theme="light"] .ticker-wrap { background: rgba(0,0,0,0.02); }
+  .clisha-landing[data-theme="light"] .hiw-step-num { color: rgba(212,160,18,0.12); }
+  .clisha-landing[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(212,160,18,0.35); }
 
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-thumb { background: rgba(245,200,66,0.3); border-radius: 3px; }
@@ -120,6 +173,13 @@ const CSS = `
   .nav-links a { font-size:14px; font-weight:500; color:var(--muted); text-decoration:none; transition:color 0.2s; }
   .nav-links a:hover { color:var(--text); }
   .nav-cta { display:flex; gap:10px; align-items:center; }
+  .theme-toggle {
+    width:40px; height:40px; border-radius:10px;
+    border:1px solid var(--border); background:transparent;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:18px; transition:all 0.2s;
+  }
+  .theme-toggle:hover { border-color:rgba(245,200,66,0.4); background:rgba(245,200,66,0.08); }
 
   /* ── Hero ── */
   .hero {
@@ -323,6 +383,8 @@ function AnimCount({ to, suffix = "" }) {
 const LEADERBOARD_COLORS = ["#f5c842", "#38bdf8", "#4ade80", "#a855f7", "#ff7b2f"];
 
 // ─── MAIN COMPONENT ──────────────────────────────────────────────────────────
+const THEME_KEY = "clisha-landing-theme";
+
 export default function ClishaLanding() {
   const scrolled = useScrollNav();
   useReveal();
@@ -330,8 +392,19 @@ export default function ClishaLanding() {
   const rank = useSelector((state) => state.rank?.data);
   const rankLoading = useSelector((state) => state.rank?.loading);
 
+  const [theme, setTheme] = useState(() => {
+    try {
+      return localStorage.getItem(THEME_KEY) || "light";
+    } catch { return "light"; }
+  });
   const [activeFaq, setActiveFaq] = useState(null);
   const [langVal, setLangVal] = useState("EN");
+
+  const toggleTheme = () => {
+    const next = theme === "light" ? "dark" : "light";
+    setTheme(next);
+    try { localStorage.setItem(THEME_KEY, next); } catch { /* ignore */ }
+  };
 
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
@@ -402,12 +475,12 @@ export default function ClishaLanding() {
   return (
     <>
       <style>{CSS}</style>
-      <div style={{ fontFamily: "'Outfit', sans-serif", background: "var(--dark)", color: "var(--text)", overflowX: "hidden" }}>
+      <div className="clisha-landing" data-theme={theme} style={{ fontFamily: "'Outfit', sans-serif", background: "var(--dark)", color: "var(--text)", overflowX: "hidden", minHeight: "100vh", transition: "background 0.3s, color 0.3s" }}>
 
         {/* ═══════════════════════════════ NAVBAR ════════════════════════════ */}
         <nav className={`main-nav${scrolled ? " scrolled" : ""}`}>
           <a className="nav-logo" href="/">
-            <img src="/logo2.png" alt="Clisha" className="nav-logo-img" />
+            <img src={theme === "light" ? "/images/logo4.png" : "/logo2.png"} alt="Clisha" className="nav-logo-img" />
           </a>
           <div className="nav-links">
             {["How it Works", "Features", "Tasks", "Leaderboard"].map(l => (
@@ -415,6 +488,9 @@ export default function ClishaLanding() {
             ))}
           </div>
           <div className="nav-cta">
+            <button type="button" className="theme-toggle" onClick={toggleTheme} title={theme === "light" ? "Switch to dark mode" : "Switch to light mode"} aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}>
+              {theme === "light" ? "🌙" : "☀️"}
+            </button>
             <button className="btn-ghost" style={{ padding: "9px 18px", fontSize: 13 }}>Log In</button>
             <button className="btn-primary-cta" style={{ padding: "9px 20px", fontSize: 13 }}>Sign Up Free</button>
           </div>
@@ -753,7 +829,7 @@ export default function ClishaLanding() {
             {/* Brand col */}
             <div>
               <div className="footer-logo-row">
-                <img src="/logo2.png" alt="Clisha" className="footer-logo-img" />
+                <img src={theme === "light" ? "/images/logo4.png" : "/logo2.png"} alt="Clisha" className="footer-logo-img" />
                 <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 22, color: "var(--text)", letterSpacing: "1px" }}>Clisha</span>
               </div>
               <p className="footer-desc">
