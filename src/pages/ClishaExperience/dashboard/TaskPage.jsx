@@ -340,6 +340,7 @@ export default function TaskPage() {
   const getTaskGoogleLoading        = useSelector((s) => s.task.getTaskGoogleLoading);
   const getTaskJourneyLoading       = useSelector((s) => s.task.getTaskJourneyLoading);
   const getTaskSearchJourneyLoading = useSelector((s) => s.task.getTaskSearchJourneyLoading);
+  const calenderTask                 = useSelector((s) => s.general?.calenderTask?.monthlyData ?? s.general?.calenderTask);
 
   const th   = useClishaTheme();
   const dark = th.bg === '#0a0a0a' || th.text === '#ffffff';
@@ -380,7 +381,6 @@ export default function TaskPage() {
   if (loading && !hasSeenLoaded.current) return <Loading />;
 
   const balance        = user?.rank?.balance ?? 0;
-  const calenderTask   = useSelector((s) => s.general?.calenderTask?.monthlyData ?? s.general?.calenderTask);
   const todayItem      = calenderTask?.find?.((d) => moment(d?.date).format('YY-MM-DD') === moment().format('YY-MM-DD'));
   const completedToday = todayItem?.completedTasks ?? user?.completed?.length ?? 0;
 
