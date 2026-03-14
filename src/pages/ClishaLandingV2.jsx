@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
 import { FaFacebookF, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { getRank } from '../store/Rank';
@@ -77,8 +76,6 @@ const T = {
 const LEADERBOARD_COLORS = ['#FC9828', '#38bdf8', '#4ade80', '#a855f7', '#ff7b2f', '#f472b6', '#22d3ee', '#a3e635', '#f59e0b', '#6366f1'];
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
-const px = (obj) => Object.entries(obj).map(([k, v]) => `${k}:${v}`).join(';');
-
 function useCountUp(target, active, duration = 1400) {
   const [val, setVal] = useState(0);
   useEffect(() => {
@@ -392,12 +389,10 @@ function RankCard({ rank, name, points, avatar, photo, gender, color, th }) {
 }
 
 function ClishaLandingV2() {
-  const { t } = useTranslation();
   const dispatch = useDispatch();
   const rank = useSelector((state) => state.rank?.data) ?? { ranking: [] };
   const rankLoading = useSelector((state) => state.rank?.loading);
   const [dark, setDark] = useState(false);
-  const [mobileMenu, setMobileMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const rankRef = useRef(null);
 

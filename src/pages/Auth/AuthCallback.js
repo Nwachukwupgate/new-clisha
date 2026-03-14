@@ -32,10 +32,14 @@ const AuthCallback = () => {
         }
 
         // Retrieve tokens from backend
-        const response = await handleCallback(tokenId);
-        setTimeout(() => {
-          window.location.href="/dashboard"
-        }, 1000); 
+        await handleCallback(tokenId);
+        const returnTo = sessionStorage.getItem('authReturnTo');
+        if (returnTo) {
+          sessionStorage.removeItem('authReturnTo');
+          setTimeout(() => { window.location.href = returnTo; }, 1000);
+        } else {
+          setTimeout(() => { window.location.href = '/dashboard'; }, 1000);
+        } 
       } catch (err) {
         setError(err.message);
         hasRun.current = false;

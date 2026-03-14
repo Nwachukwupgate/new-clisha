@@ -23,6 +23,16 @@ import Dashboard from '../pages/Dashboard/Dashboard';
 import Help from '../pages/Help/Help';
 import ClishaLanding from '../pages/ClishaLanding';
 import ClishaLandingV2 from '../pages/ClishaLandingV2';
+import {
+  Landing as ClishaExperienceLanding,
+  Login as ClishaExperienceLogin,
+  Signup as ClishaExperienceSignup,
+  Dashboard as ClishaExperienceDashboard,
+  ProtectedRoute as ClishaExperienceProtectedRoute,
+} from '../pages/ClishaExperience';
+import DashboardLayout from '../pages/ClishaExperience/layouts/DashboardLayout';
+import TaskPage from '../pages/ClishaExperience/dashboard/TaskPage';
+import PlaceholderPage from '../pages/ClishaExperience/dashboard/PlaceholderPage';
 import Landingpage from '../pages/LandingPage/Landingpage';
 import Membership from '../pages/Membership';
 import Notification from '../pages/Notification';
@@ -49,14 +59,17 @@ function Router() {
         const response = await apiCall(`${authApi}/authWith/vendor`, 'post', { token });
 
         if (response) {
-          // console.log("response", response);
-          
           localStorage.setItem('token', response.data.accessToken);
           localStorage.setItem('username', response.data.user.username);
           localStorage.setItem('email', response.data.user.email);
           localStorage.setItem('refresh', response.data.refreshToken);
-          // navigate('/dashboard');
-          window.location.href="/dashboard"
+          const returnTo = sessionStorage.getItem('authReturnTo');
+          if (returnTo) {
+            sessionStorage.removeItem('authReturnTo');
+            window.location.href = returnTo;
+          } else {
+            window.location.href = '/dashboard';
+          }
         }
       } catch (error) {
         toast.error('Authentication failed. Redirecting to registration.');
@@ -102,6 +115,25 @@ function Router() {
           <Route path="/" element={<Landingpage />} />
           <Route path="/clisha" element={<ClishaLanding />} />
           <Route path="/clishaV2" element={<ClishaLandingV2 />} />
+          {/* Clisha Experience — redesigned gamified entry */}
+          <Route path="/clisha-x">
+            <Route index element={<ClishaExperienceLanding />} />
+            <Route path="login" element={<ClishaExperienceLogin />} />
+            <Route path="signup" element={<ClishaExperienceSignup />} />
+            <Route path="dashboard" element={<ClishaExperienceProtectedRoute />}>
+              <Route element={<DashboardLayout />}>
+                <Route index element={<ClishaExperienceDashboard />} />
+                <Route path="task" element={<TaskPage />} />
+                <Route path="wallet" element={<PlaceholderPage />} />
+                <Route path="rank" element={<PlaceholderPage />} />
+                <Route path="profile" element={<PlaceholderPage />} />
+                <Route path="token" element={<PlaceholderPage />} />
+                <Route path="team" element={<PlaceholderPage />} />
+                <Route path="settings" element={<PlaceholderPage />} />
+                <Route path="help" element={<PlaceholderPage />} />
+              </Route>
+            </Route>
+          </Route>
           <Route path="/become-partner" element={<BecomeAPartner />} />
           <Route path="/clisha-users" element={<ClishaUsers />} />
           <Route path="/membership" element={<Membership />} />
