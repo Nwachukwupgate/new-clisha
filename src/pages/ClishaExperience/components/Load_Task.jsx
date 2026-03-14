@@ -144,7 +144,6 @@ function TokenCard({ item, index }) {
 export default function Load_Task(props) {
   const topToken = useSelector((state) => state.general.topToken);
   const th       = useClishaTheme();
-  const dark     = th.bg === '#0a0a0a' || th.text === '#ffffff';
 
   return (
     <div>
