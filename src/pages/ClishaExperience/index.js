@@ -9,8 +9,10 @@
  *   - /clisha-x/dashboard Gamified dashboard (protected)
  */
 
-export { default as Login } from './auth/Login';
-export { default as Signup } from './auth/Signup';
-export { default as Dashboard } from './dashboard/Dashboard';
-export { default as Landing } from './Landing';
-export { default as ProtectedRoute } from './Middleware/ProtectedRoute';
+import Login from './auth/Login';
+import Signup from './auth/Signup';
+import Dashboard from './dashboard/Dashboard';
+import Landing from './Landing';
+import ProtectedRoute from './Middleware/ProtectedRoute';
+
+export { Dashboard, Landing, Login, ProtectedRoute, Signup };
