@@ -114,7 +114,7 @@ export default function ClishaExperienceDashboard() {
         <VqsClaimAlert user={user} vendoPackage={vendoPackage} dark={dark} />
 
         {/* ── Extension prompt ─────────────────────────────────────────── */}
-        <ExtensionPrompt dark={dark} onShowGuide={() => setShowGuide(true)} />
+        <ExtensionPrompt dark={dark} />
 
         {/* ── Greeting ───────────────────────────────────────────────── */}
         <div style={{ background: c.bg3, border: `1px solid ${c.border}`, borderRadius: 13, padding: '13px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14 }}>
