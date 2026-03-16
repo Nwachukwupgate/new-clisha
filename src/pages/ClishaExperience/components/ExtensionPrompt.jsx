@@ -11,7 +11,7 @@ const CHROME_EXT_LINK = 'https://chromewebstore.google.com/detail/clishame/fggie
 const LATEST_VERSION = '1.0.0';
 const DISMISSED_KEY = 'extensionPromptDismissed';
 
-export default function ExtensionPrompt({ dark, onShowGuide }) {
+export default function ExtensionPrompt({ dark }) {
   const { t } = useTranslation();
   const [showUpdateTooltip, setShowUpdateTooltip] = useState(false);
   const [dismissed, setDismissed] = useState(() =>
@@ -40,7 +40,6 @@ export default function ExtensionPrompt({ dark, onShowGuide }) {
   const handleGetExtension = () => {
     localStorage.setItem(DISMISSED_KEY, 'true');
     setDismissed(true);
-    onShowGuide?.();
   };
 
   const c = dark ? CLEAN.dark : CLEAN.light;
