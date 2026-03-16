@@ -269,13 +269,13 @@ function HeroBanner({ tab, taskData, dark, balance, completedToday }) {
           </div>
           <div>
             <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.6px', color: BRAND.primary, textTransform: 'uppercase' }}>
-              Balance
+              Points
             </div>
             <div style={{
               fontFamily: "'Fraunces', serif",
               fontSize: 20, fontWeight: 900, color: BRAND.primary, lineHeight: 1,
             }}>
-              {Number(balance).toLocaleString()}
+              {Number(balance).toLocaleString()} <span style={{ fontSize: 12, fontWeight: 600, opacity: 0.8 }}>pts</span>
             </div>
           </div>
         </div>
@@ -360,6 +360,7 @@ export default function TaskPage() {
     if (hasFetched.current) return;
     hasFetched.current = true;
     dispatch(getUser());
+    dispatch(getCalenderTask());
     dispatch(getTaskWebsite({ page: 1 }));
     const ua     = navigator.userAgent.toLowerCase();
     const chrome = ua.includes('chrome') && !ua.includes('edg');
