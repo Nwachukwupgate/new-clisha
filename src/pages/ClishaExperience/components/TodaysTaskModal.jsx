@@ -77,7 +77,7 @@ function TaskItem({ item, index, dark }) {
               {item?.token?.name || 'Task'}
             </div>
             <div style={{ fontSize: 11, opacity: 0.65, color: fg }}>
-              {item.points ? `+${item.points} pts` : 'No points'}
+              {item.points ? `+${item.points} Points` : 'No points'}
             </div>
           </div>
         </div>

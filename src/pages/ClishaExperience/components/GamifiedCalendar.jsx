@@ -96,7 +96,7 @@ function DayCell({ item, isToday, onClick, dark }) {
     >
       {/* day number */}
       <span style={{
-        fontSize: 13,
+        fontSize: 14,
         fontWeight: isToday ? 800 : cfg ? 700 : 500,
         lineHeight: 1,
         fontFamily: "'Plus Jakarta Sans', sans-serif",
@@ -104,36 +104,20 @@ function DayCell({ item, isToday, onClick, dark }) {
         {dayNum}
       </span>
 
-      {/* status emoji */}
-      {cfg && (
-        <span style={{ fontSize: 11, lineHeight: 1 }}>{cfg.emoji}</span>
-      )}
-
-      {/* task count mini bar */}
+      {/* completed/total + status emoji */}
       {hasTasks && (
-        <div style={{
-          display: 'flex',
-          gap: 1.5,
-          alignItems: 'center',
+        <span style={{
+          fontSize: 11,
+          fontWeight: 600,
+          lineHeight: 1,
+          opacity: 0.9,
           marginTop: 1,
         }}>
-          {[...Array(Math.min(created, 5))].map((_, i) => (
-            <div
-              key={i}
-              style={{
-                width: 3, height: 3,
-                borderRadius: '50%',
-                background: i < completed
-                  ? (cfg ? cfg.text : BRAND.primary)
-                  : (dark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'),
-                transition: 'background 0.2s',
-              }}
-            />
-          ))}
-          {created > 5 && (
-            <span style={{ fontSize: 8, opacity: 0.6, lineHeight: 1 }}>+</span>
-          )}
-        </div>
+          {completed}/{created}
+        </span>
+      )}
+      {cfg && (
+        <span style={{ fontSize: 14, lineHeight: 1, marginTop: 1 }}>{cfg.emoji}</span>
       )}
     </button>
   );
@@ -219,7 +203,7 @@ export default function GamifiedCalendar({ verificationDate, onDayClick }) {
                 width: 32, height: 32, borderRadius: 8,
                 border: `1px solid ${th.border}`,
                 background: 'transparent', cursor: 'pointer',
-                fontSize: 14, color: th.textSub,
+                fontSize: 15, color: th.textSub,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 transition: 'all 0.15s',
               }}
@@ -235,7 +219,7 @@ export default function GamifiedCalendar({ verificationDate, onDayClick }) {
                 background: 'none', border: 'none', cursor: 'pointer', padding: '4px 8px',
                 borderRadius: 8,
                 fontFamily: "'Fraunces', serif",
-                fontSize: 17, fontWeight: 700,
+                fontSize: 18, fontWeight: 700,
                 color: th.text,
                 transition: 'color 0.15s',
               }}
@@ -244,7 +228,7 @@ export default function GamifiedCalendar({ verificationDate, onDayClick }) {
               title="Pick month"
             >
               {date?.start_date ? moment(date.start_date).format('MMMM YYYY') : 'Calendar'}
-              <span style={{ fontSize: 11, marginLeft: 6, opacity: 0.5 }}>▾</span>
+              <span style={{ fontSize: 12, marginLeft: 6, opacity: 0.5 }}>▾</span>
             </button>
 
             {/* next */}
@@ -255,7 +239,7 @@ export default function GamifiedCalendar({ verificationDate, onDayClick }) {
                 width: 32, height: 32, borderRadius: 8,
                 border: `1px solid ${th.border}`,
                 background: 'transparent', cursor: 'pointer',
-                fontSize: 14, color: th.textSub,
+                fontSize: 15, color: th.textSub,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 transition: 'all 0.15s',
               }}
@@ -273,11 +257,11 @@ export default function GamifiedCalendar({ verificationDate, onDayClick }) {
                 background: `rgba(${BRAND.primaryRgb},0.1)`,
                 border: `1px solid rgba(${BRAND.primaryRgb},0.2)`,
               }}>
-                <span style={{ fontSize: 11, color: BRAND.primary, fontWeight: 700 }}>
+                <span style={{ fontSize: 12, color: BRAND.primary, fontWeight: 700 }}>
                   {totalCompleted}/{totalCreated}
                 </span>
                 <span style={{
-                  fontSize: 10, color: BRAND.primary, opacity: 0.7,
+                  fontSize: 11, color: BRAND.primary, opacity: 0.7,
                   fontWeight: 600,
                 }}>
                   {completionPct}%
@@ -294,7 +278,7 @@ export default function GamifiedCalendar({ verificationDate, onDayClick }) {
                 border: `1px solid ${th.border}`,
                 background: 'transparent', cursor: reloading ? 'wait' : 'pointer',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 14, opacity: reloading ? 0.6 : 1,
+                fontSize: 15, opacity: reloading ? 0.6 : 1,
                 transition: 'all 0.15s',
               }}
               onMouseEnter={e => { if (!reloading) e.currentTarget.style.borderColor = BRAND.primary; }}
@@ -318,7 +302,7 @@ export default function GamifiedCalendar({ verificationDate, onDayClick }) {
               style={{
                 padding: '8px 12px', borderRadius: 8,
                 border: `1px solid ${th.border}`,
-                background: th.bg, color: th.text, fontSize: 14,
+                background: th.bg, color: th.text, fontSize: 15,
                 outline: 'none', fontFamily: "'Plus Jakarta Sans', sans-serif",
               }}
             />
@@ -355,7 +339,7 @@ export default function GamifiedCalendar({ verificationDate, onDayClick }) {
       }}>
         {DAY_LABELS.map((d) => (
           <div key={d} style={{
-            textAlign: 'center', fontSize: 11, fontWeight: 700,
+            textAlign: 'center', fontSize: 13, fontWeight: 700,
             color: th.textMuted || (dark ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.35)'),
             padding: '4px 0',
             letterSpacing: '0.3px',
@@ -377,7 +361,7 @@ export default function GamifiedCalendar({ verificationDate, onDayClick }) {
               borderTopColor: BRAND.primary,
               animation: 'spin 0.8s linear infinite',
             }} />
-            <span style={{ fontSize: 13, color: th.textSub }}>Loading tasks…</span>
+            <span style={{ fontSize: 14, color: th.textSub }}>Loading tasks…</span>
           </div>
         </div>
       ) : (
@@ -411,7 +395,7 @@ export default function GamifiedCalendar({ verificationDate, onDayClick }) {
         <div style={{
           padding: '32px 16px',
           textAlign: 'center',
-          color: th.textSub, fontSize: 14,
+          color: th.textSub, fontSize: 15,
         }}>
           <div style={{ fontSize: 32, marginBottom: 8 }}>📅</div>
           No tasks for {date?.start_date ? moment(date.start_date).format('MMMM YYYY') : 'this month'}
@@ -427,8 +411,8 @@ export default function GamifiedCalendar({ verificationDate, onDayClick }) {
       }}>
         {Object.entries(STATUS_CONFIG).map(([key, cfg]) => (
           <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-            <span style={{ fontSize: 13 }}>{cfg.emoji}</span>
-            <span style={{ fontSize: 11, color: th.textSub, fontWeight: 500 }}>{cfg.label}</span>
+            <span style={{ fontSize: 14 }}>{cfg.emoji}</span>
+            <span style={{ fontSize: 12, color: th.textSub, fontWeight: 500 }}>{cfg.label}</span>
           </div>
         ))}
       </div>
