@@ -9,7 +9,7 @@ const ThemeContext = createContext({ dark: false, theme: lightTheme, toggle: () 
 
 export function ThemeProvider({ children }) {
   const [dark, setDark] = useState(() => {
-    try { return localStorage.getItem('clisha-x-theme') === 'dark'; } catch { return false; }
+    try { return localStorage.getItem('clisha-x-theme') !== 'light'; } catch { return true; }
   });
 
   const theme = dark ? darkTheme : lightTheme;
