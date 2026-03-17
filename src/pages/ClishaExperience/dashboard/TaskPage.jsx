@@ -13,7 +13,6 @@ import Loading from '../../../components/Alerts/Loading';
 import Pagination from '../../../components/Pagination';
 import GamifiedTaskCard from '../components/GamifiedTaskCard';
 import TodaysTaskModal from '../components/TodaysTaskModal';
-import CoinIcon from '../components/CoinIcon';
 import {
   getTask,
   getTaskGoogle,
@@ -55,11 +54,26 @@ const STYLES = `
   }
   .task-tab:hover { color: var(--tab-hover) !important; background: var(--tab-bg) !important; }
   .task-tab.active { background: var(--gold-l) !important; color: var(--gold) !important; border-color: rgba(245,197,66,0.2) !important; }
+  .task-page-tabs { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .task-page-tabs::-webkit-scrollbar { display: none; }
+  .task-page-tabs { -ms-overflow-style: none; }
   @media (max-width: 900px) {
-    .task-page-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    .task-page-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 12 !important; }
   }
   @media (max-width: 600px) {
-    .task-page-grid { grid-template-columns: 1fr !important; }
+    .task-page-grid { grid-template-columns: 1fr !important; gap: 12 !important; }
+    .task-page-content { padding: 12px !important; }
+    .task-page-topbar { padding: 0 12px !important; height: 48 !important; }
+    .task-page-mission { flex-direction: column !important; align-items: flex-start !important; gap: 14 !important; padding: 14px !important; }
+    .task-page-mission-right { flex-direction: row !important; flex-wrap: wrap !important; width: 100% !important; justify-content: flex-start !important; gap: 12 !important; }
+    .task-page-mission-right .task-page-divider { display: none !important; }
+  }
+  @media (max-width: 400px) {
+    .task-page-content { padding: 10px !important; }
+    .task-page-topbar { padding: 0 10px !important; }
+  }
+  @media (max-width: 600px) {
+    .task-page-empty-img { max-width: 200px !important; }
   }
 `;
 
@@ -133,7 +147,6 @@ export default function TaskPage() {
 
   if (loading && !hasSeenLoaded.current) return <Loading />;
 
-  const balance = user?.rank?.balance ?? 0;
   const todayItem = calenderTask?.find?.((d) => moment(d?.date).format('YY-MM-DD') === moment().format('YY-MM-DD'));
   const completedToday = todayItem?.completedTasks ?? user?.completed?.length ?? 0;
 
@@ -205,10 +218,6 @@ export default function TaskPage() {
   };
 
   const userName = user?.user?.username || user?.user?.firstname || 'User';
-  const initials =
-    user?.user?.firstname && user?.user?.lastname
-      ? `${(user.user.firstname[0] || '')}${(user.user.lastname[0] || '')}`.toUpperCase() || 'U'
-      : (userName || 'U').slice(0, 2).toUpperCase();
 
   return (
     <div
@@ -227,7 +236,7 @@ export default function TaskPage() {
         <div
           style={{
             marginBottom: 16,
-            padding: '13px 18px',
+            padding: '12px 14px',
             borderRadius: 14,
             background: dark ? 'rgba(251,191,36,0.1)' : 'rgba(254,243,199,0.95)',
             border: '1px solid rgba(251,191,36,0.4)',
@@ -293,9 +302,9 @@ export default function TaskPage() {
                 setCurrentPage(1);
               }}
               style={{
-                padding: '5px 12px',
+                padding: '5px 10px',
                 borderRadius: 7,
-                fontSize: 12.5,
+                fontSize: 12,
                 fontWeight: 500,
                 cursor: 'pointer',
                 color: tab === tb.id ? c.gold : c.text2,
@@ -304,6 +313,7 @@ export default function TaskPage() {
                 fontFamily: CLEAN_FONTS.body,
                 transition: 'all 0.12s',
                 whiteSpace: 'nowrap',
+                flexShrink: 0,
                 '--tab-hover': c.text,
                 '--tab-bg': c.bg3,
                 '--gold-l': c.goldL,
@@ -384,9 +394,10 @@ export default function TaskPage() {
       </div>
 
       {/* ══ CONTENT ══════════════════════════════════════════════════ */}
-      <div style={{ padding: '1.25rem', flex: 1, overflowY: 'auto' }}>
+      <div className="task-page-content" style={{ padding: '1.25rem', flex: 1, overflowY: 'auto' }}>
         {/* MISSION BAR (matches gamified HTML) */}
         <div
+          className="task-page-mission"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -398,6 +409,8 @@ export default function TaskPage() {
             marginBottom: '1.25rem',
             position: 'relative',
             overflow: 'hidden',
+            flexWrap: 'wrap',
+            gap: 12,
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -443,7 +456,7 @@ export default function TaskPage() {
               </div>
             </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <div className="task-page-mission-right" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
             {/* <div style={{ textAlign: 'right' }}>
               <div style={{ fontFamily: CLEAN_FONTS.mono, fontSize: 20, fontWeight: 700, color: c.gold }}>
                 {Number(balance).toLocaleString()}
@@ -452,7 +465,7 @@ export default function TaskPage() {
                 Balance
               </div>
             </div> */}
-            <div style={{ width: 1, height: 30, background: c.border }} />
+            <div className="task-page-divider" style={{ width: 1, height: 30, background: c.border, flexShrink: 0 }} />
             <div style={{ textAlign: 'right' }}>
               <div style={{ fontFamily: CLEAN_FONTS.mono, fontSize: 20, fontWeight: 700, color: c.green || '#2ECC71' }}>
                 {completedToday} done
@@ -461,7 +474,7 @@ export default function TaskPage() {
                 Today
               </div>
             </div>
-            <div style={{ width: 1, height: 30, background: c.border }} />
+            <div className="task-page-divider" style={{ width: 1, height: 30, background: c.border, flexShrink: 0 }} />
             <div
               style={{
                 fontSize: 11,
@@ -522,6 +535,7 @@ export default function TaskPage() {
             <img
               src="/images/No data-amico.png"
               alt="No tasks"
+              className="task-page-empty-img"
               style={{ maxWidth: 280, margin: '0 auto 16px', display: 'block' }}
             />
             <div style={{ fontSize: 14, fontWeight: 600 }}>No tasks available</div>

@@ -39,6 +39,12 @@ const STYLES = `
   @media (min-width: 768px) { .clisha-x-sidebar-mobile { display: none !important; } }
   .clisha-x-nav-item:hover { background: var(--nav-hover) !important; color: var(--text) !important; }
   .clisha-x-dropdown-item:hover { background: var(--nav-hover) !important; }
+  @media (max-width: 600px) {
+    .clisha-x-main { padding: 10px !important; gap: 10px !important; }
+    .clisha-x-header { padding: 0 10px !important; }
+    .clisha-x-header-chip .clisha-x-chip-label { display: none !important; }
+    .clisha-x-header-chip { padding: 4px 8px !important; min-width: auto !important; }
+  }
 `;
 
 function NavIcon({ type }) {
@@ -112,7 +118,7 @@ function computeStreak(calenderTask) {
   return streak;
 }
 
-function SidebarContent({ c, dark, onCopyReferral, onToggleTheme, onLogout, onNavClick, userName, rankName, balance }) {
+function SidebarContent({ c, dark, onCopyReferral, onToggleTheme, onLogout, onNavClick, userName, rankName, balance, rankId }) {
   const xpPct = Math.min(100, Math.max(0, (Number(balance) / 1000) * 100));
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', padding: '8px 4px', gap: 12, boxSizing: 'border-box' }}>
@@ -129,7 +135,14 @@ function SidebarContent({ c, dark, onCopyReferral, onToggleTheme, onLogout, onNa
           <div style={{ height: '100%', width: `${Math.min(100, xpPct)}%`, background: `linear-gradient(90deg,${c.gold},${c.orange})`, borderRadius: 99 }} />
         </div>
         <div style={{ fontSize: 12.5, fontWeight: 600, color: c.text, marginTop: 5 }}>{userName || 'Player'}</div>
-        <div style={{ fontSize: 10.5, color: c.text2 }}>{rankName || 'Member'}</div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 6, marginTop: 2, flexWrap: 'wrap' }}>
+          {rankId != null && (
+            <span style={{ fontSize: 10, fontWeight: 700, color: c.gold, background: c.goldL, border: `1px solid ${c.goldB}`, borderRadius: 4, padding: '2px 6px' }}>
+              Lv. {rankId}
+            </span>
+          )}
+          <span style={{ fontSize: 10.5, color: c.text2 }}>{rankName || 'Member'}</span>
+        </div>
       </div>
 
       <nav style={{ display: 'flex', flexDirection: 'column', gap: 1, flex: 1, width: '100%', minWidth: 0 }}>
@@ -231,26 +244,26 @@ function DashboardLayoutInner() {
       <style>{STYLES}</style>
 
       <aside className="clisha-x-sidebar-desktop" style={{ position: 'fixed', left: 0, top: 0, width: 190, height: '100vh', background: c.bg2, borderRight: `1px solid ${c.border}`, overflowY: 'auto', zIndex: 100 }}>
-        <SidebarContent c={c} dark={dark} onCopyReferral={copyReferral} onToggleTheme={toggleTheme} onLogout={logout} onNavClick={() => { }} userName={user?.user?.username} rankName={user?.rank?.rankName} balance={balance} />
+        <SidebarContent c={c} dark={dark} onCopyReferral={copyReferral} onToggleTheme={toggleTheme} onLogout={logout} onNavClick={() => { }} userName={user?.user?.username} rankName={user?.rank?.rankName} balance={balance} rankId={user?.rank?.rankId} />
       </aside>
 
       <div className="clisha-x-right-panel" style={{ flex: 1, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-        <header style={{ background: c.bg2, borderBottom: `1px solid ${c.border}`, padding: '0 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 42, flexShrink: 0 }}>
+        <header className="clisha-x-header" style={{ background: c.bg2, borderBottom: `1px solid ${c.border}`, padding: '0 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', minHeight: 42, flexShrink: 0, gap: 6 }}>
           <Link to={`${BASE}/dashboard`} className="clisha-x-sidebar-mobile" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
             <img src={dark ? '/logo2.png' : '/images/logo4.png'} alt="Clisha" style={{ height: 32 }} />
           </Link>
           <span className="clisha-x-sidebar-desktop" style={{ fontFamily: CLEAN_FONTS.mono, fontSize: 12, fontWeight: 700, color: c.text2, letterSpacing: '0.06em' }}>DASHBOARD</span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginLeft: 'auto' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 10px', borderRadius: 7, fontSize: 12, fontWeight: 700, background: c.bg3, border: `1px solid ${c.border}`, fontFamily: CLEAN_FONTS.mono }} title="Task points — withdrawable">
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginLeft: 'auto', flexWrap: 'wrap', minWidth: 0 }}>
+            <div className="clisha-x-header-chip" style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 10px', borderRadius: 7, fontSize: 12, fontWeight: 700, background: c.bg3, border: `1px solid ${c.border}`, fontFamily: CLEAN_FONTS.mono }} title="Task points — withdrawable">
               <span style={{ fontSize: 12 }}>🪙</span>
               <span style={{ color: c.gold }}>{Number(balance).toLocaleString()}</span>
-              <span style={{ color: c.text2, fontWeight: 500 }}>Points</span>
+              <span className="clisha-x-chip-label" style={{ color: c.text2, fontWeight: 500 }}>Points</span>
             </div>
             {showClishaCoins && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 10px', borderRadius: 7, fontSize: 12, fontWeight: 700, background: c.bg3, border: `1px solid ${c.border}`, fontFamily: CLEAN_FONTS.mono }} title="Vendo bonus — from your package">
+              <div className="clisha-x-header-chip" style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 10px', borderRadius: 7, fontSize: 12, fontWeight: 700, background: c.bg3, border: `1px solid ${c.border}`, fontFamily: CLEAN_FONTS.mono }} title="Vendo bonus — from your package">
                 <span style={{ fontSize: 12 }}>💎</span>
                 <span style={{ color: c.blue }}>{Number(clishaCoins).toFixed(0)}</span>
-                <span style={{ color: c.text2, fontWeight: 500 }}>Clishacoins</span>
+                <span className="clisha-x-chip-label" style={{ color: c.text2, fontWeight: 500 }}>Clishacoins</span>
               </div>
             )}
             <div style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '2px 8px 2px 3px', borderRadius: 20, background: c.bg3, border: `1px solid ${c.border}`, position: 'relative' }}>
@@ -280,10 +293,10 @@ function DashboardLayoutInner() {
           <div role="button" tabIndex={0} onClick={() => setMobileOpen(false)} onKeyDown={(e) => e.key === 'Escape' && setMobileOpen(false)} style={{ position: 'fixed', inset: 0, zIndex: 1000, background: 'rgba(0,0,0,0.55)' }} />
         )}
         <aside className="clisha-x-sidebar-mobile" style={{ position: 'fixed', top: 42, left: 0, bottom: 0, zIndex: 1001, width: 260, background: c.bg2, borderRight: `1px solid ${c.border}`, overflowY: 'auto', transform: mobileOpen ? 'translateX(0)' : 'translateX(-100%)', transition: 'transform 0.25s' }}>
-          <SidebarContent c={c} dark={dark} onCopyReferral={copyReferral} onToggleTheme={toggleTheme} onLogout={logout} onNavClick={() => setMobileOpen(false)} userName={user?.user?.username} rankName={user?.rank?.rankName} balance={balance} />
+          <SidebarContent c={c} dark={dark} onCopyReferral={copyReferral} onToggleTheme={toggleTheme} onLogout={logout} onNavClick={() => setMobileOpen(false)} userName={user?.user?.username} rankName={user?.rank?.rankName} balance={balance} rankId={user?.rank?.rankId} />
         </aside>
 
-        <main style={{ flex: 1, padding: 14, display: 'flex', flexDirection: 'column', gap: 12, overflowY: 'auto' }}>
+        <main className="clisha-x-main" style={{ flex: 1, padding: 14, display: 'flex', flexDirection: 'column', gap: 12, overflowY: 'auto' }}>
           <Outlet />
         </main>
       </div>

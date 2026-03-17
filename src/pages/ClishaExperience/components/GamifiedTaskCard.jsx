@@ -73,6 +73,34 @@ function getConfig(taskType) {
   return TYPE_CONFIG[taskType] || TYPE_CONFIG.website_click;
 }
 
+/** Returns true if the color is dark (needs light text for contrast) */
+function isDarkBackground(color) {
+  if (!color || typeof color !== 'string') return false;
+  let r = 0;
+  let g = 0;
+  let b = 0;
+  const hex6 = color.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
+  const hex3 = color.match(/^#?([a-f\d])([a-f\d])([a-f\d])$/i);
+  if (hex6) {
+    r = parseInt(hex6[1], 16);
+    g = parseInt(hex6[2], 16);
+    b = parseInt(hex6[3], 16);
+  } else if (hex3) {
+    r = parseInt(hex3[1] + hex3[1], 16);
+    g = parseInt(hex3[2] + hex3[2], 16);
+    b = parseInt(hex3[3] + hex3[3], 16);
+  } else {
+    const rgb = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+    if (rgb) {
+      r = parseInt(rgb[1], 10);
+      g = parseInt(rgb[2], 10);
+      b = parseInt(rgb[3], 10);
+    } else return false;
+  }
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luminance < 0.5;
+}
+
 /* ── Activate modal (matches old Popup: different content per task type) ──
  * google_search: input + "Copy" → copy search_phrase, open extensionUrl
  * search_journey: input + "Copy" → copyAndOpenTab (copy + open google.com?tk=...)
@@ -277,18 +305,18 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
 
   /* Token colors from API (old system: item.token.background, foreground, card_colors.accent_color) */
   const tokenBg = item?.token?.background;
-  const tokenFg = item?.token?.foreground ?? (dark ? '#E8EDF5' : '#1a1a1a');
   const accentColor = item?.token?.card_colors?.accent_color ?? BRAND.primary;
 
   /* When token has custom background, use it; otherwise use theme defaults */
   const cardBg = tokenBg || (dark ? '#182030' : '#ffffff');
   const hasCustomBg = Boolean(tokenBg);
-  const cardBorder = hasCustomBg ? 'rgba(0,0,0,0.12)' : (dark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)');
-  const textMain = hasCustomBg ? (tokenFg ?? '#fff') : (dark ? '#E8EDF5' : '#1a1a1a');
-  const textSub = hasCustomBg ? (tokenFg ?? 'rgba(255,255,255,0.85)') : (dark ? '#8A95A8' : '#666');
-  const textMuted = hasCustomBg ? (tokenFg ?? 'rgba(255,255,255,0.65)') : (dark ? '#4A5568' : '#999');
-  const rowBorder = hasCustomBg ? 'rgba(0,0,0,0.08)' : (dark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)');
-  const descBg = hasCustomBg ? 'rgba(0,0,0,0.08)' : (dark ? '#1E2535' : '#f1f5f9');
+  const cardIsDark = hasCustomBg ? isDarkBackground(tokenBg) : dark;
+  const cardBorder = hasCustomBg ? (cardIsDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)') : (dark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)');
+  const textMain = hasCustomBg ? (cardIsDark ? '#ffffff' : '#1a1a1a') : (dark ? '#E8EDF5' : '#1a1a1a');
+  const textSub = hasCustomBg ? (cardIsDark ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.7)') : (dark ? '#8A95A8' : '#666');
+  const textMuted = hasCustomBg ? (cardIsDark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.5)') : (dark ? '#4A5568' : '#999');
+  const rowBorder = hasCustomBg ? (cardIsDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.08)') : (dark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)');
+  const descBg = hasCustomBg ? (cardIsDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)') : (dark ? '#1E2535' : '#f1f5f9');
   const btnBg = accentColor;
   /* Visit: white text. Activate: dark text on gold/orange (BRAND.primary), white on darker accents */
   const isLightAccent = accentColor === BRAND.primary || accentColor?.toLowerCase()?.includes('fc') || accentColor?.toLowerCase()?.includes('ff9');
@@ -312,7 +340,7 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
           overflow: 'hidden',
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.borderColor = dark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.15)';
+          e.currentTarget.style.borderColor = cardIsDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)';
           e.currentTarget.style.transform = 'translateY(-2px)';
           e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.3)';
         }}
@@ -344,13 +372,13 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
             minHeight: 72,
             padding: '14px 16px',
             margin: '-14px -14px 0 -14px',
-            background: dark
+            background: cardIsDark
               ? 'rgba(255,255,255,0.08)'
               : 'rgba(255,255,255,0.6)',
             backdropFilter: 'blur(16px) saturate(180%)',
             WebkitBackdropFilter: 'blur(16px) saturate(180%)',
-            borderBottom: `1px solid ${dark ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.4)'}`,
-            boxShadow: dark ? 'inset 0 1px 0 rgba(255,255,255,0.05)' : 'inset 0 1px 0 rgba(255,255,255,0.8)',
+            borderBottom: `1px solid ${cardIsDark ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.4)'}`,
+            boxShadow: cardIsDark ? 'inset 0 1px 0 rgba(255,255,255,0.05)' : 'inset 0 1px 0 rgba(255,255,255,0.8)',
             borderRadius: '14px 14px 0 0',
           }}
         >
@@ -463,7 +491,7 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
         {/* rows: Validity, Earning, Clishacoins, pts */}
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 0', borderBottom: `1px solid ${rowBorder}` }}>
-            <span style={{ fontSize: 13, color: textMuted }}>Validity</span>
+            <span style={{ fontSize: 13, color: cardIsDark ? '#ffffff' : textMuted }}>Validity</span>
             <span style={{ fontSize: 13, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4 }}>
               {isValid ? (
                 <span style={{ width: 15, height: 15, borderRadius: 4, background: `${accentColor}20`, border: `1px solid ${accentColor}40`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -477,7 +505,7 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
             </span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 0', borderBottom: `1px solid ${rowBorder}` }}>
-            <span style={{ fontSize: 13, color: textMuted }}>Earning</span>
+            <span style={{ fontSize: 13, color: cardIsDark ? '#ffffff' : textMuted }}>Earning</span>
             <span style={{ fontSize: 13, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4 }}>
               <div
                 style={{
@@ -496,14 +524,14 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
             </span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 0', borderBottom: `1px solid ${rowBorder}` }}>
-            <span style={{ fontSize: 13, color: textMuted }}>Clishacoins</span>
-            <span style={{ fontSize: 13, fontWeight: 600, color: accentColor, fontFamily: "'Space Mono', monospace" }}>
+            <span style={{ fontSize: 13, color: cardIsDark ? '#ffffff' : textMuted }}>Clishacoins</span>
+            <span style={{ fontSize: 13, fontWeight: 600, color: cardIsDark ? '#ffffff' : accentColor, fontFamily: "'Space Mono', monospace" }}>
               {item?.points ?? 0} pts
             </span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 0' }}>
-            <span style={{ fontSize: 11.5, color: textMuted }}>{tokenNameShort}</span>
-            <span style={{ fontSize: 11.5, fontWeight: 600, color: accentColor, fontFamily: "'Space Mono', monospace" }}>
+            <span style={{ fontSize: 11.5, color: cardIsDark ? '#ffffff' : textMuted }}>{tokenNameShort}</span>
+            <span style={{ fontSize: 11.5, fontWeight: 600, color: cardIsDark ? '#ffffff' : accentColor, fontFamily: "'Space Mono', monospace" }}>
               {item?.points ?? 0} pts
             </span>
           </div>

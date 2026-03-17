@@ -104,7 +104,15 @@ export default function ClishaExperienceDashboard() {
         @media (max-width: 767px) {
           .clisha-x-mid-grid { grid-template-columns: 1fr !important; }
           .clisha-x-bot-grid { grid-template-columns: 1fr !important; }
+          .clisha-x-stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8 !important; }
+          .clisha-x-greeting { flex-direction: column !important; align-items: flex-start !important; gap: 12 !important; padding: 12px 14px !important; }
+          .clisha-x-greeting-right { flex-direction: column !important; align-items: flex-start !important; width: 100% !important; }
+          .clisha-x-greeting-right .clisha-x-profile-bar { width: 100% !important; max-width: 100% !important; }
+          .clisha-x-community { max-width: 100% !important; }
+        }
+        @media (max-width: 480px) {
           .clisha-x-stats-grid { grid-template-columns: 1fr !important; }
+          .clisha-x-wallet-header { flex-direction: column !important; align-items: flex-start !important; gap: 10 !important; }
         }
       `}</style>
 
@@ -117,8 +125,8 @@ export default function ClishaExperienceDashboard() {
         <ExtensionPrompt dark={dark} />
 
         {/* ── Greeting ───────────────────────────────────────────────── */}
-        <div style={{ background: c.bg3, border: `1px solid ${c.border}`, borderRadius: 13, padding: '13px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 11 }}>
+        <div className="clisha-x-greeting" style={{ background: c.bg3, border: `1px solid ${c.border}`, borderRadius: 13, padding: '13px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 11, minWidth: 0 }}>
             <div style={{ width: 38, height: 38, borderRadius: '50%', background: `linear-gradient(135deg,${c.gold},${c.orange})`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: CLEAN_FONTS.mono, fontSize: 11, fontWeight: 700, color: '#1a1a1a', flexShrink: 0, overflow: 'hidden' }}>
               <img src={ProfilePicture({ gender: user?.user?.gender, photo: user?.user?.photo })} alt="" style={{ width: 38, height: 38, objectFit: 'cover' }} />
             </div>
@@ -128,13 +136,13 @@ export default function ClishaExperienceDashboard() {
               <div style={{ fontSize: 12, color: c.text2, marginTop: 1 }}>{perProfile < 100 ? 'Complete your profile to unlock bonus rewards' : 'You\'re all set!'}</div>
             </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 3 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', width: 130, fontSize: 11, color: c.text2 }}>
+          <div className="clisha-x-greeting-right" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div className="clisha-x-profile-bar" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 3, width: 130 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', fontSize: 11, color: c.text2 }}>
                 <span>Profile</span>
                 <span style={{ color: c.gold, fontWeight: 600 }}>{perProfile}%</span>
               </div>
-              <div style={{ width: 130, height: 4, background: c.bg4, borderRadius: 99, overflow: 'hidden' }}>
+              <div style={{ width: '100%', height: 4, background: c.bg4, borderRadius: 99, overflow: 'hidden' }}>
                 <div style={{ height: '100%', width: `${perProfile}%`, background: `linear-gradient(90deg,${c.gold},${c.orange})`, borderRadius: 99, transition: 'width 0.5s ease' }} />
               </div>
             </div>
@@ -176,7 +184,7 @@ export default function ClishaExperienceDashboard() {
         {/* ── Wallet + Rankers ───────────────────────────────────────── */}
         <div className="clisha-x-mid-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 220px)', gap: 12 }}>
           <div style={{ background: c.card, border: `1px solid ${c.border}`, borderRadius: 13, overflow: 'hidden' }}>
-            <div style={{ background: '#152238', padding: '13px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div className="clisha-x-wallet-header" style={{ background: '#152238', padding: '13px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
               <div>
                 <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 2 }}>Points · Withdrawable</div>
                 <div style={{ fontFamily: CLEAN_FONTS.mono, fontSize: 21, fontWeight: 700, color: c.gold }}>{(Number(balance)).toLocaleString()} <span style={{ fontSize: 13, fontWeight: 500, opacity: 0.8 }}>Points</span></div>
