@@ -293,6 +293,7 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
   /* Visit: white text. Activate: dark text on gold/orange (BRAND.primary), white on darker accents */
   const isLightAccent = accentColor === BRAND.primary || accentColor?.toLowerCase()?.includes('fc') || accentColor?.toLowerCase()?.includes('ff9');
   const btnTextColor = cfg.btnClass === 'visit' ? '#fff' : (isLightAccent ? '#1a1a1a' : '#fff');
+  const logoUrl = item?.token?.photo ?? item?.website_click?.token?.photo ?? item?.google_search?.token?.photo;
 
   return (
     <>
@@ -334,20 +335,66 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
           }}
         />
 
-        {/* head: logo/name + badge (token.photo from old TaskLogo) */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0, flex: 1 }}>
-            {item?.token?.photo ? (
-              <img
-                src={item.token.photo}
-                alt=""
-                style={{ width: 32, height: 32, borderRadius: 8, objectFit: 'contain', flexShrink: 0 }}
-              />
-            ) : null}
-            <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 15, fontWeight: 700, color: textMain, lineHeight: 1.3, overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        {/* logo area: photo or company name (glassmorphism) */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minHeight: 72,
+            padding: '14px 16px',
+            margin: '-14px -14px 0 -14px',
+            background: dark
+              ? 'rgba(255,255,255,0.08)'
+              : 'rgba(255,255,255,0.6)',
+            backdropFilter: 'blur(16px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+            borderBottom: `1px solid ${dark ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.4)'}`,
+            boxShadow: dark ? 'inset 0 1px 0 rgba(255,255,255,0.05)' : 'inset 0 1px 0 rgba(255,255,255,0.8)',
+            borderRadius: '14px 14px 0 0',
+          }}
+        >
+          {logoUrl ? (
+            <img
+              src={logoUrl}
+              alt={tokenName}
+              style={{
+                height: 52,
+                maxWidth: 130,
+                minWidth: 48,
+                objectFit: 'contain',
+                borderRadius: 10,
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                textAlign: 'center',
+                fontFamily: "'Space Mono', monospace",
+                fontSize: 15,
+                fontWeight: 700,
+                color: textMain,
+                lineHeight: 1.35,
+                maxWidth: '100%',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+              }}
+            >
+              {tokenName || 'Task'}
+            </div>
+          )}
+        </div>
+
+        {/* head: name (when photo exists) + badge */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: logoUrl ? 'space-between' : 'flex-end', gap: 10 }}>
+          {logoUrl ? (
+            <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 14, fontWeight: 600, color: textMain, lineHeight: 1.3, overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0, flex: 1 }}>
               {tokenName}
             </div>
-          </div>
+          ) : null}
           <span
             style={{
               fontSize: 11,

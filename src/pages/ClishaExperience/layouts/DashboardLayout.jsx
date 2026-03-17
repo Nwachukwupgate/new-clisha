@@ -115,12 +115,12 @@ function computeStreak(calenderTask) {
 function SidebarContent({ c, dark, onCopyReferral, onToggleTheme, onLogout, onNavClick, userName, rankName, balance }) {
   const xpPct = Math.min(100, Math.max(0, (Number(balance) / 1000) * 100));
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '8px 8px', gap: 12 }}>
-      <Link to={`${BASE}/dashboard`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingBottom: 8, borderBottom: `1px solid ${c.border}`, textDecoration: 'none' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', padding: '8px 4px', gap: 12, boxSizing: 'border-box' }}>
+      <Link to={`${BASE}/dashboard`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingBottom: 8, borderBottom: `1px solid ${c.border}`, textDecoration: 'none', width: '100%' }}>
         <img src={dark ? '/logo2.png' : '/images/logo4.png'} alt="Clisha" style={{ width: 60, height: 60, objectFit: 'contain' }} />
       </Link>
 
-      <div style={{ background: c.bg3, border: `1px solid ${c.border}`, borderRadius: 10, padding: '9px 10px' }}>
+      <div style={{ background: c.bg3, border: `1px solid ${c.border}`, borderRadius: 10, padding: '9px 10px', width: '100%', boxSizing: 'border-box' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
           <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.07em', color: c.gold, textTransform: 'uppercase' }}>⚡ Points</span>
           <span style={{ fontSize: 10, color: c.text3 }}>{Number(balance || 0).toLocaleString()}</span>
@@ -132,7 +132,7 @@ function SidebarContent({ c, dark, onCopyReferral, onToggleTheme, onLogout, onNa
         <div style={{ fontSize: 10.5, color: c.text2 }}>{rankName || 'Member'}</div>
       </div>
 
-      <nav style={{ display: 'flex', flexDirection: 'column', gap: 1, flex: 1 }}>
+      <nav style={{ display: 'flex', flexDirection: 'column', gap: 1, flex: 1, width: '100%', minWidth: 0 }}>
         {SIDEBAR_ITEMS.map((item) => (
           <NavLink
             key={item.url}
@@ -157,7 +157,7 @@ function SidebarContent({ c, dark, onCopyReferral, onToggleTheme, onLogout, onNa
         ))}
       </nav>
 
-      <div style={{ background: `linear-gradient(135deg,${c.goldL},rgba(255,159,67,0.04))`, border: `1px solid ${c.goldB}`, borderRadius: 10, padding: '9px 11px', display: 'flex', alignItems: 'center', gap: 9, marginTop: 'auto' }}>
+      <div style={{ background: `linear-gradient(135deg,${c.goldL},rgba(255,159,67,0.04))`, border: `1px solid ${c.goldB}`, borderRadius: 10, padding: '9px 11px', display: 'flex', alignItems: 'center', gap: 9, marginTop: 'auto', width: '100%', boxSizing: 'border-box' }}>
         <div style={{ fontSize: 20 }}>🔥</div>
         <div>
           <div style={{ fontFamily: CLEAN_FONTS.mono, fontSize: 17, fontWeight: 700, color: c.gold, lineHeight: 1 }}>{c.streak ?? 0}</div>
@@ -165,12 +165,18 @@ function SidebarContent({ c, dark, onCopyReferral, onToggleTheme, onLogout, onNa
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: 8, paddingTop: 8, borderTop: `1px solid ${c.border}` }}>
+      <div style={{ display: 'flex', gap: 8, paddingTop: 8, borderTop: `1px solid ${c.border}`, width: '100%' }}>
         <button type="button" onClick={onToggleTheme} style={{ width: 34, height: 34, borderRadius: 8, border: `1px solid ${c.border}`, background: c.bg3, cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }} aria-label="Toggle theme">
           {dark ? '☀️' : '🌙'}
         </button>
         <button type="button" onClick={onCopyReferral} style={{ flex: 1, padding: '8px 12px', borderRadius: 8, background: `linear-gradient(135deg,${c.gold},${c.orange})`, color: '#1a1a1a', border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', fontFamily: CLEAN_FONTS.body }}>Invite</button>
-        <button type="button" onClick={onLogout} style={{ flex: 1, padding: '8px 12px', borderRadius: 8, border: `1px solid ${c.border}`, background: 'transparent', color: c.text2, fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: CLEAN_FONTS.body }}>Log out</button>
+        <button type="button" onClick={onLogout} style={{ width: 34, height: 34, borderRadius: 8, border: `1px solid ${c.border}`, background: 'transparent', color: c.text2, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }} aria-label="Log out" title="Log out">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <polyline points="16 17 21 12 16 7" />
+            <line x1="21" y1="12" x2="9" y2="12" />
+          </svg>
+        </button>
       </div>
     </div>
   );
