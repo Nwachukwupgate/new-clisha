@@ -26,24 +26,46 @@ const SIDEBAR_ITEMS = [
   { name: 'Team', url: `${BASE}/dashboard/team`, svg: 'team' },
   { name: 'Rank', url: `${BASE}/dashboard/rank`, svg: 'rank' },
   { name: 'Profile', url: `${BASE}/dashboard/profile`, svg: 'profile' },
-  { name: 'Setting', url: `${BASE}/dashboard/settings`, svg: 'setting' },
+  { name: 'Settings', url: `${BASE}/dashboard/settings`, svg: 'setting' },
 ];
 
 const STYLES = `
   @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
   .clisha-x-sidebar-desktop { display: none !important; }
   @media (min-width: 768px) { .clisha-x-sidebar-desktop { display: flex !important; } }
+  .clisha-x-mobile-balance { display: none !important; }
   .clisha-x-right-panel { margin-left: 0; }
   @media (min-width: 768px) { .clisha-x-right-panel { margin-left: 190px; } }
   .clisha-x-sidebar-mobile { display: block; }
   @media (min-width: 768px) { .clisha-x-sidebar-mobile { display: none !important; } }
   .clisha-x-nav-item:hover { background: var(--nav-hover) !important; color: var(--text) !important; }
   .clisha-x-dropdown-item:hover { background: var(--nav-hover) !important; }
-  @media (max-width: 600px) {
+  @media (max-width: 767px) {
+    .clisha-x-main { padding: 12px !important; gap: 12px !important; min-height: 0 !important; }
+    .clisha-x-header { padding: 0 10px !important; min-height: 46px !important; gap: 8px !important; overflow: hidden !important; width: 100% !important; box-sizing: border-box !important; }
+    .clisha-x-header-logo { height: 24px !important; width: auto !important; max-width: 72px !important; object-fit: contain !important; flex-shrink: 0 !important; }
+    .clisha-x-header-inner .clisha-x-header-chip { display: none !important; }
+    .clisha-x-header-profile { padding: 2px 6px 2px 2px !important; gap: 4px !important; flex-shrink: 0 !important; }
+    .clisha-x-header-avatar { width: 26px !important; height: 26px !important; }
+    .clisha-x-header-username { font-size: 12px !important; max-width: 90px !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important; }
+    .clisha-x-header-menu-btn { width: 32px !important; height: 32px !important; min-width: 32px !important; flex-shrink: 0 !important; }
+    .clisha-x-mobile-balance { display: flex !important; }
+    .clisha-x-mobile-balance .clisha-x-header-chip { display: flex !important; }
+    .clisha-x-mobile-balance .clisha-x-chip-label { display: none !important; }
+    .clisha-x-sidebar-mobile { width: min(100vw - 24px, 280px) !important; top: 46px !important; padding: 12px !important; }
+    .clisha-x-nav-item { padding: 12px 14px !important; font-size: 14px !important; min-height: 44px !important; }
+    .clisha-x-dropdown-item { padding: 12px 14px !important; font-size: 14px !important; min-height: 44px !important; }
+  }
+  @media (max-width: 480px) {
     .clisha-x-main { padding: 10px !important; gap: 10px !important; }
-    .clisha-x-header { padding: 0 10px !important; }
-    .clisha-x-header-chip .clisha-x-chip-label { display: none !important; }
-    .clisha-x-header-chip { padding: 4px 8px !important; min-width: auto !important; }
+    .clisha-x-header { padding: 0 8px !important; min-height: 44px !important; gap: 6px !important; }
+    .clisha-x-header-logo { height: 22px !important; max-width: 64px !important; }
+    .clisha-x-header-avatar { width: 24px !important; height: 24px !important; }
+    .clisha-x-header-username { display: none !important; }
+    .clisha-x-header-menu-btn { width: 30px !important; height: 30px !important; min-width: 30px !important; }
+    .clisha-x-mobile-balance { padding: 6px 8px !important; gap: 8px !important; }
+    .clisha-x-mobile-balance .clisha-x-header-chip { display: flex !important; padding: 4px 8px !important; font-size: 11px !important; }
+    .clisha-x-sidebar-mobile { top: 44px !important; width: 100% !important; }
   }
 `;
 
@@ -249,11 +271,11 @@ function DashboardLayoutInner() {
 
       <div className="clisha-x-right-panel" style={{ flex: 1, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <header className="clisha-x-header" style={{ background: c.bg2, borderBottom: `1px solid ${c.border}`, padding: '0 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', minHeight: 42, flexShrink: 0, gap: 6 }}>
-          <Link to={`${BASE}/dashboard`} className="clisha-x-sidebar-mobile" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-            <img src={dark ? '/logo2.png' : '/images/logo4.png'} alt="Clisha" style={{ height: 32 }} />
+          <Link to={`${BASE}/dashboard`} className="clisha-x-sidebar-mobile" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0 }}>
+            <img src={dark ? '/logo2.png' : '/images/logo4.png'} alt="Clisha" className="clisha-x-header-logo" style={{ height: 32 }} />
           </Link>
           <span className="clisha-x-sidebar-desktop" style={{ fontFamily: CLEAN_FONTS.mono, fontSize: 12, fontWeight: 700, color: c.text2, letterSpacing: '0.06em' }}>DASHBOARD</span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginLeft: 'auto', flexWrap: 'wrap', minWidth: 0 }}>
+          <div className="clisha-x-header-inner clisha-x-header-chips" style={{ display: 'flex', alignItems: 'center', gap: 6, marginLeft: 'auto', flexWrap: 'nowrap' }}>
             <div className="clisha-x-header-chip" style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 10px', borderRadius: 7, fontSize: 12, fontWeight: 700, background: c.bg3, border: `1px solid ${c.border}`, fontFamily: CLEAN_FONTS.mono }} title="Task points — withdrawable">
               <span style={{ fontSize: 12 }}>🪙</span>
               <span style={{ color: c.gold }}>{Number(balance).toLocaleString()}</span>
@@ -266,16 +288,17 @@ function DashboardLayoutInner() {
                 <span className="clisha-x-chip-label" style={{ color: c.text2, fontWeight: 500 }}>Clishacoins</span>
               </div>
             )}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '2px 8px 2px 3px', borderRadius: 20, background: c.bg3, border: `1px solid ${c.border}`, position: 'relative' }}>
+            <div className="clisha-x-header-profile" style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '2px 8px 2px 3px', borderRadius: 20, background: c.bg3, border: `1px solid ${c.border}`, position: 'relative', flexShrink: 0 }}>
               <button type="button" onClick={() => setProfileOpen(!profileOpen)} style={{ display: 'flex', alignItems: 'center', gap: 5, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
-                <img src={ProfilePicture({ gender, photo })} alt="" style={{ width: 22, height: 22, borderRadius: '50%', objectFit: 'cover' }} />
-                <span style={{ fontSize: 12, color: c.text, fontWeight: 500 }} className="d-md-inline">{username}</span>
+                <img src={ProfilePicture({ gender, photo })} alt="" className="clisha-x-header-avatar" style={{ width: 22, height: 22, borderRadius: '50%', objectFit: 'cover' }} />
+                <span className="clisha-x-header-username" style={{ fontSize: 12, color: c.text, fontWeight: 500 }}>{username}</span>
               </button>
               {profileOpen && (
                 <>
                   <div role="button" tabIndex={0} onClick={() => setProfileOpen(false)} onKeyDown={(e) => e.key === 'Escape' && setProfileOpen(false)} style={{ position: 'fixed', inset: 0, zIndex: 99 }} />
                   <div style={{ position: 'absolute', right: 0, top: 'calc(100% + 8px)', zIndex: 101, minWidth: 180, padding: 8, borderRadius: 10, background: c.card, border: `1px solid ${c.border}`, boxShadow: '0 8px 24px rgba(0,0,0,0.3)' }}>
                     <Link to={`${BASE}/dashboard/profile`} onClick={() => setProfileOpen(false)} className="clisha-x-dropdown-item" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 6, color: c.text, textDecoration: 'none', fontSize: 13 }}>👤 Profile</Link>
+                    <Link to={`${BASE}/dashboard/settings`} onClick={() => setProfileOpen(false)} className="clisha-x-dropdown-item" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 6, color: c.text, textDecoration: 'none', fontSize: 13 }}>⚙️ Settings</Link>
                     <Link to={`${BASE}/dashboard`} onClick={() => setProfileOpen(false)} className="clisha-x-dropdown-item" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 6, color: c.text, textDecoration: 'none', fontSize: 13 }}>⚡ Dashboard</Link>
                     <div style={{ height: 1, background: c.border, margin: '4px 0' }} />
                     <button type="button" onClick={() => { logout(); setProfileOpen(false); }} className="clisha-x-dropdown-item" style={{ width: '100%', padding: '8px 10px', borderRadius: 6, border: 'none', background: 'transparent', color: '#f87171', cursor: 'pointer', fontSize: 13, fontWeight: 600, textAlign: 'left' }}>🚪 Log out</button>
@@ -283,16 +306,31 @@ function DashboardLayoutInner() {
                 </>
               )}
             </div>
-            <button type="button" onClick={() => setMobileOpen(!mobileOpen)} className="clisha-x-sidebar-mobile" style={{ width: 36, height: 36, borderRadius: 8, border: `1px solid ${c.border}`, background: 'transparent', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 4 }} aria-label="Menu">
+            <button type="button" onClick={() => setMobileOpen(!mobileOpen)} className="clisha-x-sidebar-mobile clisha-x-header-menu-btn" style={{ width: 36, height: 36, borderRadius: 8, border: `1px solid ${c.border}`, background: 'transparent', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 4, flexShrink: 0 }} aria-label="Menu">
               {[0, 1, 2].map((i) => <span key={i} style={{ width: 8, height: 2, background: c.text, borderRadius: 2 }} />)}
             </button>
           </div>
         </header>
 
+        <div className="clisha-x-mobile-balance" style={{ display: 'none', alignItems: 'center', gap: 10, padding: '8px 10px', background: c.bg3, borderBottom: `1px solid ${c.border}`, flexShrink: 0 }}>
+          <div className="clisha-x-header-chip" style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 10px', borderRadius: 7, fontSize: 12, fontWeight: 700, background: c.card, border: `1px solid ${c.border}`, fontFamily: CLEAN_FONTS.mono }} title="Task points — withdrawable">
+            <span style={{ fontSize: 12 }}>🪙</span>
+            <span style={{ color: c.gold }}>{Number(balance).toLocaleString()}</span>
+            <span className="clisha-x-chip-label" style={{ color: c.text2, fontWeight: 500 }}>Points</span>
+          </div>
+          {showClishaCoins && (
+            <div className="clisha-x-header-chip" style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 10px', borderRadius: 7, fontSize: 12, fontWeight: 700, background: c.card, border: `1px solid ${c.border}`, fontFamily: CLEAN_FONTS.mono }} title="Vendo bonus — from your package">
+              <span style={{ fontSize: 12 }}>💎</span>
+              <span style={{ color: c.blue }}>{Number(clishaCoins).toFixed(0)}</span>
+              <span className="clisha-x-chip-label" style={{ color: c.text2, fontWeight: 500 }}>Clishacoins</span>
+            </div>
+          )}
+        </div>
+
         {mobileOpen && (
           <div role="button" tabIndex={0} onClick={() => setMobileOpen(false)} onKeyDown={(e) => e.key === 'Escape' && setMobileOpen(false)} style={{ position: 'fixed', inset: 0, zIndex: 1000, background: 'rgba(0,0,0,0.55)' }} />
         )}
-        <aside className="clisha-x-sidebar-mobile" style={{ position: 'fixed', top: 42, left: 0, bottom: 0, zIndex: 1001, width: 260, background: c.bg2, borderRight: `1px solid ${c.border}`, overflowY: 'auto', transform: mobileOpen ? 'translateX(0)' : 'translateX(-100%)', transition: 'transform 0.25s' }}>
+        <aside className="clisha-x-sidebar-mobile" style={{ position: 'fixed', top: 48, left: 0, bottom: 0, zIndex: 1001, width: 280, maxWidth: '85vw', background: c.bg2, borderRight: `1px solid ${c.border}`, overflowY: 'auto', transform: mobileOpen ? 'translateX(0)' : 'translateX(-100%)', transition: 'transform 0.25s' }}>
           <SidebarContent c={c} dark={dark} onCopyReferral={copyReferral} onToggleTheme={toggleTheme} onLogout={logout} onNavClick={() => setMobileOpen(false)} userName={user?.user?.username} rankName={user?.rank?.rankName} balance={balance} rankId={user?.rank?.rankId} />
         </aside>
 
