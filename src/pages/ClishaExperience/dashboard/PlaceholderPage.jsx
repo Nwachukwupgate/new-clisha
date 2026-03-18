@@ -7,11 +7,6 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 const ROUTE_MAP = {
   wallet: '/dashboard/wallet',
-  rank: '/dashboard/rank',
-  profile: '/dashboard/profile',
-  token: '/dashboard/token',
-  team: '/dashboard/team',
-  settings: '/dashboard/settings',
   help: '/dashboard/help',
 };
 

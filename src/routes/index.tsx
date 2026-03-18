@@ -32,7 +32,12 @@ import {
 } from '../pages/ClishaExperience';
 import DashboardLayout from '../pages/ClishaExperience/layouts/DashboardLayout';
 import TaskPage from '../pages/ClishaExperience/dashboard/TaskPage';
+import SettingsPage from '../pages/ClishaExperience/dashboard/SettingsPage';
+import ProfilePage from '../pages/ClishaExperience/dashboard/ProfilePage';
 import PlaceholderPage from '../pages/ClishaExperience/dashboard/PlaceholderPage';
+import RankPage from '../pages/ClishaExperience/dashboard/RankPage';
+import TeamPage from '../pages/ClishaExperience/dashboard/TeamPage';
+import TokenPage from '../pages/ClishaExperience/dashboard/TokenPage';
 import Landingpage from '../pages/LandingPage/Landingpage';
 import Membership from '../pages/Membership';
 import Notification from '../pages/Notification';
@@ -125,11 +130,11 @@ function Router() {
                 <Route index element={<ClishaExperienceDashboard />} />
                 <Route path="task" element={<TaskPage />} />
                 <Route path="wallet" element={<PlaceholderPage />} />
-                <Route path="rank" element={<PlaceholderPage />} />
-                <Route path="profile" element={<PlaceholderPage />} />
-                <Route path="token" element={<PlaceholderPage />} />
-                <Route path="team" element={<PlaceholderPage />} />
-                <Route path="settings" element={<PlaceholderPage />} />
+                <Route path="rank" element={<RankPage />} />
+                <Route path="profile" element={<ProfilePage />} />
+                <Route path="token" element={<TokenPage />} />
+                <Route path="team" element={<TeamPage />} />
+                <Route path="settings" element={<SettingsPage />} />
                 <Route path="help" element={<PlaceholderPage />} />
               </Route>
             </Route>

@@ -4,17 +4,17 @@ import QuestionBlock from './QuestionBlock';
 import ChildrenDetails from './ChildrenDetails';
 import { steps } from '../../../../json/survey';
 
-const SurveyForm = ({ initialSurveyData = null, initialStep = 1, isUpdate = false }) => {
-  const { formData, currentStep, currentStepData, progress, isLoading, showModal, showChildrenDetails, handleSingleChoice,handleMultiChoice, handleNumberOfChildren, goToNextStep, goToPreviousStep, goToStep, handleSubmit, handleClose, saveProgress } = useSurveyForm(initialSurveyData, initialStep);
+const SurveyForm = ({ initialSurveyData = null, initialStep = 1, isUpdate = false, onClose = () => {} }) => {
+  const { formData, currentStep, currentStepData, progress, isLoading, showModal, showChildrenDetails, handleSingleChoice, handleMultiChoice, handleNumberOfChildren, goToNextStep, goToPreviousStep, goToStep, handleSubmit, handleClose } = useSurveyForm(initialSurveyData, initialStep);
 
   const onSubmitWrapper = async (e) => {
     await handleSubmit(e);
-    // onComplete(); // Notify parent component
+    onClose?.();
   };
 
   const onCloseWrapper = () => {
     handleClose();
-    // onComplete(); // Notify parent component
+    onClose?.();
   };
 
   if (!showModal) return null;

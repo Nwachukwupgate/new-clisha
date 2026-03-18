@@ -58,14 +58,15 @@ const STYLES = `
   .task-page-tabs::-webkit-scrollbar { display: none; }
   .task-page-tabs { -ms-overflow-style: none; }
   @media (max-width: 900px) {
-    .task-page-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 12 !important; }
+    .task-page-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 12px !important; }
   }
   @media (max-width: 600px) {
-    .task-page-grid { grid-template-columns: 1fr !important; gap: 12 !important; }
+    .task-page-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
     .task-page-content { padding: 12px !important; }
-    .task-page-topbar { padding: 0 12px !important; height: 48 !important; }
-    .task-page-mission { flex-direction: column !important; align-items: flex-start !important; gap: 14 !important; padding: 14px !important; }
-    .task-page-mission-right { flex-direction: row !important; flex-wrap: wrap !important; width: 100% !important; justify-content: flex-start !important; gap: 12 !important; }
+    .task-page-topbar { padding: 0 12px !important; min-height: 52px !important; }
+    .task-page-tabs .task-tab { min-height: 44px !important; padding: 10px 14px !important; font-size: 14px !important; }
+    .task-page-mission { flex-direction: column !important; align-items: flex-start !important; gap: 14px !important; padding: 14px !important; }
+    .task-page-mission-right { flex-direction: row !important; flex-wrap: wrap !important; width: 100% !important; justify-content: flex-start !important; gap: 12px !important; }
     .task-page-mission-right .task-page-divider { display: none !important; }
   }
   @media (max-width: 400px) {
@@ -216,8 +217,6 @@ export default function TaskPage() {
   const handlePageClick = (event) => {
     setCurrentPage(event.selected + 1);
   };
-
-  const userName = user?.user?.username || user?.user?.firstname || 'User';
 
   return (
     <div

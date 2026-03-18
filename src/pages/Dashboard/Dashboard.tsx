@@ -458,7 +458,6 @@ function Dashboard() {
         initialSurveyData={completeSurveyProfile.survey}
         initialStep={completeSurveyProfile.currentStep || 1}
         isUpdate={completeSurveyProfile.isUpdate || false}
-        // onComplete={handleSurveyComplete} 
       />}
       <SurveyPrompt />
     </div>

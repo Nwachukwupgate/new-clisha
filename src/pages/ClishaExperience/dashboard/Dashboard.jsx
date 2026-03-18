@@ -104,15 +104,19 @@ export default function ClishaExperienceDashboard() {
         @media (max-width: 767px) {
           .clisha-x-mid-grid { grid-template-columns: 1fr !important; }
           .clisha-x-bot-grid { grid-template-columns: 1fr !important; }
-          .clisha-x-stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8 !important; }
-          .clisha-x-greeting { flex-direction: column !important; align-items: flex-start !important; gap: 12 !important; padding: 12px 14px !important; }
+          .clisha-x-stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px !important; }
+          .clisha-x-stats-grid .clisha-x-stat-card { padding: 14px 12px !important; min-height: 72px !important; }
+          .clisha-x-greeting { flex-direction: column !important; align-items: flex-start !important; gap: 14px !important; padding: 14px 16px !important; }
           .clisha-x-greeting-right { flex-direction: column !important; align-items: flex-start !important; width: 100% !important; }
           .clisha-x-greeting-right .clisha-x-profile-bar { width: 100% !important; max-width: 100% !important; }
+          .clisha-x-greeting-right a { width: 100% !important; min-height: 44px !important; display: flex !important; align-items: center !important; justify-content: center !important; }
           .clisha-x-community { max-width: 100% !important; }
         }
         @media (max-width: 480px) {
-          .clisha-x-stats-grid { grid-template-columns: 1fr !important; }
-          .clisha-x-wallet-header { flex-direction: column !important; align-items: flex-start !important; gap: 10 !important; }
+          .clisha-x-stats-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
+          .clisha-x-stats-grid .clisha-x-stat-card { padding: 12px 14px !important; }
+          .clisha-x-wallet-header { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; padding: 14px !important; }
+          .clisha-x-wallet-header a, .clisha-x-wallet-header button { min-height: 44px !important; padding: 10px 16px !important; }
         }
       `}</style>
 
@@ -168,7 +172,7 @@ export default function ClishaExperienceDashboard() {
             { icon: '📋', value: taskCount, label: 'Tasks', sublabel: 'Available today', color: c.blue },
             { icon: '✅', value: completedCount, label: 'Done today', sublabel: 'Completed', color: c.green },
           ].map((s) => (
-            <div key={s.label} style={{ background: c.card, border: `1px solid ${c.border}`, borderRadius: 11, padding: '12px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div key={s.label} className="clisha-x-stat-card" style={{ background: c.card, border: `1px solid ${c.border}`, borderRadius: 11, padding: '12px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
               <div style={{ width: 36, height: 36, borderRadius: 9, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 17, background: s.color === c.gold ? c.goldL : s.color === c.blue ? c.blueL : c.greenL, border: `1px solid ${s.color === c.gold ? c.goldB : s.color === c.blue ? c.blueB : c.greenB}` }}>
                 {s.icon}
               </div>

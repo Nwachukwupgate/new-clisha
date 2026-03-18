@@ -325,7 +325,16 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
 
   return (
     <>
+      <style>{`
+        @media (max-width: 600px) {
+          .clisha-x-gamified-task-card { padding: 12px !important; gap: 10px !important; }
+          .clisha-x-gamified-task-card .clisha-x-task-card-logo { min-height: 56px !important; padding: 10px 12px !important; margin: -12px -12px 0 -12px !important; }
+          .clisha-x-gamified-task-card .clisha-x-task-card-logo img { height: 44px !important; max-width: 110px !important; }
+          .clisha-x-gamified-task-card .clisha-x-task-card-btn { min-height: 44px !important; padding: 10px 14px !important; font-size: 14px !important; }
+        }
+      `}</style>
       <div
+        className="clisha-x-gamified-task-card"
         style={{
           background: cardBg,
           border: `1px solid ${cardBorder}`,
@@ -365,6 +374,7 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
 
         {/* logo area: photo or company name (glassmorphism) */}
         <div
+          className="clisha-x-task-card-logo"
           style={{
             display: 'flex',
             justifyContent: 'center',
@@ -558,6 +568,7 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
           {cfg.btnClass === 'visit' ? (
             <button
               type="button"
+              className="clisha-x-task-card-btn"
               onClick={(e) => {
                 e.stopPropagation();
                 handleVisit();
@@ -583,6 +594,7 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
           ) : (
             <button
               type="button"
+              className="clisha-x-task-card-btn"
               onClick={(e) => {
                 e.stopPropagation();
                 setShowActivate(true);
