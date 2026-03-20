@@ -264,13 +264,13 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
       if (newTask?.closed) {
         clearInterval(prematureCloseCheck);
         clearTimeout(timerComplete);
-        navigate(`/dashboard/reward?t=${item.id}&p=${item.points}&status=failed`);
+        navigate(`/clisha-x/dashboard/reward?t=${item.id}&p=${item.points}&status=failed`);
       }
     }, 500);
     const timerComplete = setTimeout(() => {
       clearInterval(prematureCloseCheck);
       if (!newTask?.closed) {
-        navigate(`/dashboard/reward?t=${item.id}&p=${item.points}&status=done&b=${item?.bonus_points ?? 0}`);
+        navigate(`/clisha-x/dashboard/reward?t=${item.id}&p=${item.points}&status=done&b=${item?.bonus_points ?? 0}`);
       }
     }, secTime(duration));
   };

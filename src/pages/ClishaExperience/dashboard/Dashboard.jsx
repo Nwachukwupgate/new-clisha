@@ -24,10 +24,11 @@ import ExtensionPrompt from '../components/ExtensionPrompt';
 import TokenProgressCard from '../components/TokenProgressCard';
 import StartTasksCta from '../components/StartTasksCta';
 import CommunityAvatars from '../components/CommunityAvatars';
+import DashboardInsights from '../components/DashboardInsights';
 import BonusPopup from '../../Dashboard/components/BonusPopup';
 import GuidePopup from '../../Dashboard/components/GuidePopup';
-import SurveyForm from '../../Profile/components/survey/SurveyForm';
-import SurveyPrompt from '../../Profile/components/SurveyPopUps/SurveyPrompt';
+import SurveyModal from '../components/SurveyModal';
+import ClishaSurveyPromptExperience from '../components/ClishaSurveyPromptExperience';
 import { CLEAN, CLEAN_FONTS } from '../design-system/tokens-clean';
 
 const BASE = '/clisha-x';
@@ -101,6 +102,11 @@ export default function ClishaExperienceDashboard() {
     <>
       <NotificationMessage />
       <style>{`
+        @keyframes clisha-x-pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.95; transform: scale(1.02); }
+        }
+        .clisha-x-stat-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
         @media (max-width: 767px) {
           .clisha-x-mid-grid { grid-template-columns: 1fr !important; }
           .clisha-x-bot-grid { grid-template-columns: 1fr !important; }
@@ -128,36 +134,62 @@ export default function ClishaExperienceDashboard() {
         {/* ── Extension prompt ─────────────────────────────────────────── */}
         <ExtensionPrompt dark={dark} />
 
-        {/* ── Greeting ───────────────────────────────────────────────── */}
-        <div className="clisha-x-greeting" style={{ background: c.bg3, border: `1px solid ${c.border}`, borderRadius: 13, padding: '13px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 11, minWidth: 0 }}>
-            <div style={{ width: 38, height: 38, borderRadius: '50%', background: `linear-gradient(135deg,${c.gold},${c.orange})`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: CLEAN_FONTS.mono, fontSize: 11, fontWeight: 700, color: '#1a1a1a', flexShrink: 0, overflow: 'hidden' }}>
-              <img src={ProfilePicture({ gender: user?.user?.gender, photo: user?.user?.photo })} alt="" style={{ width: 38, height: 38, objectFit: 'cover' }} />
-            </div>
-            <div>
-              <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.07em', color: c.gold, textTransform: 'uppercase', marginBottom: 2 }}>⚡ Welcome back</div>
-              <div style={{ fontFamily: CLEAN_FONTS.mono, fontSize: 17, fontWeight: 700, color: c.text }}>{t('helloUser', { username: user?.user?.username || 'User' })}</div>
-              <div style={{ fontSize: 12, color: c.text2, marginTop: 1 }}>{perProfile < 100 ? 'Complete your profile to unlock bonus rewards' : 'You\'re all set!'}</div>
-            </div>
-          </div>
-          <div className="clisha-x-greeting-right" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div className="clisha-x-profile-bar" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 3, width: 130 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', fontSize: 11, color: c.text2 }}>
-                <span>Profile</span>
-                <span style={{ color: c.gold, fontWeight: 600 }}>{perProfile}%</span>
+        {/* ── Greeting (time-aware, streaks, insights) ─────────────────── */}
+        <DashboardInsights>
+          {({ greeting, greetingType, streakSubtext, snippets, dailyTip, showStreakCelebration }) => {
+            const badgeText = greetingType === 'same_day' ? "You're back" : (greetingType === 'welcome_back' ? 'Welcome back' : (streakSubtext || '⚡ Welcome'));
+            return (
+            <>
+              {showStreakCelebration && (
+                <div className="clisha-x-streak-celebration" style={{ background: `linear-gradient(135deg,${c.goldL},${c.orange}20)`, border: `2px solid ${c.gold}`, borderRadius: 12, padding: '12px 16px', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 10, animation: 'clisha-x-pulse 1.5s ease-in-out 2' }}>
+                  <span style={{ fontSize: 28 }}>🎉</span>
+                  <div>
+                    <div style={{ fontFamily: CLEAN_FONTS.mono, fontSize: 14, fontWeight: 700, color: c.gold }}>7-day streak!</div>
+                    <div style={{ fontSize: 11, color: c.text2 }}>Amazing consistency. Keep it up!</div>
+                  </div>
+                </div>
+              )}
+              <div className="clisha-x-greeting" style={{ background: c.bg3, border: `1px solid ${c.border}`, borderRadius: 13, padding: '13px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 11, minWidth: 0 }}>
+                  <div style={{ width: 38, height: 38, borderRadius: '50%', background: `linear-gradient(135deg,${c.gold},${c.orange})`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: CLEAN_FONTS.mono, fontSize: 11, fontWeight: 700, color: '#1a1a1a', flexShrink: 0, overflow: 'hidden' }}>
+                    <img src={ProfilePicture({ gender: user?.user?.gender, photo: user?.user?.photo })} alt="" style={{ width: 38, height: 38, objectFit: 'cover' }} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.07em', color: c.gold, textTransform: 'uppercase', marginBottom: 2 }}>{badgeText}</div>
+                    <div style={{ fontFamily: CLEAN_FONTS.mono, fontSize: 17, fontWeight: 700, color: c.text }}>{greeting}</div>
+                    <div style={{ fontSize: 12, color: c.text2, marginTop: 1 }}>
+                      {snippets.length > 0 ? snippets[0].text : (perProfile < 100 ? 'Complete your profile to unlock bonus rewards' : 'You\'re all set!')}
+                    </div>
+                  </div>
+                </div>
+                <div className="clisha-x-greeting-right" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <div className="clisha-x-profile-bar" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 3, width: 130 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', fontSize: 11, color: c.text2 }}>
+                      <span>Profile</span>
+                      <span style={{ color: c.gold, fontWeight: 600 }}>{perProfile}%</span>
+                    </div>
+                    <div style={{ width: '100%', height: 4, background: c.bg4, borderRadius: 99, overflow: 'hidden' }}>
+                      <div style={{ height: '100%', width: `${perProfile}%`, background: `linear-gradient(90deg,${c.gold},${c.orange})`, borderRadius: 99, transition: 'width 0.5s ease' }} />
+                    </div>
+                  </div>
+                  <Link
+                    to={user?.user?.email_verified_at ? `${BASE}/dashboard/profile` : '/verify'}
+                    style={{ background: c.gold, color: '#1a1a1a', border: 'none', borderRadius: 7, padding: '6px 13px', fontSize: 12, fontWeight: 700, cursor: 'pointer', fontFamily: CLEAN_FONTS.body, textDecoration: 'none' }}
+                  >
+                    Complete →
+                  </Link>
+                </div>
               </div>
-              <div style={{ width: '100%', height: 4, background: c.bg4, borderRadius: 99, overflow: 'hidden' }}>
-                <div style={{ height: '100%', width: `${perProfile}%`, background: `linear-gradient(90deg,${c.gold},${c.orange})`, borderRadius: 99, transition: 'width 0.5s ease' }} />
-              </div>
-            </div>
-            <Link
-              to={user?.user?.email_verified_at ? `${BASE}/dashboard/profile` : '/verify'}
-              style={{ background: c.gold, color: '#1a1a1a', border: 'none', borderRadius: 7, padding: '6px 13px', fontSize: 12, fontWeight: 700, cursor: 'pointer', fontFamily: CLEAN_FONTS.body, textDecoration: 'none' }}
-            >
-              Complete →
-            </Link>
-          </div>
-        </div>
+              {dailyTip && (
+                <div className="clisha-x-daily-tip" style={{ background: c.card, border: `1px solid ${c.border}`, borderRadius: 10, padding: '10px 14px', fontSize: 12, color: c.text2, display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 16 }}>💡</span>
+                  <span>{dailyTip}</span>
+                </div>
+              )}
+            </>
+            );
+          }}
+        </DashboardInsights>
 
         {/* ── Start Tasks CTA + Date/Time ─────────────────────────────── */}
         <StartTasksCta dark={dark} />
@@ -172,7 +204,7 @@ export default function ClishaExperienceDashboard() {
             { icon: '📋', value: taskCount, label: 'Tasks', sublabel: 'Available today', color: c.blue },
             { icon: '✅', value: completedCount, label: 'Done today', sublabel: 'Completed', color: c.green },
           ].map((s) => (
-            <div key={s.label} className="clisha-x-stat-card" style={{ background: c.card, border: `1px solid ${c.border}`, borderRadius: 11, padding: '12px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div key={s.label} className="clisha-x-stat-card" style={{ background: c.card, border: `1px solid ${c.border}`, borderRadius: 11, padding: '12px 14px', display: 'flex', alignItems: 'center', gap: 10, transition: 'transform 0.2s ease, box-shadow 0.2s ease' }}>
               <div style={{ width: 36, height: 36, borderRadius: 9, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 17, background: s.color === c.gold ? c.goldL : s.color === c.blue ? c.blueL : c.greenL, border: `1px solid ${s.color === c.gold ? c.goldB : s.color === c.blue ? c.blueB : c.greenB}` }}>
                 {s.icon}
               </div>
@@ -285,9 +317,9 @@ export default function ClishaExperienceDashboard() {
       {showBonusPopup && <BonusPopup user={user} vendoPackage={vendoPackage} onClose={() => setShowBonusPopup(false)} />}
       {showGuide && <GuidePopup show={showGuide} onClose={() => setShowGuide(false)} />}
       {!surveyProfileLoading && completeSurveyProfile?.shouldShow && (
-        <SurveyForm initialSurveyData={completeSurveyProfile.survey} initialStep={completeSurveyProfile.currentStep || 1} isUpdate={completeSurveyProfile.isUpdate || false} />
+        <SurveyModal initialSurveyData={completeSurveyProfile.survey} initialStep={completeSurveyProfile.currentStep || 1} isUpdate={completeSurveyProfile.isUpdate || false} />
       )}
-      <SurveyPrompt />
+      <ClishaSurveyPromptExperience />
     </>
   );
 }

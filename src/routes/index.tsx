@@ -38,6 +38,7 @@ import PlaceholderPage from '../pages/ClishaExperience/dashboard/PlaceholderPage
 import RankPage from '../pages/ClishaExperience/dashboard/RankPage';
 import TeamPage from '../pages/ClishaExperience/dashboard/TeamPage';
 import TokenPage from '../pages/ClishaExperience/dashboard/TokenPage';
+import TaskRewardCelebration from '../pages/ClishaExperience/dashboard/TaskRewardCelebration';
 import Landingpage from '../pages/LandingPage/Landingpage';
 import Membership from '../pages/Membership';
 import Notification from '../pages/Notification';
@@ -129,6 +130,7 @@ function Router() {
               <Route element={<DashboardLayout />}>
                 <Route index element={<ClishaExperienceDashboard />} />
                 <Route path="task" element={<TaskPage />} />
+                <Route path="reward" element={<TaskRewardCelebration />} />
                 <Route path="wallet" element={<PlaceholderPage />} />
                 <Route path="rank" element={<RankPage />} />
                 <Route path="profile" element={<ProfilePage />} />
