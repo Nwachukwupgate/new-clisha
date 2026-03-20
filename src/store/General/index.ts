@@ -3,7 +3,6 @@ import axios from 'axios';
 import moment from 'moment';
 import { RootState } from '../store';
 import { MessageType } from '../../types';
-import { completeTask } from '../Rank';
 
 // import url from "../../json/config";
 const api = process.env.REACT_APP_API;
@@ -76,6 +75,18 @@ export const getTeams = createAsyncThunk('task/getTeams', async () => {
   return res.data.data?.rows;
 });
 
+export const getDashboardInsights = createAsyncThunk(
+  'general/getDashboardInsights',
+  async (lastVisit?: string) => {
+    const cfg = { headers: { Authorization: `bearer ${window.localStorage.getItem('token')}` } };
+    const url = lastVisit
+      ? `${api}/user/dashboard/insights?last_visit=${encodeURIComponent(lastVisit)}`
+      : `${api}/user/dashboard/insights`;
+    const res = await axios.get(url, cfg);
+    return res.data.data;
+  }
+);
+
 export const getCustomDateCallender = createAsyncThunk(
   'task/getCustomDateCallender',
   async ({ callenderDate }: { callenderDate: string }) => {
@@ -131,6 +142,7 @@ export const generalSlice = createSlice({
     completeSurveyProfile: null as any,
     surveyProfile: null as any,
     statusSurveyProfile: null as any,
+    dashboardInsights: null as Record<string, number> | null,
   },
 
   reducers: {
@@ -243,6 +255,9 @@ export const generalSlice = createSlice({
       // Add user to the state array
       state.statusSurveyProfile = action.payload;
       state.loading = false;
+    });
+    builder.addCase(getDashboardInsights.fulfilled, (state, action) => {
+      state.dashboardInsights = action.payload;
     });
   },
 });
