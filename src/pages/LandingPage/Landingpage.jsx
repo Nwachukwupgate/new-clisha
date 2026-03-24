@@ -7,7 +7,6 @@ import NumberTasks from './components/NumberTasks';
 import NewOnlineTask from './components/NewOnlineTask';
 import TopUser from './components/TopUser';
 import WeLoveAffiliates from './components/WeLoveAffiliates';
-import WhatinClisha from './components/WhatinClisha';
 import ScrollTop from '../../components/ScrollTop/ScrollTop';
 
 function Landingpage() {

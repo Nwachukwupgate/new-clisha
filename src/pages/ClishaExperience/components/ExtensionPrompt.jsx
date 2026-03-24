@@ -1,36 +1,40 @@
 /**
- * Clisha Experience — Extension install/update prompt
- * Prompts users to install the Clisha Chrome extension when not installed.
- * Hides permanently when user clicks Get Extension or closes the card.
+ * Clisha Experience — Extension install / update / status (multi-ID probe).
  */
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CLEAN, CLEAN_FONTS } from '../design-system/tokens-clean';
+import { useExtensionProbe } from '../context/ExtensionProbeContext';
+import { trackClishaEvent } from '../../../utils/clishaTelemetry';
+import { HEALTH_NARRATIVE } from '../copy/extensionHealthCopy';
 
 const CHROME_EXT_LINK = 'https://chromewebstore.google.com/detail/clishame/fggiejockcliimogohnaiakpbcjaafcl';
-const LATEST_VERSION = '1.0.0';
 const DISMISSED_KEY = 'extensionPromptDismissed';
 
 export default function ExtensionPrompt({ dark }) {
   const { t } = useTranslation();
-  const [showUpdateTooltip, setShowUpdateTooltip] = useState(false);
+  const { ok, status, version, recheck, requiredVersion, probeReady } = useExtensionProbe();
   const [dismissed, setDismissed] = useState(() =>
     typeof window !== 'undefined' && localStorage.getItem(DISMISSED_KEY) === 'true'
   );
 
-  const hasExt = typeof window !== 'undefined' ? window.localStorage.getItem('hasExt') : null;
-  const storedVersion = typeof window !== 'undefined' ? localStorage.getItem('extensionVersion') : null;
+  useEffect(() => {
+    const onStorage = (e) => {
+      if (e.key === 'clishaDevExtensionId') recheck();
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, [recheck]);
+
+  const showInstall = status === 'missing' || status === 'wrong_browser';
+  const showOutdated = status === 'outdated';
 
   useEffect(() => {
-    if (storedVersion !== LATEST_VERSION) {
-      setShowUpdateTooltip(true);
-    }
-  }, [storedVersion]);
-
-  const handleDismiss = () => {
-    setShowUpdateTooltip(false);
-    localStorage.setItem('extensionVersion', LATEST_VERSION);
-  };
+    if (!probeReady || dismissed) return;
+    if (ok && status === 'ok') return;
+    if (!showOutdated && !showInstall) return;
+    trackClishaEvent('extension_prompt_view', { variant: showOutdated ? 'outdated' : 'install' });
+  }, [probeReady, dismissed, ok, status, showOutdated, showInstall]);
 
   const handleDismissPrompt = () => {
     localStorage.setItem(DISMISSED_KEY, 'true');
@@ -44,37 +48,74 @@ export default function ExtensionPrompt({ dark }) {
 
   const c = dark ? CLEAN.dark : CLEAN.light;
 
-  if (hasExt === 'true' && !showUpdateTooltip) return null;
   if (dismissed) return null;
+  if (!probeReady) return null;
+
+  if (ok && status === 'ok') return null;
+  if (!showOutdated && !showInstall) return null;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 12 }}>
-      {showUpdateTooltip && (
+      {showOutdated && (
         <div
-          role="button"
-          tabIndex={0}
-          onClick={handleDismiss}
-          onKeyDown={(e) => e.key === 'Enter' && handleDismiss()}
           style={{
-            background: c.goldL,
-            border: `1px solid ${c.goldB}`,
+            background: 'rgba(251,191,36,0.12)',
+            border: '1px solid rgba(251,191,36,0.45)',
             borderRadius: 10,
             padding: '10px 14px',
             display: 'flex',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             gap: 10,
-            cursor: 'pointer',
+            flexWrap: 'wrap',
           }}
         >
           <span style={{ fontSize: 18 }}>🔄</span>
-          <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: c.text }}>{t('updateNotice')}</div>
-            <div style={{ fontSize: 10, color: c.text2, marginTop: 2 }}>Click to dismiss</div>
+          <div style={{ flex: 1, minWidth: 200 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: c.text }}>
+              Update your Clisha extension
+            </div>
+            <div style={{ fontSize: 11, color: c.text2, marginTop: 4 }}>
+              Installed: v{version || '?'}. Required: v{requiredVersion} or newer. Update from the Chrome Web Store, then use Recheck.
+            </div>
+            <div style={{ display: 'flex', gap: 8, marginTop: 10, flexWrap: 'wrap' }}>
+              <a
+                href={CHROME_EXT_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  padding: '6px 12px',
+                  borderRadius: 8,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  background: c.gold,
+                  color: '#1a1a1a',
+                  textDecoration: 'none',
+                }}
+              >
+                Update extension
+              </a>
+              <button
+                type="button"
+                onClick={() => recheck()}
+                style={{
+                  padding: '6px 12px',
+                  borderRadius: 8,
+                  fontSize: 11,
+                  fontWeight: 600,
+                  border: `1px solid ${c.border}`,
+                  background: c.card,
+                  color: c.text,
+                  cursor: 'pointer',
+                }}
+              >
+                Recheck
+              </button>
+            </div>
           </div>
         </div>
       )}
 
-      {hasExt !== 'true' && !dismissed && (
+      {showInstall && (
         <div
           style={{
             background: c.card,
@@ -132,7 +173,12 @@ export default function ExtensionPrompt({ dark }) {
             </div>
             <div>
               <div style={{ fontSize: 13, fontWeight: 700, color: c.text }}>{t('cardTitle')}</div>
-              <div style={{ fontSize: 11, color: c.text2, marginTop: 2 }}>{t('cardText')}</div>
+              <div style={{ fontSize: 11, color: c.text2, marginTop: 2 }}>
+                {status === 'wrong_browser'
+                  ? 'Use Google Chrome for the Clisha extension, or install it on Chrome and refresh.'
+                  : t('cardText')}
+              </div>
+              <div style={{ fontSize: 10, color: c.text3, marginTop: 6, lineHeight: 1.45 }}>{HEALTH_NARRATIVE.oneLiner}</div>
             </div>
           </div>
           <a

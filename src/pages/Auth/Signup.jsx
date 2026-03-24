@@ -22,7 +22,7 @@ function Signup() {
   const [loading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [referralUser, setReferralUser] = useState(null);
-  const [countdown, setCountdown] = useState(5);
+  const [, setCountdown] = useState(5);
   const [showForm, setShowForm] = useState(false);
   const api = process.env.REACT_APP_API;
   const { signIn, loading: isLoading } = useAuth();

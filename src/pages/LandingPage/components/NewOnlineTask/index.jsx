@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { translate } from '../../../../utils/translation';
 
 function NewOnlineTask() {
   const { t } = useTranslation();

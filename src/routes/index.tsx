@@ -131,6 +131,7 @@ function Router() {
                 <Route index element={<ClishaExperienceDashboard />} />
                 <Route path="task" element={<TaskPage />} />
                 <Route path="reward" element={<TaskRewardCelebration />} />
+                <Route path="report" element={<ReportApp />} />
                 <Route path="wallet" element={<PlaceholderPage />} />
                 <Route path="rank" element={<RankPage />} />
                 <Route path="profile" element={<ProfilePage />} />

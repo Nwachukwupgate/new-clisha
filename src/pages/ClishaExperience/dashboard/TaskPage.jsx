@@ -3,7 +3,8 @@
  * Topbar tabs, mission bar, 3-column grid, type-specific task cards
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
@@ -12,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../../../components/Alerts/Loading';
 import Pagination from '../../../components/Pagination';
 import GamifiedTaskCard from '../components/GamifiedTaskCard';
+import ClishaOnboardingStrip from '../components/ClishaOnboardingStrip';
 import TodaysTaskModal from '../components/TodaysTaskModal';
 import {
   getTask,
@@ -25,6 +27,7 @@ import { getCalenderTask } from '../../../store/General';
 import { useClishaTheme } from '../context/ThemeContext';
 import { BRAND } from '../design-system/tokens';
 import { CLEAN, CLEAN_FONTS } from '../design-system/tokens-clean';
+import { HEALTH_NARRATIVE, CHROME_WEB_STORE_URL } from '../copy/extensionHealthCopy';
 
 /* ─────────────────────────────────────────────────────────────────
    Tab config (matches gamified HTML header)
@@ -76,7 +79,11 @@ const STYLES = `
   @media (max-width: 600px) {
     .task-page-empty-img { max-width: 200px !important; }
   }
+  .clisha-x-task-how-panel summary { list-style: none; }
+  .clisha-x-task-how-panel summary::-webkit-details-marker { display: none; }
 `;
+
+const TASK_COACH_KEY = 'clisha_x_task_coach_v1';
 
 /* ─────────────────────────────────────────────────────────────────
    Main page
@@ -84,12 +91,17 @@ const STYLES = `
 export default function TaskPage() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [isChrome, setIsChrome] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [tab, setTab] = useState('website');
   const [taskModalOpen, setTaskModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [howPanelOpen, setHowPanelOpen] = useState(false);
+  const [coachDismissed, setCoachDismissed] = useState(
+    () => typeof window !== 'undefined' && window.localStorage.getItem(TASK_COACH_KEY) === '1'
+  );
 
   const user = useSelector((s) => s.user?.data);
   const task = useSelector((s) => s.task.data);
@@ -142,9 +154,84 @@ export default function TaskPage() {
     (tab === 'searchJourney' && getTaskSearchJourneyLoading);
 
   const hasSeenLoaded = useRef(false);
+  const deepLinkDone = useRef(false);
   useEffect(() => {
     if (!loading) hasSeenLoaded.current = true;
   }, [loading]);
+
+  const taskCodeParam = searchParams.get('taskCode') || searchParams.get('task_code');
+
+  const { list: tasks, extCode, totalItems, totalPages } = useMemo(() => {
+    switch (tab) {
+      case 'all':
+        return {
+          list: task?.tasks ?? [],
+          extCode: task?.extensionCode,
+          totalItems: task?.totalItems ?? 0,
+          totalPages: task?.totalPages ?? 1,
+        };
+      case 'website':
+        return {
+          list: website_click?.tasks ?? [],
+          extCode: website_click?.extensionCode,
+          totalItems: website_click?.totalItems ?? 0,
+          totalPages: website_click?.totalPages ?? 1,
+        };
+      case 'google':
+        return {
+          list: google_search?.tasks ?? [],
+          extCode: google_search?.extensionCode,
+          totalItems: google_search?.totalItems ?? 0,
+          totalPages: google_search?.totalPages ?? 1,
+        };
+      case 'journey':
+        return {
+          list: journey?.tasks ?? [],
+          extCode: journey?.extensionCode,
+          totalItems: journey?.totalItems ?? 0,
+          totalPages: journey?.totalPages ?? 1,
+        };
+      case 'searchJourney':
+        return {
+          list: search_journey?.tasks ?? [],
+          extCode: search_journey?.extensionCode,
+          totalItems: search_journey?.totalItems ?? 0,
+          totalPages: search_journey?.totalPages ?? 1,
+        };
+      default:
+        return { list: [], extCode: null, totalItems: 0, totalPages: 1 };
+    }
+  }, [tab, task, website_click, google_search, journey, search_journey]);
+
+  const clearTaskCodeFromUrl = useCallback(() => {
+    const next = new URLSearchParams(searchParams);
+    next.delete('taskCode');
+    next.delete('task_code');
+    if (next.toString() !== searchParams.toString()) {
+      setSearchParams(next, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
+
+  useEffect(() => {
+    deepLinkDone.current = false;
+  }, [taskCodeParam]);
+
+  useEffect(() => {
+    if (!taskCodeParam || loading || tasks.length === 0 || deepLinkDone.current) return;
+    const safe = String(taskCodeParam).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    const el = document.querySelector(`[data-task-code="${safe}"]`);
+    if (el) {
+      deepLinkDone.current = true;
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const prev = el.style.boxShadow;
+      el.style.boxShadow = '0 0 0 2px rgba(245, 197, 66, 0.95), 0 12px 28px rgba(0,0,0,0.25)';
+      el.style.borderRadius = '14px';
+      setTimeout(() => {
+        el.style.boxShadow = prev;
+      }, 3800);
+      clearTaskCodeFromUrl();
+    }
+  }, [taskCodeParam, loading, tasks, clearTaskCodeFromUrl]);
 
   if (loading && !hasSeenLoaded.current) return <Loading />;
 
@@ -154,65 +241,17 @@ export default function TaskPage() {
   const visibleTabs = TASK_TABS.filter((tb) => !tb.chromeOnly || isChrome);
   const activeTab = visibleTabs.find((tb) => tb.id === tab) || visibleTabs[0];
 
-  /* resolve task list and extensionCode by tab
-   * API returns { tasks, totalItems, totalPages, extensionCode } at root.
-   * Redux stores payload directly: state.task.website_click = API response.
-   * Old system passes task={website_click} so list.task.tasks = website_click.tasks
-   */
-  const getTaskData = () => {
-    switch (tab) {
-      case 'all':
-        return { list: task?.tasks ?? [], extCode: task?.extensionCode };
-      case 'website':
-        return { list: website_click?.tasks ?? [], extCode: website_click?.extensionCode };
-      case 'google':
-        return { list: google_search?.tasks ?? [], extCode: google_search?.extensionCode };
-      case 'journey':
-        return { list: journey?.tasks ?? [], extCode: journey?.extensionCode };
-      case 'searchJourney':
-        return { list: search_journey?.tasks ?? [], extCode: search_journey?.extensionCode };
-      default:
-        return { list: [], extCode: null };
+  const dismissCoach = () => {
+    try {
+      window.localStorage.setItem(TASK_COACH_KEY, '1');
+    } catch {
+      /* ignore */
     }
+    setCoachDismissed(true);
   };
 
-  const getTotalItems = () => {
-    switch (tab) {
-      case 'all':
-        return task?.totalItems ?? 0;
-      case 'website':
-        return website_click?.totalItems ?? 0;
-      case 'google':
-        return google_search?.totalItems ?? 0;
-      case 'journey':
-        return journey?.totalItems ?? 0;
-      case 'searchJourney':
-        return search_journey?.totalItems ?? 0;
-      default:
-        return 0;
-    }
-  };
-
-  const getTotalPages = () => {
-    switch (tab) {
-      case 'all':
-        return task?.totalPages ?? 1;
-      case 'website':
-        return website_click?.totalPages ?? 1;
-      case 'google':
-        return google_search?.totalPages ?? 1;
-      case 'journey':
-        return journey?.totalPages ?? 1;
-      case 'searchJourney':
-        return search_journey?.totalPages ?? 1;
-      default:
-        return 1;
-    }
-  };
-
-  const { list: tasks, extCode } = getTaskData();
-  const totalItems = getTotalItems();
-  const totalPages = getTotalPages();
+  const needsExtensionTab = tab === 'all' || tab === 'google' || tab === 'journey' || tab === 'searchJourney';
+  const showCoachBanner = isChrome && !coachDismissed && needsExtensionTab && totalItems > 0;
 
   const handlePageClick = (event) => {
     setCurrentPage(event.selected + 1);
@@ -231,6 +270,50 @@ export default function TaskPage() {
       <style>{STYLES}</style>
 
       {/* chrome warning */}
+      {isChrome && <ClishaOnboardingStrip dark={dark} />}
+
+      {showCoachBanner && (
+        <div
+          style={{
+            marginBottom: 14,
+            padding: '12px 14px',
+            borderRadius: 14,
+            background: dark ? 'rgba(74, 158, 255, 0.12)' : 'rgba(74, 158, 255, 0.1)',
+            border: `1px solid ${dark ? 'rgba(74, 158, 255, 0.35)' : 'rgba(74, 158, 255, 0.28)'}`,
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: 12,
+            animation: 'fadeUp 0.35s ease',
+          }}
+        >
+          <span style={{ fontSize: 20, flexShrink: 0 }}>🔌</span>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontWeight: 700, fontSize: 13, color: c.text }}>Activate Task uses the extension</div>
+            <div style={{ fontSize: 12, marginTop: 4, color: c.text2, lineHeight: 1.45 }}>
+              For Google, Journey, and Search journey tasks, click <strong>Activate Task</strong> so we can attach to your tab.
+              Website tasks open in your browser without the extension flow.
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={dismissCoach}
+            style={{
+              flexShrink: 0,
+              padding: '6px 10px',
+              borderRadius: 8,
+              border: `1px solid ${c.border}`,
+              background: c.bg3,
+              color: c.text2,
+              fontSize: 11,
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
+            Got it
+          </button>
+        </div>
+      )}
+
       {!isChrome && showPopup && (
         <div
           style={{
@@ -394,6 +477,43 @@ export default function TaskPage() {
 
       {/* ══ CONTENT ══════════════════════════════════════════════════ */}
       <div className="task-page-content" style={{ padding: '1.25rem', flex: 1, overflowY: 'auto' }}>
+        <details
+          className="clisha-x-task-how-panel"
+          open={howPanelOpen}
+          onToggle={(e) => setHowPanelOpen(e.target.open)}
+          style={{
+            marginBottom: '1.25rem',
+            borderRadius: 12,
+            border: `1px solid ${c.border}`,
+            background: c.bg3,
+            overflow: 'hidden',
+          }}
+        >
+          <summary
+            style={{
+              padding: '10px 14px',
+              cursor: 'pointer',
+              fontSize: 12,
+              fontWeight: 700,
+              color: c.gold,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 8,
+              fontFamily: CLEAN_FONTS.body,
+            }}
+          >
+            <span>How Clisha + extension work</span>
+            <span style={{ color: c.text3, fontSize: 11 }}>{howPanelOpen ? '▲' : '▼'}</span>
+          </summary>
+          <div style={{ padding: '0 14px 14px', fontSize: 12, color: c.text2, lineHeight: 1.55 }}>
+            <p style={{ margin: '0 0 10px' }}>{HEALTH_NARRATIVE.oneLiner}</p>
+            <a href={CHROME_WEB_STORE_URL} target="_blank" rel="noopener noreferrer" style={{ color: c.gold, fontWeight: 600 }}>
+              Get the extension (Chrome Web Store)
+            </a>
+          </div>
+        </details>
+
         {/* MISSION BAR (matches gamified HTML) */}
         <div
           className="task-page-mission"

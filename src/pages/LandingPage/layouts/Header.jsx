@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import { useAuth } from '../../../context/AuthContext';
 import NavBarScroll from '../../../utils/NavBarScroll';
 import MainNavbar from '../../../components/Nav/MainNavbar';
-import FirstNavbar from '../../../components/Nav/FirstNavbar';
 
 function Header() {
   const { t } = useTranslation();
