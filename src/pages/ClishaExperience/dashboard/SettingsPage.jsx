@@ -13,6 +13,11 @@ import GamifiedInput from '../components/GamifiedInput';
 import { useClishaThemeToggle } from '../context/ThemeContext';
 import { taskStatusFun } from '../../../store/General';
 import { CLEAN, CLEAN_FONTS } from '../design-system/tokens-clean';
+import { isDevLikeHost, probeClishaExtensions } from '../../../utils/clishaExtensionProbe';
+import {
+  CHROME_WEB_STORE_URL,
+  resolveDevExtensionZipDownloadUrl,
+} from '../copy/extensionHealthCopy';
 
 const api = process.env.REACT_APP_API;
 
@@ -409,6 +414,167 @@ function DeveloperSection({ dark, c, isDeveloper }) {
   );
 }
 
+/* ── Chrome extension (dev zip + unpacked ID) ─────────────────────────── */
+function ExtensionBrowserSection({ dark, c }) {
+  const [val, setVal] = useState(() => {
+    try {
+      return window.localStorage.getItem('clishaDevExtensionId') || '';
+    } catch {
+      return '';
+    }
+  });
+  const [msg, setMsg] = useState('');
+  const showDevZip = isDevLikeHost();
+  const devZipHref = resolveDevExtensionZipDownloadUrl();
+
+  const save = () => {
+    try {
+      const trimmed = val.trim();
+      if (trimmed) window.localStorage.setItem('clishaDevExtensionId', trimmed);
+      else window.localStorage.removeItem('clishaDevExtensionId');
+      window.dispatchEvent(new Event('clisha-extension-probed'));
+      probeClishaExtensions().then((r) => {
+        setMsg(r.ok ? `Connected · v${r.version || '?'}` : `Status: ${r.status}`);
+      });
+    } catch {
+      setMsg('Could not save');
+    }
+  };
+
+  return (
+    <SettingsCard
+      icon="🔌"
+      title="Chrome extension"
+      subtitle={showDevZip ? 'Dev · download zip, load unpacked, optional ID' : 'Chrome Web Store · optional ID'}
+      dark={dark}
+      c={c}
+    >
+      <div style={{ fontSize: 12, color: c.text2, marginBottom: 12, lineHeight: 1.5 }}>
+        On <strong>dev.clisha.me</strong> or <strong>localhost</strong>, the app checks the standard unpacked dev ID first — leave the field empty unless your extension ID is different. On <strong>clisha.me</strong>, the Chrome Web Store build is checked (plus any ID you paste here).
+      </div>
+
+      {showDevZip ? (
+        <div
+          style={{
+            marginBottom: 16,
+            padding: '14px 14px 16px',
+            borderRadius: 12,
+            border: `1px solid ${c.goldB}`,
+            background: c.goldL,
+          }}
+        >
+          <div style={{ fontSize: 13, fontWeight: 700, color: c.text, marginBottom: 8, fontFamily: CLEAN_FONTS.body }}>
+            Testing on dev? Install the extension manually
+          </div>
+          <p style={{ fontSize: 12, color: c.text2, margin: '0 0 12px', lineHeight: 1.55 }}>
+            The Chrome Web Store build may not match this environment. Download the zip, unzip it, then load it in Chrome as an unpacked extension.
+          </p>
+          <a
+            href={devZipHref}
+            download="clisha-experience-extension.zip"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '10px 16px',
+              borderRadius: 10,
+              background: `linear-gradient(135deg,${c.gold},${c.orange})`,
+              color: '#1a1a1a',
+              fontWeight: 700,
+              fontSize: 13,
+              textDecoration: 'none',
+              fontFamily: CLEAN_FONTS.body,
+            }}
+          >
+            Download extension (zip)
+          </a>
+          <ol
+            style={{
+              margin: '14px 0 0',
+              paddingLeft: 18,
+              fontSize: 12,
+              color: c.text2,
+              lineHeight: 1.65,
+            }}
+          >
+            <li>Unzip the file. You should see a folder that contains <code style={{ fontFamily: CLEAN_FONTS.mono, fontSize: 11 }}>manifest.json</code>.</li>
+            <li>Open Chrome → <code style={{ fontFamily: CLEAN_FONTS.mono, fontSize: 11 }}>chrome://extensions</code> → turn on <strong>Developer mode</strong>.</li>
+            <li>Click <strong>Load unpacked</strong> and select that folder (not the zip).</li>
+            <li>If the dashboard does not detect the extension, copy the ID from the extension card and paste it below.</li>
+          </ol>
+          <p style={{ fontSize: 11, color: c.text3, margin: '12px 0 0', lineHeight: 1.45 }}>
+            Deployers: run <code style={{ fontFamily: CLEAN_FONTS.mono, fontSize: 10 }}>npm run pack-extension</code> so the zip exists under <code style={{ fontFamily: CLEAN_FONTS.mono, fontSize: 10 }}>public/extensions/</code>
+            before building. Override URL with <code style={{ fontFamily: CLEAN_FONTS.mono, fontSize: 10 }}>REACT_APP_CLISHA_EXTENSION_ZIP_URL</code> if you host the zip elsewhere.
+          </p>
+        </div>
+      ) : (
+        <div style={{ marginBottom: 16 }}>
+          <a
+            href={CHROME_WEB_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '10px 16px',
+              borderRadius: 10,
+              border: `1px solid ${c.goldB}`,
+              background: c.goldL,
+              color: c.gold,
+              fontWeight: 700,
+              fontSize: 13,
+              textDecoration: 'none',
+              fontFamily: CLEAN_FONTS.body,
+            }}
+          >
+            Chrome Web Store — Clisha Experience
+          </a>
+        </div>
+      )}
+
+      <div style={{ fontSize: 11, fontWeight: 600, color: c.text2, marginBottom: 8 }}>
+        Optional extension ID (unpacked dev)
+      </div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center' }}>
+        <input
+          value={val}
+          onChange={(e) => setVal(e.target.value)}
+          placeholder="e.g. abcdefghijklmnop"
+          style={{
+            flex: 1,
+            minWidth: 200,
+            padding: '10px 12px',
+            borderRadius: 8,
+            border: `1px solid ${c.border}`,
+            background: c.bg3,
+            color: c.text,
+            fontSize: 13,
+            fontFamily: CLEAN_FONTS.mono,
+          }}
+        />
+        <button
+          type="button"
+          onClick={save}
+          style={{
+            padding: '10px 16px',
+            borderRadius: 8,
+            border: 'none',
+            background: `linear-gradient(135deg,${c.gold},${c.orange})`,
+            color: '#1a1a1a',
+            fontWeight: 700,
+            fontSize: 13,
+            cursor: 'pointer',
+          }}
+        >
+          Save & probe
+        </button>
+      </div>
+      {msg ? <div style={{ fontSize: 11, color: c.text3, marginTop: 10 }}>{msg}</div> : null}
+    </SettingsCard>
+  );
+}
+
 /* ── Main page ─────────────────────────────────────────────────── */
 export default function SettingsPage() {
   const { t } = useTranslation();
@@ -489,6 +655,7 @@ export default function SettingsPage() {
           gap: 18,
         }}
       >
+        <ExtensionBrowserSection dark={dark} c={c} />
         <ChangeUsernameSection dark={dark} c={c} />
         <ChangePasswordSection dark={dark} c={c} />
         <DeveloperSection dark={dark} c={c} isDeveloper={isDeveloper} />

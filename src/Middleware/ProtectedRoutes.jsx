@@ -3,7 +3,7 @@ import { useAuth as useAuthenticate } from '../context/AuthContext';
 // import Bonus from "../pages/Bonus";
 
 const useAuth = () => {
-  const { user, loading } = useAuthenticate();
+  const { loading } = useAuthenticate();
   const isAuth = localStorage.getItem('token');
 
   if (loading) {

@@ -118,7 +118,7 @@ export const useSurveyForm = (initialSurveyData = null, initialStep = 1) => {
         isComplete: true
       };
 
-      const result = await axios.post(`${api}/user/submit/survey/profile`, submitData, config);
+      await axios.post(`${api}/user/submit/survey/profile`, submitData, config);
       
       setIsLoading(false);
       setShowModal(false);

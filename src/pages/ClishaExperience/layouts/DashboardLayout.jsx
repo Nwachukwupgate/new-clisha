@@ -13,6 +13,10 @@ import { getCalenderTask } from '../../../store/General';
 import { useAuth } from '../../../context/AuthContext';
 import ProfilePicture from '../../../utils/ProfilePicture';
 import { ThemeProvider, useClishaThemeToggle } from '../context/ThemeContext';
+import { ExtensionProbeProvider, useExtensionProbe } from '../context/ExtensionProbeContext';
+import ClishaHowItWorksDrawer from '../components/ClishaHowItWorksDrawer';
+import { HEALTH_NARRATIVE } from '../copy/extensionHealthCopy';
+import { REQUIRED_EXTENSION_VERSION } from '../../../utils/clishaExtensionProbe';
 import { CLEAN, CLEAN_FONTS } from '../design-system/tokens-clean';
 import { BRAND } from '../design-system/tokens';
 
@@ -140,7 +144,64 @@ function computeStreak(calenderTask) {
   return streak;
 }
 
-function SidebarContent({ c, dark, onCopyReferral, onToggleTheme, onLogout, onNavClick, userName, rankName, balance, rankId }) {
+function ExtensionHeaderStrip({ c, ok, status, version, requiredVersion, probeReady, onHowItWorks }) {
+  if (!probeReady) return null;
+  let label = '';
+  let color = c.text2;
+  if (status === 'ok' && ok) {
+    label = `Extension · connected v${version || '?'}`;
+    color = c.green || '#2ECC71';
+  } else if (status === 'outdated') {
+    label = `Extension · update available (have v${version || '?'}, need ${requiredVersion}+)`;
+    color = '#fbbf24';
+  } else if (status === 'missing') {
+    label = 'Extension · not detected';
+    color = c.text3;
+  } else if (status === 'wrong_browser') {
+    label = 'Extension · use Google Chrome';
+    color = c.text3;
+  } else {
+    label = 'Extension · …';
+  }
+  return (
+    <div className="clisha-x-extension-strip" style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginLeft: 4 }}>
+      <span
+        title={HEALTH_NARRATIVE.oneLiner}
+        style={{
+          fontSize: 10,
+          fontWeight: 600,
+          color,
+          fontFamily: CLEAN_FONTS.mono,
+          maxWidth: 280,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {label}
+      </span>
+      <button
+        type="button"
+        onClick={onHowItWorks}
+        style={{
+          fontSize: 10,
+          fontWeight: 700,
+          padding: '4px 8px',
+          borderRadius: 6,
+          border: `1px solid ${c.border}`,
+          background: c.bg3,
+          color: c.gold,
+          cursor: 'pointer',
+          fontFamily: CLEAN_FONTS.body,
+        }}
+      >
+        How it works
+      </button>
+    </div>
+  );
+}
+
+function SidebarContent({ c, dark, onCopyReferral, onToggleTheme, onLogout, onNavClick, onHowItWorks, userName, rankName, balance, rankId }) {
   const xpPct = Math.min(100, Math.max(0, (Number(balance) / 1000) * 100));
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', padding: '8px 4px', gap: 12, boxSizing: 'border-box' }}>
@@ -192,6 +253,29 @@ function SidebarContent({ c, dark, onCopyReferral, onToggleTheme, onLogout, onNa
         ))}
       </nav>
 
+      {typeof onHowItWorks === 'function' && (
+        <button
+          type="button"
+          onClick={onHowItWorks}
+          style={{
+            width: '100%',
+            marginTop: 4,
+            padding: '8px 10px',
+            borderRadius: 8,
+            border: `1px dashed ${c.border}`,
+            background: 'transparent',
+            color: c.text2,
+            fontSize: 12,
+            fontWeight: 600,
+            cursor: 'pointer',
+            fontFamily: CLEAN_FONTS.body,
+            textAlign: 'left',
+          }}
+        >
+          How Clisha + extension work
+        </button>
+      )}
+
       <div style={{ background: `linear-gradient(135deg,${c.goldL},rgba(255,159,67,0.04))`, border: `1px solid ${c.goldB}`, borderRadius: 10, padding: '9px 11px', display: 'flex', alignItems: 'center', gap: 9, marginTop: 'auto', width: '100%', boxSizing: 'border-box' }}>
         <div style={{ fontSize: 20 }}>🔥</div>
         <div>
@@ -224,6 +308,8 @@ function DashboardLayoutInner() {
   const calenderTask = useSelector((s) => s.general?.calenderTask?.monthlyData ?? s.general?.calenderTask);
   const loginType = localStorage.getItem('loginType');
   const { dark, toggle: toggleTheme } = useClishaThemeToggle();
+  const probe = useExtensionProbe();
+  const [howItWorksOpen, setHowItWorksOpen] = useState(false);
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -266,7 +352,7 @@ function DashboardLayoutInner() {
       <style>{STYLES}</style>
 
       <aside className="clisha-x-sidebar-desktop" style={{ position: 'fixed', left: 0, top: 0, width: 190, height: '100vh', background: c.bg2, borderRight: `1px solid ${c.border}`, overflowY: 'auto', zIndex: 100 }}>
-        <SidebarContent c={c} dark={dark} onCopyReferral={copyReferral} onToggleTheme={toggleTheme} onLogout={logout} onNavClick={() => { }} userName={user?.user?.username} rankName={user?.rank?.rankName} balance={balance} rankId={user?.rank?.rankId} />
+        <SidebarContent c={c} dark={dark} onCopyReferral={copyReferral} onToggleTheme={toggleTheme} onLogout={logout} onNavClick={() => { }} onHowItWorks={() => setHowItWorksOpen(true)} userName={user?.user?.username} rankName={user?.rank?.rankName} balance={balance} rankId={user?.rank?.rankId} />
       </aside>
 
       <div className="clisha-x-right-panel" style={{ flex: 1, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -274,7 +360,18 @@ function DashboardLayoutInner() {
           <Link to={`${BASE}/dashboard`} className="clisha-x-sidebar-mobile" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0 }}>
             <img src={dark ? '/logo2.png' : '/images/logo4.png'} alt="Clisha" className="clisha-x-header-logo" style={{ height: 32 }} />
           </Link>
-          <span className="clisha-x-sidebar-desktop" style={{ fontFamily: CLEAN_FONTS.mono, fontSize: 12, fontWeight: 700, color: c.text2, letterSpacing: '0.06em' }}>DASHBOARD</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', minWidth: 0 }}>
+            <span className="clisha-x-sidebar-desktop" style={{ fontFamily: CLEAN_FONTS.mono, fontSize: 12, fontWeight: 700, color: c.text2, letterSpacing: '0.06em' }}>DASHBOARD</span>
+            <ExtensionHeaderStrip
+              c={c}
+              ok={probe.ok}
+              status={probe.status}
+              version={probe.version}
+              requiredVersion={REQUIRED_EXTENSION_VERSION}
+              probeReady={probe.probeReady}
+              onHowItWorks={() => setHowItWorksOpen(true)}
+            />
+          </div>
           <div className="clisha-x-header-inner clisha-x-header-chips" style={{ display: 'flex', alignItems: 'center', gap: 6, marginLeft: 'auto', flexWrap: 'nowrap' }}>
             <div className="clisha-x-header-chip" style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 10px', borderRadius: 7, fontSize: 12, fontWeight: 700, background: c.bg3, border: `1px solid ${c.border}`, fontFamily: CLEAN_FONTS.mono }} title="Task points — withdrawable">
               <span style={{ fontSize: 12 }}>🪙</span>
@@ -331,13 +428,14 @@ function DashboardLayoutInner() {
           <div role="button" tabIndex={0} onClick={() => setMobileOpen(false)} onKeyDown={(e) => e.key === 'Escape' && setMobileOpen(false)} style={{ position: 'fixed', inset: 0, zIndex: 1000, background: 'rgba(0,0,0,0.55)' }} />
         )}
         <aside className="clisha-x-sidebar-mobile" style={{ position: 'fixed', top: 48, left: 0, bottom: 0, zIndex: 1001, width: 280, maxWidth: '85vw', background: c.bg2, borderRight: `1px solid ${c.border}`, overflowY: 'auto', transform: mobileOpen ? 'translateX(0)' : 'translateX(-100%)', transition: 'transform 0.25s' }}>
-          <SidebarContent c={c} dark={dark} onCopyReferral={copyReferral} onToggleTheme={toggleTheme} onLogout={logout} onNavClick={() => setMobileOpen(false)} userName={user?.user?.username} rankName={user?.rank?.rankName} balance={balance} rankId={user?.rank?.rankId} />
+          <SidebarContent c={c} dark={dark} onCopyReferral={copyReferral} onToggleTheme={toggleTheme} onLogout={logout} onNavClick={() => setMobileOpen(false)} onHowItWorks={() => { setHowItWorksOpen(true); setMobileOpen(false); }} userName={user?.user?.username} rankName={user?.rank?.rankName} balance={balance} rankId={user?.rank?.rankId} />
         </aside>
 
         <main className="clisha-x-main" style={{ flex: 1, padding: 14, display: 'flex', flexDirection: 'column', gap: 12, overflowY: 'auto' }}>
           <Outlet />
         </main>
       </div>
+      <ClishaHowItWorksDrawer open={howItWorksOpen} onClose={() => setHowItWorksOpen(false)} dark={dark} />
     </div>
   );
 }
@@ -345,7 +443,9 @@ function DashboardLayoutInner() {
 export default function DashboardLayout() {
   return (
     <ThemeProvider>
-      <DashboardLayoutInner />
+      <ExtensionProbeProvider>
+        <DashboardLayoutInner />
+      </ExtensionProbeProvider>
     </ThemeProvider>
   );
 }

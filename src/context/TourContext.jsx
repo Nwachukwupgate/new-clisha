@@ -1,5 +1,5 @@
 // context/TourContext.tsx
-import { createContext, useContext, useState, useMemo, ReactNode, useEffect } from "react";
+import { createContext, useContext, useState, useMemo, useEffect } from "react";
 
 const TourContext = createContext(undefined);
 

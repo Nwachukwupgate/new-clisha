@@ -15,6 +15,4 @@ export const copyAndOpenTab = async (item, extCode) => {
   setTimeout(() => {
     window.open(`https://google.com?tk=${item.task_code}&cd=${extCode}`, '_blank');
   }, 1000);
-
-  setTimeout(() => window.location.reload(), 20000);
 };

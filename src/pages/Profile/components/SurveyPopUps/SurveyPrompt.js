@@ -18,7 +18,6 @@ const SurveyPrompt = () => {
     if (!questionData) return;
 
     const { question } = questionData;
-    const { step } = questionData;
     
     //  NEW: Determine if single or multi choice based on question type
     const surveyData = {

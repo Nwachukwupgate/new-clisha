@@ -10,9 +10,12 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import CountUp from 'react-countup';
 import { taskCompleted } from '../../../store/Task';
+import { fetchVendoPackageInfo } from '../../../store/Wallet';
 import Loading from '../../../components/Alerts/Loading';
 import { useClishaThemeToggle } from '../context/ThemeContext';
 import { CLEAN, CLEAN_FONTS } from '../design-system/tokens-clean';
+import { trackClishaEvent } from '../../../utils/clishaTelemetry';
+import { GLOSSARY } from '../copy/extensionHealthCopy';
 
 const BASE = '/clisha-x';
 
@@ -26,25 +29,42 @@ function MonoCount({ value, duration = 1.35, delay = 0, color }) {
   );
 }
 
-/* ── Floating coin decoration (CSS only) ────────────────────────── */
+/* ── Floating coin decoration (spin + float) ───────────────────── */
 function FloatingCoins() {
+  const coins = [
+    { i: 0, left: '8%', top: '12%', size: 20, delay: 0, spin: 'clisha-x-coin-spin-a' },
+    { i: 1, left: '22%', top: '6%', size: 26, delay: 0.2, spin: 'clisha-x-coin-spin-b' },
+    { i: 2, left: '78%', top: '10%', size: 22, delay: 0.45, spin: 'clisha-x-coin-spin-a' },
+    { i: 3, left: '88%', top: '28%', size: 18, delay: 0.6, spin: 'clisha-x-coin-spin-b' },
+    { i: 4, left: '6%', top: '62%', size: 17, delay: 0.15, spin: 'clisha-x-coin-spin-b' },
+    { i: 5, left: '72%', top: '58%', size: 24, delay: 0.5, spin: 'clisha-x-coin-spin-a' },
+    { i: 6, left: '42%', top: '4%', size: 16, delay: 0.7, spin: 'clisha-x-coin-spin-a' },
+    { i: 7, left: '52%', top: '72%', size: 19, delay: 0.35, spin: 'clisha-x-coin-spin-b' },
+  ];
   return (
-    <div aria-hidden style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden', borderRadius: 20 }}>
-      {[0, 1, 2, 3, 4, 5].map((i) => (
+    <div aria-hidden className="clisha-x-reward-floating-coins" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden', borderRadius: 20 }}>
+      {coins.map(({ i, left, top, size, delay, spin }) => (
         <span
           key={i}
           style={{
             position: 'absolute',
-            left: `${12 + i * 14}%`,
-            top: `${8 + (i % 2) * 12}%`,
-            fontSize: i % 2 ? 22 : 18,
-            opacity: 0.35,
-            animation: `clisha-x-coin-float ${3 + (i % 3) * 0.4}s ease-in-out infinite`,
-            animationDelay: `${i * 0.35}s`,
-            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+            left,
+            top,
+            width: size,
+            height: size,
+            fontSize: size,
+            lineHeight: 1,
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            opacity: 0.42,
+            animation: `${spin} ${2.8 + (i % 3) * 0.35}s ease-in-out infinite`,
+            animationDelay: `${delay}s`,
+            filter: 'drop-shadow(0 3px 6px rgba(0,0,0,0.25))',
+            transformStyle: 'preserve-3d',
           }}
         >
-          {i % 3 === 0 ? '🪙' : i % 3 === 1 ? '✨' : '💎'}
+          🪙
         </span>
       ))}
     </div>
@@ -59,12 +79,26 @@ export default function TaskRewardCelebration() {
   const c = dark ? CLEAN.dark : CLEAN.light;
 
   const user = useSelector((state) => state.user?.data);
+  const userLoading = useSelector((state) => state.user?.loading);
   const completeTaskLoading = useSelector((state) => state.task?.completeTaskLoading);
   const vendoPackage = useSelector((state) => state.wallet?.vendoPackage);
   const packageStatus = useSelector((state) => state.wallet?.packageStatus);
 
-  const vendoConnectStatus = user?.user?.vendoConnectStatus;
-  const vendoBonus = vendoPackage && vendoPackage?.data?.package_level;
+  const profileReady = Boolean(user?.user?.id);
+  const vendoConnectStatus = Boolean(user?.user?.vendoConnectStatus);
+  const pkgLevel = vendoPackage?.data?.package_level;
+  const vendoBonus = vendoPackage && pkgLevel;
+  /** Same idea as Dashboard header: Vendo + package tier (not “No package”). */
+  const vendoPackageEligible = Boolean(pkgLevel && pkgLevel !== 'No package');
+  const showClishacoinsRow =
+    vendoConnectStatus &&
+    (packageStatus !== 'succeeded' || vendoPackageEligible);
+  /** Don’t show “Connect Vendo” until profile + package fetch are settled (avoids flash for Vendo users). */
+  const rewardsDataReady =
+    profileReady &&
+    !userLoading &&
+    packageStatus !== 'idle' &&
+    packageStatus !== 'loading';
   const vqPoints =
     vendoBonus === 'basic' ? 10
       : vendoBonus === 'plus' ? 20
@@ -86,6 +120,12 @@ export default function TaskRewardCelebration() {
   const [claimed, setClaimed] = useState(false);
 
   useEffect(() => {
+    if (packageStatus === 'idle') {
+      dispatch(fetchVendoPackageInfo());
+    }
+  }, [dispatch, packageStatus]);
+
+  useEffect(() => {
     if (_isFailed === 'failed') {
       return undefined;
     }
@@ -95,6 +135,12 @@ export default function TaskRewardCelebration() {
       clearTimeout(t);
     };
   }, [burstMain, burstSide, _isFailed]);
+
+  useEffect(() => {
+    if (!rewardsDataReady) return;
+    if (_isFailed === 'failed') return;
+    trackClishaEvent('reward_view', { task_id: _task ?? '' });
+  }, [rewardsDataReady, _isFailed, _task]);
 
   const playSuccessSound = useCallback(() => {
     try {
@@ -107,6 +153,7 @@ export default function TaskRewardCelebration() {
   }, []);
 
   const handleClaim = () => {
+    trackClishaEvent('reward_claim', { task_id: _task ?? '' });
     playSuccessSound();
     const task = { task: _task, status: 1 };
     dispatch(taskCompleted(task));
@@ -126,7 +173,7 @@ export default function TaskRewardCelebration() {
     navigate(`${BASE}/dashboard/task`);
   };
 
-  if (packageStatus === 'loading') {
+  if (!rewardsDataReady) {
     return <Loading />;
   }
 
@@ -157,6 +204,16 @@ export default function TaskRewardCelebration() {
           0%, 100% { transform: translateY(0) rotate(0deg); }
           50% { transform: translateY(-12px) rotate(8deg); }
         }
+        @keyframes clisha-x-coin-spin-a {
+          0% { transform: translateY(0) rotateY(0deg) rotateZ(-6deg); }
+          50% { transform: translateY(-14px) rotateY(180deg) rotateZ(4deg) scale(1.08); }
+          100% { transform: translateY(0) rotateY(360deg) rotateZ(-6deg); }
+        }
+        @keyframes clisha-x-coin-spin-b {
+          0% { transform: translateY(0) rotateY(0deg) rotateZ(8deg); }
+          50% { transform: translateY(-18px) rotateY(-180deg) rotateZ(-4deg) scale(1.12); }
+          100% { transform: translateY(0) rotateY(-360deg) rotateZ(8deg); }
+        }
         @keyframes clisha-x-shimmer {
           0% { background-position: 200% 0; }
           100% { background-position: -200% 0; }
@@ -172,6 +229,8 @@ export default function TaskRewardCelebration() {
         @media (prefers-reduced-motion: reduce) {
           .clisha-x-reward-card { animation: none; opacity: 1; }
           .clisha-x-reward-glow-ring { animation: none !important; }
+          .clisha-x-reward-coin-hero { animation: none !important; }
+          .clisha-x-reward-floating-coins span { animation: none !important; }
         }
       `}</style>
 
@@ -233,19 +292,32 @@ export default function TaskRewardCelebration() {
               </span>
             </div>
 
-            <div style={{ fontSize: 44, lineHeight: 1, marginBottom: 10, filter: 'drop-shadow(0 4px 12px rgba(245,197,66,0.35))' }}>🎉</div>
+            <div
+              className="clisha-x-reward-coin-hero"
+              style={{
+                fontSize: 52,
+                lineHeight: 1,
+                marginBottom: 10,
+                filter: 'drop-shadow(0 6px 16px rgba(245,197,66,0.45))',
+                animation: 'clisha-x-coin-spin-a 3.2s ease-in-out infinite',
+                transformStyle: 'preserve-3d',
+              }}
+            >
+              🪙
+            </div>
 
             <h1 style={{ margin: '0 0 8px', fontFamily: CLEAN_FONTS.mono, fontSize: 22, fontWeight: 700, color: c.text, lineHeight: 1.25 }}>
-              {vendoConnectStatus ? 'Outstanding work!' : 'You crushed it!'}
+              {showClishacoinsRow ? 'Outstanding work!' : 'You crushed it!'}
             </h1>
             <p style={{ margin: '0 0 22px', fontSize: 14, color: c.text2, lineHeight: 1.5 }}>
-              {vendoConnectStatus
+              {showClishacoinsRow
                 ? 'Your rewards are ready — points and Clishacoins below.'
                 : 'Points secured. Connect Vendo to unlock Clishacoins on every task.'}
             </p>
 
             {/* Points row */}
             <div
+              title={GLOSSARY.pointsVsCoins}
               style={{
                 position: 'relative',
                 borderRadius: 14,
@@ -266,18 +338,27 @@ export default function TaskRewardCelebration() {
                   pointerEvents: 'none',
                 }}
               />
-              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', color: c.gold, textTransform: 'uppercase', marginBottom: 6, position: 'relative' }}>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', color: c.gold, textTransform: 'uppercase', marginBottom: 6, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
                 Points earned
+                <span title={GLOSSARY.pointsVsCoins} style={{ cursor: 'help', opacity: 0.7 }} aria-label="Help">(?)</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 8, position: 'relative' }}>
-                <span style={{ fontSize: 28 }}>🪙</span>
+                <span
+                  style={{
+                    fontSize: 30,
+                    display: 'inline-block',
+                    animation: 'clisha-x-coin-spin-b 2.6s ease-in-out infinite',
+                  }}
+                >
+                  🪙
+                </span>
                 <MonoCount value={points} duration={1.35} delay={0.15} color={c.gold} />
                 <span style={{ fontFamily: CLEAN_FONTS.body, fontSize: 16, fontWeight: 600, color: c.text2 }}>pts</span>
               </div>
             </div>
 
             {/* Clishacoins row */}
-            {vendoConnectStatus ? (
+            {showClishacoinsRow ? (
               <div
                 style={{
                   borderRadius: 14,
@@ -287,8 +368,9 @@ export default function TaskRewardCelebration() {
                   border: `1px solid ${c.blueB}`,
                 }}
               >
-                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', color: c.blue, textTransform: 'uppercase', marginBottom: 8 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', color: c.blue, textTransform: 'uppercase', marginBottom: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
                   Clishacoins
+                  <span title={GLOSSARY.pointsVsCoins} style={{ cursor: 'help', opacity: 0.7 }} aria-label="Help">(?)</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
                   <span

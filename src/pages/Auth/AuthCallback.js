@@ -31,8 +31,11 @@ const AuthCallback = () => {
           throw new Error('Invalid callback parameters');
         }
 
-        // Retrieve tokens from backend
-        await handleCallback(tokenId);
+        // Retrieve tokens from backend (handleCallback persists tokens to localStorage)
+        const authResult = await handleCallback(tokenId);
+        if (!authResult?.accessToken) {
+          throw new Error('Invalid auth response');
+        }
         const returnTo = sessionStorage.getItem('authReturnTo');
         if (returnTo) {
           sessionStorage.removeItem('authReturnTo');

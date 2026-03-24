@@ -88,7 +88,9 @@
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx}",
     "lint:fix": "eslint --fix src/**/*.{js,jsx,ts,tsx}",
-    "prettier": "prettier --write \"./src/**/*.{js,jsx,ts,tsx}\""
+    "build:ci": "rm -f node_modules/.cache/.eslintcache && CI=true react-scripts build",
+    "prettier": "prettier --write \"./src/**/*.{js,jsx,ts,tsx}\"",
+    "pack-extension": "bash scripts/pack-clisha-extension.sh"
   },
   "eslintConfig": {
     "extends": [

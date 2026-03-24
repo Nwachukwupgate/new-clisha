@@ -4,13 +4,63 @@
  * Handles website_click, google_search, journey, search_journey
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { formatDuration } from '../../../utils/functions/functions';
 import { copyAndOpenTab } from '../../../sass/utils/clipboardUtils';
+import { trackClishaEvent } from '../../../utils/clishaTelemetry';
+import { GLOSSARY } from '../copy/extensionHealthCopy';
 import { BRAND } from '../design-system/tokens';
 import CoinIcon from './CoinIcon';
+
+const BASE = '/clisha-x';
+
+const EXT_TASK_WINDOW_MIN = {
+  google_search: 20,
+  journey: 40,
+  search_journey: 40,
+};
+
+function activationKey(taskId) {
+  return `clisha_activation_${taskId}`;
+}
+
+function readActivationSession(taskId) {
+  try {
+    const raw = sessionStorage.getItem(activationKey(taskId));
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+function formatRemaining(ms) {
+  if (ms <= 0) return '0s';
+  const m = Math.floor(ms / 60000);
+  const s = Math.floor((ms % 60000) / 1000);
+  if (m >= 120) return `${Math.floor(m / 60)}h ${m % 60}m`;
+  if (m > 0) return `${m}m ${s}s`;
+  return `${s}s`;
+}
+
+function getActivationPreviewUrl(taskItem, extCode) {
+  if (!taskItem || extCode == null) return '';
+  const tk = taskItem.task_code;
+  if (taskItem.task_type === 'google_search') {
+    return taskItem.extensionUrl || `https://google.com?tk=${tk}&cd=${extCode}`;
+  }
+  if (taskItem.task_type === 'journey') {
+    const link = taskItem?.journey?.[0]?.link || '';
+    if (!link) return '';
+    return link.includes('?') ? `${link}&tk=${tk}&cd=${extCode}` : `${link}?tk=${tk}&cd=${extCode}`;
+  }
+  if (taskItem.task_type === 'search_journey') {
+    return `https://google.com?tk=${tk}&cd=${extCode}`;
+  }
+  return '';
+}
 
 /* ── Type config (matches old system CTAs) ────────────────────────
  * website_click: "Visit Website" - direct, no modal
@@ -106,12 +156,14 @@ function isDarkBackground(color) {
  * search_journey: input + "Copy" → copyAndOpenTab (copy + open google.com?tk=...)
  * journey: "Start Journey" only → copy journey[0].description, open journey[0].link
  */
-function ActivateModal({ item, onClose, onActivate, dark }) {
+function ActivateModal({ item, extCode, onClose, onActivate, dark }) {
+  const [showWhatOpens, setShowWhatOpens] = useState(false);
   const hasExt = localStorage.getItem('hasExt') === 'true';
   const extUrl = 'https://chromewebstore.google.com/detail/fggiejockcliimogohnaiakpbcjaafcl';
   const taskType = item?.task_type;
   const isJourney = taskType === 'journey';
   const showInput = (taskType === 'google_search' || taskType === 'search_journey');
+  const previewUrl = getActivationPreviewUrl(item, extCode);
 
   const handleActivate = async () => {
     await onActivate(item);
@@ -130,8 +182,8 @@ function ActivateModal({ item, onClose, onActivate, dark }) {
   };
 
   const getModalSubtext = () => {
-    if (isJourney) return 'Click the link to navigate to your task';
-    return 'Copy this keyword and paste in your browser';
+    if (isJourney) return 'We open your first journey URL with task keys so the extension can attach.';
+    return 'We copy your phrase and open Google with task keys for the extension.';
   };
 
   return (
@@ -167,7 +219,56 @@ function ActivateModal({ item, onClose, onActivate, dark }) {
           <div style={{ fontSize: 12, color: dark ? '#8A95A8' : '#666' }}>
             {getModalSubtext()}
           </div>
+          {item?.task_code && (
+            <div style={{ fontSize: 11, color: dark ? '#6b7280' : '#888', marginTop: 10, fontFamily: "'Space Mono',monospace" }}>
+              Session ID · {item.task_code}
+              <span title={GLOSSARY.sessionId} style={{ cursor: 'help', marginLeft: 4 }} aria-label="What is Session ID?">
+                (?)
+              </span>
+            </div>
+          )}
         </div>
+        {previewUrl && (
+          <button
+            type="button"
+            onClick={() => setShowWhatOpens(!showWhatOpens)}
+            style={{
+              width: '100%',
+              marginBottom: 12,
+              padding: '8px 10px',
+              borderRadius: 8,
+              border: `1px solid ${dark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)'}`,
+              background: dark ? '#161B26' : '#f8fafc',
+              color: dark ? '#E8EDF5' : '#334155',
+              fontSize: 12,
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
+            {showWhatOpens ? '▼' : '▶'} What opens in the browser?
+          </button>
+        )}
+        {showWhatOpens && previewUrl && (
+          <div
+            style={{
+              fontSize: 10,
+              wordBreak: 'break-all',
+              color: dark ? '#9ca3af' : '#64748b',
+              marginBottom: 12,
+              padding: 10,
+              borderRadius: 8,
+              background: dark ? '#0f1419' : '#f1f5f9',
+              border: `1px solid ${dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`,
+            }}
+          >
+            {previewUrl}
+          </div>
+        )}
+        {hasExt && localStorage.getItem('extensionStatus') === 'outdated' && (
+          <div style={{ fontSize: 11, color: '#f59e0b', marginBottom: 12 }}>
+            Your extension may be outdated — update from the store for best results.
+          </div>
+        )}
         {hasExt ? (
           <>
             {showInput && (
@@ -239,6 +340,12 @@ function ActivateModal({ item, onClose, onActivate, dark }) {
 export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
   const navigate = useNavigate();
   const [showActivate, setShowActivate] = useState(false);
+  const [tick, setTick] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setTick((n) => n + 1), 1000);
+    return () => clearInterval(id);
+  }, []);
 
   const taskType = item?.task_type ?? 'website_click';
   const cfg = getConfig(taskType);
@@ -275,6 +382,28 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
     }, secTime(duration));
   };
 
+  const persistActivation = useCallback((taskItem) => {
+    try {
+      sessionStorage.setItem(
+        activationKey(taskItem.id),
+        JSON.stringify({
+          ts: Date.now(),
+          taskCode: taskItem.task_code,
+          taskType: taskItem.task_type,
+          points: taskItem.points,
+          bonus: taskItem.bonus_points ?? 0,
+        })
+      );
+      localStorage.setItem('clisha_last_task_channel', 'chrome_extension_flow');
+    } catch {
+      /* ignore */
+    }
+    trackClishaEvent('task_activate', {
+      task_type: taskItem.task_type,
+      task_id: String(taskItem.id),
+    });
+  }, []);
+
   const handleActivate = async (taskItem) => {
     if (taskItem?.task_type === 'google_search') {
       const msg = taskItem?.google_search?.search_phrase;
@@ -282,7 +411,7 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
       setTimeout(() => {
         window.open(taskItem?.extensionUrl || `https://google.com?tk=${taskItem.task_code}&cd=${extCode}`, '_blank');
       }, 1000);
-      setTimeout(() => window.location.reload(), 20000);
+      persistActivation(taskItem);
     } else if (taskItem?.task_type === 'journey') {
       const msg = taskItem?.journey?.[0]?.description;
       await navigator.clipboard.writeText(msg || '');
@@ -293,11 +422,33 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
           : `${link}?tk=${taskItem.task_code}&cd=${extCode}`;
         window.open(fullUrl, '_blank');
       }, 1000);
-      setTimeout(() => window.location.reload(), 20000);
+      persistActivation(taskItem);
     } else if (taskItem?.task_type === 'search_journey') {
       await copyAndOpenTab(taskItem, extCode);
+      persistActivation(taskItem);
     }
   };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- `tick` bumps every second for countdown UI
+  const activationSession = useMemo(() => readActivationSession(item?.id), [item?.id, tick]);
+  const windowMin = EXT_TASK_WINDOW_MIN[taskType] ?? 20;
+  const sessionEndsAt = activationSession?.ts ? activationSession.ts + windowMin * 60 * 1000 : 0;
+  const remainingMs = sessionEndsAt ? Math.max(0, sessionEndsAt - Date.now()) : 0;
+
+  const clearActivationSession = useCallback(() => {
+    try {
+      sessionStorage.removeItem(activationKey(item.id));
+    } catch {
+      /* ignore */
+    }
+    setTick((n) => n + 1);
+    trackClishaEvent('task_activation_clear', { task_id: String(item.id) });
+  }, [item?.id]);
+
+  const openRewardPage = useCallback(() => {
+    navigate(`${BASE}/dashboard/reward?t=${item.id}&p=${item.points}&status=done&b=${item?.bonus_points ?? 0}`);
+    trackClishaEvent('task_open_reward', { task_id: String(item.id) });
+  }, [item?.id, item?.points, item?.bonus_points, navigate]);
 
   const handleCopyId = () => {
     navigator.clipboard.writeText(item?.task_code || '').then(() => toast.info('Task ID copied'));
@@ -335,6 +486,7 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
       `}</style>
       <div
         className="clisha-x-gamified-task-card"
+        data-task-code={item?.task_code || undefined}
         style={{
           background: cardBg,
           border: `1px solid ${cardBorder}`,
@@ -464,6 +616,92 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
           {getDescription()}
         </div>
 
+        {cfg.btnClass === 'activate' && activationSession && (
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              fontSize: 11,
+              lineHeight: 1.45,
+              padding: '10px 10px',
+              borderRadius: 8,
+              background: cardIsDark ? 'rgba(245,197,66,0.08)' : 'rgba(245,197,66,0.12)',
+              border: `1px solid ${cardIsDark ? 'rgba(245,197,66,0.25)' : 'rgba(245,197,66,0.35)'}`,
+              color: textSub,
+            }}
+          >
+            <div style={{ fontWeight: 700, color: accentColor, marginBottom: 4 }}>Extension session active</div>
+            <div>
+              Waiting in your other tab — complete the steps there. Session ID <span style={{ fontFamily: "'Space Mono',monospace", color: textMain }}>{item?.task_code}</span>
+            </div>
+            <div
+              title={GLOSSARY.taskWindow}
+              style={{ marginTop: 6, fontFamily: "'Space Mono',monospace", color: remainingMs > 0 ? textMain : '#f87171' }}
+            >
+              {remainingMs > 0 ? `~${formatRemaining(remainingMs)} left in task window` : 'Task window may have ended — retry or open reward if you finished'}
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 10 }}>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleActivate(item);
+                  toast.info('Activation sent again');
+                }}
+                style={{
+                  padding: '6px 10px',
+                  borderRadius: 6,
+                  border: 'none',
+                  background: accentColor,
+                  color: isLightAccent ? '#1a1a1a' : '#fff',
+                  fontWeight: 700,
+                  fontSize: 11,
+                  cursor: 'pointer',
+                }}
+              >
+                Retry activation
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openRewardPage();
+                }}
+                style={{
+                  padding: '6px 10px',
+                  borderRadius: 6,
+                  border: `1px solid ${rowBorder}`,
+                  background: 'transparent',
+                  color: textMain,
+                  fontWeight: 600,
+                  fontSize: 11,
+                  cursor: 'pointer',
+                }}
+              >
+                Open reward page
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  clearActivationSession();
+                }}
+                style={{
+                  padding: '6px 10px',
+                  borderRadius: 6,
+                  border: 'none',
+                  background: 'transparent',
+                  color: textMuted,
+                  fontSize: 11,
+                  cursor: 'pointer',
+                  textDecoration: 'underline',
+                }}
+              >
+                Dismiss hint
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Task ID (accentColor from token.card_colors, like old TaskCopy) */}
         <div
           style={{
@@ -474,7 +712,12 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
             borderBottom: `1px solid ${rowBorder}`,
           }}
         >
-          <span style={{ fontSize: 12, color: accentColor }}>Task ID</span>
+          <span style={{ fontSize: 12, color: accentColor, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+            Task ID · session
+            <span title={GLOSSARY.sessionId} style={{ cursor: 'help', opacity: 0.75, fontSize: 11 }} aria-label="What is Session ID?">
+              (?)
+            </span>
+          </span>
           <span
             style={{
               fontSize: 12,
@@ -624,6 +867,7 @@ export default function GamifiedTaskCard({ item, extCode, loadLink, dark }) {
       {showActivate && (
         <ActivateModal
           item={item}
+          extCode={extCode}
           onClose={() => setShowActivate(false)}
           onActivate={handleActivate}
           dark={dark}
