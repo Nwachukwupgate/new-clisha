@@ -1,0 +1,29 @@
+---
+description: Scope work to Clisha Experience (new system); leave legacy app unchanged
+alwaysApply: true
+---
+
+# Clisha: new system only
+
+The **legacy** web app is still in production for existing users. **Do not modify** it unless the user explicitly asks to change the old system.
+
+## Treat as legacy (do not edit for feature work)
+
+- Routes and pages outside **`/clisha-x`** (e.g. classic `/dashboard`, `/signin`, old landing pages, `LandingPage`, `ClishaLanding*`, legacy `Profile` / `Dashboard` trees not under `ClishaExperience`).
+- Shared components used **only** by legacy flows when the task can be done under **`src/pages/ClishaExperience/`** instead.
+
+## New system (default scope for changes)
+
+- **`src/pages/ClishaExperience/**`** — layouts, dashboard, task flow, settings, etc.
+- Routes under **`/clisha-x`** in `src/routes/index.tsx`.
+- Supporting hooks/utils **created for** Clisha Experience (e.g. extension probe, telemetry helpers under `src/utils/` when used by the new shell).
+- **Chrome extension** maintained as its **own repo** (e.g. `~/Documents/clisha-experience-extension`), not inside this repo’s `extensions/` folder.
+
+## Shared files (redux, `public/index.html`, API layer)
+
+- Change **only when necessary** for the new experience, and **preserve** behavior for legacy routes (same env, same APIs, no breaking redirects for old paths).
+- If a change could affect legacy users, call it out and keep the diff minimal.
+
+## Summary
+
+**Ship features and fixes in the new Clisha Experience shell; leave the old UI and flows untouched unless the user clearly requests legacy changes.**
