@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { darkTheme, lightTheme } from '../design-system/theme';
-import { BRAND, TYPOGRAPHY, RADIUS, SHADOWS } from '../design-system/tokens';
+import { BRAND, TYPOGRAPHY, RADIUS } from '../design-system/tokens';
 
 const BASE = '/clisha-x';
+const api = process.env.REACT_APP_API;
+
+function getRankConfig() {
+  const token = window.localStorage.getItem('token');
+  return { headers: { Authorization: `bearer ${token}` } };
+}
 
 /* ── Floating coin particle ─────────────────────────────────────────────── */
 function CoinParticle({ x, y, delay, size }) {
@@ -88,7 +95,7 @@ function MiniRankRow({ rank, name, pts, dark }) {
         background: `hsl(${rank * 60}, 65%, 55%)`,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         fontSize: 12, fontWeight: 800, color: '#fff', flexShrink: 0,
-      }}>{name[0]}</div>
+      }}>{(name || '?')[0]}</div>
       <span style={{
         flex: 1, fontSize: 12, fontWeight: 600,
         color: dark ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.75)',
@@ -168,11 +175,40 @@ export default function AuthLayout({ children, dark = false, onToggleTheme }) {
     { x: 25, y: 42, delay: 0.7, size: 10 },
   ];
 
-  const leaderboard = [
-    { rank: 1, name: 'Ich Bin S.',     pts: 11251 },
-    { rank: 2, name: 'Tamadjola M.',   pts: 9571  },
-    { rank: 3, name: 'Jose Nazareno.', pts: 9358  },
-  ];
+  const [leaderboard, setLeaderboard] = useState([]);
+  const [leaderboardLoading, setLeaderboardLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLeaderboardLoading(true);
+    axios
+      .get(`${api}/ranking?page=1&size=3`, getRankConfig())
+      .then((res) => {
+        if (cancelled) return;
+        const list = res?.data?.data?.ranking ?? [];
+        const rows = list.slice(0, 3).map((item, i) => {
+          const displayName = item?.user?.firstname ?? item?.user?.username ?? 'User';
+          const lastName = item?.user?.lastname ?? '';
+          const fullName = lastName ? `${displayName} ${lastName}`.trim() : displayName;
+          return {
+            rank: item?.position ?? i + 1,
+            name: fullName,
+            pts: Number(item?.total_points ?? item?.balance ?? 0),
+            userId: item?.user?.id ?? `row-${i}`,
+          };
+        });
+        setLeaderboard(rows);
+      })
+      .catch(() => {
+        if (!cancelled) setLeaderboard([]);
+      })
+      .finally(() => {
+        if (!cancelled) setLeaderboardLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   /* ── global keyframes injected once ────────────────────────── */
   const css = `
@@ -281,20 +317,18 @@ export default function AuthLayout({ children, dark = false, onToggleTheme }) {
 
           {/* ── Logo + nav ─────────────────────────────────────────── */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 44, position: 'relative', zIndex: 1 }}>
-            <Link to={BASE} style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-              <div style={{
-                width: 38, height: 38, borderRadius: 11,
-                background: `linear-gradient(135deg, ${BRAND.primaryDark}, ${BRAND.primary})`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontFamily: TYPOGRAPHY.fontDisplay, fontWeight: 900, fontSize: 20, color: '#fff',
-                boxShadow: SHADOWS.glow,
-              }}>C</div>
-              <span style={{
-                fontFamily: TYPOGRAPHY.fontDisplay, fontWeight: 800, fontSize: 22,
-                color: dark ? '#fff' : '#1a0a00', letterSpacing: '-0.3px',
-              }}>
-                <span style={{ color: BRAND.primary }}>Cli</span>sha
-              </span>
+            <Link to={BASE} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+              <img
+                src={dark ? '/logo2.png' : '/images/logo4.png'}
+                alt="Clisha"
+                style={{
+                  height: 36,
+                  width: 'auto',
+                  maxWidth: 160,
+                  objectFit: 'contain',
+                  display: 'block',
+                }}
+              />
             </Link>
             {onToggleTheme && <ThemeToggle dark={dark} onToggle={onToggleTheme} />}
           </div>
@@ -391,7 +425,28 @@ export default function AuthLayout({ children, dark = false, onToggleTheme }) {
                 }}>🏆 Today's Top Earners</span>
                 <span style={{ fontSize: 10, color: BRAND.primary, fontWeight: 600 }}>Live</span>
               </div>
-              {leaderboard.map(u => <MiniRankRow key={u.rank} {...u} dark={dark} />)}
+              {leaderboardLoading ? (
+                <div style={{
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: dark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.45)',
+                  padding: '10px 0',
+                }}>
+                  Loading leaderboard…
+                </div>
+              ) : leaderboard.length === 0 ? (
+                <div style={{
+                  fontSize: 12,
+                  color: dark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.45)',
+                  padding: '10px 0',
+                }}>
+                  No rankings yet.
+                </div>
+              ) : (
+                leaderboard.map(({ userId, ...u }) => (
+                  <MiniRankRow key={userId} {...u} dark={dark} />
+                ))
+              )}
             </div>
           </div>
         </div>
@@ -416,16 +471,18 @@ export default function AuthLayout({ children, dark = false, onToggleTheme }) {
             display: 'flex', justifyContent: 'space-between', alignItems: 'center',
             marginBottom: 32,
           }} className="d-md-none">
-            <Link to={BASE} style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
-              <div style={{
-                width: 30, height: 30, borderRadius: 8,
-                background: `linear-gradient(135deg,${BRAND.primaryDark},${BRAND.primary})`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 15, fontFamily: TYPOGRAPHY.fontDisplay, fontWeight: 900, color: '#fff',
-              }}>C</div>
-              <span style={{ fontFamily: TYPOGRAPHY.fontDisplay, fontWeight: 800, fontSize: 18, color: th.text }}>
-                <span style={{ color: BRAND.primary }}>Cli</span>sha
-              </span>
+            <Link to={BASE} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+              <img
+                src={dark ? '/logo2.png' : '/images/logo4.png'}
+                alt="Clisha"
+                style={{
+                  height: 30,
+                  width: 'auto',
+                  maxWidth: 140,
+                  objectFit: 'contain',
+                  display: 'block',
+                }}
+              />
             </Link>
             {onToggleTheme && <ThemeToggle dark={dark} onToggle={onToggleTheme} />}
           </div>
