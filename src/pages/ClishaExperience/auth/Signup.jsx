@@ -6,7 +6,7 @@ import axios from 'axios';
 import AuthLayout from '../layouts/AuthLayout';
 import GamifiedButton from '../components/GamifiedButton';
 import GamifiedInput from '../components/GamifiedInput';
-import Loading from '../../../components/Alerts/Loading';
+import ClishaLoader from '../components/ClishaLoader';
 import { validateSignupForm } from '../../../utils/functions/functions';
 import { apiCall } from '../../../services/apiRequestManager';
 import { BRAND, RADIUS, TYPOGRAPHY, SHADOWS } from '../design-system/tokens';
@@ -259,7 +259,7 @@ export default function Signup() {
   if (code && !showForm) {
     return (
       <>
-        {!referralUser && <Loading />}
+        {!referralUser && <ClishaLoader label="Loading invite…" />}
         {referralUser && (
           <AuthLayout dark={dark} onToggleTheme={toggleTheme}>
             <ReferralWelcome
@@ -287,7 +287,7 @@ export default function Signup() {
   /* ─────────────────────────────────────────────────────────── */
   return (
     <>
-      {loading && <Loading />}
+      {loading && <ClishaLoader label="Creating account…" />}
       <AuthLayout dark={dark} onToggleTheme={toggleTheme}>
         <form onSubmit={handleSubmit} style={{ width: '100%' }}>
 

@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Loading from '../../../components/Alerts/Loading';
+import ClishaLoader from '../components/ClishaLoader';
 import Pagination from '../../../components/Pagination';
 import GamifiedTaskCard from '../components/GamifiedTaskCard';
 import ClishaOnboardingStrip from '../components/ClishaOnboardingStrip';
@@ -146,7 +146,7 @@ export default function TaskPage() {
     else if (tab === 'searchJourney') dispatch(getTaskSearchJourney({ page, types: 'search_journey' }));
   }, [tab, currentPage, dispatch]);
 
-  const loading =
+  const tasksLoading =
     (tab === 'all' && getTaskLoading) ||
     (tab === 'website' && getTaskWebsiteLoading) ||
     (tab === 'google' && getTaskGoogleLoading) ||
@@ -156,8 +156,8 @@ export default function TaskPage() {
   const hasSeenLoaded = useRef(false);
   const deepLinkDone = useRef(false);
   useEffect(() => {
-    if (!loading) hasSeenLoaded.current = true;
-  }, [loading]);
+    if (!tasksLoading) hasSeenLoaded.current = true;
+  }, [tasksLoading]);
 
   const taskCodeParam = searchParams.get('taskCode') || searchParams.get('task_code');
 
@@ -217,7 +217,7 @@ export default function TaskPage() {
   }, [taskCodeParam]);
 
   useEffect(() => {
-    if (!taskCodeParam || loading || tasks.length === 0 || deepLinkDone.current) return;
+    if (!taskCodeParam || tasksLoading || tasks.length === 0 || deepLinkDone.current) return;
     const safe = String(taskCodeParam).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
     const el = document.querySelector(`[data-task-code="${safe}"]`);
     if (el) {
@@ -231,9 +231,9 @@ export default function TaskPage() {
       }, 3800);
       clearTaskCodeFromUrl();
     }
-  }, [taskCodeParam, loading, tasks, clearTaskCodeFromUrl]);
+  }, [taskCodeParam, tasksLoading, tasks, clearTaskCodeFromUrl]);
 
-  if (loading && !hasSeenLoaded.current) return <Loading />;
+  if (tasksLoading && !hasSeenLoaded.current) return <ClishaLoader label="Fetching tasks…" />;
 
   const todayItem = calenderTask?.find?.((d) => moment(d?.date).format('YY-MM-DD') === moment().format('YY-MM-DD'));
   const completedToday = todayItem?.completedTasks ?? user?.completed?.length ?? 0;
@@ -611,7 +611,7 @@ export default function TaskPage() {
         </div>
 
         {/* inline refresh indicator */}
-        {loading && hasSeenLoaded.current && (
+        {tasksLoading && hasSeenLoaded.current && (
           <div
             style={{
               display: 'flex',
@@ -643,7 +643,7 @@ export default function TaskPage() {
         )}
 
         {/* empty state */}
-        {totalItems === 0 && !loading && (
+        {totalItems === 0 && !tasksLoading && (
           <div
             style={{
               textAlign: 'center',

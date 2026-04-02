@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 import ProfilePicture from '../../../utils/ProfilePicture';
-import Loading from '../../../components/Alerts/Loading';
+import ClishaLoader from '../components/ClishaLoader';
 import { getRank } from '../../../store/Rank';
 import { getExperience } from '../../../store/General';
 import { useClishaThemeToggle } from '../context/ThemeContext';
@@ -382,7 +382,7 @@ export default function RankPage() {
 
       {rank.loading ? (
         <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 200 }}>
-          <Loading />
+          <ClishaLoader label="Loading rankings…" />
         </div>
       ) : (
         <>
