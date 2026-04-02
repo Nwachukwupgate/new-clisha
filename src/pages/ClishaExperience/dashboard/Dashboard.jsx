@@ -279,7 +279,7 @@ export default function ClishaExperienceDashboard() {
 
         {/* ── Community Avatars ───────────────────────────────────────── */}
         {topUsers?.length > 0 && (
-          <div style={{ maxWidth: 360 }} className="clisha-x-community">
+          <div className="clisha-x-community" style={{ width: '100%' }}>
             <CommunityAvatars dark={dark} />
           </div>
         )}
