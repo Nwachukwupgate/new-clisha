@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CountUp from 'react-countup';
 import { taskCompleted } from '../../../store/Task';
 import { fetchVendoPackageInfo } from '../../../store/Wallet';
-import Loading from '../../../components/Alerts/Loading';
+import ClishaLoader from '../components/ClishaLoader';
 import { useClishaThemeToggle } from '../context/ThemeContext';
 import { CLEAN, CLEAN_FONTS } from '../design-system/tokens-clean';
 import { trackClishaEvent } from '../../../utils/clishaTelemetry';
@@ -174,7 +174,7 @@ export default function TaskRewardCelebration() {
   };
 
   if (!rewardsDataReady) {
-    return <Loading />;
+    return <ClishaLoader label="Preparing your reward…" />;
   }
 
   const failed = _isFailed === 'failed';
@@ -489,7 +489,7 @@ export default function TaskRewardCelebration() {
         </div>
       )}
 
-      {completeTaskLoading && <Loading />}
+      {completeTaskLoading && <ClishaLoader label="Saving…" />}
     </div>
   );
 }

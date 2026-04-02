@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { Country } from 'country-state-city';
 import timezones from 'timezones-list';
-import Loading from '../../../components/Alerts/Loading';
+import ClishaLoader from '../components/ClishaLoader';
 import ProfilePicture from '../../../utils/ProfilePicture';
 import { getUser } from '../../../store/Auth/auth';
 import { getUserSurveyProfile, getSurveyProfile } from '../../../store/General';
@@ -229,7 +229,7 @@ export default function ProfilePage() {
     navigator.clipboard.writeText(url).then(() => toast.success('Invite link copied!'));
   };
 
-  if (userLoading) return <Loading />;
+  if (userLoading) return <ClishaLoader label="Loading profile…" />;
 
   return (
     <div

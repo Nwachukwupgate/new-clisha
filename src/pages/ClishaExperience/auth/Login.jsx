@@ -6,7 +6,7 @@ import moment from 'moment';
 import AuthLayout from '../layouts/AuthLayout';
 import GamifiedButton from '../components/GamifiedButton';
 import GamifiedInput from '../components/GamifiedInput';
-import Loading from '../../../components/Alerts/Loading';
+import ClishaLoader from '../components/ClishaLoader';
 import { apiCall } from '../../../services/apiRequestManager';
 import { BRAND, RADIUS, TYPOGRAPHY } from '../design-system/tokens';
 import { darkTheme, lightTheme } from '../design-system/theme';
@@ -71,7 +71,7 @@ export default function Login() {
     });
   };
 
-  const [loading, setLoading] = useState(false);
+  const [isSigningIn, setIsSigningIn] = useState(false);
   const [form,    setForm]    = useState({ email: '', password: '' });
 
   const th = dark ? darkTheme : lightTheme;
@@ -87,14 +87,14 @@ export default function Login() {
       toast.error('Email and password are required');
       return;
     }
-    setLoading(true);
+    setIsSigningIn(true);
     try {
       const res = await apiCall(`${auth_api}/login`, 'post', form);
       const hasUser = res?.data?.data?.user || res?.data?.user;
       if (hasUser) writeUserData(res);
-      setLoading(false);
+      setIsSigningIn(false);
     } catch (err) {
-      setLoading(false);
+      setIsSigningIn(false);
       const status = err.response?.status;
       const data   = err.response?.data;
       if      (status === 403) toast.error(data?.message || 'Account inactive');
@@ -112,7 +112,7 @@ export default function Login() {
 
   return (
     <>
-      {loading && <Loading />}
+      {isSigningIn ? <ClishaLoader label="Signing in…" /> : null}
       <AuthLayout dark={dark} onToggleTheme={toggleTheme}>
 
         {/* ── Page heading ─────────────────────────────────── */}
@@ -207,7 +207,7 @@ export default function Login() {
             fullWidth
             variant="primary"
             size="lg"
-            loading={loading}
+            loading={isSigningIn}
             icon="🪙"
             dark={dark}
             style={{ marginBottom: 4 }}

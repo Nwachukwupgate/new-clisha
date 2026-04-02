@@ -6,8 +6,6 @@ import { Rank, Timezone, User } from '../../types';
 // import url from "../../json/config";
 const api = process.env.REACT_APP_API;
 
-const token = localStorage.getItem('token');
-const config = { headers: { Authorization: `bearer ${token}` } };
 const links = ['signup', 'signin', 'forgot-password', 'new-password', 'verify'];
 
 // Define the type for the user data
@@ -24,30 +22,44 @@ interface UserState {
   error: boolean;
 }
 
-export const getUser = createAsyncThunk<UserData>('user/getUser', async () => {
-  try {
-    const res = await axios.get(`${api}/user/profile`, config);
-    const { balance } = res.data.data.rank;
-    const isDev = res.data.data?.user?.developer;
-    const earned_amount = res.data.data?.rank?.earned_amount;
-    window.localStorage.setItem('earned_amount', earned_amount);
-    window.localStorage.setItem('balance', balance);
-    window.localStorage.setItem('isDev', isDev);
+/** Fresh token + timeout per request (module-level config was stale after login). */
+const PROFILE_REQ = { timeout: 45_000 as const };
 
-    if (res.data.data?.user?.status === 0) {
+export const getUser = createAsyncThunk<UserData | null, void, { state: { user: UserState } }>(
+  'user/getUser',
+  async () => {
+    const token = localStorage.getItem('token');
+    const config = { headers: { Authorization: `bearer ${token}` }, ...PROFILE_REQ };
+    try {
+      const res = await axios.get(`${api}/user/profile`, config);
+      const { balance } = res.data.data.rank;
+      const isDev = res.data.data?.user?.developer;
+      const earned_amount = res.data.data?.rank?.earned_amount;
+      window.localStorage.setItem('earned_amount', earned_amount);
+      window.localStorage.setItem('balance', balance);
+      window.localStorage.setItem('isDev', isDev);
+
+      if (res.data.data?.user?.status === 0) {
+        localStorage.removeItem('token');
+        window.location.href = '/signin';
+      }
+      return res.data.data;
+    } catch {
       localStorage.removeItem('token');
-      window.location.href = '/signin';
+      const path = window.location.pathname || '';
+      if (path.startsWith('/clisha-x')) {
+        window.location.replace(`${window.location.origin}/clisha-x/login`);
+      } else if (links.some((l) => path.includes(l))) {
+        window.location.href = '/signin';
+      }
+      return null;
     }
-    return res.data.data;
-  } catch (error) {
-    localStorage.removeItem('token');
-    if (!token && links.includes(window.location.pathname)) {
-      window.location.href = '/signin';
-    }
-
-    return null;
+  },
+  {
+    /** Prevents overlapping profile requests from leaving `user.loading` stuck true (e.g. Layout + page both dispatching). */
+    condition: (_, { getState }) => !getState().user.loading,
   }
-});
+);
 
 export const authSlice = createSlice({
   name: 'user',
@@ -89,9 +101,13 @@ export const authSlice = createSlice({
       state.error = false;
     });
     builder.addCase(getUser.fulfilled, (state, action) => {
-      // Add user to the state array
       state.loading = false;
-      state.data = action.payload;
+      if (action.payload) {
+        state.data = action.payload;
+        state.error = false;
+      } else {
+        state.error = true;
+      }
     });
     builder.addCase(getUser.rejected, (state) => {
       // Add user to the state array
