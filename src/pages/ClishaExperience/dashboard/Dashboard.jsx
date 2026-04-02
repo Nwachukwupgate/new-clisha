@@ -10,10 +10,9 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
-import Loading from '../../../components/Alerts/Loading';
+import ClishaLoader from '../components/ClishaLoader';
 import NotificationMessage from '../../../components/Messages/NotificationMessage';
 import ProfilePicture from '../../../utils/ProfilePicture';
-import { getUser } from '../../../store/Auth/auth';
 import { getSurveyProfile, getTopToken, getTopUsers, getCalenderTask } from '../../../store/General';
 import { getRank } from '../../../store/Rank';
 import { useClishaThemeToggle } from '../context/ThemeContext';
@@ -56,7 +55,7 @@ export default function ClishaExperienceDashboard() {
   const c = dark ? CLEAN.dark : CLEAN.light;
 
   useEffect(() => {
-    dispatch(getUser());
+    /* getUser is dispatched in DashboardLayout — avoid duplicate getUser (race leaves user.loading stuck true). */
     dispatch(getSurveyProfile());
     dispatch(getTopToken());
     dispatch(getTopUsers());
@@ -96,7 +95,7 @@ export default function ClishaExperienceDashboard() {
   const myUserId = user?.user?.id ?? user?.user?.clishaId;
   const myRankIndex = ranking.findIndex((r) => r?.user?.id === myUserId || r?.user?.clishaId === myUserId);
 
-  if (userLoading) return <Loading />;
+  if (userLoading) return <ClishaLoader />;
 
   return (
     <>

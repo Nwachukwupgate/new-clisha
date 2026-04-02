@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRank } from '../../store/Rank';
-import Loading from '../../components/Alerts/Loading';
+import ClishaLoader from './components/ClishaLoader';
 import ProfilePicture from '../../utils/ProfilePicture';
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -745,9 +745,7 @@ export default function Landing() {
               </p>
             </div>
             {rankLoading ? (
-              <div style={{ minHeight: 200, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Loading />
-              </div>
+              <ClishaLoader variant="inline" label="Loading leaderboard…" />
             ) : topUsers.length === 0 ? (
               <div className="reveal" style={{ textAlign: 'center', padding: '48px 24px', color: 'var(--muted)', fontSize: 15 }}>
                 No leaderboard data yet. Be the first to earn and claim the top spot!
